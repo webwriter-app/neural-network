@@ -1,0 +1,23 @@
+{
+  "scripts": {
+    "dev": "vite --open",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "lit": "^2.4.0",
+    "@webwriter/lit": "latest",
+    "@webwriter/create-widget": "^0.4.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4",
+    "vite": "^3.1.6"
+  },
+  "name": "ww-machinelearningvisualizer",
+  "version": "0.0.1",
+  "description": "Machine learning visualizer for WebWriter",
+  "keywords": [
+    "webwriter-widget"
+  ],
+  "author": "Christian Koch",
+  "license": "none"
+}

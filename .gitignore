@@ -1,0 +1,31 @@
+# Logs
+logs
+*.log
+yarn-debug.log*
+yarn-error.log*
+
+# Node Modules
+node_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Yarn
+.yarn-integrity
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# dotenv environment variables file
+.env
+.env.test
+
+
