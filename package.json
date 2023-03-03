@@ -4,9 +4,10 @@
     "build": "vite build"
   },
   "dependencies": {
-    "lit": "^2.4.0",
+    "@shoelace-style/shoelace": "^2.2.0",
+    "@webwriter/create-widget": "^0.4.1",
     "@webwriter/lit": "latest",
-    "@webwriter/create-widget": "^0.4.1"
+    "lit": "^2.4.0"
   },
   "devDependencies": {
     "typescript": "^4.8.4",
