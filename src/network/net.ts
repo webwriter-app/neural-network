@@ -78,7 +78,7 @@ class NeuralNet {
             } else if (indexToCopy == this.config.hiddenLayers.length + 1) {
                 layer = {units: this.config.outputSize, activation: 'ReLu'}
             } else {
-                layer = this.config.hiddenLayers[after - 1]
+                layer = {... this.config.hiddenLayers[indexToCopy - 1]}
             }
             this.config.hiddenLayers.splice(indexToInsert, 0, layer)
         }

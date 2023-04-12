@@ -96,17 +96,15 @@ class NetworkCard extends LitElementWw {
       });
 
       // Add event listener for selection of layers or nodes
-      this._cy.on('tap', (e) => {
+      this._cy.on('tap', 'node', (e) => {
         this._selectedLayer = null
         this._selectedNeuron = null
-      
-        if (e.target.isNode()){
-          const node = e.target
-          if (node.data('type') == 'layer') {
-            this._selectedLayer = node.data('id')
-          } else if (node.data('type') == 'neuron') {
-            this._selectedNeuron = node.data('id')
-          }
+
+        const node = e.target
+        if (node.data('type') == 'layer') {
+          this._selectedLayer = node.data('id')
+        } else if (node.data('type') == 'neuron') {
+          this._selectedNeuron = node.data('id')
         }
       })
 
