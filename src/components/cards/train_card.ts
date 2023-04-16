@@ -7,26 +7,6 @@ class TrainCard extends LitElementWw {
 
   static styles = css`
 
-    .train-card {
-      width: 100%;
-    }
-
-    .train-card .body {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;  
-    }
-
-    .train-card [slot='header'] {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .train-card sl-icon-button {
-      font-size: var(--sl-font-size-medium);
-    }
-
     sl-radio-button {
       display: flex;
       gap: 30px;
@@ -35,12 +15,11 @@ class TrainCard extends LitElementWw {
 
   render(){
     return html`
-      <sl-card class="train-card">
-        <div slot="header">
+      <c-card>
+        <div slot="title">
           Train
-          <sl-icon-button name="gear" label="Settings"></sl-icon-button>
         </div>
-        <div class="body">
+        <div slot="content">
           <sl-radio-group label="Training duration" name="a" value="1">
             <sl-radio-button pill size="medium" value="step">single step</sl-radio-button>
             <sl-radio-button pill size="medium" value="epoch">one epoch</sl-radio-button>
@@ -54,7 +33,7 @@ class TrainCard extends LitElementWw {
           <sl-switch>Start training from beginning</sl-switch>
           <sl-button variant="primary" style="width: 100%">Train</sl-button>
         </div>
-      </sl-card>
+      </c-card>
     `;
   }
 }

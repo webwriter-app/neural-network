@@ -12,6 +12,8 @@ model.fit(xs, ys, {epochs: 10}).then(() => {
 });
  */
 class NeuralNet {
+
+    _cy // cytoscape canvas reference
     
     /* playing with the graphical neural net and any other options will only result in changes in the config.
        the model will be 'null' up until the training is started. that will prevent any changes to the
@@ -21,6 +23,16 @@ class NeuralNet {
         hiddenLayers: Array<{units: number, activation: tf.ActivationIdentifier}>
         outputSize: number
     }
+    subnetworks: Array<{
+        name: string,
+        inputSize: number,
+        layers: Array<{
+            type: string,
+            units: number
+            activation?: string
+        }>
+    }>
+    
     model: tf.LayersModel | null
 
     trainData: Object
@@ -40,6 +52,29 @@ class NeuralNet {
             hiddenLayers: [{units: 3, activation: 'ReLu'},{units: 4, activation: 'ReLu'}],
             outputSize: 2
         }
+        // split
+        this.subnetworks = [
+            {
+                name: "Feedforward Network",
+                inputSize: 2,
+                layers: [
+                    {
+                        type: 'dense',
+                        units: 3,
+                        activation: 'ReLu'
+                    },
+                    {
+                        type: 'dense',
+                        units: 4,
+                        activation: 'ReLu'
+                    },
+                    {
+                        type: 'output',
+                        units: 2
+                    },
+                ]
+            }
+        ]
         this.trainData = 'TODO'
         this.trainOptions = {
             learningRate: 0.2,
@@ -50,6 +85,11 @@ class NeuralNet {
         }
     }
 
+    /* returns the number of layers (excluding input and including output layer)
+    */
+    getNumberOfLayers(): number {
+        return 1
+    }
     getMaxNumberOfNeuronsPerLayer(): number {
         let actSize = Math.max(this.config.inputSize, this.config.outputSize)
         for (let layer of this.config.hiddenLayers) {
@@ -58,6 +98,9 @@ class NeuralNet {
         return actSize
     }
 
+    /*
+    EDITING
+    */
     /* adds a layer after the specified layer index. note: the input layer is index 0, hidden layers start with index 1
        copies the settings (units, activation, ...) of the 'after' layer
     */
@@ -82,14 +125,155 @@ class NeuralNet {
             }
             this.config.hiddenLayers.splice(indexToInsert, 0, layer)
         }
+
+        this.buildGraph()
     }
 
     addNeuronToLayer(layer: number) {
         if (layer == 0) this.config.inputSize++
         else if (layer > 0 && layer < this.config.hiddenLayers.length + 1) this.config.hiddenLayers[layer - 1].units++
         else if (layer == this.config.hiddenLayers.length + 1) this.config.outputSize++
+
+        console.log(layer)
+        this.buildGraph()
     }
 
+    /*
+    VISUALIZATION
+    */
+    buildGraph() {
+
+        const COLUMN_SCALE = 300
+        const ROW_SCALE = 100
+    
+        // remove the potentially previously built graph
+        this._cy.remove('node')
+    
+        // build cytoscape graph based on data in the net class
+        let maxSize = this.getMaxNumberOfNeuronsPerLayer()
+        let rows = maxSize * 2 - 1
+        let actColumn = 1
+        let actRow
+    
+        // input layer
+        actRow = 1 + (rows - this.config.inputSize)
+        this._cy.add({
+          group: 'nodes', 
+          data: { 
+            id: '0', 
+            type: 'layer', 
+            layer: 0
+          }
+        })
+        for (let i = 0; i < this.config.inputSize; i++) {
+          this._cy.add({
+            group: 'nodes', 
+            data: { 
+              id: `0-${i}`, 
+              parent: '0', 
+              type: 'neuron', 
+              inlayer: 0
+            }, 
+            position: {
+              x: actColumn * COLUMN_SCALE,
+              y: actRow * ROW_SCALE
+            }
+          })
+          actRow += 2
+        }
+        actColumn += 1
+        
+        // hidden layers
+        for (let layer = 0; layer < this.config.hiddenLayers.length; layer++) {
+          actRow = 1 + (rows - this.config.hiddenLayers[layer].units)
+          this._cy.add({
+            group: 'nodes', 
+            data: { 
+              id: `${layer + 1}`, 
+              type: 'layer', 
+              layer: layer + 1
+            }
+          })
+          for (let i = 0; i < this.config.hiddenLayers[layer].units; i++) {
+            this._cy.add({
+              group: 'nodes', 
+              data: { 
+                id: `${layer + 1}-${i}`, 
+                parent: `${layer + 1}`, 
+                type: 'neuron', 
+                inlayer: layer + 1
+              }, 
+              position: {
+                x: actColumn * COLUMN_SCALE, 
+                y: actRow * ROW_SCALE
+              }
+            })
+            actRow += 2
+          }
+          actColumn +=1
+        }
+    
+        // output layer
+        actRow = 1 + (rows - this.config.outputSize)
+        this._cy.add({
+          group: 'nodes', 
+          data: { 
+            id: `${this.config.hiddenLayers.length + 1}`, 
+            type: 'layer', 
+            layer: this.config.hiddenLayers.length + 1
+          }
+        })
+        for (let i = 0; i < this.config.outputSize; i++) {
+          this._cy.add({
+            group: 'nodes', 
+            data: { 
+              id: `${this.config.hiddenLayers.length + 1}-${i}`, 
+              parent: `${this.config.hiddenLayers.length + 1}`, 
+              type: 'neuron', 
+              inlayer: this.config.hiddenLayers.length + 1
+            }, 
+            position: {
+              x: actColumn * COLUMN_SCALE, 
+              y: actRow * ROW_SCALE
+            }
+          })
+          actRow += 2
+        }
+    
+        // connections
+        let currentLayerNodes = this._cy.nodes().filter((node) => {
+          return node.data('inlayer') == 0
+        })
+    
+        let nextLayerNodes
+        for (let layer = 1; layer < this.config.hiddenLayers.length + 2; layer++) {
+    
+          nextLayerNodes = this._cy.nodes().filter((node) => {
+            return node.data('type') == 'neuron' && node.data('inlayer') == layer
+          })
+    
+          for (let currentLayerNode of currentLayerNodes) {
+            for (let nextLayerNode of nextLayerNodes) {
+              this._cy.add({
+                group: 'edges', 
+                data: {
+                  id: `${currentLayerNode.data('id')}-${nextLayerNode.data('id')}`, 
+                  source: currentLayerNode.data('id'), 
+                  target: nextLayerNode.data('id')
+                }
+              })
+            }
+          }
+    
+          currentLayerNodes = nextLayerNodes
+        }
+    
+        this._cy.fit()
+    }
+
+    /*
+    REAL TRAINING & CO
+    */
     async build(): Promise<void> {
 
         // create model based on config

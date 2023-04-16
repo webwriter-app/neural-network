@@ -43,14 +43,7 @@ export class WwMachinelearningvisualizer extends LitElementWw {
     }
 
     .panel {
-      overflow-y: scroll;
-      overflow-x: clip;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    .panel::-webkit-scrollbar{
-      display: none;
+      overflow: auto;
     }
   `
 
