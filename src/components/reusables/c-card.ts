@@ -25,7 +25,13 @@ class CCard extends LitElementWw {
       justify-content: space-between;
     }
 
-    .c-card .body {
+    .c-card [slot='content'] {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .c-card ::slotted(div[slot='content']) {
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -47,9 +53,7 @@ class CCard extends LitElementWw {
             <slot name="title"></slot>
             <sl-icon-button name="gear" label="Settings"></sl-icon-button>
         </div>
-        <div class="body">
-          <slot name="content"></slot>
-        </div>
+        <slot name="content"></slot>
       </sl-card>
     `;
   }
