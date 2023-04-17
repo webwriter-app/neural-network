@@ -2,8 +2,8 @@ import { LitElementWw } from "@webwriter/lit"
 import { html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
-import './cards/train_card.js'
-import './cards/learning_rate_card.js'
+import '@/components/cards/train_card.js'
+import '@/components/cards/learning_rate_card.js'
 
 @customElement('train-panel')
 class TrainPanel extends LitElementWw {

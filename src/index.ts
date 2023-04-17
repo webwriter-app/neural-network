@@ -2,10 +2,10 @@ import {LitElementWw} from "@webwriter/lit"
 import {html, css, CSSResultGroup} from "lit"
 import {customElement, state} from "lit/decorators.js"
 
-import './components/top_bar.ts'
-import './components/graph_panel.js'
-import './components/right_panel.ts'
-import './components/bottom_panel.ts'
+import '@/components/panels/top_bar'
+import '@/components/panels/graph_panel'
+import '@/components/panels/right_panel'
+import '@/components/panels/bottom_panel'
 
 @customElement("ww-machinelearningvisualizer")
 export class WwMachinelearningvisualizer extends LitElementWw {

@@ -1,16 +1,13 @@
 import { LitElementWw } from "@webwriter/lit"
 import { html, css } from 'lit'
-import { customElement, query, property } from 'lit/decorators.js'
+import { customElement } from 'lit/decorators.js'
 import { observeState } from 'lit-element-state';
-import { networkState } from '../state/network_state.js';
+import networkState from '@/state/network_state.js';
 
 import * as cytoscape from 'cytoscape'
 
 @customElement('graph-panel')
 class GraphPanel extends observeState(LitElementWw) {
-
-  @query('#cytoscapeCanvas')
-  _canvas;
 
   connectedCallback() {
     super.connectedCallback()
@@ -19,17 +16,51 @@ class GraphPanel extends observeState(LitElementWw) {
       // Create cytoscape canvas
       networkState.net.setCanvas(cytoscape({
 
-        container: this._canvas, // container to render in
+        container: this.renderRoot.querySelector('#cytoscapeCanvas'), // container to render in
       
         elements: [ // list of graph elements to start with
         ],
       
         style: [ // the stylesheet for the graph
           {
+            selector: 'node[type="entity"]',
+            style: {
+              'shape': 'round-rectangle',
+              'background-color': '#eeeeee',
+              'border-color': 'lightgray',
+              'border-width': 5,
+              'width': '100px',
+              'height': '100px',
+            }
+          },
+          {
+            selector: 'node[type="entity"]:selected',
+            style: {
+              'border-color': 'orange'
+            }
+          },
+          {
+            selector: 'node[type="layer"]',
+            style: {
+              'shape': 'round-rectangle',
+              'background-color': 'white',
+              'border-width': 5,
+              'border-color': 'lightgray',
+              'padding': '20px',
+              'label': 'data(label)',
+            }
+          },
+          {
+            selector: 'node[type="layer"]:selected',
+            style: {
+              'border-color': 'orange'
+            }
+          },
+          {
             selector: 'node[type="neuron"]',
             style: {
               'shape': 'round-rectangle',
-              'background-color': 'blue',
+              'background-color': '#0183C7',
               'width': '100px',
               'height': '100px',
             }
@@ -41,20 +72,18 @@ class GraphPanel extends observeState(LitElementWw) {
             }
           },
           {
-            selector: 'node[type="layer"]',
+            selector: 'node[type="activation"]',
             style: {
-              'label': 'data(id)',
-              'shape': 'round-rectangle',
-              'background-color': 'white',
-              'border-width': 5,
-              'border-color': 'lightgray',
-              'padding': '20px',
+              'shape': 'ellipse',
+              'background-color': 'black',
+              'width': '100px',
+              'height': '100px',
             }
           },
           {
-            selector: 'node[type="layer"]:selected',
+            selector: 'node[type="activation"]:selected',
             style: {
-              'border-color': 'orange'
+              'background-color': 'orange'
             }
           },
           {
@@ -70,7 +99,7 @@ class GraphPanel extends observeState(LitElementWw) {
         ],
         autoungrabify: true,
         boxSelectionEnabled: false,
-        wheelSensitivity: 0.2,
+        wheelSensitivity: 0.2
       }))
 
       // Add event listener for selection of layers or nodes

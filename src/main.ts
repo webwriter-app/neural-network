@@ -1,7 +1,8 @@
 // shoelace theme
-import "@shoelace-style/shoelace/dist/themes/light.css"
+import "@shoelace-style/shoelace/dist/themes/light.css";
 
 // standard shoelace elements
+import '@shoelace-style/shoelace/dist/components/alert/alert.js';
 import '@shoelace-style/shoelace/dist/components/badge/badge.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/dialog/dialog.js';

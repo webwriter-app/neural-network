@@ -10,7 +10,6 @@
     "@webwriter/create-widget": "^0.4.1",
     "@webwriter/lit": "latest",
     "cytoscape": "^3.23.0",
-    "gpu.js": "^2.16.0",
     "lit": "^2.4.0",
     "lit-element-state": "^1.7.0"
   },

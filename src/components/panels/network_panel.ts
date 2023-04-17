@@ -2,9 +2,9 @@ import { LitElementWw } from "@webwriter/lit"
 import { html, css } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { observeState } from 'lit-element-state';
-import { networkState } from '../state/network_state.js';
+import networkState from '@/state/network_state.js';
 
-import './cards/network_layer_card'
+import '@/components/cards/edit_layer_card'
 
 @customElement('network-panel')
 class NetworkPanel extends observeState(LitElementWw) {
@@ -21,10 +21,10 @@ class NetworkPanel extends observeState(LitElementWw) {
     getCards() {
         if (networkState.selectedLayer) {
             return html`
-            <network-layer-card 
+            <edit-layer-card 
                 .net = "${networkState.net}"
                 .selectedLayer = "${networkState.selectedLayer}"
-            ></network-layer-card>
+            ></edit-layer-card>
             `
         } else if (networkState.selectedNeuron) {
             return html`
