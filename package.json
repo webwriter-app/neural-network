@@ -9,10 +9,10 @@
     "@types/cytoscape": "^3.19.9",
     "@webwriter/create-widget": "^0.4.1",
     "@webwriter/lit": "latest",
-    "brain.js": "^2.0.0-beta.18",
     "cytoscape": "^3.23.0",
     "gpu.js": "^2.16.0",
-    "lit": "^2.4.0"
+    "lit": "^2.4.0",
+    "lit-element-state": "^1.7.0"
   },
   "devDependencies": {
     "typescript": "^4.8.4",

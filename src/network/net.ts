@@ -19,18 +19,18 @@ class NeuralNet {
        the model will be 'null' up until the training is started. that will prevent any changes to the
        config. if changes are made nonetheless, the model is set back to null and training progress is lost */
     config: {
-        inputSize: number
-        hiddenLayers: Array<{units: number, activation: tf.ActivationIdentifier}>
-        outputSize: number
+      inputSize: number
+      hiddenLayers: Array<{units: number, activation: tf.ActivationIdentifier}>
+      outputSize: number
     }
     subnetworks: Array<{
-        name: string,
-        inputSize: number,
-        layers: Array<{
-            type: string,
-            units: number
-            activation?: string
-        }>
+      name: string,
+      inputSize: number,
+      layers: Array<{
+        type: string,
+        units: number
+        activation?: string
+      }>
     }>
     
     model: tf.LayersModel | null
@@ -38,11 +38,11 @@ class NeuralNet {
     trainData: Object
 
     trainOptions: {
-        learningRate: number
-        epochs: number
-        batchSize: number
-        lossFunction: string
-        optimizer: string
+      learningRate: number
+      epochs: number
+      batchSize: number
+      lossFunction: string
+      optimizer: string
     }
 
     constructor() {
@@ -141,6 +141,28 @@ class NeuralNet {
     /*
     VISUALIZATION
     */
+    setCanvas(cy) {
+      this._cy = cy
+    }
+    getCanvas() {
+      return this._cy
+    }
+    zoomOutCanvas() {
+      if(this.getCanvas()) {
+        this.getCanvas().zoom(this.getCanvas().zoom() - 0.1)
+      }
+    }
+    fitCanvas() {
+      if(this.getCanvas()) {
+        this.getCanvas().fit(this.getCanvas().$(), 50) // fit the graph to all elements with a padding of 50 pixels
+      }
+    }
+    zoomInCanvas() {
+      if(this.getCanvas()) {
+        this.getCanvas().zoom(this.getCanvas().zoom() + 0.1)
+      }
+    }
+
     buildGraph() {
 
         const COLUMN_SCALE = 300
@@ -268,7 +290,7 @@ class NeuralNet {
           currentLayerNodes = nextLayerNodes
         }
     
-        this._cy.fit()
+        this.fitCanvas()
     }
 
     /*

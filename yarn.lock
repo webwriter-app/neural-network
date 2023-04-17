@@ -456,13 +456,6 @@ braces@^3.0.2, braces@~3.0.2:
   dependencies:
     fill-range "^7.0.1"
 
-brain.js@^2.0.0-beta.18:
-  version "2.0.0-beta.18"
-  resolved "https://registry.yarnpkg.com/brain.js/-/brain.js-2.0.0-beta.18.tgz#4d238b74aba589b036cc4981d418351c0ecf7710"
-  integrity sha512-yRCPzT7IIcIOy3qU7jSh8k607Bv5nuYP7JAQ4V93ZZdk5eniHFDZ11GtMiTEW8N6tMBfkOW2kG5X0yO8S+zD1g==
-  dependencies:
-    thaw.js "^2.1.4"
-
 buffer@^5.5.0:
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.7.1.tgz#ba62e7c13133053582197160851a8f648e99eed0"
@@ -1299,6 +1292,11 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz"
   integrity sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==
 
+lit-element-state@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/lit-element-state/-/lit-element-state-1.7.0.tgz#d3163ef845fcbbc4c0271f3d5a00db364300f863"
+  integrity sha512-QL6HWlQkVU14cQbeWjLP/piXXC6e4oEFiRNjE6ulg6WBQPSu9VhM3oaz0xKIwv8MUPTAYCh1obGdiVajD2SmMw==
+
 lit-element@^3.2.0:
   version "3.2.2"
   resolved "https://registry.npmjs.org/lit-element/-/lit-element-3.2.2.tgz"
@@ -2093,11 +2091,6 @@ tar@^6.1.11, tar@^6.1.2:
     minizlib "^2.1.1"
     mkdirp "^1.0.3"
     yallist "^4.0.0"
-
-thaw.js@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/thaw.js/-/thaw.js-2.1.4.tgz#d00fbb20b9b6c6bc2aef541199cc0717deedfde9"
-  integrity sha512-si9DSzEzOBUpbE41wE4Q6NXzXDYZfrniYocrduNtNDwLWj1Auueq8UzgePMQa5gfcQtVCG2OmlCTaHldtno3Vw==
 
 through2@^0.6.3:
   version "0.6.5"

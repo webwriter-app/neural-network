@@ -1,14 +1,14 @@
 import { LitElementWw } from "@webwriter/lit"
 import { html, css } from 'lit'
 import { customElement, query, property } from 'lit/decorators.js'
+import { observeState } from 'lit-element-state';
+import { networkState } from '../state/network_state.js';
 
 import * as cytoscape from 'cytoscape'
 
-@customElement('network-graph-card')
-class NetworkGraphCard extends LitElementWw {
+@customElement('graph-panel')
+class GraphPanel extends observeState(LitElementWw) {
 
-  @property()
-  net
   @query('#cytoscapeCanvas')
   _canvas;
 
@@ -17,7 +17,7 @@ class NetworkGraphCard extends LitElementWw {
 
     setTimeout(() => {
       // Create cytoscape canvas
-      this.net._cy = cytoscape({
+      networkState.net.setCanvas(cytoscape({
 
         container: this._canvas, // container to render in
       
@@ -71,41 +71,27 @@ class NetworkGraphCard extends LitElementWw {
         autoungrabify: true,
         boxSelectionEnabled: false,
         wheelSensitivity: 0.2,
-      });
+      }))
 
       // Add event listener for selection of layers or nodes
-      this.net._cy.on('tap', (e) => {
+      networkState.net.getCanvas().on('tap', (e) => {
         const evtTarget = e.target
 
-        if( evtTarget === this.net._cy ){
-
-          console.log("clicked on canvas")
-          let event = new CustomEvent('deselected');
-          this.dispatchEvent(event);
-
+        if( evtTarget === networkState.net.getCanvas() ){
+          networkState.deselect()
         } else if (evtTarget.isNode()) {
 
           const node = evtTarget
           if (node.data('type') == 'layer') {
-            let event = new CustomEvent('selected-layer', {
-              detail: {
-                id: node.data('id')
-              }
-            });
-            this.dispatchEvent(event);
+            networkState.selectLayer(node.data('id'))
           } else if (node.data('type') == 'neuron') {
-            let event = new CustomEvent('selected-neuron', {
-              detail: {
-                id: node.data('id')
-              }
-            });
-            this.dispatchEvent(event);
+            networkState.selectNeuron(node.data('id'))
           }
         }
       })
 
       // Finally build the graph for the first time
-      this.net.buildGraph()
+      networkState.net.buildGraph()
 
     }, 100)
   }
@@ -113,32 +99,44 @@ class NetworkGraphCard extends LitElementWw {
   /* STYLES */
   static styles = css`
 
-    #cytoscapeCanvasWrapper {
-      height: 400px;
-      width: calc(100% + 40px);
-      resize: vertical;
-      overflow: auto;
-      margin: -20px;
+    :host {
+      position: relative;
     }
 
     #cytoscapeCanvas{
-      height: calc(100% - 10px);
+      height: 100%;
       width: 100%;
+    }
+
+    #canvasActions{
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
     }
   `
 
+  _handleZoomOut() {
+    networkState.net.zoomOutCanvas()
+  }
+
+  _handleCenter() {
+    networkState.net.fitCanvas()
+  }
+
+  _handleZoomIn() {
+    networkState.net.zoomInCanvas()
+  }
+
   render(){
     return html`
-      <c-card>
-        <div slot="title">
-          Neural Network
-        </div>
-        <div id="cytoscapeCanvasWrapper" slot="content">
-          <div id="cytoscapeCanvas">
+      <div id="cytoscapeCanvas">
 
-          </div>
-        </div>
-      </c-card>
+      </div>
+      <div id="canvasActions">
+        <sl-button @click="${this._handleZoomOut}">Zoom out</sl-button>
+        <sl-button @click="${this._handleCenter}">Center</sl-button>
+        <sl-button @click="${this._handleZoomIn}">Zoom in</sl-button>
+      </div>
     `;
   }
 }

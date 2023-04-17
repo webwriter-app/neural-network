@@ -1,10 +1,10 @@
 import {LitElementWw} from "@webwriter/lit"
 import {html, css, CSSResultGroup} from "lit"
-import {customElement} from "lit/decorators.js"
+import {customElement, state} from "lit/decorators.js"
 
 import './components/top_bar.ts'
-import './components/network_panel.ts'
-import './components/train_panel.ts'
+import './components/graph_panel.js'
+import './components/right_panel.ts'
 import './components/bottom_panel.ts'
 
 @customElement("ww-machinelearningvisualizer")
@@ -57,11 +57,16 @@ export class WwMachinelearningvisualizer extends LitElementWw {
           <div slot="start" class="panel">
             <sl-split-panel style="--max: 500px" primary="end">
               <div slot="start" class="panel">
-                <network-panel></network-panel>
+                <graph-panel
+                  .net = "${this._net}"
+                  @selected-layer="${(e) => { this._selectedLayer = e.detail.id; this._selectedNeuron = null }}"
+                  @selected-neuron="${(e) => { this._selectedLayer = null; this._selectedNeuron = e.detail.id }}"
+                  @deselected="${(e) => { this._selectedLayer = null; this._selectedNeuron = null }}"
+                ></graph-panel>
               </div>
               <sl-icon slot="divider" name="grip-vertical"></sl-icon>
               <div slot="end" class="panel">
-                <train-panel></train-panel>
+                <right-panel></right-panel>
               </div>
             </sl-split-panel>
           </div>
