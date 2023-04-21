@@ -1,7 +1,7 @@
-enum activation {
+enum Activation {
     None,
     ReLu,
     Sigmoid,
 }
 
-export default activation
+export default Activation

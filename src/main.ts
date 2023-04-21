@@ -5,6 +5,7 @@ import "@shoelace-style/shoelace/dist/themes/light.css";
 import '@shoelace-style/shoelace/dist/components/alert/alert.js';
 import '@shoelace-style/shoelace/dist/components/badge/badge.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
+import '@shoelace-style/shoelace/dist/components/card/card';
 import '@shoelace-style/shoelace/dist/components/dialog/dialog.js';
 import '@shoelace-style/shoelace/dist/components/icon-button/icon-button.js';
 import '@shoelace-style/shoelace/dist/components/radio-button/radio-button.js';
@@ -22,3 +23,4 @@ setBasePath('/shoelace');
 
 // my own reusable components (based on shoelace)
 import './components/reusables/c-card'
+import './components/reusables/c-button-group'

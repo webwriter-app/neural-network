@@ -1,36 +1,21 @@
 import * as tf from '@tensorflow/tfjs';
+
 import spawnAlert from '@/alerts'
 
-import Activation from '@/types/activation'
-import Entity from '@/types/entity'
-import FeedForwardEntity from '@/network/feedforward-entity'
+import canvasState from '@/state/canvas_state'
 
+import Layer from '@/network/layer'
 
-/* 
-// Generate some synthetic data for training.
-const xs = tf.tensor2d([1, 2, 3, 4], [4, 1]);
-const ys = tf.tensor2d([1, 3, 5, 7], [4, 1]);
+export default class NeuralNet {
 
-// Train the model using the data.
-model.fit(xs, ys, {epochs: 10}).then(() => {
-    // Use the model to do inference on a data point the model hasn't seen before:
-    model.predict(tf.tensor2d([5], [1, 1])).print();
-    // Open the browser devtools to see the output
-});
- */
-export class NeuralNet {
-
-    // cytoscape canvas reference
-    _cy
-    
-    // playing with the graphical neural net and any other options will only result in changes in this entities
-    // object. the model will be 'null' up until the training is started. that will prevent any changes to the
-    // config. if changes are made nonetheless, the model is set back to null and training progress is lost
-    entities: Array<Entity>
+    // playing with the graphical neural net will only result in changes in this layers array
+    // e.g. layers[2] contains all layers at level 3 (for a simple feed forward network only 1 but we also allow branching)
+    layers: Array<Layer>
     
     model: tf.LayersModel | null
 
-    trainData: Object
+    // during the build process
+    buildQueue: Array<{layer: Layer, level: number}>
 
     trainOptions: {
         learningRate: number
@@ -40,34 +25,13 @@ export class NeuralNet {
         optimizer: string
     }
 
-    constructor() {
+    constructor({layers}) {
+        this.layers = layers
+
         this.model = null
 
-        this.entities = [new FeedForwardEntity({
-            name: "ff1",
-            inputFrom: null,
-            inputSize: 1,
-            layers: [
-                {
-                    type: 'dense',
-                    units: 3,
-                    activation: Activation.ReLu
-                },
-                {
-                    type: 'dense',
-                    units: 4,
-                    activation: Activation.ReLu
-                },
-                {
-                    type: 'softmax',
-                    units: 2,
-                    activation: Activation.Sigmoid
-                }
-            ],
-            outputTo: null
-        })]
+        this.buildQueue = []
 
-        this.trainData = 'TODO'
         this.trainOptions = {
                 learningRate: 0.2,
                 epochs: 3,
@@ -75,81 +39,71 @@ export class NeuralNet {
                 lossFunction: 'meanSquaredError',
                 optimizer: 'sgd'
         }
+
+        // finally build the graph for the freshly created network. We need to check if the canvas does exist beforehand because
+        // if not that means we can not build right now because the application has just started and the canvas needs to be
+        // initialized. This is no problem, however, because the canvas manually triggers a build itself right after the 
+        // initialization has been finished
+        if(canvasState.canvas) {
+            this.buildGraph()
+        }
     }
 
-    getEntityByName(name: string): Entity | null {
-        for (let entity of this.entities) {
-            if (entity.name == name) return entity
+    /* 
+    LAYER MANAGEMENT
+    */
+    getLayerById(id: number): Layer | null {
+        for (let layer of this.layers) {
+            if (layer.id == id) return layer
         }
         return null
+    }
+
+    // returns the maximum id for layers used in the graph
+    getMaxId(): number {
+        let id = 0
+        for (let layer of this.layers) {
+            id = Math.max(id, layer.id)
+        }
+        return id
     }
 
     /*
     VISUALIZATION
     */
-    setCanvas(cy) {
-        this._cy = cy
-    }
-    getCanvas() {
-        return this._cy
-    }
-    zoomOutCanvas() {
-        if(this.getCanvas()) {
-            this.getCanvas().zoom(this.getCanvas().zoom() - 0.1)
-        }
-    }
-    fitCanvas() {
-        if(this.getCanvas()) {
-            this.getCanvas().fit(this.getCanvas().$(), 50) // fit the graph to all elements with a padding of 50 pixels
-        }
-    }
-    zoomInCanvas() {
-        if(this.getCanvas()) {
-            this.getCanvas().zoom(this.getCanvas().zoom() + 0.1)
-        }
-    }
-
     buildGraph() {
 
-        const COLUMN_SCALE = 300
-        const ROW_SCALE = 100
+        // remove the potentially previously built graph if it exists
+        if(canvasState.canvas.$().length) {
+            spawnAlert("Canvas has been overwritten and rebuilt!", "success")
+            canvasState.clear()
+        }
 
-        // remove the potentially previously built graph
-        this._cy.remove('node')
+        // set the built option to false on all layers
+        for (let layer of this.layers) {
+            layer.built = false
+        }
 
-        /***********************************/
-        /*************  ENTITY  ************/
-        /***********************************/
-        // loop through all the entities
-        for (let entity of this.entities) {
+        // find the layers without an input and call their build function. these layers probably add other layers to the build queue
+        let inputLayers = this.layers.filter(layer => !layer.inputFrom.length)
+        for (let layer of inputLayers) {
 
-            // add the entity itself
-            this._cy.add({
-                group: 'nodes', 
-                data: { 
-                    id: `entity:${entity.name}`,
-                    type: 'entity'
-                }
-            })
+            layer.buildGraph({net: this, level: 0})
+        }
 
-            // if entity has type 'FeedForwardEntity'
-            if (entity instanceof FeedForwardEntity) {
-
-                entity.buildGraph(this._cy)
-
-            } else {
-                // other possible entities (like single neurons) here
-            }
+        // since the input layers should have added other layers to the buildQueue, so we iteratively build these layers in the Queue
+        for (let {layer, level} of this.buildQueue) {
+            layer.buildGraph({net: this, level: level})
         }
 
         // after all elements have been added to the graph we make the graph fit to the viewport
-        this.fitCanvas()
+        canvasState.fit()
     }
 
     /*
     REAL TRAINING & CO
     */
-    async build(): Promise<void> {
+    /* async build(): Promise<void> {
 
         // create model based on config
         const input: tf.SymbolicTensor = tf.input({shape: [this.config.inputSize]})
@@ -161,7 +115,7 @@ export class NeuralNet {
         }
         this.model = tf.model({inputs: input, outputs: output})
 
-        /* COMPILE MODEL */
+        // compile model
         this.model.compile({loss: this.trainOptions.lossFunction, optimizer: this.trainOptions.optimizer})
     }
 
@@ -189,7 +143,5 @@ export class NeuralNet {
 
     async predict() {
 
-    }
+    } */
 }
-    
-export const net = new NeuralNet()

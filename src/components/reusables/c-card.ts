@@ -1,16 +1,9 @@
 import { LitElementWw } from "@webwriter/lit"
 import { html, css } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
-
-import '@shoelace-style/shoelace/dist/components/card/card';
+import { customElement } from 'lit/decorators.js'
 
 @customElement('c-card')
 class CCard extends LitElementWw {
-
-  @property()
-  net
-  @property()
-  selectedLayer
 
   /* STYLES */
   static styles = css`

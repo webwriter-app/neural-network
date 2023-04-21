@@ -6,7 +6,7 @@ function escapeHtml(html) {
 }
 
 // Custom function to emit toast notifications
-export default function spawnAlert(message, variant = 'primary', icon = 'info-circle', duration = 3000) {
+export default function spawnAlert(message, variant = 'primary', icon = 'info-circle', duration = 7000) {
 
     const alert = Object.assign(document.createElement('sl-alert'), {
         variant,

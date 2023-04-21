@@ -3,22 +3,21 @@ import networkState from '@/state/network_state'
 
 import NetworkItem from '@/types/network-item'
 import Layer from '@/types/layer'
-import Entity from '@/types/entity'
 import Activation from '@/types/activation'
 
 export default class FeedForwardEntity implements NetworkItem {
     name: string
-    inputFrom: Entity
+    inputFrom: string | null
+    outputTo: string | null
     inputSize: number
     layers: Array<Layer>
-    outputTo: Entity
 
-    constructor({name, inputFrom, inputSize, layers, outputTo}) {
+    constructor({name, inputFrom = null, outputTo = null, inputSize, layers}) {
         this.name = name
         this.inputFrom = inputFrom
+        this.outputTo = outputTo
         this.inputSize = inputSize
         this.layers = layers
-        this.outputTo = outputTo
     }
 
     getMaxNumberOfNeuronsPerLayer(): number {
@@ -38,7 +37,7 @@ export default class FeedForwardEntity implements NetworkItem {
         let layer: Layer
         let position: number
 
-        if (layerArg == 'inputLayer') {
+        if (layerArg == 'input') {
             layer = {type: 'dense', units: this.inputSize, activation: Activation.ReLu}
             position = 0
         }
@@ -47,38 +46,52 @@ export default class FeedForwardEntity implements NetworkItem {
             position = layerArg - 1
         }
 
-        this.layers.splice(position, 0, layer)
-        networkState.net.buildGraph()
-        spawnAlert("Layer has been inserted!")
+        if (position) {
+            this.layers.splice(position, 0, layer)
+            networkState.net.buildGraph()
+            spawnAlert("Layer has been inserted!")
+        }
     }
 
     deleteLayer(layerArg: number): void {
         if (layerArg >= 1 && layerArg <= this.layers.length) {
             this.layers.splice(layerArg - 1, 1)
+            networkState.net.buildGraph()
+            spawnAlert("Layer has been deleted!")
         }
-        networkState.net.buildGraph()
-        spawnAlert("Layer has been deleted!")
     }
 
     addNeuronToLayer(layerArg): void {
-        if (layerArg == 'inputLayer') this.inputSize++
+        if (layerArg == 'input') this.inputSize++
         else if (layerArg >= 1 && layerArg <= this.layers.length) this.layers[layerArg - 1].units++
         networkState.net.buildGraph()
-        spawnAlert("Neuron has been deleted!")
+        spawnAlert("Neuron has been added!")
     }
 
     /*
     BUILDING ENTITY FOR CANVAS
     */
-    buildGraph(canvas) {
+    buildGraph(canvas, XPOS_ADDENDUM): number {
+
+        // add the entity itself
+        canvas.add({
+            group: 'nodes',
+            grabbable: true,
+            data: { 
+                id: `entity:${this.name}`,
+                type: 'entity',
+                label: `${this.name}`,
+                entity: `${this.name}`
+            }
+        })
+
         // set the initial positons. while the x position increases after each layer, the y position
         // increases with the nodes in the layer and is reseted/newly calculated with each layer
-        let xPos: number = 0
+        let xPos: number = XPOS_ADDENDUM
         let yPos: number
 
-        // determine the number of rows for the feed forward network: the maximum number of neurons in
-        // a layer times 2 - 1. we 
-        const ROWS:number = this.getMaxNumberOfNeuronsPerLayer() * 2 - 1
+        // constants
+        const ROWS:number = this.getMaxNumberOfNeuronsPerLayer()
         const NODE_SIZE:number = 100
         const DISTANCE_FACTOR:number = 1.3
         
@@ -87,16 +100,19 @@ export default class FeedForwardEntity implements NetworkItem {
         /***********************************/
 
         // determine the y position to start with for the input layer.
-        yPos = 1 + (ROWS - this.inputSize)*NODE_SIZE
+        yPos = (ROWS - this.inputSize)*NODE_SIZE*DISTANCE_FACTOR
 
         // add the input layer
         canvas.add({
             group: 'nodes',
+            grabbable: false,
             data: { 
                 id: `entity:${this.name}-layer:input`, 
                 parent: `entity:${this.name}`,
                 type: 'layer',
                 label: 'Input layer',
+                entity: `${this.name}`,
+                layer: `input`
             }
         })
 
@@ -104,10 +120,14 @@ export default class FeedForwardEntity implements NetworkItem {
         for (let neuron = 0; neuron < this.inputSize; neuron++) {
             canvas.add({
                 group: 'nodes', 
+                grabbable: false,
                 data: { 
                     id: `entity:${this.name}-layer:input-neuron:${neuron}`, 
                     parent: `entity:${this.name}-layer:input`, 
-                    type: 'neuron', 
+                    type: 'neuron',
+                    entity: `${this.name}`,
+                    layer: `input`,
+                    neuron: `${neuron}`
                 }, 
                 position: {
                     x: xPos,
@@ -127,16 +147,19 @@ export default class FeedForwardEntity implements NetworkItem {
             // before adding each layer we move to the right...
             xPos += NODE_SIZE*3
             // .. and determine the new yPos starting position
-            yPos = 1 + (ROWS - this.layers[layer].units)*NODE_SIZE
+            yPos = (ROWS - this.layers[layer].units)*NODE_SIZE*DISTANCE_FACTOR
 
             // add the layer itself
             canvas.add({
-                group: 'nodes', 
+                group: 'nodes',
+                grabbable: false,
                 data: { 
                     id: `entity:${this.name}-layer:${layer+1}`, 
                     parent: `entity:${this.name}`,
                     type: 'layer',
-                    label: `Layer ${layer + 1}`
+                    label: `Layer ${layer + 1}`,
+                    entity: `${this.name}`,
+                    layer: `${layer+1}`
                 }
             })
 
@@ -146,10 +169,14 @@ export default class FeedForwardEntity implements NetworkItem {
                 // add the neuron
                 canvas.add({
                     group: 'nodes', 
+                    grabbable: false,
                     data: { 
                         id: `entity:${this.name}-layer:${layer + 1}-neuron:${neuron}`, 
                         parent: `entity:${this.name}-layer:${layer + 1}`, 
-                        type: 'neuron', 
+                        type: 'neuron',
+                        entity: `${this.name}`,
+                        layer: `${layer + 1}`,
+                        neuron: `${neuron}`
                     }, 
                     position: {
                         x: xPos,
@@ -162,19 +189,22 @@ export default class FeedForwardEntity implements NetworkItem {
             }
 
             // connect the freshly added neurons to the neurons of the previous layer
+            // first, collect all the nodes in the previous layer that we want the connections to start at
             let previousLayerNodes
             if (layer == 0) {
-                // the previous layer is the input layer, so we get all neurons in the input layer
+                // if the current layer is layer 0, the previous layer is the input layer, so we get all neurons
+                // in the input layer
                 previousLayerNodes = canvas.nodes().filter((node) => {
-                    return node.data('parent') == `entity:${this.name}-layer:input`
+                    return node.data('parent') == `entity:${this.name}-layer:input` && node.data('type') == 'neuron'
                 })
             } else {
+                // if the previous layer is not layer 0, we get all neurons from the previous hidden layer
                 previousLayerNodes = canvas.nodes().filter((node) => {
-                    return node.data('parent') == `entity:${this.name}-layer:${layer}`
+                    return node.data('parent') == `entity:${this.name}-layer:${layer}` && node.data('type') == 'neuron'
                 })
             }
             let currentLayerNodes = canvas.nodes().filter((node) => {
-                return node.data('parent') == `entity:${this.name}-layer:${layer + 1}`
+                return node.data('parent') == `entity:${this.name}-layer:${layer + 1}` && node.data('type') == 'neuron'
             })
             for (let previousLayerNode of previousLayerNodes) {
                 for (let currentLayerNode of currentLayerNodes) {
@@ -189,5 +219,9 @@ export default class FeedForwardEntity implements NetworkItem {
                 }
             }
         }
+
+        // determine the width of the entity node and return it added to the XPOS_ADDENDUM
+        const ENTITY_WIDTH = canvas.getElementById(`entity:${this.name}`).outerWidth()
+        return XPOS_ADDENDUM + ENTITY_WIDTH
     }
 }

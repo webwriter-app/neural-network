@@ -19,7 +19,6 @@ class RightPanel extends LitElementWw {
         <div class="panel">
             <sl-tab-group>
                 <sl-tab slot="nav" panel="network">Network</sl-tab>
-                <sl-tab slot="nav" panel="dataset">Data set</sl-tab>
                 <sl-tab slot="nav" panel="training">Training</sl-tab>
                 <sl-tab-panel name="network"><network-panel></network-panel></sl-tab-panel>
                 <sl-tab-panel name="training"><train-panel></train-panel></sl-tab-panel>

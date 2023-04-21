@@ -3,18 +3,19 @@ import { html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { observeState } from 'lit-element-state';
 import networkState from '@/state/network_state.js';
+import canvasState from '@/state/canvas_state.js';
 
 import * as cytoscape from 'cytoscape'
 
-@customElement('graph-panel')
-class GraphPanel extends observeState(LitElementWw) {
+@customElement('canvas-panel')
+class CanvasPanel extends observeState(LitElementWw) {
 
   connectedCallback() {
     super.connectedCallback()
 
     setTimeout(() => {
       // Create cytoscape canvas
-      networkState.net.setCanvas(cytoscape({
+      canvasState.canvas = cytoscape({
 
         container: this.renderRoot.querySelector('#cytoscapeCanvas'), // container to render in
       
@@ -31,6 +32,7 @@ class GraphPanel extends observeState(LitElementWw) {
               'border-width': 5,
               'width': '100px',
               'height': '100px',
+              'label': 'data(label)',
             }
           },
           {
@@ -46,7 +48,7 @@ class GraphPanel extends observeState(LitElementWw) {
               'background-color': 'white',
               'border-width': 5,
               'border-color': 'lightgray',
-              'padding': '20px',
+              'padding': `${canvasState.LAYER_PADDING}px`,
               'label': 'data(label)',
             }
           },
@@ -72,21 +74,6 @@ class GraphPanel extends observeState(LitElementWw) {
             }
           },
           {
-            selector: 'node[type="activation"]',
-            style: {
-              'shape': 'ellipse',
-              'background-color': 'black',
-              'width': '100px',
-              'height': '100px',
-            }
-          },
-          {
-            selector: 'node[type="activation"]:selected',
-            style: {
-              'background-color': 'orange'
-            }
-          },
-          {
             selector: 'edge',
             style: {
               'width': 3,
@@ -97,25 +84,45 @@ class GraphPanel extends observeState(LitElementWw) {
             }
           }
         ],
-        autoungrabify: true,
         boxSelectionEnabled: false,
-        wheelSensitivity: 0.2
-      }))
+        wheelSensitivity: 0.2,
+      })
 
       // Add event listener for selection of layers or nodes
-      networkState.net.getCanvas().on('tap', (e) => {
+      canvasState.canvas.on('tap', (e) => {
         const evtTarget = e.target
 
-        if( evtTarget === networkState.net.getCanvas() ){
+        if( evtTarget === canvasState.canvas ){
           networkState.deselect()
         } else if (evtTarget.isNode()) {
 
           const node = evtTarget
-          if (node.data('type') == 'layer') {
-            networkState.selectLayer(node.data('id'))
+
+          if (node.data('type') == 'entity') {
+            networkState.selectEntity({
+              entity: node.data('entity'),
+            })
+          } else if (node.data('type') == 'layer') {
+            networkState.selectLayer({
+              entity: node.data('entity'), 
+              layer: node.data('layer')
+            })
           } else if (node.data('type') == 'neuron') {
-            networkState.selectNeuron(node.data('id'))
+            networkState.selectNeuron({
+              entity: node.data('entity'), 
+              layer: node.data('layer'),
+              neuron: node.data('neuron')
+            })
           }
+        } else if (evtTarget.isEdge()) {
+
+          const edge = evtTarget
+
+          networkState.selectEdge({
+            type: 'layer',
+            source: null,
+            target: null
+          })
         }
       })
 
@@ -135,6 +142,13 @@ class GraphPanel extends observeState(LitElementWw) {
     #cytoscapeCanvas{
       height: 100%;
       width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    #emptyCanvasInfo{
+      position: absolute;
+      margin: 50px;
     }
 
     #canvasActions{
@@ -145,21 +159,25 @@ class GraphPanel extends observeState(LitElementWw) {
   `
 
   _handleZoomOut() {
-    networkState.net.zoomOutCanvas()
+    canvasState.zoomOut()
   }
 
   _handleCenter() {
-    networkState.net.fitCanvas()
+    canvasState.fit()
   }
 
   _handleZoomIn() {
-    networkState.net.zoomInCanvas()
+    canvasState.zoomIn()
   }
 
   render(){
     return html`
       <div id="cytoscapeCanvas">
-
+        ${ canvasState.isEmpty
+          ? html`
+            <sl-card id="emptyCanvasInfo">Your network is currently empty. Select a 'Quick setup' option in the 'network' tab on the right to quickly setup a network from a number of templates or start building the network yourself!</sl-card>
+          ` : html``
+        }
       </div>
       <div id="canvasActions">
         <sl-button @click="${this._handleZoomOut}">Zoom out</sl-button>

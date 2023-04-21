@@ -1,19 +1,26 @@
 import { LitState } from 'lit-element-state';
 
-import { net, NeuralNet } from '../network/net'
+import NeuralNet from '../network/net'
 
 class NetworkState extends LitState {
 
     net: NeuralNet
     activeEntity: string | null
-    activeLayer: 'input' | number | null
-    activeNeuron: number | null
-    selected: 'entity' | 'layer' | 'neuron' | 'activation' | null
+    activeLayer: string | null
+    activeNeuron: string | null
+    activeEdge: {
+        type: 'entity' | 'layer',
+        source: string,
+        target: string
+    }
+    selected: 'entity' | 'layer' | 'neuron' | 'edge' | null
+    // no extra entry for activeActivation because the string would be the same as for activeNeuron. Instead, we can
+    // differentiate between neuron and activation by 'selected'
         
     static get stateVars()
     {
         return {
-            net: net,
+            net: new NeuralNet({layers: []}),
             activeEntity: null,
             activeLayer: null,
             activeNeuron: null,
@@ -25,23 +32,24 @@ class NetworkState extends LitState {
         this.activeEntity = null
         this.activeLayer = null
         this.activeNeuron = null
+        this.activeEdge = null
         this.selected = null
     }
 
-    selectEntity(entity) {
+    selectEntity({entity}) {
         this.deselect()
         this.activeEntity = entity
         this.selected = 'entity'
     }
 
-    selectLayer(entity, layer) {
+    selectLayer({entity, layer}) {
         this.deselect()
         this.activeEntity = entity
         this.activeLayer = layer
         this.selected = 'layer'
     }
 
-    selectNeuron(entity, neuron, layer = null) {
+    selectNeuron({entity, layer = null, neuron}) {
         this.deselect()
         this.activeEntity = entity
         this.activeLayer = layer
@@ -49,12 +57,14 @@ class NetworkState extends LitState {
         this.selected = 'neuron'
     }
 
-    selectActivation(entity, neuron, layer = null) {
+    selectEdge({type, source, target}) {
         this.deselect()
-        this.activeEntity = entity
-        this.activeLayer = layer
-        this.activeNeuron = neuron
-        this.selected = 'activation'
+        this.activeEdge = {
+            type: type,
+            source: source,
+            target: target
+        }
+        this.selected = 'edge'
     }
 }
 

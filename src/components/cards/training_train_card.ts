@@ -2,8 +2,8 @@ import { LitElementWw } from "@webwriter/lit"
 import { html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
-@customElement('train-card')
-class TrainCard extends LitElementWw {
+@customElement('training-train-card')
+class TrainingTrainCard extends LitElementWw {
 
   static styles = css`
 

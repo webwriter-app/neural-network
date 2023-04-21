@@ -2,8 +2,8 @@ import { LitElementWw } from "@webwriter/lit"
 import { html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
-@customElement('learning-rate-card')
-class LearningRateCard extends LitElementWw {
+@customElement('training-learning-rate-card')
+class TrainingLearningRateCard extends LitElementWw {
 
   static styles = css`
   `
@@ -15,8 +15,8 @@ class LearningRateCard extends LitElementWw {
           Learning rate
         </div>
         <div slot="content">
-          <form class="learning-rate-form">
-            <sl-range label="learning rate" help-text="Controls the learning rate. Short info to learning rate" min="0" max="1" step="0.01"></sl-range>
+          <form>
+            <sl-range label="learning rate" help-text="Adjust the speed at which the network learns" min="0" max="1" step="0.01"></sl-range>
           </form>
         </div>
       </c-card>
