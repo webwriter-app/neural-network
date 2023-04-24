@@ -1,50 +1,116 @@
 import idState from '@/state/id_state'
+import canvasState from '@/state/canvas_state'
 
-import Activation from '@/types/activation'
+import Activation from '@/network/activation'
 
 export default abstract class Layer {
+
+    // to not have any typescript errors when referencing static properthis via instance.constructor
+    declare ['constructor']: typeof Layer;
+
     id: number
     inputFrom: Array<Layer>
     activation: Activation
     outputTo: Array<Layer>
 
-    // since some layers can have multiple input layers and layers call the build function of their 
-    built: boolean 
+    // position on canvas (left top corner of the layer!)
+    pos: {
+        x: number,
+        y: number
+    }
 
     // a type and description that is displayed as an info for the layer
     static LAYER_TYPE: string
     static LAYER_NAME: string
     static DESCRIPTION: string
 
-    constructor({inputFrom: inputFrom, activation: activation}) {
+    constructor({inputFrom, activation, outputTo, pos}) {
         this.id = idState.getFreshId()
         this.inputFrom = inputFrom
-        this.outputTo = []
-        this.activation = activation
-        this.built = false
+        this.outputTo = outputTo
+        this.setActivation(activation)
     
         // notify all the inputs
         for (let input of this.inputFrom) {
-            this.notifyInput(input)
+            this.notifyToAddOutput(input)
         }
+
+        // notify all the outputs
+        for (let output of this.outputTo) {
+            this.notifyToAddInput(output)
+        }
+
+        // store specified position or let canvas state generate it
+        if (pos) {
+            this.pos = pos
+        } else {
+            this.pos = canvasState.generatePos()
+        }
+    }
+
+    // get a readable name for this layer (should only be used for displaying purposes)
+    getName(): string {
+        return `${this.constructor.LAYER_NAME} ${this.id}`
+    }
+
+    // set the activation function
+    setActivation(name: string): void {
+        this.activation = Activation.getActivationByName(name)
+    }
+
+    // when we add or remove inputFrom or outputTo properties to the layer, we need to notify the layer we are referencing that it also references us
+    notifyToAddOutput(input: Layer): void {
+        input.addOutput(this)
+    }
+    addOutput(output: Layer): void {
+        this.outputTo.push(output)
+    }
+    notifyToAddInput(output: Layer): void {
+        output.addInput(this)
+    }
+    addInput(input: Layer): void {
+        this.inputFrom.push(input)
+    }
+    notifyToDeleteOutput(input: Layer): void {
+        input.deleteOutput(this)
+    }
+    deleteOutput(output: Layer): void {
+        this.outputTo = this.outputTo.filter(layer => layer != output)
+    }
+    notifyToDeleteInput(output: Layer): void {
+        output.deleteInput(this)
+    }
+    deleteInput(input: Layer): void {
+        this.inputFrom = this.inputFrom.filter(layer => layer != input)
+    }
+
+    // create and return a new layer based on this (except inputs and outputs)
+    abstract duplicate(): Layer
+    
+    // delete the layer by notifying its input and output and removing the elements from canvas
+    delete(): void {
+        // notify all elements that this layer is connected to to remove it from their inputFrom or outputTo arrays
+        for (let input of this.inputFrom) {
+            this.notifyToDeleteOutput(input)
+        }
+        for (let output of this.outputTo) {
+            this.notifyToDeleteInput(output)
+        }
+        // remove all elements from canvas
+        this.removeFromCanvas()
     }
 
     // each subclass should specify a function that returns an array of cytoscape node ids that should be connected to other allow to allow flexibility in whether connecting the layer as a whole, all neurons in the layer or anything other
     abstract getConnectionIds(): Array<string>
 
-    // when we construct a layer we usually specify its input and not the output. To notify the layer that inputs its data into this layer, we call the notifyInput method which calls the addOutput method in the layer that acts as the input
-    notifyInput(input: Layer) {
-        input.addOutput(this)
-    }
-    addOutput(output: Layer) {
-        this.outputTo.push(output)
+    // remove the previous built layer if exists. these are all nodes with its layer property being this.id or edges with either source or target being this.id
+    removeFromCanvas(): void {
+        let eles = canvasState.canvas.filter((element, i) => {
+            return element.isNode() && element.data('layer') == this.id
+        }, this)
+        eles.remove()
     }
 
     // each subclass should specify a buildGraph method that adds nodes and edges to the canvas
-    abstract buildGraph({net, level}: {net, level: number})
-
-    // subclasses should call shouldBuild() at the beginning of the build function. it checks whether all inputs have been built and returns false otherwise.
-    shouldBuild() {
-        return this.inputFrom.every(input => input.built)
-    }
+    /* abstract buildGraph(): void */
 }

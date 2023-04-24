@@ -43,8 +43,8 @@ class CCard extends LitElementWw {
     return html`
       <sl-card class="c-card">
         <div slot="header">
-            <slot name="title"></slot>
-            <sl-icon-button name="gear" label="Settings"></sl-icon-button>
+          <h2><slot name="title"></slot></h2>
+          <sl-icon-button name="gear" label="Settings"></sl-icon-button>
         </div>
         <slot name="content"></slot>
       </sl-card>

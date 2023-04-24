@@ -4,8 +4,8 @@ import { customElement } from 'lit/decorators.js'
 import { observeState } from 'lit-element-state';
 import networkState from '@/state/network_state.js';
 
-@customElement('layer-info-card')
-class LayerInfoCard extends observeState(LitElementWw) {
+@customElement('neuron-info-card')
+class NeuronInfoCard extends observeState(LitElementWw) {
 
     render(){
         return html`
@@ -14,7 +14,7 @@ class LayerInfoCard extends observeState(LitElementWw) {
                     Info
                 </div>
                 <div slot="content">
-                    <p>Selected item: Layer ${networkState.activeLayer} inside network entity ${networkState.activeEntity}</p>
+                    <span>Selected: 'Neuron ${networkState.activeNeuron}'' inside '${networkState.net.getLayerById(networkState.activeLayer).getName()}'</span>
                 </div>
             </c-card>
         `;

@@ -10,126 +10,128 @@ import * as cytoscape from 'cytoscape'
 @customElement('canvas-panel')
 class CanvasPanel extends observeState(LitElementWw) {
 
-  connectedCallback() {
+  async connectedCallback() {
     super.connectedCallback()
+    await this.updateComplete
 
-    setTimeout(() => {
-      // Create cytoscape canvas
-      canvasState.canvas = cytoscape({
+    // Create cytoscape canvas
+    canvasState.setCanvas(cytoscape({
 
-        container: this.renderRoot.querySelector('#cytoscapeCanvas'), // container to render in
-      
-        elements: [ // list of graph elements to start with
-        ],
-      
-        style: [ // the stylesheet for the graph
-          {
-            selector: 'node[type="entity"]',
-            style: {
-              'shape': 'round-rectangle',
-              'background-color': '#eeeeee',
-              'border-color': 'lightgray',
-              'border-width': 5,
-              'width': '100px',
-              'height': '100px',
-              'label': 'data(label)',
-            }
-          },
-          {
-            selector: 'node[type="entity"]:selected',
-            style: {
-              'border-color': 'orange'
-            }
-          },
-          {
-            selector: 'node[type="layer"]',
-            style: {
-              'shape': 'round-rectangle',
-              'background-color': 'white',
-              'border-width': 5,
-              'border-color': 'lightgray',
-              'padding': `${canvasState.LAYER_PADDING}px`,
-              'label': 'data(label)',
-            }
-          },
-          {
-            selector: 'node[type="layer"]:selected',
-            style: {
-              'border-color': 'orange'
-            }
-          },
-          {
-            selector: 'node[type="neuron"]',
-            style: {
-              'shape': 'round-rectangle',
-              'background-color': '#0183C7',
-              'width': '100px',
-              'height': '100px',
-            }
-          },
-          {
-            selector: 'node[type="neuron"]:selected',
-            style: {
-              'background-color': 'orange'
-            }
-          },
-          {
-            selector: 'edge',
-            style: {
-              'width': 3,
-              'line-color': '#ccc',
-              'target-arrow-color': '#ccc',
-              'target-arrow-shape': 'triangle',
-              'curve-style': 'bezier'
-            }
+      container: this.renderRoot.querySelector('#cytoscapeCanvas'), // container to render in
+    
+      elements: [ // list of graph elements to start with
+      ],
+    
+      style: [ // the stylesheet for the graph
+        {
+          selector: 'node[type="entity"]',
+          style: {
+            'shape': 'round-rectangle',
+            'background-color': '#eeeeee',
+            'border-color': 'lightgray',
+            'border-width': 5,
+            'width': '100px',
+            'height': '100px',
+            'label': 'data(label)',
           }
-        ],
-        boxSelectionEnabled: false,
-        wheelSensitivity: 0.2,
-      })
-
-      // Add event listener for selection of layers or nodes
-      canvasState.canvas.on('tap', (e) => {
-        const evtTarget = e.target
-
-        if( evtTarget === canvasState.canvas ){
-          networkState.deselect()
-        } else if (evtTarget.isNode()) {
-
-          const node = evtTarget
-
-          if (node.data('type') == 'entity') {
-            networkState.selectEntity({
-              entity: node.data('entity'),
-            })
-          } else if (node.data('type') == 'layer') {
-            networkState.selectLayer({
-              entity: node.data('entity'), 
-              layer: node.data('layer')
-            })
-          } else if (node.data('type') == 'neuron') {
-            networkState.selectNeuron({
-              entity: node.data('entity'), 
-              layer: node.data('layer'),
-              neuron: node.data('neuron')
-            })
+        },
+        {
+          selector: 'node[type="entity"]:selected',
+          style: {
+            'border-color': 'orange'
           }
-        } else if (evtTarget.isEdge()) {
+        },
+        {
+          selector: 'node[type="layer"]',
+          style: {
+            'shape': 'round-rectangle',
+            'background-color': 'white',
+            'border-width': 5,
+            'border-color': 'lightgray',
+            'padding': `${canvasState.LAYER_PADDING}px`,
+            'label': 'data(label)',
+          }
+        },
+        {
+          selector: 'node[type="layer"]:selected',
+          style: {
+            'border-color': 'orange'
+          }
+        },
+        {
+          selector: 'node[type="neuron"]',
+          style: {
+            'shape': 'round-rectangle',
+            'background-color': '#0183C7',
+            'width': '100px',
+            'height': '100px',
+          }
+        },
+        {
+          selector: 'node[type="neuron"]:selected',
+          style: {
+            'background-color': 'orange'
+          }
+        },
+        {
+          selector: 'edge',
+          style: {
+            'width': 3,
+            'line-color': '#ccc',
+            'target-arrow-color': '#ccc',
+            'target-arrow-shape': 'triangle',
+            'curve-style': 'bezier'
+          }
+        },
+        {
+          selector: 'edge:selected',
+          style: {
+            'line-color': 'orange',
+            'target-arrow-color': 'orange',
+          }
+        }
+      ],
+      wheelSensitivity: 0.2,
+      boxSelectionEnabled: false,
+      selectionType: 'single',
+    }))
 
-          const edge = evtTarget
+    // Prevent selection of multiple nodes by holding shift
+    canvasState.canvas.on('select', 'node, edge', e => canvasState.canvas.elements().not(e.target).unselect())
 
-          networkState.selectEdge({
-            type: 'layer',
-            source: null,
-            target: null
+    // Add event listener for selection of layers or nodes
+    canvasState.canvas.on('tap', (e) => {
+      const evtTarget = e.target
+
+      if( evtTarget === canvasState.canvas ){
+        networkState.deselect()
+
+      } else if (evtTarget.isNode()) {
+
+        const node = evtTarget
+
+        if (node.data('type') == 'layer') {
+          networkState.selectLayer({
+            layer: node.data('layer')
+          })
+        } else if (node.data('type') == 'neuron') {
+          networkState.selectNeuron({
+            layer: node.data('layer'),
+            neuron: node.data('neuron')
           })
         }
-      })
+      } else if (evtTarget.isEdge()) {
 
-      // Finally build the graph for the first time
-      networkState.net.buildGraph()
+        const edge = evtTarget
 
-    }, 100)
+        networkState.selectEdge({
+          sourceLayer: edge.source().data('layer'),
+          sourceNeuron: edge.source().data('neuron'),
+          targetLayer: edge.target().data('layer'),
+          targetNeuron:  edge.target().data('neuron')
+        })
+      }
+    })
   }
 
   /* STYLES */
@@ -173,10 +175,9 @@ class CanvasPanel extends observeState(LitElementWw) {
   render(){
     return html`
       <div id="cytoscapeCanvas">
-        ${ canvasState.isEmpty
-          ? html`
-            <sl-card id="emptyCanvasInfo">Your network is currently empty. Select a 'Quick setup' option in the 'network' tab on the right to quickly setup a network from a number of templates or start building the network yourself!</sl-card>
-          ` : html``
+        ${ !networkState.net
+          ? html`<sl-card id="emptyCanvasInfo">Your network is currently empty. Select a 'quick action' in the 'network' tab on the right to quickly setup a network from a number of templates or start building the network yourself!</sl-card>` 
+          : html``
         }
       </div>
       <div id="canvasActions">

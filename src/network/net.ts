@@ -1,9 +1,5 @@
 import * as tf from '@tensorflow/tfjs';
 
-import spawnAlert from '@/alerts'
-
-import canvasState from '@/state/canvas_state'
-
 import Layer from '@/network/layer'
 
 export default class NeuralNet {
@@ -14,9 +10,6 @@ export default class NeuralNet {
     
     model: tf.LayersModel | null
 
-    // during the build process
-    buildQueue: Array<{layer: Layer, level: number}>
-
     trainOptions: {
         learningRate: number
         epochs: number
@@ -25,12 +18,15 @@ export default class NeuralNet {
         optimizer: string
     }
 
-    constructor({layers}) {
-        this.layers = layers
+    constructor({layers = []}) {
+        
+        // add the specified layers to this net
+        this.layers = []
+        for (let layer of layers) {
+            this.addLayer(layer)
+        }
 
         this.model = null
-
-        this.buildQueue = []
 
         this.trainOptions = {
                 learningRate: 0.2,
@@ -38,14 +34,6 @@ export default class NeuralNet {
                 batchSize: 50,
                 lossFunction: 'meanSquaredError',
                 optimizer: 'sgd'
-        }
-
-        // finally build the graph for the freshly created network. We need to check if the canvas does exist beforehand because
-        // if not that means we can not build right now because the application has just started and the canvas needs to be
-        // initialized. This is no problem, however, because the canvas manually triggers a build itself right after the 
-        // initialization has been finished
-        if(canvasState.canvas) {
-            this.buildGraph()
         }
     }
 
@@ -68,37 +56,19 @@ export default class NeuralNet {
         return id
     }
 
-    /*
-    VISUALIZATION
-    */
-    buildGraph() {
+    // add a layer to the network and build it
+    addLayer(layer: Layer) {
 
-        // remove the potentially previously built graph if it exists
-        if(canvasState.canvas.$().length) {
-            spawnAlert("Canvas has been overwritten and rebuilt!", "success")
-            canvasState.clear()
-        }
-
-        // set the built option to false on all layers
-        for (let layer of this.layers) {
-            layer.built = false
-        }
-
-        // find the layers without an input and call their build function. these layers probably add other layers to the build queue
-        let inputLayers = this.layers.filter(layer => !layer.inputFrom.length)
-        for (let layer of inputLayers) {
-
-            layer.buildGraph({net: this, level: 0})
-        }
-
-        // since the input layers should have added other layers to the buildQueue, so we iteratively build these layers in the Queue
-        for (let {layer, level} of this.buildQueue) {
-            layer.buildGraph({net: this, level: level})
-        }
-
-        // after all elements have been added to the graph we make the graph fit to the viewport
-        canvasState.fit()
+        // add the layer to the layer array
+        this.layers.push(layer)
     }
+
+    // remove a layer from the network. the layer's delete method also handles the removal form the canvas
+    removeLayer(layerArg: Layer) {
+        layerArg.delete()
+        this.layers = this.layers.filter((layer) => layer != layerArg)
+    }
+
 
     /*
     REAL TRAINING & CO

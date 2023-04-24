@@ -4,65 +4,73 @@ import NeuralNet from '../network/net'
 
 class NetworkState extends LitState {
 
-    net: NeuralNet
-    activeEntity: string | null
-    activeLayer: string | null
-    activeNeuron: string | null
+    net: NeuralNet | null
+    activeLayer: number | null
+    activeNeuron: number | null
     activeEdge: {
-        type: 'entity' | 'layer',
-        source: string,
-        target: string
-    }
-    selected: 'entity' | 'layer' | 'neuron' | 'edge' | null
+        sourceLayer: number,
+        sourceNeuron: number | null,
+        targetLayer: number,
+        targetNeuron: number | null
+    } | null
+    selected: 'layer' | 'neuron' | 'edge' | null
     // no extra entry for activeActivation because the string would be the same as for activeNeuron. Instead, we can
     // differentiate between neuron and activation by 'selected'
         
     static get stateVars()
     {
         return {
-            net: new NeuralNet({layers: []}),
-            activeEntity: null,
+            net: null,
             activeLayer: null,
             activeNeuron: null,
+            activeEdge: null,
             selected: null
         }
     }
 
+    /*
+    NETWORK
+    */
+    getNet() {
+        if (!this.net) {
+            this.net = new NeuralNet({})
+        }
+        return this.net
+    }
+    setNet(net) {
+        this.net = net
+    }
+
+    /*
+    SELECTION
+    */
     deselect() {
-        this.activeEntity = null
+        this.selected = null
         this.activeLayer = null
         this.activeNeuron = null
         this.activeEdge = null
-        this.selected = null
     }
 
-    selectEntity({entity}) {
+    selectLayer({layer}) {
         this.deselect()
-        this.activeEntity = entity
-        this.selected = 'entity'
-    }
-
-    selectLayer({entity, layer}) {
-        this.deselect()
-        this.activeEntity = entity
         this.activeLayer = layer
         this.selected = 'layer'
     }
 
-    selectNeuron({entity, layer = null, neuron}) {
+    selectNeuron({layer = null, neuron}) {
         this.deselect()
-        this.activeEntity = entity
         this.activeLayer = layer
         this.activeNeuron = neuron
         this.selected = 'neuron'
     }
 
-    selectEdge({type, source, target}) {
+    selectEdge({sourceLayer, sourceNeuron = null, targetLayer, targetNeuron = null}) {
         this.deselect()
         this.activeEdge = {
-            type: type,
-            source: source,
-            target: target
+            sourceLayer: sourceLayer,
+            sourceNeuron: sourceNeuron,
+            targetLayer: targetLayer,
+            targetNeuron: targetNeuron
         }
         this.selected = 'edge'
     }

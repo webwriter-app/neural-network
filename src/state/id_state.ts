@@ -13,8 +13,12 @@ class IdState extends LitState {
         }
     }
 
-        // as soon as we can import networks (that then of course have predefined id's we have to invoke this after import
+        // @TODO as soon as we can import networks (that then of course have predefined id's we have to invoke this after import
         // this.currentId = networkState.net.getMaxId() + 1
+
+    reset() {
+        this.currentId = 0
+    }
 
     getFreshId() {
 

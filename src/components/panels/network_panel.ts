@@ -5,18 +5,20 @@ import { observeState } from 'lit-element-state';
 import networkState from '@/state/network_state.js';
 
 // canvas cards
-import '@/components/cards/canvas-info-card'
-import '@/components/cards/canvas-quick-setup-card'
-import '@/components/cards/canvas-add-entity-card'
-
-// entity cards
+import '@/components/cards/canvas_info_card'
+import '@/components/cards/canvas_quick_actions_card'
+import '@/components/cards/canvas_add_layer_card'
 
 // layer cards
-import '@/components/cards/layer-info-card'
-import '@/components/cards/layer-edit-card'
+import '@/components/cards/layer_info_card'
+import '@/components/cards/layer_edit_card'
+import '@/components/cards/layer_activation_card'
 
 // neuron cards
-import '@/components/cards/neuron-info-card'
+import '@/components/cards/neuron_info_card'
+
+// edge cards
+import '@/components/cards/edge_info_card'
 
 @customElement('network-panel')
 class NetworkPanel extends observeState(LitElementWw) {
@@ -33,18 +35,17 @@ class NetworkPanel extends observeState(LitElementWw) {
         if (networkState.selected == null) {
             return html`
             <canvas-info-card></canvas-info-card>
-            <canvas-quick-setup-card></canvas-quick-setup-card>
-            <canvas-add-entity-card></canvas-add-entity-card>
+            <canvas-quick-actions-card></canvas-quick-actions-card>
+            <canvas-add-layer-card layer=null></canvas-add-layer-card>
             You may select a network entity, layer, neuron or activation to view and edit its corresponding information.
             `
-        } else if (networkState.selected == 'entity') {
-            return html`
-            Selected network entity
-            `
         } else if (networkState.selected == 'layer') {
+            const layer = networkState.net.getLayerById(networkState.activeLayer)
             return html`
-            <layer-info-card></layer-info-card>
-            <layer-edit-card></layer-edit-card>
+            <layer-info-card .layer=${layer}></layer-info-card>
+            <layer-edit-card .layer=${layer}></layer-edit-card>
+            <layer-activation-card .layer=${layer}></layer-activation-card>
+            <canvas-add-layer-card .layer=${layer}></canvas-add-layer-card>
             `
         } else if (networkState.selected == 'neuron') {
             return html`
@@ -52,7 +53,7 @@ class NetworkPanel extends observeState(LitElementWw) {
             `
         } else if (networkState.selected == 'edge') {
             return html`
-            Selected edge
+            <edge-info-card></edge-info-card>
             `
         }
     }
