@@ -46,14 +46,10 @@ export default abstract class NeuronLayer extends Layer {
     MANIPULATING LAYER
     */
     addNeuron(): Neuron {
-        // running position variable for the placement of the neurons
-        let cypos = Object.create(this.pos)
-        cypos.x += canvasState.LAYER_PADDING + canvasState.NEURON_SIZE/2
-        cypos.y += canvasState.LAYER_PADDING + canvasState.NEURON_SIZE/2 + (canvasState.NEURON_SIZE + canvasState.NEURON_DISTANCE) * this.units.length
-
-        const neuron = new Neuron({layer: this.id, id: this.units.length + 1, cypos: cypos})
+        const neuron = new Neuron({layer: this.id, id: this.units.length + 1})
         this.units.push(neuron)
-        this.buildNeuron(neuron)
+        neuron.build({cypos: this.getPositionForUnit(this.units.length)})
+        this.buildConnectionsFor(neuron)
         return neuron
     }
 
@@ -65,7 +61,7 @@ export default abstract class NeuronLayer extends Layer {
                     console.log("aaaad")
                 }
             } else if (units < this.units.length) {
-                for (let unit = this.units.length + 1; unit > units; unit--) {
+                for (let unit = this.units.length; unit > units; unit--) {
                     this.removeNeuron()
                 }
             }
@@ -86,23 +82,43 @@ export default abstract class NeuronLayer extends Layer {
     /*
     BUILD LAYER FOR CANVAS
     */
-    // update pos (note: the pos in the argument specifies cytoscape pos, thus: the middle)
-    updatePos(cypos: {x: number, y: number}) {
+    getPositionForUnit(n: number): {x: number, y: number} {
         
+        let cypos = Object.create(this.pos)
+        cypos.x += canvasState.LAYER_PADDING + canvasState.NEURON_SIZE/2
+        cypos.y += canvasState.LAYER_PADDING + canvasState.NEURON_SIZE/2
+        cypos.y += (canvasState.NEURON_SIZE + canvasState.NEURON_DISTANCE) * (n-1)
+        return cypos
     }
 
-    // build
+    build() {        
+
+        // build the layer
+        this.buildLayer()
+        
+        // build the neurons
+        for (let [index, neuron] of this.units.entries()) {
+            neuron.build({cypos: this.getPositionForUnit(index)})
+        }
+
+        // connect the neurons
+        this.buildConnections()
+    }
+
     buildLayer() {
 
-        // remove the previously built layer from the canvas if exists
-        this.removeFromCanvas()
-
+        // remove potentially previously built layer
+        let eles = canvasState.canvas.filter((element, i) => {
+            return element.isNode() && element.data('type') == 'layer' && element.data('layer') == this.id
+        }, this)
+        eles.remove()
+        
         // add the layer
         canvasState.canvas.add({
             group: 'nodes',
             data: { 
                 id: `${this.id}`, 
-                label: `${this.constructor.LAYER_TYPE} ${this.id}`,
+                label: this.getName(),
                 type: 'layer',
                 layer: this.id,
                 layer_type: `${this.constructor.LAYER_TYPE}`,
@@ -110,23 +126,59 @@ export default abstract class NeuronLayer extends Layer {
         })
     }
 
-    buildNeuron(unit) {
+    buildConnections() {
 
-        // add the neuron itself
-        unit.buildNeuron()
+        // remove potentially previously built connections
+        let eles = canvasState.canvas.filter((element, i) => {
+            return element.isEdge() && (element.data('sourceLayer') == this.id || element.data('targetLayer') == this.id)
+        }, this)
+        eles.remove()
+
+        for (let unit of this.units) {
+            this.buildConnections(unit)
+        }
+    }
+
+    buildConnectionsFor(neuron: Neuron) {
 
         // connect the neuron to the previous layers
-        let connections = []
         for (let previousLayer of this.inputFrom) {
-            connections.push({layer: previousLayer.id, nodes: previousLayer.getConnectionIds()})
-        }   
-        unit.buildIncomingConnections(connections)
+            let source = {layer: previousLayer.id, nodes: previousLayer.getConnectionIds()}
+            neuron.drawConnectionFrom(source)
+        }
 
         // connect the neuron to the outgoing layers
-        connections = []
         for (let nextLayer of this.outputTo) {
-            connections.push({layer: nextLayer.id, nodes: nextLayer.getConnectionIds()})
-        }   
-        unit.buildOutgoingConnections(connections)
+            let target = {layer: nextLayer.id, nodes: nextLayer.getConnectionIds()}
+            neuron.drawConnectionTo(target)
+        }
+    }
+
+    buildConnectionFrom(layer: Layer) {
+        for (let neuron of this.units) {
+            let source = {layer: layer.id, nodes: layer.getConnectionIds()}
+            neuron.drawConnectionFrom(source)
+        }
+    }
+
+    removeConnectionFrom(layer: Layer) {
+        let eles = canvasState.canvas.filter((element, i) => {
+            return element.isEdge() && (element.data('sourceLayer') == layer.id && element.data('targetLayer') == this.id)
+        }, this)
+        eles.remove()
+    }
+
+    buildConnectionTo(layer: Layer) {
+        for (let neuron of this.units) {
+            let target = {layer: layer.id, nodes: layer.getConnectionIds()}
+            neuron.drawConnectionTo(target)
+        }
+    }
+
+    removeConnectionTo(layer: Layer) {
+        let eles = canvasState.canvas.filter((element, i) => {
+            return element.isEdge() && (element.data('sourceLayer') == this.id && element.data('targetLayer') == layer.id)
+        }, this)
+        eles.remove()
     }
 }

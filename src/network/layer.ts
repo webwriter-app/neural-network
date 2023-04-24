@@ -40,9 +40,11 @@ export default abstract class Layer {
             this.notifyToAddInput(output)
         }
 
-        // store specified position or let canvas state generate it
+        // store position if specified
         if (pos) {
             this.pos = pos
+
+        // if no position is specified, we let the canvas generate it
         } else {
             this.pos = canvasState.generatePos()
         }
@@ -56,6 +58,56 @@ export default abstract class Layer {
     // set the activation function
     setActivation(name: string): void {
         this.activation = Activation.getActivationByName(name)
+    }
+
+    /*
+    CANVAS
+    */
+    // update pos (note: the pos in the argument specifies cytoscape pos, thus: the middle)
+    updatePos(cypos: {x: number, y: number, w: number, h: number}) {
+        this.pos.x = cypos.x - (cypos.w/2)
+        this.pos.y = cypos.y - (cypos.h/2)
+    }
+    
+    /*
+    INPUT AND OUTPUT
+    */
+    // sets the input (res. output) (overrides existing)
+    setInputFrom(layers: Layer[]) {
+        // build the connections to the newly added layers and notify them about it
+        const addedLayers = layers.filter(layer => !this.inputFrom.includes(layer));
+        for (let layer of addedLayers) {
+            this.buildConnectionFrom(layer)
+            this.notifyToAddOutput(layer)
+        }
+
+        // remove connections to layers that are not in the new layers array and notify the layer about it
+        const removedLayers = this.inputFrom.filter(layer => !layers.includes(layer))
+        for (let layer of removedLayers) {
+            this.removeConnectionFrom(layer)
+            this.notifyToDeleteOutput(layer)
+        }
+
+        // finally override the inputFrom
+        this.inputFrom = layers
+    }
+    setOutputTo(layers: Layer[]) {
+        // build the connections to the newly added layers and notify them about it
+        const addedLayers = layers.filter(layer => !this.outputTo.includes(layer));
+        for (let layer of addedLayers) {
+            this.buildConnectionTo(layer)
+            this.notifyToAddInput(layer)
+        }
+
+        // remove connections from layers that are not in the new layers array and notify the layer about it
+        const removedLayers = this.outputTo.filter(layer => !layers.includes(layer))
+        for (let layer of removedLayers) {
+            this.removeConnectionTo(layer)
+            this.notifyToDeleteInput(layer)
+        }
+
+        // finally override the outputTo
+        this.outputTo = layers
     }
 
     // when we add or remove inputFrom or outputTo properties to the layer, we need to notify the layer we are referencing that it also references us
@@ -103,6 +155,9 @@ export default abstract class Layer {
     // each subclass should specify a function that returns an array of cytoscape node ids that should be connected to other allow to allow flexibility in whether connecting the layer as a whole, all neurons in the layer or anything other
     abstract getConnectionIds(): Array<string>
 
+    // each subclass should specify a build method that completely builds the layer
+    abstract build(): void
+
     // remove the previous built layer if exists. these are all nodes with its layer property being this.id or edges with either source or target being this.id
     removeFromCanvas(): void {
         let eles = canvasState.canvas.filter((element, i) => {
@@ -111,6 +166,9 @@ export default abstract class Layer {
         eles.remove()
     }
 
-    // each subclass should specify a buildGraph method that adds nodes and edges to the canvas
-    /* abstract buildGraph(): void */
+    // since the user is able to edit the layers that this layer connects to, we need to flexible in adding and removing connections to a specific layer
+    abstract buildConnectionFrom(layer: Layer): void
+    abstract buildConnectionTo(layer: Layer): void
+    abstract removeConnectionFrom(layer: Layer): void
+    abstract removeConnectionTo(layer: Layer): void
 }

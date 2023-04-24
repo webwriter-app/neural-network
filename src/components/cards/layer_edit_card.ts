@@ -1,6 +1,6 @@
 import { LitElementWw } from "@webwriter/lit"
 import { html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { customElement, property, query } from 'lit/decorators.js'
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js';
 import { observeState } from 'lit-element-state';
 import networkState from '@/state/network_state.js';
@@ -13,24 +13,13 @@ import spawnAlert from "@/alerts";
 @customElement('layer-edit-card')
 class LayerEditCard extends observeState(LitElementWw) {
 
-  @property() layer: Layer | null
+  @query('#updateNeuronsForm') _updateNeuronsForm;
+  @property() layer: Layer | null;
 
   async connectedCallback() {
     super.connectedCallback()
     await this.updateComplete
-    const form = this.renderRoot.querySelector('#updateNeuronsForm');
-    form.addEventListener('submit', event => {
-      event.preventDefault();
-      const formData = serialize(form)
-      if (typeof formData.units !== "string") throw new Error("The number of neurons in the form should be of type string.")
-      const units = parseInt(formData.units)
-      if (this.layer instanceof NeuronLayer) {
-        this.layer.setNeurons(units)
-        canvasState.fit()
-      }
-      form.reset()
-    });
-
+    this._updateNeuronsForm.addEventListener('submit', this._handleSetNeurons.bind(this))
   }
 
   _handleAddNeuron(e) {
@@ -46,9 +35,40 @@ class LayerEditCard extends observeState(LitElementWw) {
       canvasState.fit()
     }
   }
+
+  _handleSetNeurons(e) {
+    e.preventDefault();
+    const formData = serialize(this._updateNeuronsForm)
+    console.log(this)
+    if (typeof formData.units !== "string") throw new Error("The number of neurons in the form should be of type string.")
+    const units = parseInt(formData.units)
+    if (this.layer instanceof NeuronLayer) {
+      this.layer.setNeurons(units)
+      canvasState.fit()
+    }
+    this._updateNeuronsForm.reset()
+  }
   
   _handleDeleteLayer(e) {
     networkState.net.removeLayer(this.layer)
+    canvasState.fit()
+  }
+
+  _handleChangeInput(e) {
+    const layerIDs = this.renderRoot.querySelector('#inputSelect').value.map(id => {return parseInt(id)})
+    const layers = networkState.net.getLayersByIds(layerIDs)
+    this.layer.setInputFrom(layers)
+  }
+
+  _handleChangeOutput(e) {
+    const layerIDs = this.renderRoot.querySelector('#outputSelect').value.map(id => {return parseInt(id)})
+    const layers = networkState.net.getLayersByIds(layerIDs)
+    this.layer.setOutputTo(layers)
+  }
+
+  _getOptions() {
+    const options = networkState.net.layers.filter((layer) => layer != this.layer)
+    return options.map((layer) => html`<sl-option value="${layer.id.toString()}">${layer.getName()}</sl-option>`)
   }
 
   // @TODO: somehow make the number of units reactive, so that when removing multiple neurons, the button to remove is disabled when we reach a units value of 1
@@ -62,7 +82,7 @@ class LayerEditCard extends observeState(LitElementWw) {
           <h3>Neurons</h3>
           <c-button-group>
             <sl-button @click="${this._handleAddNeuron}" variant=primary outline>Add neuron</sl-button>
-            <sl-button @click="${this._handleRemoveNeuron}" .disabled=${this.layer instanceof NeuronLayer && this.layer.units <= 1} variant=danger outline>Remove neuron</sl-button>
+            <sl-button @click="${this._handleRemoveNeuron}" .disabled=${this.layer instanceof NeuronLayer && this.layer.units.length <= 1} variant=danger outline>Remove neuron</sl-button>
           </c-button-group>
           <form id="updateNeuronsForm">
             <c-button-group>
@@ -72,9 +92,12 @@ class LayerEditCard extends observeState(LitElementWw) {
           </form>
           <div>
             <h3>Inputs</h3>
-            <sl-select value="dense3" multiple clearable>
-              <sl-option value="dense3">Dense 3</sl-option>
-              <sl-option value="dense4">Dense 4</sl-option>
+            <sl-select id="inputSelect" value=${this.layer.inputFrom.map(layer => layer.id).join(' ')} multiple clearable @sl-change="${this._handleChangeInput}">
+              ${this._getOptions()}
+            </sl-select>
+            <h3>Outputs</h3>
+            <sl-select id="outputSelect" value=${this.layer.outputTo.map(layer => layer.id).join(' ')} multiple clearable @sl-change="${this._handleChangeOutput}">
+              ${this._getOptions()}
             </sl-select>
           </div>
           <sl-button @click="${this._handleDeleteLayer}" variant=danger outline>Delete layer</sl-button>

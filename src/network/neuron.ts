@@ -10,29 +10,17 @@ export default class Neuron {
     // the id of the neuron in this layer. first neuron added gets id 1; not to be confused with the id of the corresponding node in the cytoscape canvas which is `${this.layer}n${this.id}`
     id: number
 
-    // the exact position in the cytoscape canvas (= the middle of the node)
-    cypos: {
-        x: number,
-        y: number
-    }
-
-    constructor({layer, id, cypos}: {layer: number, id:number, cypos: {x: number, y: number}}) {
+    constructor({layer, id, cypos}: {layer: number, id:number}) {
         
         this.layer = layer
         this.id = id
-        this.cypos = cypos
-    }
-
-    // update position
-    updatePos(cypos: {x: number, y: number}) {
-        this.cypos = cypos
     }
 
     /*
     BUILD LAYER FOR CANVAS
     */
     // build the neuron itself (without the connections)
-    buildNeuron() {
+    build({cypos}: {cypos: {x: number, y: number}}) {
 
         // remove the previously built neuron if exists
         this.remove()
@@ -49,46 +37,42 @@ export default class Neuron {
                 neuron: this.id
             }, 
             position: {
-                x: this.cypos.x,
-                y: this.cypos.y
+                x: cypos.x,
+                y: cypos.y
             }
         })
     }
 
-    buildIncomingConnections(layerConnections: Array<{layer: number, nodes: Array<number>}>) {
+    drawConnectionFrom(source: {layer: number, nodes: Array<string>}) {
 
-        for (let layerConnection of layerConnections) {
-            for (let node of layerConnection.nodes) {
-                canvasState.canvas.add({
-                    group: 'edges', 
-                    data: {
-                        id: `${node}e${this.layer}n${this.id}`, 
-                        source: node, 
-                        target: `${this.layer}n${this.id}`,
-                        sourceLayer: layerConnection.layer,
-                        targetLayer: this.layer
-                    }
-                })
-            }
-        } 
+        for (let node of source.nodes) {
+            canvasState.canvas.add({
+                group: 'edges', 
+                data: {
+                    id: `${node}e${this.layer}n${this.id}`, 
+                    source: node, 
+                    target: `${this.layer}n${this.id}`,
+                    sourceLayer: source.layer,
+                    targetLayer: this.layer
+                }
+            })
+        }
     }
 
-    buildOutgoingConnections(layerConnections: Array<{layer: number, nodes: Array<number>}>) {
+    drawConnectionTo(target: {layer: number, nodes: Array<string>}) {
 
-        for (let layerConnection of layerConnections) {
-            for (let node of layerConnection.nodes) {
-                canvasState.canvas.add({
-                    group: 'edges', 
-                    data: {
-                        id: `${this.id}n${node}e${this.layer}`, 
-                        source: `${this.layer}n${this.id}`, 
-                        target: node,
-                        sourceLayer: this.layer,
-                        targetLayer: layerConnection.layer
-                    }
-                })
-            }
-        } 
+        for (let node of target.nodes) {
+            canvasState.canvas.add({
+                group: 'edges', 
+                data: {
+                    id: `${this.layer}n${this.id}e${node}`, 
+                    source: `${this.layer}n${this.id}`, 
+                    target: node,
+                    sourceLayer: this.layer,
+                    targetLayer: target.layer
+                }
+            })
+        }
     }
 
     remove() {

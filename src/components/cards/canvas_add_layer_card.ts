@@ -34,7 +34,8 @@ class CanvasAddLayerCard extends LitElementWw {
         <div slot="content">
           ${this.layer
             ? html`<sl-button @click="${this._handleDuplicateLayer}" outline>Duplicate selected layer</sl-button>`
-            : html``}
+            : html``
+          }
           <sl-button @click="${this._handleAddDenseLayer}">Add dense Layer</sl-button>
         </div>
       </c-card>

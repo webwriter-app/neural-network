@@ -61,12 +61,12 @@ class CanvasState extends LitState {
     }
 
     // generate a new position, currently just in the middle of the canvas
-    // TODO: does not work as expected right now
     generatePos() {
         let viewport = this.canvas.extent()
+        console.log(this.canvas.extent())
         return {
-            x: (viewport.x2 - viewport.x1) / 2,
-            y: (viewport.y2 - viewport.y1) / 2
+            x: viewport.x1 + (viewport.x2 - viewport.x1) / 2,
+            y: viewport.y1 + (viewport.y2 - viewport.y1) / 2
         }
     }
 }

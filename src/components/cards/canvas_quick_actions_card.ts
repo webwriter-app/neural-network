@@ -29,7 +29,6 @@ class CanvasQuickActions extends LitElementWw {
 
     // clear the canvas from previously built networks
     canvasState.clear()
-    console.log("cleared")
     
     /*const inputLayer = new InputLayer({})*/
     const denseLayer1 = new DenseLayer({

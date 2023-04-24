@@ -46,6 +46,20 @@ export default class NeuralNet {
         }
         return null
     }
+    getLayersByIds(ids: number[]): Layer[] {
+
+        let layers = []
+        for (let layer of this.layers) {
+            if (ids.includes(layer.id)) layers.push(layer)
+        }
+
+        // only return layers if for every id one layer was found. else, we return null to signal that something went wrong
+        if (layers.length == ids.length) {
+            return layers
+        } else {
+            return null
+        }
+    }
 
     // returns the maximum id for layers used in the graph
     getMaxId(): number {

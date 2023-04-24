@@ -6,7 +6,7 @@ export default class DenseLayer extends NeuronLayer {
 
     static LAYER_TYPE: string = "Dense"
     static LAYER_NAME: string = "Dense layer"
-    static DESCRIPTION: string = "A dense layer is a layer..."
+    static DESCRIPTION: string = "A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer."
 
     constructor({inputFrom = [], units = 2, activation = "ReLu", outputTo = [], pos = null}) {
 
@@ -16,7 +16,8 @@ export default class DenseLayer extends NeuronLayer {
         canvasState.canvas.$(`#${this.id}`).on('drag', (e) => {
 
             const node = e.target
-            
+            const cyPos = node.position()
+            this.updatePos({x: cyPos.x, y: cyPos.y, w: node.outerWidth(), h: node.outerHeight()})
         })
     }
 
