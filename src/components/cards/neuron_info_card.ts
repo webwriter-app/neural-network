@@ -1,11 +1,14 @@
 import { LitElementWw } from "@webwriter/lit"
 import { html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { observeState } from 'lit-element-state';
-import networkState from '@/state/network_state.js';
+
+import { StateController } from "@lit-app/state";
+import state from '@/state'
 
 @customElement('neuron-info-card')
-class NeuronInfoCard extends observeState(LitElementWw) {
+class NeuronInfoCard extends LitElementWw {
+
+    state = new StateController(this, state)
 
     render(){
         return html`
@@ -14,7 +17,7 @@ class NeuronInfoCard extends observeState(LitElementWw) {
                     Info
                 </div>
                 <div slot="content">
-                    <span>Selected: 'Neuron ${networkState.activeNeuron}'' inside '${networkState.net.getLayerById(networkState.activeLayer).getName()}'</span>
+                    <span>Selected item: <c-canvas-link disabled>Neuron ${state.activeNeuron}</c-canvas-link> inside <c-canvas-link>${state.network.getLayerById(state.activeLayer).getName()}</c-canvas-link></span>
                 </div>
             </c-card>
         `;

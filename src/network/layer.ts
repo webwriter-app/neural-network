@@ -1,6 +1,6 @@
-import idState from '@/state/id_state'
-import canvasState from '@/state/canvas_state'
+import state from '@/state'
 
+import NeuralNet from './net';
 import Activation from '@/network/activation'
 
 export default abstract class Layer {
@@ -8,12 +8,14 @@ export default abstract class Layer {
     // to not have any typescript errors when referencing static properthis via instance.constructor
     declare ['constructor']: typeof Layer;
 
+    network: NeuralNet
+
     id: number
     inputFrom: Array<Layer>
     activation: Activation
     outputTo: Array<Layer>
 
-    // position on canvas (left top corner of the layer!)
+    // position on canvas (top left of the element on the canvas)
     pos: {
         x: number,
         y: number
@@ -24,8 +26,16 @@ export default abstract class Layer {
     static LAYER_NAME: string
     static DESCRIPTION: string
 
-    constructor({inputFrom, activation, outputTo, pos}) {
-        this.id = idState.getFreshId()
+    constructor({network, inputFrom, activation, outputTo, pos}) {
+
+        // set network and add layer to the network
+        this.network = network
+        network.addLayer(this)
+
+        // get a fresh id from the network
+        this.id = network.getFreshId()
+
+        // set inputs, outputs and activation
         this.inputFrom = inputFrom
         this.outputTo = outputTo
         this.setActivation(activation)
@@ -46,18 +56,33 @@ export default abstract class Layer {
 
         // if no position is specified, we let the canvas generate it
         } else {
-            this.pos = canvasState.generatePos()
+            this.pos = state.canvas.generatePos()
         }
+    }
+
+    // add an event listener that updates the layer position when layer is dragged on the canvas
+    addMoveListener() {
+
+        state.canvas.cy.$(`#${this.id}`).on('drag', (e) => {
+
+            const node = e.target
+            const cyPos = node.position()
+            this.updatePos({x: cyPos.x, y: cyPos.y, w: node.outerWidth(), h: node.outerHeight()})
+        })
     }
 
     // get a readable name for this layer (should only be used for displaying purposes)
     getName(): string {
-        return `${this.constructor.LAYER_NAME} ${this.id}`
+        return `${this.id} • ${this.constructor.LAYER_NAME} (${this.activation.name})`
     }
 
     // set the activation function
     setActivation(name: string): void {
         this.activation = Activation.getActivationByName(name)
+
+        // also update the label of the layer in the canvas
+        state.canvas.cy.getElementById(`${this.id}`).data("label", this.getName())
+
     }
 
     /*
@@ -137,7 +162,7 @@ export default abstract class Layer {
     }
 
     // create and return a new layer based on this (except inputs and outputs)
-    abstract duplicate(): Layer
+    abstract duplicate(): Layer | void
     
     // delete the layer by notifying its input and output and removing the elements from canvas
     delete(): void {
@@ -155,12 +180,12 @@ export default abstract class Layer {
     // each subclass should specify a function that returns an array of cytoscape node ids that should be connected to other allow to allow flexibility in whether connecting the layer as a whole, all neurons in the layer or anything other
     abstract getConnectionIds(): Array<string>
 
-    // each subclass should specify a build method that completely builds the layer
-    abstract build(): void
+/*     // each subclass should specify a build method that completely builds the layer
+    abstract build(): void */
 
     // remove the previous built layer if exists. these are all nodes with its layer property being this.id or edges with either source or target being this.id
     removeFromCanvas(): void {
-        let eles = canvasState.canvas.filter((element, i) => {
+        let eles = state.canvas.cy.filter((element, i) => {
             return element.isNode() && element.data('layer') == this.id
         }, this)
         eles.remove()
@@ -169,6 +194,18 @@ export default abstract class Layer {
     // since the user is able to edit the layers that this layer connects to, we need to flexible in adding and removing connections to a specific layer
     abstract buildConnectionFrom(layer: Layer): void
     abstract buildConnectionTo(layer: Layer): void
-    abstract removeConnectionFrom(layer: Layer): void
-    abstract removeConnectionTo(layer: Layer): void
+
+    removeConnectionFrom(layer: Layer): void {
+        let eles = state.canvas.cy.filter((element, i) => {
+            return element.isEdge() && (element.data('sourceLayer') == layer.id && element.data('targetLayer') == this.id)
+        }, this)
+        eles.remove()
+    }
+
+    removeConnectionTo(layer: Layer): void {
+        let eles = state.canvas.cy.filter((element, i) => {
+            return element.isEdge() && (element.data('sourceLayer') == this.id && element.data('targetLayer') == layer.id)
+        }, this)
+        eles.remove()
+    }
 }

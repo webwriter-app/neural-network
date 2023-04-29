@@ -2,16 +2,18 @@ import { LitElementWw } from "@webwriter/lit"
 import { html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js';
-import { observeState } from 'lit-element-state';
-import networkState from '@/state/network_state.js';
-import canvasState from "@/state/canvas_state";
+
+import { StateController } from "@lit-app/state";
+import state from '@/state'
 
 import NeuronLayer from "@/network/neuron_layer";
 import Layer from "@/network/layer";
-import spawnAlert from "@/alerts";
+import InputLayer from "@/network/input_layer";
 
 @customElement('layer-edit-card')
-class LayerEditCard extends observeState(LitElementWw) {
+class LayerEditCard extends LitElementWw {
+
+  state = new StateController(this, state)
 
   @query('#updateNeuronsForm') _updateNeuronsForm;
   @property() layer: Layer | null;
@@ -25,14 +27,14 @@ class LayerEditCard extends observeState(LitElementWw) {
   _handleAddNeuron(e) {
     if (this.layer instanceof NeuronLayer) {
       this.layer.addNeuron()
-      canvasState.fit()
+      state.canvas.fit()
     }
   }
 
   _handleRemoveNeuron(e) {
     if (this.layer instanceof NeuronLayer) {
       this.layer.removeNeuron()
-      canvasState.fit()
+      state.canvas.fit()
     }
   }
 
@@ -44,30 +46,40 @@ class LayerEditCard extends observeState(LitElementWw) {
     const units = parseInt(formData.units)
     if (this.layer instanceof NeuronLayer) {
       this.layer.setNeurons(units)
-      canvasState.fit()
+      state.canvas.fit()
     }
     this._updateNeuronsForm.reset()
-  }
-  
-  _handleDeleteLayer(e) {
-    networkState.net.removeLayer(this.layer)
-    canvasState.fit()
   }
 
   _handleChangeInput(e) {
     const layerIDs = this.renderRoot.querySelector('#inputSelect').value.map(id => {return parseInt(id)})
-    const layers = networkState.net.getLayersByIds(layerIDs)
+    const layers = state.network.getLayersByIds(layerIDs)
     this.layer.setInputFrom(layers)
   }
 
   _handleChangeOutput(e) {
     const layerIDs = this.renderRoot.querySelector('#outputSelect').value.map(id => {return parseInt(id)})
-    const layers = networkState.net.getLayersByIds(layerIDs)
+    const layers = state.network.getLayersByIds(layerIDs)
     this.layer.setOutputTo(layers)
   }
 
-  _getOptions() {
-    const options = networkState.net.layers.filter((layer) => layer != this.layer)
+  _handleDuplicateLayer(e) {
+    this.layer.duplicate()
+  }
+
+  _handleDeleteLayer(e) {
+    state.network.deselect()
+    state.network.removeLayer(this.layer)
+    state.canvas.fit()
+  }
+  
+  _getInputOptions() {
+    const options = state.network.layers.filter((layer) => layer != this.layer)
+    return options.map((layer) => html`<sl-option value="${layer.id.toString()}">${layer.getName()}</sl-option>`)
+  }
+
+  _getOutputOptions() {
+    const options = state.network.layers.filter((layer) => layer != this.layer && !(layer instanceof InputLayer))
     return options.map((layer) => html`<sl-option value="${layer.id.toString()}">${layer.getName()}</sl-option>`)
   }
 
@@ -79,11 +91,13 @@ class LayerEditCard extends observeState(LitElementWw) {
           Edit layer
         </div>
         <div slot="content">
-          <h3>Neurons</h3>
-          <c-button-group>
-            <sl-button @click="${this._handleAddNeuron}" variant=primary outline>Add neuron</sl-button>
-            <sl-button @click="${this._handleRemoveNeuron}" .disabled=${this.layer instanceof NeuronLayer && this.layer.units.length <= 1} variant=danger outline>Remove neuron</sl-button>
-          </c-button-group>
+          <div>
+            <h3>Neurons</h3>
+            <c-button-group>
+              <sl-button @click="${this._handleAddNeuron}" variant=primary outline>Add neuron</sl-button>
+              <sl-button @click="${this._handleRemoveNeuron}" .disabled=${this.layer instanceof NeuronLayer && this.layer.units.length <= 1} variant=danger outline>Remove neuron</sl-button>
+            </c-button-group>
+          </div>
           <form id="updateNeuronsForm">
             <c-button-group>
               <sl-input name="units" placeholder="set number of neurons manually" type="number" required></sl-input>
@@ -93,14 +107,19 @@ class LayerEditCard extends observeState(LitElementWw) {
           <div>
             <h3>Inputs</h3>
             <sl-select id="inputSelect" value=${this.layer.inputFrom.map(layer => layer.id).join(' ')} multiple clearable @sl-change="${this._handleChangeInput}">
-              ${this._getOptions()}
+              ${this._getInputOptions()}
             </sl-select>
             <h3>Outputs</h3>
             <sl-select id="outputSelect" value=${this.layer.outputTo.map(layer => layer.id).join(' ')} multiple clearable @sl-change="${this._handleChangeOutput}">
-              ${this._getOptions()}
+              ${this._getOutputOptions()}
             </sl-select>
           </div>
-          <sl-button @click="${this._handleDeleteLayer}" variant=danger outline>Delete layer</sl-button>
+        <div>
+          <h3>Layer</h3>
+          <c-button-group>
+            <sl-button @click="${this._handleDuplicateLayer}">Duplicate</sl-button>
+            <sl-button @click="${this._handleDeleteLayer}" variant=danger outline>Delete</sl-button>
+          </c-button-group>
         </div>
       </c-card>
     `;

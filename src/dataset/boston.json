@@ -1,0 +1,40 @@
+{
+    "name": "Boston House Pricing",
+    "description": "The Boston House Price Dataset involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.",
+    "inputs": [
+        {
+            "key": "CRIM",
+            "description": "per capita crime rate by town"
+        },
+        {
+            "key": "ZN",
+            "description": "proportion of residential land zoned for lots over 25,000 sq.ft."
+        },
+        {
+            "key": "INDUS",
+            "description": "proportion of nonretail business acres per town"
+        }
+    ],
+    "outputs": [
+        {
+            "type": "regression",
+            "key": "MEDV",
+            "description": "Median value of owner-occupied homes in $1000s"
+        },
+        {
+            "type": "classification",
+            "key": "KEY",
+            "description": "DESCRIPTION",
+            "classes": [
+                {
+                    "key": "CLASS_NAME",
+                    "description": "CLASS_DESCRIPTION"
+                },
+                {
+                    "key": "CLASS_NAME2",
+                    "description": "CLASS_DESCRIPTION2"
+                }
+            ]
+        }
+    ]
+}

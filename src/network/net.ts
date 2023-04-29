@@ -1,5 +1,7 @@
 import * as tf from '@tensorflow/tfjs';
 
+import state from '@/state'
+
 import Layer from '@/network/layer'
 
 export default class NeuralNet {
@@ -18,13 +20,9 @@ export default class NeuralNet {
         optimizer: string
     }
 
-    constructor({layers = []}) {
-        
-        // add the specified layers to this net
+    constructor() {
+
         this.layers = []
-        for (let layer of layers) {
-            this.addLayer(layer)
-        }
 
         this.model = null
 
@@ -62,12 +60,8 @@ export default class NeuralNet {
     }
 
     // returns the maximum id for layers used in the graph
-    getMaxId(): number {
-        let id = 0
-        for (let layer of this.layers) {
-            id = Math.max(id, layer.id)
-        }
-        return id
+    getFreshId(): number {
+        return this.layers.length
     }
 
     // add a layer to the network and build it
@@ -81,6 +75,40 @@ export default class NeuralNet {
     removeLayer(layerArg: Layer) {
         layerArg.delete()
         this.layers = this.layers.filter((layer) => layer != layerArg)
+    }
+
+    /*
+    SELECTION
+    */
+    deselect() {
+        state.selected = null
+        state.activeLayer = null
+        state.activeNeuron = null
+        state.activeEdge = null
+    }
+
+    selectLayer({layer}) {
+        this.deselect()
+        state.activeLayer = layer
+        state.selected = 'layer'
+    }
+
+    selectNeuron({layer = null, neuron}) {
+        this.deselect()
+        state.activeLayer = layer
+        state.activeNeuron = neuron
+        state.selected = 'neuron'
+    }
+
+    selectEdge({sourceLayer, sourceNeuron = null, targetLayer, targetNeuron = null}) {
+        this.deselect()
+        state.activeEdge = {
+            sourceLayer: sourceLayer,
+            sourceNeuron: sourceNeuron,
+            targetLayer: targetLayer,
+            targetNeuron: targetNeuron
+        }
+        state.selected = 'edge'
     }
 
 

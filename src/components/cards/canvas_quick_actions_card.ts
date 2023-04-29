@@ -2,68 +2,65 @@ import { LitElementWw } from "@webwriter/lit"
 import { html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
+import { StateController } from "@lit-app/state";
+import state from '@/state'
+
 import NeuralNet from "@/network/net";
 import InputLayer from "@/network/input_layer";
 import DenseLayer from "@/network/dense_layer";
-import SoftmaxLayer from "@/network/softmax_layer";
+import OutputLayer from "@/network/output_layer";
 
 import spawnAlert from '@/alerts'
-
-import networkState from "@/state/network_state";
-import canvasState from "@/state/canvas_state";
-import idState from "@/state/id_state";
-
+import DatasetFactory from "@/dataset/dataset_factory";
 
 @customElement('canvas-quick-actions-card')
 class CanvasQuickActions extends LitElementWw {
 
-  _handleClear(e) {
-    canvasState.clear()
-    idState.reset()
-    networkState.setNet(null)
+  state = new StateController(this, state)
 
+  _handleImport(e) {
+
+  }
+
+  _handleExport(e) {
+    
+  }
+
+  async _handleClear(e?) {
+    state.canvas.clear()
+    state.network = new NeuralNet()
+    state.dataset = await DatasetFactory.getDatasetByName(state.dataset.name)
     spawnAlert("The canvas has been cleared!")
   }
 
-  _handleCreateFeedForwardNetwork(e) {
+  async _handleCreateFeedForwardNetwork(e) {
 
-    // clear the canvas from previously built networks
-    canvasState.clear()
+    await this._handleClear()
     
-    /*const inputLayer = new InputLayer({})*/
+    const inputLayer = new InputLayer({
+      pos: {x: -400, y: 140}
+    })
+    inputLayer.assignInputs(state.dataset.getNonAssignedInputKeys())
     const denseLayer1 = new DenseLayer({
-      inputFrom: [/*inputLayer*/],
+      inputFrom: [inputLayer],
       units: 5,
-      pos: {
-        x: 0,
-        y: 0
-      }
+      pos: {x: 0, y: 0}
     })
     const denseLayer2 = new DenseLayer({
       inputFrom: [denseLayer1],
-      pos: {
-        x: 200,
-        y: 0
-      }
+      pos: {x: 400, y: -150}
     })
     const denseLayer3 = new DenseLayer({
       inputFrom: [denseLayer1],
       units: 3,
-      pos: {
-        x: 200,
-        y: 300
-      }
+      pos: {x: 400, y: 400}
     })
-    /*const softmaxLayer = new SoftmaxLayer({
-      inputFrom: [denseLayer2]
-    })*/
-
-    let network = new NeuralNet({
-      layers: [/*inputLayer,*/ denseLayer1, denseLayer2, denseLayer3/*, softmaxLayer*/]
+    const outputLayer = new OutputLayer({
+      inputFrom: [denseLayer2, denseLayer3],
+      pos: {x: 800, y: 175}
     })
 
-    networkState.setNet(network)
-    canvasState.fit()
+    state.canvas.fit()
 
     spawnAlert("A feed forward network has been created!")
   }

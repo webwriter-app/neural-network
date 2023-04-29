@@ -1,12 +1,12 @@
 import { LitElementWw } from "@webwriter/lit"
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { observeState } from 'lit-element-state';
+
 import Layer from "@/network/layer";
 import Activation from '@/network/activation'
 
 @customElement('layer-activation-card')
-class LayerActivationCard extends observeState(LitElementWw) {
+class LayerActivationCard extends LitElementWw {
 
     @property() layer: Layer | null
 

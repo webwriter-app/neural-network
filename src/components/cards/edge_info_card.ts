@@ -1,11 +1,14 @@
 import { LitElementWw } from "@webwriter/lit"
 import { html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { observeState } from 'lit-element-state';
-import networkState from '@/state/network_state.js';
+
+import { StateController } from "@lit-app/state";
+import state from '@/state'
 
 @customElement('edge-info-card')
-class EdgeInfoCard extends observeState(LitElementWw) {
+class EdgeInfoCard extends LitElementWw {
+
+    state = new StateController(this, state)
 
     render(){
         return html`
@@ -16,14 +19,14 @@ class EdgeInfoCard extends observeState(LitElementWw) {
                 <div slot="content">
                     <span>
                         Selected: Edge connecting
-                        ${networkState.activeEdge.sourceNeuron != null
-                        ? html`'Neuron ${networkState.activeEdge.sourceNeuron}' inside`
+                        ${state.activeEdge.sourceNeuron != null
+                        ? html`<c-canvas-link>Neuron ${state.activeEdge.sourceNeuron}</c-canvas-link> inside`
                         : html``}
-                        '${networkState.net.getLayerById(networkState.activeEdge.sourceLayer).getName()}'' with
-                        ${networkState.activeEdge.sourceNeuron != null
-                        ? html`'Neuron ${networkState.activeEdge.targetNeuron}' inside`
+                        <c-canvas-link>${state.network.getLayerById(state.activeEdge.sourceLayer).getName()}</c-canvas-link> with
+                        ${state.activeEdge.sourceNeuron != null
+                        ? html`<c-canvas-link>Neuron ${state.activeEdge.targetNeuron}</c-canvas-link> inside`
                         : html``}
-                        '${networkState.net.getLayerById(networkState.activeEdge.targetLayer).getName()}''
+                        <c-canvas-link>${state.network.getLayerById(state.activeEdge.targetLayer).getName()}</c-canvas-link>
                     </span>
                 </div>
             </c-card>

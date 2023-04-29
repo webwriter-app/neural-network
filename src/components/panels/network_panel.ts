@@ -1,8 +1,13 @@
 import { LitElementWw } from "@webwriter/lit"
 import { html, css } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
-import { observeState } from 'lit-element-state';
-import networkState from '@/state/network_state.js';
+import { customElement } from 'lit/decorators.js'
+
+import { StateController } from "@lit-app/state";
+import state from '@/state'
+
+import InputLayer from "@/network/input_layer";
+import DenseLayer from "@/network/dense_layer";
+import OutputLayer from "@/network/output_layer";
 
 // canvas cards
 import '@/components/cards/canvas_info_card'
@@ -13,6 +18,12 @@ import '@/components/cards/canvas_add_layer_card'
 import '@/components/cards/layer_info_card'
 import '@/components/cards/layer_edit_card'
 import '@/components/cards/layer_activation_card'
+    // input layer
+    import '@/components/cards/inputlayer_data_card'
+    import '@/components/cards/inputlayer_edit_card'
+    // output layer
+    import '@/components/cards/outputlayer_data_card'
+    import '@/components/cards/outputlayer_edit_card'
 
 // neuron cards
 import '@/components/cards/neuron_info_card'
@@ -21,7 +32,9 @@ import '@/components/cards/neuron_info_card'
 import '@/components/cards/edge_info_card'
 
 @customElement('network-panel')
-class NetworkPanel extends observeState(LitElementWw) {
+class NetworkPanel extends LitElementWw {
+
+    state = new StateController(this, state)
 
     static styles = css`
         .panel {
@@ -32,26 +45,40 @@ class NetworkPanel extends observeState(LitElementWw) {
     `
 
     getCards() {
-        if (networkState.selected == null) {
+        if (state.selected == null) {
             return html`
             <canvas-info-card></canvas-info-card>
             <canvas-quick-actions-card></canvas-quick-actions-card>
-            <canvas-add-layer-card layer=null></canvas-add-layer-card>
-            You may select a network entity, layer, neuron or activation to view and edit its corresponding information.
+            <canvas-add-layer-card></canvas-add-layer-card>
             `
-        } else if (networkState.selected == 'layer') {
-            const layer = networkState.net.getLayerById(networkState.activeLayer)
-            return html`
-            <layer-info-card .layer=${layer}></layer-info-card>
-            <layer-edit-card .layer=${layer}></layer-edit-card>
-            <layer-activation-card .layer=${layer}></layer-activation-card>
-            <canvas-add-layer-card .layer=${layer}></canvas-add-layer-card>
-            `
-        } else if (networkState.selected == 'neuron') {
+        } else if (state.selected == 'layer') {
+            const layer = state.network.getLayerById(state.activeLayer)
+            if (layer instanceof InputLayer) {
+                return html`
+                <layer-info-card .layer=${layer}></layer-info-card>
+                <inputlayer-data-card .layer=${layer}></inputlayer-data-card>
+                <inputlayer-edit-card .layer=${layer}></inputlayer-edit-card>
+                `
+            } else if (layer instanceof DenseLayer) {
+                return html`
+                <layer-info-card .layer=${layer}></layer-info-card>
+                <layer-edit-card .layer=${layer}></layer-edit-card>
+                <layer-activation-card .layer=${layer}></layer-activation-card>
+                `
+            }
+            else if (layer instanceof OutputLayer) {
+                return html`
+                <layer-info-card .layer=${layer}></layer-info-card>
+                <outputlayer-data-card .layer=${layer}></outputlayer-data-card>
+                <outputlayer-edit-card .layer=${layer}></outputlayer-edit-card>
+                <layer-activation-card .layer=${layer}></layer-activation-card>
+                `
+            }
+        } else if (state.selected == 'neuron') {
             return html`
             <neuron-info-card></neuron-info-card>
             `
-        } else if (networkState.selected == 'edge') {
+        } else if (state.selected == 'edge') {
             return html`
             <edge-info-card></edge-info-card>
             `

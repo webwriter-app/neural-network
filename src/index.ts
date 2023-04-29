@@ -3,7 +3,9 @@ import {html, css} from "lit"
 import {customElement} from "lit/decorators.js"
 
 import '@/components/panels/canvas_panel'
-import '@/components/panels/right_panel'
+import '@/components/panels/dataset_panel.ts'
+import '@/components/panels/network_panel.ts'
+import '@/components/panels/train_panel.ts'
 import '@/components/panels/bottom_panel'
 
 @customElement("ww-machinelearningvisualizer")
@@ -43,8 +45,15 @@ export class WwMachinelearningvisualizer extends LitElementWw {
               <canvas-panel></canvas-panel>
             </div>
             <sl-icon slot="divider" name="grip-vertical"></sl-icon>
-            <div slot="end" class="panel">
-              <right-panel></right-panel>
+            <div slot="end" class="panel" style="padding: 10px">
+              <sl-tab-group>
+                <sl-tab slot="nav" panel="network">Network</sl-tab>
+                <sl-tab slot="nav" panel="dataset">Dataset</sl-tab>
+                <sl-tab slot="nav" panel="training">Training</sl-tab>
+                <sl-tab-panel name="network"><network-panel></network-panel></sl-tab-panel>
+                <sl-tab-panel name="dataset"><dataset-panel></dataset-panel></sl-tab-panel>
+                <sl-tab-panel name="training"><train-panel></train-panel></sl-tab-panel>
+                </sl-tab-group>
             </div>
           </sl-split-panel>
         </div>

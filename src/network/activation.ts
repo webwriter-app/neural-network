@@ -14,10 +14,11 @@ export default class Activation {
             case "None": return new Activation({name: 'None', activate: (i) => {return i}})
             case "ReLu": return new Activation({name: 'ReLu', activate: (i) => {return i}})
             case "Sigmoid": return new Activation({name: 'Sigmoid', activate: (i) => {return i}})
+            case "Softmax": return new Activation({name: 'Softmax', activate: (i) => {return i}})
         }
     }
 
     static getOptions(): Array<string> {
-        return ["None", "ReLu", "Sigmoid"]
+        return ["None", "ReLu", "Sigmoid", "Softmax"]
     }
 }

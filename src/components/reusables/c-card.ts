@@ -10,6 +10,7 @@ class CCard extends LitElementWw {
 
     .c-card {
       width: 100%;
+      position: relative;
     }
 
     .c-card [slot='header'] {
@@ -34,19 +35,33 @@ class CCard extends LitElementWw {
       font-size: var(--sl-font-size-medium);
     }
 
+    .drawer {
+      border: 1px solid black;
+      background-color: green;
+    }
+
    /*  :host(:not([editable])) div[slot="header"] {
       display: none
     } */
   `
+
+  _handleToggleDrawer() {
+    const drawer = this.renderRoot.querySelector('.drawer');
+    drawer.open = !drawer.open
+  }
 
   render(){
     return html`
       <sl-card class="c-card">
         <div slot="header">
           <h2><slot name="title"></slot></h2>
-          <sl-icon-button name="gear" label="Settings"></sl-icon-button>
+          <sl-icon-button name="gear" label="Settings" @click=${this._handleToggleDrawer}></sl-icon-button>
         </div>
-        <slot name="content"></slot>
+        <slot name="content">
+        </slot>
+        <sl-drawer label="Settings" contained class="drawer" style="--size: 80%;">
+          <slot name="settings">
+        </sl-drawer>
       </sl-card>
     `;
   }

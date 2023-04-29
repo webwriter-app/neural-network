@@ -1,11 +1,11 @@
 import { LitElementWw } from "@webwriter/lit"
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { observeState } from 'lit-element-state';
+
 import Layer from "@/network/layer";
 
 @customElement('layer-info-card')
-class LayerInfoCard extends observeState(LitElementWw) {
+class LayerInfoCard extends LitElementWw {
 
     @property() layer: Layer | null
 
@@ -16,7 +16,7 @@ class LayerInfoCard extends observeState(LitElementWw) {
                     Info
                 </div>
                 <div slot="content">
-                    <span>Selected: '${this.layer.getName()}'</span>
+                    <span>Selected: <c-canvas-link target="${this.layer.id}" disabled>${this.layer.getName()}</c-canvas-link></span>
                     <span>${this.layer.constructor.DESCRIPTION}</span>
                 </div>
             </c-card>
