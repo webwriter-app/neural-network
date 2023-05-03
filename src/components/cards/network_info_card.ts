@@ -2,8 +2,8 @@ import { LitElementWw } from "@webwriter/lit"
 import { html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
-@customElement('canvas-info-card')
-class CanvasInfoCard extends LitElementWw {
+@customElement('network-info-card')
+class NetworkInfoCard extends LitElementWw {
 
   render(){
     return html`
@@ -12,7 +12,7 @@ class CanvasInfoCard extends LitElementWw {
                 Info
             </div>
             <div slot="content">
-                You currently do not have an item selected in the network graph. Select a layer or a neuron to view and edit its corresponding information.
+                Build your network by adding layers or choose a quick setup option below. Select layers in the graph to edit their properties and connect them with other layers.
             </div>
         </c-card>
     `;

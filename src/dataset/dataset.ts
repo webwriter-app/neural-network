@@ -9,12 +9,14 @@ export default class Dataset {
     description: string
     inputs: DatasetInput[]
     outputs: Array<DatasetRegressionOutput | DatasetClassificationOutput>
+    data: Array<{inputData: any, outputData: any}>
 
-    constructor({name, description, inputs, outputs}) {
+    constructor({name, description, inputs, outputs}, data: Array<{inputData: any, outputData: any}>) {
         this.name = name
         this.description = description
         this.inputs = inputs
         this.outputs = outputs
+        this.data = data
     }
 
     /*
@@ -25,7 +27,7 @@ export default class Dataset {
         return nonAssignedInputs.map(input => input.key)
     }
 
-    getInputByKey(key): DatasetInput {
+    getInputByKey(key: string): DatasetInput {
         let input = this.inputs.find(input => input.key == key)
         return input
     }
@@ -48,7 +50,7 @@ export default class Dataset {
         return nonAssignedOutputs.map(output => output.key)
     }
 
-    getOutputByKey(key): DatasetRegressionOutput | DatasetClassificationOutput {
+    getOutputByKey(key: string): DatasetRegressionOutput | DatasetClassificationOutput {
         let output = this.outputs.find(output => output.key == key)
         return output
     }
@@ -61,5 +63,12 @@ export default class Dataset {
     dismissOutput({key}: {key: string}): void {
         let output = this.getOutputByKey(key)
         output.layer = null
+    }
+
+    /*
+    DATA
+    */
+    getData() {
+        return this.data
     }
 }

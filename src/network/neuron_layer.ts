@@ -18,7 +18,7 @@ export default abstract class NeuronLayer extends Layer {
         
         super({network, inputFrom, activation, outputTo, pos})
         
-        this.buildLayer()
+        this.drawLayer()
         this.units = []
         for (let unit = 1; unit <= units; unit++) {
             this.addNeuron({})
@@ -35,10 +35,29 @@ export default abstract class NeuronLayer extends Layer {
     /*
     MANIPULATING LAYER
     */
+    // adds a Neuron to the layer
     addNeuron({inputData, outputData}: {inputData?: string, outputData?: string} = {}): Neuron {
+
+        // create a new neuron with a fresh id and specified data and add it to our array of neurons
         const neuron = new Neuron({layer: this, id: this.getFreshNeuronId(), inputData: inputData, outputData: outputData})
         this.units.push(neuron)
-        neuron.build({cy: state.canvas.cy, cypos: this.getPositionForUnit(this.units.length)})
+
+/*         // we do want to keep the center of our layer in the canvas and not just add nodes at the bottom. This only works if we had at least one neuron before @TODO maybe implement this, not top priority
+        if (this.units.length > 1) {
+            const thisNode = state.canvas.cy.getElementById(`${this.id}`)
+            const newCyposY = thisNode.position().y - (state.canvas.NEURON_SIZE + state.canvas.NEURON_DISTANCE)/2
+            this.updatePos({x: thisNode.position().x, y: newCyposY, w: thisNode.outerWidth(), h: thisNode.outerHeight()})
+        }
+
+        // Because we have updated or position, we need to redraw our neurons (including the now freshly added one)
+        for (const [index, neuron] of this.units.entries()) {
+            neuron.draw({cy: state.canvas.cy, cypos: this.getPositionForUnit(index + 1)})
+        } */
+
+        // draw the freshly added neuron
+        neuron.draw({cy: state.canvas.cy, cypos: this.getPositionForUnit(this.units.length)})
+
+        // return the neuron
         return neuron
     }
 
@@ -78,7 +97,7 @@ export default abstract class NeuronLayer extends Layer {
     }
 
     /*
-    BUILD LAYER FOR CANVAS
+    DRAW LAYER ON CANVAS
     */
     // get the position for a specific unit, starting at 1
     getPositionForUnit(n: number): {x: number, y: number} {
@@ -86,11 +105,11 @@ export default abstract class NeuronLayer extends Layer {
         let cypos = Object.create(this.pos)
         cypos.x += state.canvas.LAYER_PADDING + state.canvas.NEURON_SIZE/2
         cypos.y += state.canvas.LAYER_PADDING + state.canvas.NEURON_SIZE/2
-        cypos.y += (state.canvas.NEURON_SIZE + state.canvas.NEURON_DISTANCE) * (n-1)
+        cypos.x += (state.canvas.NEURON_SIZE + state.canvas.NEURON_DISTANCE) * (n-1)
         return cypos
     }
 
-    buildLayer() {
+    drawLayer() {
 
         // remove potentially previously built layer
         let eles = state.canvas.cy.filter((element, i) => {
@@ -102,7 +121,7 @@ export default abstract class NeuronLayer extends Layer {
         state.canvas.cy.add({
             group: 'nodes',
             data: { 
-                id: `${this.id}`, 
+                id: this.getCyId(), 
                 label: this.getName(),
                 type: 'layer',
                 layer: this.id,
@@ -111,14 +130,14 @@ export default abstract class NeuronLayer extends Layer {
         })
     }
 
-    buildConnectionFrom(layer: Layer) {
+    drawConnectionFrom(layer: Layer) {
         for (let neuron of this.units) {
             let source = {layer: layer.id, nodes: layer.getConnectionIds()}
             neuron.drawConnectionFrom({cy: state.canvas.cy, source: source})
         }
     }
 
-    buildConnectionTo(layer: Layer) {
+    drawConnectionTo(layer: Layer) {
         for (let neuron of this.units) {
             let target = {layer: layer.id, nodes: layer.getConnectionIds()}
             neuron.drawConnectionTo({cy: state.canvas.cy, target: target})

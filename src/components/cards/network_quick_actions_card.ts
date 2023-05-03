@@ -13,8 +13,8 @@ import OutputLayer from "@/network/output_layer";
 import spawnAlert from '@/alerts'
 import DatasetFactory from "@/dataset/dataset_factory";
 
-@customElement('canvas-quick-actions-card')
-class CanvasQuickActions extends LitElementWw {
+@customElement('network-quick-actions-card')
+class NetworkQuickActions extends LitElementWw {
 
   state = new StateController(this, state)
 
@@ -27,10 +27,14 @@ class CanvasQuickActions extends LitElementWw {
   }
 
   async _handleClear(e?) {
-    state.canvas.clear()
-    state.network = new NeuralNet()
-    state.dataset = await DatasetFactory.getDatasetByName(state.dataset.name)
+    state.network.cleanup()
     spawnAlert("The canvas has been cleared!")
+    if (state.dataset.name) {
+      state.dataset = await DatasetFactory.getDatasetByName(state.dataset.name)
+    } else {
+      state.dataset = await DatasetFactory.getDatasetByName(DatasetFactory.getOptions()[0])
+    }
+    state.network = new NeuralNet()
   }
 
   async _handleCreateFeedForwardNetwork(e) {
@@ -38,26 +42,25 @@ class CanvasQuickActions extends LitElementWw {
     await this._handleClear()
     
     const inputLayer = new InputLayer({
-      pos: {x: -400, y: 140}
+      pos: {x: 0, y: 0}
     })
-    inputLayer.assignInputs(state.dataset.getNonAssignedInputKeys())
     const denseLayer1 = new DenseLayer({
       inputFrom: [inputLayer],
       units: 5,
-      pos: {x: 0, y: 0}
+      pos: {x: 500, y: -300}
     })
     const denseLayer2 = new DenseLayer({
       inputFrom: [denseLayer1],
-      pos: {x: 400, y: -150}
+      pos: {x: 300, y: -600}
     })
     const denseLayer3 = new DenseLayer({
       inputFrom: [denseLayer1],
       units: 3,
-      pos: {x: 400, y: 400}
+      pos: {x: 1200, y: -600}
     })
     const outputLayer = new OutputLayer({
       inputFrom: [denseLayer2, denseLayer3],
-      pos: {x: 800, y: 175}
+      pos: {x: 900, y: -900}
     })
 
     state.canvas.fit()
@@ -75,11 +78,23 @@ class CanvasQuickActions extends LitElementWw {
         </div>
         <div slot="content">
           <c-button-group>
-            <sl-button @click="${this._handleImport}">Import</sl-button>
-            <sl-button @click="${this._handleExport}">Export</sl-button>
-            <sl-button @click="${this._handleClear}" variant=danger outline>Clear</sl-button>
+            <sl-button @click="${this._handleImport}">
+              <sl-icon slot="prefix" name="file-earmark-arrow-up"></sl-icon>
+              Import
+            </sl-button>
+            <sl-button @click="${this._handleExport}">
+              <sl-icon slot="prefix" name="file-earmark-arrow-down"></sl-icon>
+              Export
+            </sl-button>
+            <sl-button @click="${this._handleClear}" variant=danger outline>
+              <sl-icon slot="prefix" name="trash"></sl-icon>
+              Clear
+            </sl-button>
           </c-button-group>
-          <sl-button @click="${this._handleCreateFeedForwardNetwork}" variant=primary outline>Create feed forward network</sl-button>
+          <sl-button @click="${this._handleCreateFeedForwardNetwork}" variant=primary outline>
+            <sl-icon slot="prefix" name="file-earmark-plus"></sl-icon>
+            Create feed forward network
+          </sl-button>
         </div>
       </c-card>
     `;

@@ -8,20 +8,13 @@ import state from '@/state'
 import '@/components/cards/dataset_info_card'
 import '@/components/cards/dataset_select_card'
 
-import DatasetFactory from "@/dataset/dataset_factory";
-
 @customElement('dataset-panel')
 class DatasetPanel extends LitElementWw {
 
     state = new StateController(this, state)
 
-    connectedCallback() {
-        super.connectedCallback()
-    
-        // Load the standard dataset
-        DatasetFactory.getDatasetByName("Boston House Pricing").then(dataset => {
-            state.dataset = dataset
-        })
+    _handleSetDataset(e) {
+        state.dataset = e.detail.dataset
     }
 
     static styles = css`
@@ -38,7 +31,7 @@ class DatasetPanel extends LitElementWw {
                 ${ state.dataset ? html`
                     <dataset-info-card .dataset="${state.dataset}"></dataset-info-card>
                 ` : ``}
-                <dataset-select-card .dataset="${state.dataset}"></dataset-select-card>
+                <dataset-select-card .dataset="${state.dataset}" @change-dataset="${this._handleSetDataset}"></dataset-select-card>
             </div>
         `;
     }

@@ -9,8 +9,10 @@ class DatasetSelectCard extends LitElementWw {
 
     @property() dataset
 
-    _handleChangeDataset(e) {
-
+    async _handleChangeDataset(e) {
+        const newDataset = await DatasetFactory.getDatasetByName(decodeURI(this.renderRoot.querySelector('#datasetSelect').value))
+        const event = new CustomEvent('change-dataset', {detail: {dataset: newDataset}});
+        this.dispatchEvent(event)
     }
 
     render(){
@@ -21,14 +23,13 @@ class DatasetSelectCard extends LitElementWw {
                 </div>
                 <div slot="content">
                     ${this.dataset
-                    ? html`<sl-select .value="${encodeURI(this.dataset.name)}" @sl-change="${this._handleChangeDataset}">
-                        ${DatasetFactory.getOptions().map((option) => html`<sl-option .value="${encodeURI(option.name)}">${option.name}</sl-option>`)}
+                    ? html`<sl-select .value="${encodeURI(this.dataset.name)}" @sl-change="${this._handleChangeDataset}" id="datasetSelect">
+                        ${DatasetFactory.getOptions().map((option) => html`<sl-option .value="${encodeURI(option)}">${option}</sl-option>`)}
                     </sl-select>`
                     : html`<sl-select @sl-change="${this._handleChangeDataset}" placeholder="Select a dataset">
-                        ${DatasetFactory.getOptions().map((option) => html`<sl-option .value="${encodeURI(option.name)}">${option.name}</sl-option>`)}
+                        ${DatasetFactory.getOptions().map((option) => html`<sl-option .value="${encodeURI(option)}">${option}</sl-option>`)}
                     </sl-select>`
                     }
-                    <h3 style="text-align: center">or</h3>
                     <sl-button disabled>Create your own dataset</sl-button>
                 </div>
             </c-card>

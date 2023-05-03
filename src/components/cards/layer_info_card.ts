@@ -16,7 +16,7 @@ class LayerInfoCard extends LitElementWw {
                     Info
                 </div>
                 <div slot="content">
-                    <span>Selected: <c-canvas-link target="${this.layer.id}" disabled>${this.layer.getName()}</c-canvas-link></span>
+                    <span>Selected: <c-network-link .target="${this.layer}">${this.layer.getName()}</c-network-link></span>
                     <span>${this.layer.constructor.DESCRIPTION}</span>
                 </div>
             </c-card>

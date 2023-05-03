@@ -34,7 +34,7 @@ class OutputlayerDataCard extends LitElementWw {
                     Assign output data
                 </div>
                 <div slot="content">
-                    <sl-select id="outputDataSelect" value=${this.layer.getAssignedOutput()} clearable @sl-change="${this._handleChangeOutputData}" help-text="Select output data">
+                    <sl-select id="outputDataSelect" value=${this.layer.getAssignedOutput()} clearable @sl-change="${this._handleChangeOutputData}" help-text="Assign output data to this layer">
                         ${this._getOptions()}
                     </sl-select>
                 </div>

@@ -19,16 +19,10 @@ class CCard extends LitElementWw {
       justify-content: space-between;
     }
 
-    .c-card [slot='content'] {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
     .c-card ::slotted(div[slot='content']) {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 10px;
     }
 
     .c-card sl-icon-button {

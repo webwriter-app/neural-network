@@ -27,11 +27,9 @@ class OutputlayerEditCard extends LitElementWw {
   }
 
   _handleDeleteLayer(e) {
-    state.network.removeLayer(this.layer)
-    state.canvas.fit()
+    this.layer.delete()
   }
 
-  // @TODO: somehow make the number of units reactive, so that when removing multiple neurons, the button to remove is disabled when we reach a units value of 1
   render(){
     return html`
       <c-card>

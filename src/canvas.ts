@@ -36,8 +36,11 @@ export default class Canvas {
                   'background-color': '#efefef',
                   'border-color': '#efefef',
                   'border-width': 5,
-                  'padding': `${this.LAYER_PADDING}px`,
+                  'padding': this.LAYER_PADDING,
                   'label': 'data(label)',
+                  'text-halign': 'left',
+                  'text-valign': 'center',
+                  'text-margin-x' : -20
                 }
               },
               {
@@ -52,8 +55,11 @@ export default class Canvas {
                   'shape': 'round-rectangle',
                   'border-width': 5,
                   'border-color': 'black',
-                  'padding': `0`,
+                  'padding': 0,
                   'label': 'data(label)',
+                  'text-halign': 'center',
+                  'text-valign': 'bottom',
+                  'text-margin-y' : 20
                 }
               },
               {
@@ -77,15 +83,9 @@ export default class Canvas {
                 }
               },
               {
-                selector: 'node[type="invisible"]',
-                style: {
-                  'background-opacity': 0,
-                }
-              },
-              {
                 selector: 'edge',
                 style: {
-                  'width': 5,
+                  'width': 3,
                   'line-color': 'lightgray',
                   'target-arrow-color': 'gray',
                   'target-arrow-shape': 'triangle',
@@ -105,17 +105,21 @@ export default class Canvas {
             selectionType: 'single',
         })
 
-        // Prevent selection of multiple nodes by holding shift
-        this.cy.on('select', 'node, edge', e => this.cy.elements().not(e.target).unselect())
+        // Add event listener when tapped on canvas
+        this.cy.on('tap', (e) => {
+          if( e.target === this.cy ){
+            state.network.deselect()
+          }
+        })
 
         // Add event listener for selection of layers or nodes
-        this.cy.on('tap', (e) => {
+        this.cy.on('select', 'node, edge', (e) => {
+
+            // Prevent selection of multiple nodes by holding shift
+            this.cy.elements().not(e.target).unselect()
             const evtTarget = e.target
     
-            if( evtTarget === this.cy ){
-            state.network.deselect()
-    
-            } else if (evtTarget.isNode()) {
+            if (evtTarget.isNode()) {
     
                 const node = evtTarget
         
@@ -161,24 +165,19 @@ export default class Canvas {
             this.cy.zoom(this.cy.zoom() + 0.1)
         }
     }
-
-    clear() {
-        this.cy.remove('node')
-    }
-
+    
     /*
     POSITIONING
     */
     // get the width of an element
-    getWidth(id: number) {
+    getHeight(id: number) {
         let elm = this.cy.getElementById(id)
-        return elm.outerWidth()
+        return elm.outerHeight()
     }
 
     // generate a new position, currently just in the middle of the canvas
     generatePos() {
         let viewport = this.cy.extent()
-        console.log(this.cy.extent())
         return {
             x: viewport.x1 + (viewport.x2 - viewport.x1) / 2,
             y: viewport.y1 + (viewport.y2 - viewport.y1) / 2

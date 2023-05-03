@@ -73,7 +73,7 @@ export default abstract class Layer {
 
     // get a readable name for this layer (should only be used for displaying purposes)
     getName(): string {
-        return `${this.id} • ${this.constructor.LAYER_NAME} (${this.activation.name})`
+        return `${this.id} • ${this.constructor.LAYER_NAME} ${this.activation.name != 'None' ? `(${this.activation.name})` : ``}`
     }
 
     // set the activation function
@@ -88,21 +88,26 @@ export default abstract class Layer {
     /*
     CANVAS
     */
+    // return the id of the element in the canvas
+    getCyId(): string {
+        return `${this.id}`
+    }
+
     // update pos (note: the pos in the argument specifies cytoscape pos, thus: the middle)
     updatePos(cypos: {x: number, y: number, w: number, h: number}) {
         this.pos.x = cypos.x - (cypos.w/2)
         this.pos.y = cypos.y - (cypos.h/2)
     }
-    
+
     /*
     INPUT AND OUTPUT
     */
     // sets the input (res. output) (overrides existing)
     setInputFrom(layers: Layer[]) {
-        // build the connections to the newly added layers and notify them about it
+        // draw the connections to the newly added layers and notify them about it
         const addedLayers = layers.filter(layer => !this.inputFrom.includes(layer));
         for (let layer of addedLayers) {
-            this.buildConnectionFrom(layer)
+            this.drawConnectionFrom(layer)
             this.notifyToAddOutput(layer)
         }
 
@@ -117,10 +122,10 @@ export default abstract class Layer {
         this.inputFrom = layers
     }
     setOutputTo(layers: Layer[]) {
-        // build the connections to the newly added layers and notify them about it
+        // draw the connections to the newly added layers and notify them about it
         const addedLayers = layers.filter(layer => !this.outputTo.includes(layer));
         for (let layer of addedLayers) {
-            this.buildConnectionTo(layer)
+            this.drawConnectionTo(layer)
             this.notifyToAddInput(layer)
         }
 
@@ -166,6 +171,7 @@ export default abstract class Layer {
     
     // delete the layer by notifying its input and output and removing the elements from canvas
     delete(): void {
+        
         // notify all elements that this layer is connected to to remove it from their inputFrom or outputTo arrays
         for (let input of this.inputFrom) {
             this.notifyToDeleteOutput(input)
@@ -173,6 +179,10 @@ export default abstract class Layer {
         for (let output of this.outputTo) {
             this.notifyToDeleteInput(output)
         }
+
+        // remove the layer from the network
+        state.network.removeLayer(this)
+
         // remove all elements from canvas
         this.removeFromCanvas()
     }
@@ -180,8 +190,8 @@ export default abstract class Layer {
     // each subclass should specify a function that returns an array of cytoscape node ids that should be connected to other allow to allow flexibility in whether connecting the layer as a whole, all neurons in the layer or anything other
     abstract getConnectionIds(): Array<string>
 
-/*     // each subclass should specify a build method that completely builds the layer
-    abstract build(): void */
+/*     // each subclass should specify a draw method that completely draws the layer
+    abstract draw(): void */
 
     // remove the previous built layer if exists. these are all nodes with its layer property being this.id or edges with either source or target being this.id
     removeFromCanvas(): void {
@@ -192,8 +202,8 @@ export default abstract class Layer {
     }
 
     // since the user is able to edit the layers that this layer connects to, we need to flexible in adding and removing connections to a specific layer
-    abstract buildConnectionFrom(layer: Layer): void
-    abstract buildConnectionTo(layer: Layer): void
+    abstract drawConnectionFrom(layer: Layer): void
+    abstract drawConnectionTo(layer: Layer): void
 
     removeConnectionFrom(layer: Layer): void {
         let eles = state.canvas.cy.filter((element, i) => {

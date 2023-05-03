@@ -1,14 +1,17 @@
 import { LitElementWw } from "@webwriter/lit"
 import { html } from 'lit'
-import { customElement } from 'lit/decorators.js'
+import { customElement, property } from 'lit/decorators.js'
 
-import { StateController } from "@lit-app/state";
-import state from '@/state'
+import Layer from "@/network/layer";
+import Neuron from "@/network/neuron";
 
 @customElement('edge-info-card')
 class EdgeInfoCard extends LitElementWw {
 
-    state = new StateController(this, state)
+    @property() sourceLayer: Layer
+    @property() targetLayer: Layer
+    @property() sourceNeuron: Neuron
+    @property() targetNeuron: Neuron
 
     render(){
         return html`
@@ -19,14 +22,14 @@ class EdgeInfoCard extends LitElementWw {
                 <div slot="content">
                     <span>
                         Selected: Edge connecting
-                        ${state.activeEdge.sourceNeuron != null
-                        ? html`<c-canvas-link>Neuron ${state.activeEdge.sourceNeuron}</c-canvas-link> inside`
+                        ${this.sourceNeuron != null
+                        ? html`<c-network-link .target="${this.sourceNeuron}">Neuron ${this.sourceNeuron.id}</c-network-link> inside`
                         : html``}
-                        <c-canvas-link>${state.network.getLayerById(state.activeEdge.sourceLayer).getName()}</c-canvas-link> with
-                        ${state.activeEdge.sourceNeuron != null
-                        ? html`<c-canvas-link>Neuron ${state.activeEdge.targetNeuron}</c-canvas-link> inside`
+                        <c-network-link .target="${this.sourceLayer}">${this.sourceLayer.getName()}</c-network-link> with
+                        ${this.targetNeuron != null
+                        ? html`<c-network-link .target="${this.targetNeuron}">Neuron ${this.targetNeuron.id}</c-network-link> inside`
                         : html``}
-                        <c-canvas-link>${state.network.getLayerById(state.activeEdge.targetLayer).getName()}</c-canvas-link>
+                        <c-network-link .target="${this.targetLayer}">${this.targetLayer.getName()}</c-network-link>
                     </span>
                 </div>
             </c-card>

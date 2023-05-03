@@ -17,10 +17,10 @@ export default class DenseLayer extends NeuronLayer {
 
     // duplicate layer
     duplicate(): DenseLayer {
-        const width = state.canvas.getWidth(this.id)
+        const height = state.canvas.getHeight(this.id)
         const newPos = {
-            x: this.pos.x + width + state.canvas.LAYER_DISTANCE,
-            y: this.pos.y
+            x: this.pos.x,
+            y: this.pos.y - height - state.canvas.LAYER_DISTANCE
         }
         return new DenseLayer({inputFrom: [this], units: this.units.length, activation: this.activation.name, pos: newPos})
     }

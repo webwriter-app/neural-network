@@ -14,11 +14,6 @@ class InputlayerDataCard extends LitElementWw {
 
     @property() layer: InputLayer | null
 
-    _handleAssignAllData() {
-        const nonAssignedInputKeys = state.dataset.getNonAssignedInputKeys()
-        this.layer.assignInputs(nonAssignedInputKeys)
-    }
-
     _handleChangeInputData(e) {
         const inputKeys = this.renderRoot.querySelector('#inputDataSelect').value
         this.layer.setInputs(inputKeys)
@@ -38,8 +33,7 @@ class InputlayerDataCard extends LitElementWw {
                     Assign input data
                 </div>
                 <div slot="content">
-                    <sl-button @click="${this._handleAssignAllData}">Assign all non-assigned inputs to this layer</sl-button>
-                    <sl-select id="inputDataSelect" value=${this.layer.getAssignedInputs().join(' ')} multiple clearable @sl-change="${this._handleChangeInputData}" help-text="Assign yet non-assigned input data manually">
+                    <sl-select id="inputDataSelect" value=${this.layer.getAssignedInputs().join(' ')} multiple @sl-change="${this._handleChangeInputData}" help-text="Assign input data to this layer">
                         ${this._getOptions()}
                     </sl-select>
                 </div>

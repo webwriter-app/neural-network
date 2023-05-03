@@ -1,14 +1,16 @@
 import { LitElementWw } from "@webwriter/lit"
 import { html } from 'lit'
-import { customElement } from 'lit/decorators.js'
+import { customElement, property } from 'lit/decorators.js'
 
-import { StateController } from "@lit-app/state";
-import state from '@/state'
+import Neuron from "@/network/neuron";
+import Dataset from "@/dataset/dataset";
+import OutputLayer from "@/network/output_layer";
 
 @customElement('neuron-info-card')
 class NeuronInfoCard extends LitElementWw {
 
-    state = new StateController(this, state)
+    @property() neuron: Neuron
+    @property() dataset: Dataset
 
     render(){
         return html`
@@ -17,7 +19,17 @@ class NeuronInfoCard extends LitElementWw {
                     Info
                 </div>
                 <div slot="content">
-                    <span>Selected item: <c-canvas-link disabled>Neuron ${state.activeNeuron}</c-canvas-link> inside <c-canvas-link>${state.network.getLayerById(state.activeLayer).getName()}</c-canvas-link></span>
+                    <div>
+                        <p>Selected item: <c-network-link .target="${this.neuron}">Neuron ${this.neuron.id}</c-network-link> inside <c-network-link .target="${this.neuron.layer}">${this.neuron.layer.getName()}</c-network-link></p>
+                        ${this.neuron.inputData ? html`
+                            <h4>Assigned input data</h4>
+                            <c-data-info .dataProperty="${this.dataset.getInputByKey(this.neuron.inputData)}"></c-data-info>
+                        ` : html``}
+                        ${this.neuron.outputData ? html`
+                            <h4>Assigned output data</h4>
+                            <c-data-info .dataProperty="${this.dataset.getOutputByKey((<OutputLayer>this.neuron.layer).outputData)}"></c-data-info>
+                        ` : html``}
+                    </div>
                 </div>
             </c-card>
         `;

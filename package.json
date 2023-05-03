@@ -7,6 +7,7 @@
     "@lit-app/state": "^0.8.4",
     "@shoelace-style/shoelace": "^2.2.0",
     "@tensorflow/tfjs": "^4.2.0",
+    "@tensorflow/tfjs-vis": "^1.5.1",
     "@types/cytoscape": "^3.19.9",
     "@webwriter/create-widget": "^0.4.1",
     "@webwriter/lit": "latest",

@@ -3,6 +3,7 @@ import * as tf from '@tensorflow/tfjs';
 import state from '@/state'
 
 import Layer from '@/network/layer'
+import InputLayer from './input_layer';
 
 export default class NeuralNet {
 
@@ -46,10 +47,7 @@ export default class NeuralNet {
     }
     getLayersByIds(ids: number[]): Layer[] {
 
-        let layers = []
-        for (let layer of this.layers) {
-            if (ids.includes(layer.id)) layers.push(layer)
-        }
+        let layers = this.layers.filter(layer => ids.includes(layer.id))
 
         // only return layers if for every id one layer was found. else, we return null to signal that something went wrong
         if (layers.length == ids.length) {
@@ -58,23 +56,32 @@ export default class NeuralNet {
             return null
         }
     }
+    // get the input layers. important for everything related to training, testing or predicting because the entrypoint is always in these layers
+    getInputLayers() {
+        return this.layers.filter(layer => layer instanceof InputLayer)
+    }
 
     // returns the maximum id for layers used in the graph
     getFreshId(): number {
         return this.layers.length
     }
 
-    // add a layer to the network and build it
+    // add a layer to the network
     addLayer(layer: Layer) {
-
-        // add the layer to the layer array
         this.layers.push(layer)
     }
 
-    // remove a layer from the network. the layer's delete method also handles the removal form the canvas
+    // remove a layer from the network. does not delete the layer itself (therfore call the layers delete method which should call this method)
     removeLayer(layerArg: Layer) {
-        layerArg.delete()
+        this.deselect()
         this.layers = this.layers.filter((layer) => layer != layerArg)
+    }
+
+    // method to run before deletion (removes all layers which is important for e.g. subscribed events)
+    cleanup() {
+        for (const layer of this.layers) {
+            layer.delete()
+        }
     }
 
     /*
@@ -85,12 +92,14 @@ export default class NeuralNet {
         state.activeLayer = null
         state.activeNeuron = null
         state.activeEdge = null
+        state.activeRightPanel = 'network'
     }
 
     selectLayer({layer}) {
         this.deselect()
         state.activeLayer = layer
         state.selected = 'layer'
+        state.activeRightPanel = 'layer'
     }
 
     selectNeuron({layer = null, neuron}) {
@@ -98,6 +107,7 @@ export default class NeuralNet {
         state.activeLayer = layer
         state.activeNeuron = neuron
         state.selected = 'neuron'
+        state.activeRightPanel = 'neuron'
     }
 
     selectEdge({sourceLayer, sourceNeuron = null, targetLayer, targetNeuron = null}) {
@@ -109,16 +119,20 @@ export default class NeuralNet {
             targetNeuron: targetNeuron
         }
         state.selected = 'edge'
+        state.activeRightPanel = 'edge'
     }
 
 
     /*
     REAL TRAINING & CO
     */
-    /* async build(): Promise<void> {
+    async build(): Promise<void> {
 
-        // create model based on config
-        const input: tf.SymbolicTensor = tf.input({shape: [this.config.inputSize]})
+        // create a model beginning at the input layer(s)
+        for (const inputLayer of this.getInputLayers()) {
+
+        }
+     /*    const input: tf.SymbolicTensor = tf.input({shape: [this.config.inputSize]})
 
         let output: tf.SymbolicTensor | tf.SymbolicTensor[] = input
         for (let layerConfig of this.config.hiddenLayers) {
@@ -128,32 +142,32 @@ export default class NeuralNet {
         this.model = tf.model({inputs: input, outputs: output})
 
         // compile model
-        this.model.compile({loss: this.trainOptions.lossFunction, optimizer: this.trainOptions.optimizer})
+        this.model.compile({loss: this.trainOptions.lossFunction, optimizer: this.trainOptions.optimizer}) */
     }
 
     async train(steps, callback) {
 
         // first build the network if it has not been already
         if (this.model) {
-                try {
-                        await this.build()
-                } catch (err) {
-                        console.error(err)
-                }
+            try {
+                await this.build()
+            } catch (err) {
+                console.error(err)
+            }
         }
 
-        // then start the training itsel
+        /* // then start the training itsel
         this.model.fit(data, labels, {
                         epochs: 5,
                         batchSize: 32,
                         callbacks: {onBatchEnd}
                 }).then(info => {
                         console.log('Final accuracy', info.history.acc);
-                });
+                }); */
             
     }
 
     async predict() {
 
-    } */
+    }
 }

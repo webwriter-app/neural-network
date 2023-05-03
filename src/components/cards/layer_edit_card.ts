@@ -27,14 +27,12 @@ class LayerEditCard extends LitElementWw {
   _handleAddNeuron(e) {
     if (this.layer instanceof NeuronLayer) {
       this.layer.addNeuron()
-      state.canvas.fit()
     }
   }
 
   _handleRemoveNeuron(e) {
     if (this.layer instanceof NeuronLayer) {
       this.layer.removeNeuron()
-      state.canvas.fit()
     }
   }
 
@@ -46,7 +44,6 @@ class LayerEditCard extends LitElementWw {
     const units = parseInt(formData.units)
     if (this.layer instanceof NeuronLayer) {
       this.layer.setNeurons(units)
-      state.canvas.fit()
     }
     this._updateNeuronsForm.reset()
   }
@@ -69,8 +66,7 @@ class LayerEditCard extends LitElementWw {
 
   _handleDeleteLayer(e) {
     state.network.deselect()
-    state.network.removeLayer(this.layer)
-    state.canvas.fit()
+    this.layer.delete()
   }
   
   _getInputOptions() {
@@ -94,14 +90,23 @@ class LayerEditCard extends LitElementWw {
           <div>
             <h3>Neurons</h3>
             <c-button-group>
-              <sl-button @click="${this._handleAddNeuron}" variant=primary outline>Add neuron</sl-button>
-              <sl-button @click="${this._handleRemoveNeuron}" .disabled=${this.layer instanceof NeuronLayer && this.layer.units.length <= 1} variant=danger outline>Remove neuron</sl-button>
+              <sl-button @click="${this._handleAddNeuron}" variant=primary outline>
+                <sl-icon slot="prefix" name="plus-square"></sl-icon>
+                Add
+              </sl-button>
+              <sl-button @click="${this._handleRemoveNeuron}" .disabled=${this.layer instanceof NeuronLayer && this.layer.units.length <= 1} variant=danger outline>
+                <sl-icon slot="prefix" name="trash"></sl-icon>
+                Remove
+              </sl-button>
             </c-button-group>
           </div>
           <form id="updateNeuronsForm">
             <c-button-group>
-              <sl-input name="units" placeholder="set number of neurons manually" type="number" required></sl-input>
-              <sl-button type="submit">Update</sl-button>
+              <sl-input name="units" placeholder="neurons" type="number" required></sl-input>
+              <sl-button type="submit">
+                <sl-icon slot="prefix" name="arrow-clockwise"></sl-icon>
+                Update
+              </sl-button>
             </c-button-group>
           </form>
           <div>
@@ -117,8 +122,14 @@ class LayerEditCard extends LitElementWw {
         <div>
           <h3>Layer</h3>
           <c-button-group>
-            <sl-button @click="${this._handleDuplicateLayer}">Duplicate</sl-button>
-            <sl-button @click="${this._handleDeleteLayer}" variant=danger outline>Delete</sl-button>
+            <sl-button @click="${this._handleDuplicateLayer}">
+              <sl-icon slot="prefix" name="files"></sl-icon>
+              Duplicate
+            </sl-button>
+            <sl-button @click="${this._handleDeleteLayer}" variant=danger outline>
+              <sl-icon slot="prefix" name="trash"></sl-icon>
+              Delete
+            </sl-button>
           </c-button-group>
         </div>
       </c-card>

@@ -25,16 +25,23 @@ export default class Neuron {
     }
 
     /*
-    BUILD LAYER FOR CANVAS
+    CANVAS
     */
-    // build the neuron itself (without the connections)
-    build({cy, cypos}: {cy, cypos: {x: number, y: number}}) {
+    // return the id of the element in the canvas
+    getCyId(): string {
+        return `${this.layer.getCyId()}n${this.id}`
+    }    
+    
+    // draw the neuron itself (without the connections)
+    draw({cy, cypos}: {cy, cypos: {x: number, y: number}}) {
+
+        console.log(`neuron ${this.getCyId()} has been drawn`)
 
         // remove the previously built neuron if exists
         this.remove({cy})
 
         // for the input and output layers we add a wrapper around the neuron that indicates that this node is input/output and in order to display an additional label
-        let neuronParent: string = `${this.layer.id}`
+        let neuronParent: string = this.layer.getCyId()
         let wrapperLabel: string = null
         if (this.inputData) wrapperLabel = this.inputData
         if (this.outputData) wrapperLabel = this.outputData
@@ -44,7 +51,7 @@ export default class Neuron {
                 grabbable: false,
                 selectable: false,
                 data: { 
-                    id: `${this.layer.id}n${this.id}w`, 
+                    id: `${this.getCyId()}w`, 
                     parent: `${this.layer.id}`, 
                     type: 'neuron-wrapper',
                     layer: this.layer.id,
@@ -53,7 +60,7 @@ export default class Neuron {
                 }
             })
 
-            neuronParent = `${this.layer.id}n${this.id}w`
+            neuronParent = `${this.getCyId()}w`
         }
 
         /// add the neuron to the canvas
@@ -61,7 +68,7 @@ export default class Neuron {
             group: 'nodes', 
             grabbable: false,
             data: { 
-                id: `${this.layer.id}n${this.id}`, 
+                id: this.getCyId(), 
                 parent: neuronParent, 
                 type: 'neuron',
                 layer: this.layer.id,
@@ -93,9 +100,9 @@ export default class Neuron {
             cy.add({
                 group: 'edges', 
                 data: {
-                    id: `${node}e${this.layer.id}n${this.id}`, 
+                    id: `${node}e${this.getCyId()}`, 
                     source: node, 
-                    target: `${this.layer.id}n${this.id}`,
+                    target: this.getCyId(),
                     sourceLayer: source.layer,
                     targetLayer: this.layer.id
                 }
@@ -109,8 +116,8 @@ export default class Neuron {
             cy.add({
                 group: 'edges', 
                 data: {
-                    id: `${this.layer.id}n${this.id}e${node}`, 
-                    source: `${this.layer.id}n${this.id}`, 
+                    id: `${this.getCyId()}e${node}`, 
+                    source: this.getCyId(), 
                     target: node,
                     sourceLayer: this.layer.id,
                     targetLayer: target.layer
