@@ -27,7 +27,7 @@ class NeuronInfoCard extends LitElementWw {
                         ` : html``}
                         ${this.neuron.outputData ? html`
                             <h4>Assigned output data</h4>
-                            <c-data-info .dataProperty="${this.dataset.getOutputByKey((<OutputLayer>this.neuron.layer).outputData)}"></c-data-info>
+                            <c-data-info .dataProperty="${this.dataset.getLabel()}"></c-data-info>
                         ` : html``}
                     </div>
                 </div>

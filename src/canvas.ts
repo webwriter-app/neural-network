@@ -1,6 +1,7 @@
 import * as cytoscape from 'cytoscape'
 
 import state from '@/state'
+import NeuronLayer from '@/network/neuron_layer'
 
 export default class Canvas {
 
@@ -40,7 +41,8 @@ export default class Canvas {
                   'label': 'data(label)',
                   'text-halign': 'left',
                   'text-valign': 'center',
-                  'text-margin-x' : -20
+                  'text-margin-x' : -20,
+                  'z-compound-depth': 'bottom'
                 }
               },
               {
@@ -59,7 +61,8 @@ export default class Canvas {
                   'label': 'data(label)',
                   'text-halign': 'center',
                   'text-valign': 'bottom',
-                  'text-margin-y' : 20
+                  'text-margin-y': 20,
+                  'z-compound-depth': 'bottom'
                 }
               },
               {
@@ -69,11 +72,19 @@ export default class Canvas {
                   'background-color': 'white',
                   'border-width': 5,
                   'border-color': '#0183C7',
-                  'width': '100px',
-                  'height': '100px',
+                  'width': '95px',
+                  'height': '95px',
                   'label': 'data(label)',
                   'text-halign': 'center',
-                  'text-valign': 'center'
+                  'text-valign': 'center',
+                  'z-compound-depth': 'bottom'
+                }
+              },
+              {
+                selector: 'node[type="neuron"][wrapped="true"]',
+                style: {
+                  'width': '90px',
+                  'height': '90px'
                 }
               },
               {
@@ -121,28 +132,41 @@ export default class Canvas {
     
             if (evtTarget.isNode()) {
     
-                const node = evtTarget
-        
-                if (node.data('type') == 'layer') {
-                    state.network.selectLayer({
-                        layer: node.data('layer')
-                    })
-                } else if (node.data('type') == 'neuron') {
-                    state.network.selectNeuron({
-                        layer: node.data('layer'),
-                        neuron: node.data('neuron')
-                    })
-                }
+              const node = evtTarget
+      
+              if (node.data('type') == 'layer') {
+                const layer = state.network.getLayerById(node.data('layer'))
+                state.network.selectLayer({
+                  layer: layer
+                })
+              } else if (node.data('type') == 'neuron') {
+                const layer = <NeuronLayer>state.network.getLayerById(node.data('layer'))
+                state.network.selectNeuron({
+                  layer: layer,
+                  neuron: layer.units[node.data('neuron') - 1]
+                })
+              }
+
             } else if (evtTarget.isEdge()) {
     
-                const edge = evtTarget
-        
-                state.network.selectEdge({
-                    sourceLayer: edge.source().data('layer'),
-                    sourceNeuron: edge.source().data('neuron'),
-                    targetLayer: edge.target().data('layer'),
-                    targetNeuron:  edge.target().data('neuron')
-                })
+              const edge = evtTarget
+              const sourceLayer = state.network.getLayerById(edge.source().data('layer'))
+              let sourceNeuron = null
+              if (sourceLayer instanceof NeuronLayer) {
+                sourceNeuron = sourceLayer.units[edge.source().data('neuron') - 1]
+              }
+              const targetLayer = state.network.getLayerById(edge.target().data('layer'))
+              let targetNeuron = null
+              if (targetLayer instanceof NeuronLayer) {
+                targetNeuron = targetLayer.units[edge.target().data('neuron') - 1]
+              }
+      
+              state.network.selectEdge({
+                sourceLayer: sourceLayer,
+                sourceNeuron: sourceNeuron,
+                targetLayer: targetLayer,
+                targetNeuron: targetNeuron
+              })
             }
         })
     }
@@ -157,7 +181,7 @@ export default class Canvas {
     }
     fit() {
         if(this.cy) {
-            this.cy.fit(this.cy.$(), 30) // fit the graph to all elements with a padding of 50 pixels
+            this.cy.fit(this.cy.$(), 30) // fit the graph to all elements with a specified padding
         }
     }
     zoomIn() {

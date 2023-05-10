@@ -1,7 +1,11 @@
+import * as tf from '@tensorflow/tfjs';
+
 import { State } from '@lit-app/state'
 import state from '@/state'
 
 import NeuronLayer from '@/network/neuron_layer'
+import Layer from '@/network/layer'
+
 import spawnAlert from '@/alerts'
 
 // an input layer is a special type of a neuron layer. We do not allow activation functions and provide methods to assign input data from the dataset to this input layer. We do not allow manual editing of the neurons and other layers can not connect to an input layer. Neurons in the input layer are marked with the name of the associated input
@@ -13,7 +17,7 @@ export default class InputLayer extends NeuronLayer {
 
     unsubscribe: Function
 
-    constructor({network = state.network, inputFrom = [], activation = "None", outputTo = [], pos = null}) {
+    constructor({network, inputFrom = [], activation = "None", outputTo = [], pos = null}) {
 
         super({network, inputFrom, units: 0, activation, outputTo, pos})
 
@@ -29,9 +33,43 @@ export default class InputLayer extends NeuronLayer {
         this.setInputs(state.dataset.getNonAssignedInputKeys())
     }
 
+    /*
+    LAYER AND NEURONS
+    */
     // overwrite getName function because activation function is always 'None' for input layer
     getName(): string {
-        return `${this.id} • ${this.constructor.LAYER_NAME}`
+        return `${this.id} - ${this.constructor.LAYER_NAME}`
+    }
+
+    // duplicate layer
+    duplicate(): void {
+        spawnAlert("Cannot duplicate an input layer since each data item can only be assigned to one input neuron. if you wish to have multiple input layers, create a new input layer!")
+    }
+
+    // overwrite remove layer method to allow deletion of every (even the last remaining) neuron
+    removeNeuron(neuron = null): void {
+
+        this.network.resetBuild()
+
+        if (this.units.length > 0 && neuron) {
+            const index = this.units.indexOf(neuron)
+            this.units.splice(index, 1)
+            neuron.remove({canvas: state.canvas})
+        }
+    }
+
+    // overwrite delete function to also notify dataset
+    delete(): void {
+
+        // notify dataset to dismiss the layer from the input
+        for (const neuron of this.units) {
+            if (neuron.inputData) state.dataset.dismissInput({key: neuron.inputData})
+        }
+
+        // unscribe from dataset change event
+        this.unsubscribe()
+        
+        super.delete()
     }
 
     /*
@@ -42,7 +80,7 @@ export default class InputLayer extends NeuronLayer {
         return this.units.map(unit => unit.inputData)
     }
 
-    assignInputs(inputKeys: string[]): void {
+    private assignInputs(inputKeys: string[]): void {
 
         // add new neurons for every assigned data input
         for (let inputKey of inputKeys) {
@@ -54,25 +92,21 @@ export default class InputLayer extends NeuronLayer {
     // same as assignInputs but in this case it might be that inputs have been removed
     setInputs(inputKeys: string[]): void {
 
+        this.network.resetBuild()
+
         if (inputKeys.length) {
-            // determine neurons that need to be removed because their corresponding data input is not in the inputKeys
-            const neuronsToRemove = this.units.filter(neuron => !inputKeys.includes(neuron.inputData))
 
-            for (let neuron of neuronsToRemove) {
-                this.removeNeuron(neuron)
-                state.dataset.dismissInput({key: neuron.inputData})
+            // remove all neurons
+            for (let index = this.units.length - 1; index >= 0; index--) {
+                state.dataset.dismissInput({key: this.units[index].inputData})
+                this.removeNeuron(this.units[index])
             }
 
-            // redraw the remaining neurons to avoid empty space between them
-            for (let [index, neuron] of this.units.entries()) {
-                neuron.draw({cy: state.canvas.cy, cypos: this.getPositionForUnit(index + 1)})
-            }
-
-            // determine the inputs that are new and add neurons for them
-            const addedInputs = inputKeys.filter(inputKey => !this.units.some(neuron => neuron.inputData == inputKey));
-            this.assignInputs(addedInputs)
+            // add the units for the new inputs keys
+            this.assignInputs(inputKeys)
 
         } else {
+
             // if we assign no input we delete this layer because we always want at least one input
             spawnAlert(`${this.getName()} was deleted because no inputs were assigned`)
             this.delete()
@@ -91,34 +125,21 @@ export default class InputLayer extends NeuronLayer {
     }
 
     /*
-    LAYER AND NEURONS
+    BUILD
     */
-    // duplicate layer
-    duplicate(): void {
-        spawnAlert("Cannot duplicate an input layer since each data item can only be assigned to one input neuron. if you wish to have multiple input layers, create a new input layer!")
-    }
+    build(): void {
 
-    // overwrite remove layer method to allow deletion of every (even the last remaining) neuron
-    removeNeuron(neuron = null): void {
+        console.log(`Building layer ${this.getName()}`)
 
-        if (this.units.length > 0 && neuron) {
-            const index = this.units.indexOf(neuron)
-            this.units.splice(index, 1)
-            neuron.remove({cy: state.canvas.cy})
+        //  create our input tensor
+        this.tensor = tf.input({shape: [this.units.length], name: this.getTensorName()});
+        this.tensor["layer_id"] = this.id
+        console.log(`This input tensor:`)
+        console.log(this.tensor)
+
+        // try to build all connected outputs
+        for (const connectedOutput of this.outputTo) {
+            connectedOutput.build()
         }
-    }
-
-    // overwrite delete function to also notify dataset
-    delete(): void {
-
-        // notify dataset to dismiss the layer from the input
-        for (const neuron of this.units) {
-            if (neuron.inputData) state.dataset.dismissInput({key: neuron.inputData})
-        }
-
-        // unscribe from dataset change event
-        this.unsubscribe()
-        
-        super.delete()
     }
 }

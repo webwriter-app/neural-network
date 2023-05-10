@@ -32,11 +32,9 @@ class DatasetInfoCard extends LitElementWw {
                                 <c-data-info .dataProperty="${input}"></c-data-info>
                             `)}
                         </div>
-                        <h4>Outputs</h4>
+                        <h4>Output</h4>
                         <div class="data-pills">
-                            ${this.dataset.outputs.map((output) => html`
-                                <c-data-info .dataProperty="${output}"></c-data-info>
-                            `)}
+                            <c-data-info .dataProperty="${this.dataset.label}"></c-data-info>
                         </div>
                     </div>
                 </div>

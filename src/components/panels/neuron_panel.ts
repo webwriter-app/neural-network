@@ -27,8 +27,7 @@ class NeuronPanel extends LitElementWw {
             return html``
         }
 
-        const layer = <NeuronLayer>state.network.getLayerById(state.activeLayer)
-        const neuron = layer.units[state.activeNeuron - 1]
+        const neuron = state.activeNeuron
         return html`
             <neuron-info-card .neuron=${neuron} .dataset=${state.dataset}></neuron-info-card>
         `

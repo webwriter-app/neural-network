@@ -2,6 +2,7 @@ import { LitElementWw } from "@webwriter/lit"
 import { html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
+import NeuralNet from "@/network/net";
 import InputLayer from "@/network/input_layer";
 import DenseLayer from "@/network/dense_layer";
 import OutputLayer from "@/network/output_layer";
@@ -9,16 +10,18 @@ import OutputLayer from "@/network/output_layer";
 @customElement('network-add-layer-card')
 class NetworkAddLayerCard extends LitElementWw {
 
+  @property() network: NeuralNet
+
   _handleAddInputLayer(e) {
-    new InputLayer({})
+    new InputLayer({network: this.network})
   }
 
   _handleAddDenseLayer(e) {
-    new DenseLayer({})
+    new DenseLayer({network: this.network})
   }
 
   _handleAddOutputLayer(e) {
-    new OutputLayer({})
+    new OutputLayer({network: this.network})
   }
 
   render(){

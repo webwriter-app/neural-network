@@ -23,23 +23,19 @@ export default abstract class DatasetFactory {
             const values = line.trim().split(/\s+/)
 
             // add keys to the values
-            const inputData = {}
+            const inputs = []
             let index = 0
             for (const input of config.inputs) {
-                inputData[input.key] = values[index]
+                inputs.push(parseInt(values[index]))
                 index += 1
             }
-            const outputData = {}
-            for (const output of config.outputs) {
-                outputData[output.key] = values[index]
-                index += 1
-            }
+            const label = parseInt(values[index])
             
 
             // add parsed data from this line to the data array
             data.push({
-                inputData: inputData,
-                outputData: outputData
+                inputs: inputs,
+                label: label
             })
         }
 

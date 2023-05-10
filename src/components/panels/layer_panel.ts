@@ -13,10 +13,8 @@ import '@/components/cards/layer_info_card'
 import '@/components/cards/layer_edit_card'
 import '@/components/cards/layer_activation_card'
     // input layer
-    import '@/components/cards/inputlayer_data_card'
     import '@/components/cards/inputlayer_edit_card'
     // output layer
-    import '@/components/cards/outputlayer_data_card'
     import '@/components/cards/outputlayer_edit_card'
 
 @customElement('layer-panel')
@@ -37,11 +35,10 @@ class LayerPanel extends LitElementWw {
             return html``
         }
 
-        const layer = state.network.getLayerById(state.activeLayer)
+        const layer = state.activeLayer
         if (layer instanceof InputLayer) {
             return html`
             <layer-info-card .layer=${layer}></layer-info-card>
-            <inputlayer-data-card .layer=${layer}></inputlayer-data-card>
             <inputlayer-edit-card .layer=${layer}></inputlayer-edit-card>
             `
         } else if (layer instanceof DenseLayer) {
@@ -54,8 +51,7 @@ class LayerPanel extends LitElementWw {
         else if (layer instanceof OutputLayer) {
             return html`
             <layer-info-card .layer=${layer}></layer-info-card>
-            <outputlayer-data-card .layer=${layer}></outputlayer-data-card>
-            <outputlayer-edit-card .layer=${layer}></outputlayer-edit-card>
+            <outputlayer-edit-card .layer=${layer} .dataset=${state.dataset}></outputlayer-edit-card>
             <layer-activation-card .layer=${layer}></layer-activation-card>
             `
         }

@@ -1,6 +1,6 @@
 import Layer from "@/network/layer"
 
-type DatasetClassificationOutput = {
+type DatasetClassificationLabel = {
     type: "classification"
     key: string
     description: string
@@ -11,4 +11,4 @@ type DatasetClassificationOutput = {
     layer?: Layer
 }
 
-export default DatasetClassificationOutput
+export default DatasetClassificationLabel

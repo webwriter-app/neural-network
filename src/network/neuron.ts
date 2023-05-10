@@ -33,20 +33,19 @@ export default class Neuron {
     }    
     
     // draw the neuron itself (without the connections)
-    draw({cy, cypos}: {cy, cypos: {x: number, y: number}}) {
-
-        console.log(`neuron ${this.getCyId()} has been drawn`)
+    draw({canvas, cypos}: {canvas, cypos: {x: number, y: number}}) {
 
         // remove the previously built neuron if exists
-        this.remove({cy})
+        this.remove({canvas})
 
         // for the input and output layers we add a wrapper around the neuron that indicates that this node is input/output and in order to display an additional label
         let neuronParent: string = this.layer.getCyId()
         let wrapperLabel: string = null
         if (this.inputData) wrapperLabel = this.inputData
         if (this.outputData) wrapperLabel = this.outputData
+        let wrapped: boolean = false
         if (wrapperLabel) {
-            cy.add({
+            canvas.cy.add({
                 group: 'nodes', 
                 grabbable: false,
                 selectable: false,
@@ -57,14 +56,18 @@ export default class Neuron {
                     layer: this.layer.id,
                     neuron: this.id,
                     label: wrapperLabel
+                },
+                css: {
+                    "z-index": this.layer.id * 3 + 1
                 }
             })
 
             neuronParent = `${this.getCyId()}w`
+            wrapped = true
         }
 
         /// add the neuron to the canvas
-        cy.add({
+        canvas.cy.add({
             group: 'nodes', 
             grabbable: false,
             data: { 
@@ -73,25 +76,33 @@ export default class Neuron {
                 type: 'neuron',
                 layer: this.layer.id,
                 neuron: this.id,
-                label: `${this.value}`.substring(0, 3)
+                label: `${this.value}`.substring(0, 3),
+                wrapped: `${wrapped}`
             }, 
             position: {
                 x: cypos.x,
                 y: cypos.y
+            },
+            css: {
+                "z-index": this.layer.id * 3 + 2
             }
         })
 
         // connect the neuron to the previous layers
         for (let previousLayer of this.layer.inputFrom) {
             let source = {layer: previousLayer.id, nodes: previousLayer.getConnectionIds()}
-            this.drawConnectionFrom({cy, source})
+            this.drawConnectionFrom({cy: canvas.cy, source})
         }
 
         // connect the neuron to the outgoing layers
         for (let nextLayer of this.layer.outputTo) {
             let target = {layer: nextLayer.id, nodes: nextLayer.getConnectionIds()}
-            this.drawConnectionTo({cy, target})
+            this.drawConnectionTo({cy: canvas.cy, target})
         }
+
+        // update the internal position of the layer and move it
+        canvas.cy.getElementById(this.layer.getCyId()).shift('x', -(canvas.NEURON_SIZE + canvas.NEURON_DISTANCE)/2)
+        this.layer.updatePos()
     }
 
     drawConnectionFrom({cy, source}: {cy, source: {layer: number, nodes: Array<string>}}) {
@@ -126,10 +137,18 @@ export default class Neuron {
         }
     }
 
-    remove({cy}) {
-        let eles = cy.filter((element, i) => {
+    remove({canvas}) {
+
+        // find the neuron in the canvas
+        let eles = canvas.cy.filter((element, i) => {
             return element.isNode() && element.data('layer') == this.layer.id && element.data('neuron') == this.id
         }, this)
-        eles.remove()
+
+        // if the neuron exists in the canvas, remove it (and update the layers internal position and shift it back)
+        if (eles.length) {
+            eles.remove()
+            canvas.cy.getElementById(this.layer.getCyId()).shift('x', (canvas.NEURON_SIZE + canvas.NEURON_DISTANCE)/2)
+            this.layer.updatePos()
+        }
     }
 }

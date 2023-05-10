@@ -20,7 +20,7 @@ class PlotsPanel extends LitElementWw {
 
         this._unsubscribe = myState.subscribe((key: string, dataset: any, state: State) => {
             if (dataset != null) {
-                this.buildPlots(dataset.data)
+                this.buildPlots(dataset)
             }
         }, ['dataset'])
     }
@@ -29,34 +29,31 @@ class PlotsPanel extends LitElementWw {
         this._unsubscribe()
     }
 
-    buildPlots(data) {
+    buildPlots(dataset) {
         const parentContainer = this.renderRoot.querySelector<HTMLElement>("#plots")
 
         // remove previously built plots
         parentContainer.innerHTML = ""
 
-        for (const [inputKey, outputValue] of Object.entries(data[0].inputData)) {
+        const label = dataset.label
 
-            const values = []
-            const series = []
+        for (const [index, input] of dataset.inputs.entries()) {
 
-            for (const [outputKey, outputValue] of Object.entries(data[0].outputData)) {
-                values.push(data.map(data => ({
-                    x: data.inputData[inputKey],
-                    y: data.outputData[outputKey],
-                })))
-                series.push(outputKey)
-            }
+            const values = dataset.data.map(data => ({
+                x: data.inputs[index],
+                y: data.label
+            }))
+            const series = label.key
 
             const container = parentContainer.appendChild(document.createElement('div'))
             tfvis.render.scatterplot(
                 {drawArea: container},
                 {values, series},
                 {
-                    xLabel: inputKey,
-                    yLabel: "OUTPUT",
-                    width: 400,
-                    height: 260
+                    xLabel: input.key,
+                    yLabel: label.key,
+                    width: 450,
+                    height: 240
                 }
             );
         }
@@ -64,9 +61,15 @@ class PlotsPanel extends LitElementWw {
 
     static styles = css`
         .panel {
+            height: 100%;
+        }
+
+        sl-card {
+            height: 100%;
             display: flex;
             flex-direction: column;
             gap: 10px;
+            --padding: 20px 0 0 0;
         }
 
         #plots {
@@ -80,7 +83,9 @@ class PlotsPanel extends LitElementWw {
     render(){
         return html`
             <div class="panel">
-                <div id="plots"></div>
+                <sl-card>
+                    <div id="plots"></div>
+                </sl-card>
             </div>
         `;
     }

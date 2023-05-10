@@ -2,21 +2,8 @@ import { LitElementWw } from "@webwriter/lit"
 import { html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
-import { StateController } from "@lit-app/state";
-import state from '@/state'
-
-import NeuralNet from "@/network/net";
-import InputLayer from "@/network/input_layer";
-import DenseLayer from "@/network/dense_layer";
-import OutputLayer from "@/network/output_layer";
-
-import spawnAlert from '@/alerts'
-import DatasetFactory from "@/dataset/dataset_factory";
-
 @customElement('network-quick-actions-card')
 class NetworkQuickActions extends LitElementWw {
-
-  state = new StateController(this, state)
 
   _handleImport(e) {
 
@@ -26,46 +13,12 @@ class NetworkQuickActions extends LitElementWw {
     
   }
 
-  async _handleClear(e?) {
-    state.network.cleanup()
-    spawnAlert("The canvas has been cleared!")
-    if (state.dataset.name) {
-      state.dataset = await DatasetFactory.getDatasetByName(state.dataset.name)
-    } else {
-      state.dataset = await DatasetFactory.getDatasetByName(DatasetFactory.getOptions()[0])
-    }
-    state.network = new NeuralNet()
+  _handleClear(e) {
+    this.dispatchEvent(new CustomEvent('handle-clear'))
   }
 
-  async _handleCreateFeedForwardNetwork(e) {
-
-    await this._handleClear()
-    
-    const inputLayer = new InputLayer({
-      pos: {x: 0, y: 0}
-    })
-    const denseLayer1 = new DenseLayer({
-      inputFrom: [inputLayer],
-      units: 5,
-      pos: {x: 500, y: -300}
-    })
-    const denseLayer2 = new DenseLayer({
-      inputFrom: [denseLayer1],
-      pos: {x: 300, y: -600}
-    })
-    const denseLayer3 = new DenseLayer({
-      inputFrom: [denseLayer1],
-      units: 3,
-      pos: {x: 1200, y: -600}
-    })
-    const outputLayer = new OutputLayer({
-      inputFrom: [denseLayer2, denseLayer3],
-      pos: {x: 900, y: -900}
-    })
-
-    state.canvas.fit()
-
-    spawnAlert("A feed forward network has been created!")
+  _handleCreateFeedForwardNetwork(e) {
+    this.dispatchEvent(new CustomEvent('handle-create-feed-forward'))
   }
 
   render(){

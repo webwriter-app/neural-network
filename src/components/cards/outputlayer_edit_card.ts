@@ -13,7 +13,8 @@ class OutputlayerEditCard extends LitElementWw {
 
   state = new StateController(this, state)
 
-  @property() layer: Layer | null;
+  @property() layer: OutputLayer | null
+  @property() dataset
 
   _handleChangeInput(e) {
     const layerIDs = this.renderRoot.querySelector('#inputSelect').value.map(id => {return parseInt(id)})
@@ -42,6 +43,12 @@ class OutputlayerEditCard extends LitElementWw {
                 <sl-select id="inputSelect" value=${this.layer.inputFrom.map(layer => layer.id).join(' ')} multiple clearable @sl-change="${this._handleChangeInput}">
                     ${this._getOptions()}
                 </sl-select>
+            </div>
+            <div>
+                <h3>Output</h3>
+                ${this.layer.outputKey ? html`
+                    <c-data-info .dataProperty="${this.dataset.getLabel()}"></c-data-info>
+                ` : html``}
             </div>
             <div>
                 <h3>Layer</h3>

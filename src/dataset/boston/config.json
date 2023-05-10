@@ -55,11 +55,9 @@
             "description": "% lower status of the population"
         }
     ],
-    "outputs": [
-        {
-            "type": "regression",
-            "key": "MEDV",
-            "description": "Median value of owner-occupied homes in $1000s"
-        }
-    ]
+    "label": {
+        "type": "regression",
+        "key": "MEDV",
+        "description": "Median value of owner-occupied homes in $1000s"
+    }
 }

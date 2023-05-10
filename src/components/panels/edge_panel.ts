@@ -5,8 +5,6 @@ import { customElement } from 'lit/decorators.js'
 import { StateController } from "@lit-app/state";
 import state from '@/state'
 
-import NeuronLayer from "@/network/neuron_layer";
-
 import '@/components/cards/edge_info_card'
 
 @customElement('edge-panel')
@@ -27,13 +25,13 @@ class EdgePanel extends LitElementWw {
             return html``
         }
 
-        const sourceLayer = state.network.getLayerById(state.activeEdge.sourceLayer)
-        const targetLayer = state.network.getLayerById(state.activeEdge.targetLayer)
-        let sourceNeuron, targetNeuron
-        if (state.activeEdge.sourceNeuron && sourceLayer instanceof NeuronLayer) sourceNeuron = sourceLayer.units[state.activeEdge.sourceNeuron - 1]
-        if (state.activeEdge.targetNeuron && targetLayer instanceof NeuronLayer) targetNeuron = targetLayer.units[state.activeEdge.targetNeuron - 1]
         return html`
-            <edge-info-card .sourceLayer=${sourceLayer} .targetLayer=${targetLayer} .sourceNeuron=${sourceNeuron} .targetNeuron=${targetNeuron}></edge-info-card>
+            <edge-info-card
+                .sourceLayer=${state.activeEdge.sourceLayer}
+                .targetLayer=${state.activeEdge.targetLayer}
+                .sourceNeuron=${state.activeEdge.sourceNeuron}
+                .targetNeuron=${state.activeEdge.targetNeuron}>
+            </edge-info-card>
         `
     }
 

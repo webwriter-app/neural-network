@@ -35,21 +35,19 @@
             "description": "Age (years)"
         }
     ],
-    "outputs": [
-        {
-            "type": "classification",
-            "key": "DIA",
-            "description": "Diabetes",
-            "classes": [
-                {
-                    "key": "0",
-                    "description": "No"
-                },
-                {
-                    "key": "1",
-                    "description": "Yes"
-                }
-            ]
-        }
-    ]
+    "label": {
+        "type": "classification",
+        "key": "DIA",
+        "description": "Diabetes",
+        "classes": [
+            {
+                "key": "0",
+                "description": "No"
+            },
+            {
+                "key": "1",
+                "description": "Yes"
+            }
+        ]
+    }
 }

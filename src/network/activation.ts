@@ -1,20 +1,22 @@
+import * as tf from '@tensorflow/tfjs';
+
 export default class Activation {
 
     name: string
-    activate: Function
+    identifier: string
 
-    constructor({name, activate}: {name: string, activate: Function}) {
+    constructor({name, identifier}: {name: string, identifier: string}) {
         
         this.name = name
-        this.activate = activate
+        this.identifier = identifier
     }
 
     static getActivationByName(name: string): Activation {
         switch (name) {
-            case "None": return new Activation({name: 'None', activate: (i) => {return i}})
-            case "ReLu": return new Activation({name: 'ReLu', activate: (i) => {return i}})
-            case "Sigmoid": return new Activation({name: 'Sigmoid', activate: (i) => {return i}})
-            case "Softmax": return new Activation({name: 'Softmax', activate: (i) => {return i}})
+            case "None": return new Activation({name: 'None', identifier: null})
+            case "ReLu": return new Activation({name: 'ReLu', identifier: 'relu'})
+            case "Sigmoid": return new Activation({name: 'Sigmoid', identifier: 'sigmoid'})
+            case "Softmax": return new Activation({name: 'Softmax', identifier: 'softmax'})
         }
     }
 
