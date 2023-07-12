@@ -1,32 +1,43 @@
 {
+  "name": "@christiankoch/ww-deeplearning",
+  "version": "0.1.1",
+  "author": "Christian Koch",
+  "license": "MIT",
+  "type": "module",
+  "description": "Deep learning visualizer for WebWriter",
+  "main": "/dist/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "webwriter-widget"
+  ],
   "scripts": {
-    "dev": "vite --open",
-    "build": "vite build"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@lit-app/state": "^0.8.4",
+    "@lit-labs/context": "^0.3.3",
     "@shoelace-style/shoelace": "^2.2.0",
     "@tensorflow/tfjs": "^4.2.0",
     "@tensorflow/tfjs-vis": "^1.5.1",
     "@types/cytoscape": "^3.19.9",
     "@webwriter/create-widget": "^0.4.1",
-    "@webwriter/lit": "latest",
+    "@webwriter/lit": "^0.4.2",
     "cytoscape": "^3.23.0",
-    "lit": "^2.4.0",
-    "lit-element-state": "^1.7.0"
+    "lit": "^2.4.0"
   },
   "devDependencies": {
-    "typescript": "^4.8.4",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.44.0",
+    "eslint-plugin-lit": "^1.8.3",
+    "eslint-plugin-wc": "^1.5.0",
+    "prettier": "^2.8.8",
+    "typescript": "^5.1.6",
     "vite": "^3.1.6",
     "vite-plugin-static-copy": "^0.13.1"
-  },
-  "name": "ww-machinelearningvisualizer",
-  "version": "0.0.1",
-  "type": "module",
-  "description": "Machine learning visualizer for WebWriter",
-  "keywords": [
-    "webwriter-widget"
-  ],
-  "author": "Christian Koch",
-  "license": "none"
+  }
 }
