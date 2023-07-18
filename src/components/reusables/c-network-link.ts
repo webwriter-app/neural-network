@@ -1,33 +1,43 @@
-import { LitElementWw } from "@webwriter/lit"
-import { html, css } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
+import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
-import { StateController } from "@lit-app/state";
-import state from '@/state'
+import { consume } from '@lit-labs/context'
+import { Canvas, canvasContext } from '@/contexts/canvas_context'
 
-import Layer from "@/network/layer"
-import Neuron from "@/network/neuron"
+import { globalStyles } from '@/global_styles'
+
+import { CLayer } from '@/components/network/c_layer'
+import { Neuron } from '@/components/network/neuron'
 
 @customElement('c-network-link')
-class CNetworkLink extends LitElementWw {
+export class CNetworkLink extends LitElementWw {
+  @property({ type: Boolean })
+  disabled: boolean
 
-  state = new StateController(this, state)
+  @property({ type: String })
+  target: CLayer | Neuron
 
-  @property({ type: Boolean }) disabled: boolean
-  @property({ type: String }) target: Layer | Neuron
+  @consume({ context: canvasContext, subscribe: true })
+  canvas: Canvas
 
   /* STYLES */
-  static styles = css`
+  static styles: CSSResult[] = [globalStyles]
 
-  `
-
-  _handleClick(e) {
-    state.canvas.cy.getElementById(this.target.getCyId()).select()
+  // handle link click
+  _handleClick() {
+    this.canvas.cy.getElementById(this.target.getCyId()).select()
   }
 
-  render(){
+  render(): TemplateResult<1> {
     return html`
-      <sl-button size="small" pill @click="${this._handleClick}"><slot></sl-button>
-    `;
+      <sl-button 
+        size="small" 
+        pill 
+        @click="${(_e: MouseEvent) => this._handleClick()}"
+      >
+        <slot>
+      </sl-button>
+    `
   }
 }

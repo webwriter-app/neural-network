@@ -1,25 +1,31 @@
-import { LitElementWw } from "@webwriter/lit"
-import { html } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
+import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
-import Layer from "@/network/layer";
+import { globalStyles } from '@/global_styles'
+
+import { CLayer } from '@/components/network/c_layer'
 
 @customElement('layer-info-card')
-class LayerInfoCard extends LitElementWw {
+export class LayerInfoCard extends LitElementWw {
+  @property() layer: CLayer
 
-    @property() layer: Layer | null
+  static styles: CSSResult[] = [globalStyles]
 
-    render(){
-        return html`
-            <c-card>
-                <div slot="title">
-                    Info
-                </div>
-                <div slot="content">
-                    <span>Selected: <c-network-link .target="${this.layer}">${this.layer.getName()}</c-network-link></span>
-                    <span>${this.layer.constructor.DESCRIPTION}</span>
-                </div>
-            </c-card>
-        `;
-    }
+  render(): TemplateResult<1> {
+    return html`
+      <c-card>
+        <div slot="title">Info</div>
+        <div slot="content">
+          <span>
+            Selected:
+            <c-network-link .target="${this.layer}">
+              ${this.layer.getName()}
+            </c-network-link>
+          </span>
+          <span> ${this.layer.getDescription()} </span>
+        </div>
+      </c-card>
+    `
+  }
 }

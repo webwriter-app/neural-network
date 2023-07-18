@@ -1,45 +1,38 @@
-import { LitElementWw } from "@webwriter/lit"
-import { html, css } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
+import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
-import { StateController } from "@lit-app/state";
-import state from '@/state'
+import { consume } from '@lit-labs/context'
+import { Selected, selectedContext } from '@/contexts/selected_context'
+
+import { globalStyles } from '@/global_styles'
 
 import '@/components/cards/edge_info_card'
 
 @customElement('edge-panel')
-class EdgePanel extends LitElementWw {
+export class EdgePanel extends LitElementWw {
+  @consume({ context: selectedContext, subscribe: true })
+  selected: Selected
 
-    state = new StateController(this, state)
+  static styles: CSSResult[] = [globalStyles]
 
-    static styles = css`
-        .panel {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+  getCards(): TemplateResult<1> {
+    if (!this.selected.edge) {
+      return html``
+    }
+
+    return html`
+      <edge-info-card
+        .sourceLayer=${this.selected.edge.sourceLayer}
+        .targetLayer=${this.selected.edge.targetLayer}
+        .sourceNeuron=${this.selected.edge.sourceNeuron}
+        .targetNeuron=${this.selected.edge.targetNeuron}
+      >
+      </edge-info-card>
     `
+  }
 
-    getCards() {
-        if (!state.activeEdge) {
-            return html``
-        }
-
-        return html`
-            <edge-info-card
-                .sourceLayer=${state.activeEdge.sourceLayer}
-                .targetLayer=${state.activeEdge.targetLayer}
-                .sourceNeuron=${state.activeEdge.sourceNeuron}
-                .targetNeuron=${state.activeEdge.targetNeuron}>
-            </edge-info-card>
-        `
-    }
-
-    render(){
-        return html`
-            <div class="panel">
-                ${this.getCards()}
-            </div>
-        `;
-    }
+  render(): TemplateResult<1> {
+    return html` <c-panel name="edge"> ${this.getCards()} </c-panel> `
+  }
 }

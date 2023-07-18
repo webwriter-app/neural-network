@@ -1,138 +1,162 @@
-import { LitElementWw } from "@webwriter/lit"
-import { html } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
+import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
-import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js';
 
-import { StateController } from "@lit-app/state";
-import state from '@/state'
+import { consume } from '@lit-labs/context'
+import {
+  NetworkConf,
+  networkConfContext,
+} from '@/contexts/network_conf_context'
 
-import NeuronLayer from "@/network/neuron_layer";
-import Layer from "@/network/layer";
-import InputLayer from "@/network/input_layer";
+import { globalStyles } from '@/global_styles'
+
+import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
+
+import { CLayer } from '@/components/network/c_layer'
+import { NeuronLayer } from '@/components/network/neuron_layer'
+import { InputLayer } from '@/components/network/input_layer'
+import { DenseLayer } from '@/components/network/dense_layer'
+import { OutputLayer } from '@/components/network/output_layer'
+import { spawnAlert } from '@/utils/alerts'
+
+import { SlSelect } from '@shoelace-style/shoelace'
 
 @customElement('layer-edit-card')
-class LayerEditCard extends LitElementWw {
+export class LayerEditCard extends LitElementWw {
+  @property()
+  layer: CLayer
 
-  state = new StateController(this, state)
+  @consume({ context: networkConfContext, subscribe: true })
+  networkConf: NetworkConf
 
-  @query('#updateNeuronsForm') _updateNeuronsForm;
-  @property() layer: Layer | null;
+  @query('#inputSelect')
+  _inputSelect: SlSelect
+
+  @query('#outputSelect')
+  _outputSelect: SlSelect
+
+  @query('#updateNeuronsForm')
+  _updateNeuronsForm: HTMLFormElement
 
   async connectedCallback() {
     super.connectedCallback()
     await this.updateComplete
-    this._updateNeuronsForm.addEventListener('submit', this._handleSetNeurons.bind(this))
-  }
-
-  _handleAddNeuron(e) {
-    if (this.layer instanceof NeuronLayer) {
-      this.layer.addNeuron()
+    if (this._updateNeuronsForm) {
+      this._updateNeuronsForm.addEventListener('submit', (e: SubmitEvent) => {
+        this._handleSetNeurons(e)
+      })
     }
   }
 
-  _handleRemoveNeuron(e) {
+  _handleRemoveNeuron(): void {
     if (this.layer instanceof NeuronLayer) {
       this.layer.removeNeuron()
     }
   }
 
-  _handleSetNeurons(e) {
-    e.preventDefault();
-    const formData = serialize(this._updateNeuronsForm)
-    console.log(this)
-    if (typeof formData.units !== "string") throw new Error("The number of neurons in the form should be of type string.")
-    const units = parseInt(formData.units)
+  _handleAddNeuron(): void {
     if (this.layer instanceof NeuronLayer) {
+      this.layer.addNeuron()
+    }
+  }
+
+  _handleSetNeurons(e: SubmitEvent): void {
+    e.preventDefault()
+    const formData = serialize(this._updateNeuronsForm)
+    if (typeof formData.units !== 'string')
+      throw new Error(
+        'The number of neurons in the form should be of type string.'
+      )
+    const units: number = parseInt(formData.units)
+    if (this.layer instanceof DenseLayer) {
       this.layer.setNeurons(units)
     }
     this._updateNeuronsForm.reset()
   }
 
-  _handleChangeInput(e) {
-    const layerIDs = this.renderRoot.querySelector('#inputSelect').value.map(id => {return parseInt(id)})
-    const layers = state.network.getLayersByIds(layerIDs)
-    this.layer.setInputFrom(layers)
-  }
-
-  _handleChangeOutput(e) {
-    const layerIDs = this.renderRoot.querySelector('#outputSelect').value.map(id => {return parseInt(id)})
-    const layers = state.network.getLayersByIds(layerIDs)
-    this.layer.setOutputTo(layers)
-  }
-
-  _handleDuplicateLayer(e) {
+  _handleDuplicateLayer(): void {
     this.layer.duplicate()
   }
 
-  _handleDeleteLayer(e) {
-    state.network.deselect()
-    this.layer.delete()
-  }
-  
-  _getInputOptions() {
-    const options = state.network.layers.filter((layer) => layer != this.layer)
-    return options.map((layer) => html`<sl-option value="${layer.id.toString()}">${layer.getName()}</sl-option>`)
-  }
-
-  _getOutputOptions() {
-    const options = state.network.layers.filter((layer) => layer != this.layer && !(layer instanceof InputLayer))
-    return options.map((layer) => html`<sl-option value="${layer.id.toString()}">${layer.getName()}</sl-option>`)
+  _handleDeleteLayer(): void {
+    this.networkConf.network.removeLayer(this.layer)
+    spawnAlert({
+      message: `'${this.layer.getName()}' has been deleted!`,
+      variant: 'danger',
+      icon: 'trash',
+    })
   }
 
-  // @TODO: somehow make the number of units reactive, so that when removing multiple neurons, the button to remove is disabled when we reach a units value of 1
-  render(){
+  static styles: CSSResult[] = [globalStyles]
+
+  // @TODO: somehow make the number of units reactive, so that when removing
+  // multiple neurons, the button to remove is disabled when we reach a units
+  // value of 1
+  render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">
-          Edit layer
-        </div>
+        <div slot="title">Edit layer</div>
         <div slot="content">
-          <div>
-            <h3>Neurons</h3>
-            <c-button-group>
-              <sl-button @click="${this._handleAddNeuron}" variant=primary outline>
-                <sl-icon slot="prefix" name="plus-square"></sl-icon>
-                Add
-              </sl-button>
-              <sl-button @click="${this._handleRemoveNeuron}" .disabled=${this.layer instanceof NeuronLayer && this.layer.units.length <= 1} variant=danger outline>
-                <sl-icon slot="prefix" name="trash"></sl-icon>
-                Remove
-              </sl-button>
-            </c-button-group>
-          </div>
-          <form id="updateNeuronsForm">
-            <c-button-group>
-              <sl-input name="units" placeholder="neurons" type="number" required></sl-input>
-              <sl-button type="submit">
-                <sl-icon slot="prefix" name="arrow-clockwise"></sl-icon>
-                Update
-              </sl-button>
-            </c-button-group>
-          </form>
-          <div>
-            <h3>Inputs</h3>
-            <sl-select id="inputSelect" value=${this.layer.inputFrom.map(layer => layer.id).join(' ')} multiple clearable @sl-change="${this._handleChangeInput}">
-              ${this._getInputOptions()}
-            </sl-select>
-            <h3>Outputs</h3>
-            <sl-select id="outputSelect" value=${this.layer.outputTo.map(layer => layer.id).join(' ')} multiple clearable @sl-change="${this._handleChangeOutput}">
-              ${this._getOutputOptions()}
-            </sl-select>
-          </div>
-        <div>
-          <h3>Layer</h3>
+          ${!(
+            this.layer instanceof InputLayer ||
+            this.layer instanceof OutputLayer
+          )
+            ? html`<div>
+                  <h2>Neurons</h2>
+                  <c-button-group>
+                    <sl-button
+                      .disabled=${this.layer instanceof NeuronLayer &&
+                      this.layer.neurons.length <= 1}
+                      @click="${(_e: MouseEvent) => this._handleRemoveNeuron()}"
+                    >
+                      <sl-icon slot="prefix" name="dash-square"></sl-icon>
+                      Remove
+                    </sl-button>
+                    <sl-button
+                      @click="${(_e: MouseEvent) => this._handleAddNeuron()}"
+                    >
+                      <sl-icon slot="prefix" name="plus-square"></sl-icon>
+                      Add
+                    </sl-button>
+                  </c-button-group>
+                </div>
+                <form id="updateNeuronsForm">
+                  <c-button-group>
+                    <sl-input
+                      name="units"
+                      placeholder="neurons"
+                      type="number"
+                      required
+                    ></sl-input>
+                    <sl-button type="submit">
+                      <sl-icon slot="prefix" name="arrow-clockwise"></sl-icon>
+                      Update
+                    </sl-button>
+                  </c-button-group>
+                </form>`
+            : html``}
+          <h2>Layer</h2>
           <c-button-group>
-            <sl-button @click="${this._handleDuplicateLayer}">
-              <sl-icon slot="prefix" name="files"></sl-icon>
-              Duplicate
-            </sl-button>
-            <sl-button @click="${this._handleDeleteLayer}" variant=danger outline>
+            ${!(
+              this.layer instanceof InputLayer ||
+              this.layer instanceof OutputLayer
+            )
+              ? html` <sl-button
+                  @click="${(_e: MouseEvent) => this._handleDuplicateLayer()}"
+                >
+                  <sl-icon slot="prefix" name="files"></sl-icon>
+                  Duplicate
+                </sl-button>`
+              : html``}
+            <sl-button
+              @click="${(_e: MouseEvent) => this._handleDeleteLayer()}"
+            >
               <sl-icon slot="prefix" name="trash"></sl-icon>
               Delete
             </sl-button>
           </c-button-group>
         </div>
       </c-card>
-    `;
+    `
   }
 }

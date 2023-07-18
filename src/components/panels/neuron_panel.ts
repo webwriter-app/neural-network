@@ -1,43 +1,58 @@
-import { LitElementWw } from "@webwriter/lit"
-import { html, css } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
+import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
-import { StateController } from "@lit-app/state";
-import state from '@/state'
+import { consume } from '@lit-labs/context'
+import { Selected, selectedContext } from '@/contexts/selected_context'
+import { dataSetContext } from '@/contexts/data_set_context'
 
-import NeuronLayer from "@/network/neuron_layer";
+import { globalStyles } from '@/global_styles'
+
+import { InputLayer } from '@/components/network/input_layer'
+import { Neuron } from '@/components/network/neuron'
+
+import { DataSet } from '@/data_set/data_set'
 
 import '@/components/cards/neuron_info_card'
+import '@/components/cards/plots_card'
+import { CLayer } from '@/components/network/c_layer'
 
 @customElement('neuron-panel')
-class NeuronPanel extends LitElementWw {
+export class NeuronPanel extends LitElementWw {
+  @consume({ context: dataSetContext, subscribe: true })
+  dataSet: DataSet
 
-    state = new StateController(this, state)
+  @consume({ context: selectedContext, subscribe: true })
+  selected: Selected
 
-    static styles = css`
-        .panel {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+  static styles: CSSResult[] = [globalStyles]
+
+  getCards(): TemplateResult<1> {
+    if (!this.selected.neuron && !this.selected.layer) {
+      return html``
+    }
+
+    const neuron: Neuron = this.selected.neuron
+    const layer: CLayer = this.selected.layer
+
+    return html`
+      <neuron-info-card
+        .neuron=${neuron}
+        .layer=${layer}
+        .dataSet=${this.dataSet}
+      ></neuron-info-card>
+      ${layer instanceof InputLayer && neuron.label
+        ? html`
+            <plots-card
+              .dataSet=${this.dataSet}
+              .inputKey=${neuron.label}
+            ></plots-card>
+          `
+        : html``}
     `
+  }
 
-    getCards() {
-        if (!state.activeNeuron) {
-            return html``
-        }
-
-        const neuron = state.activeNeuron
-        return html`
-            <neuron-info-card .neuron=${neuron} .dataset=${state.dataset}></neuron-info-card>
-        `
-    }
-
-    render(){
-        return html`
-            <div class="panel">
-                ${this.getCards()}
-            </div>
-        `;
-    }
+  render(): TemplateResult<1> {
+    return html` <c-panel name="neuron"> ${this.getCards()} </c-panel> `
+  }
 }

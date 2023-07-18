@@ -1,62 +1,39 @@
-import { LitElementWw } from "@webwriter/lit"
-import { html, css } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
+import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
+import { globalStyles } from '@/global_styles'
+
 @customElement('c-card')
-class CCard extends LitElementWw {
-
+export class CCard extends LitElementWw {
   /* STYLES */
-  static styles = css`
+  static styles: CSSResult[] = [
+    globalStyles,
+    css`
+      :host {
+        width: 100%;
+      }
 
-    .c-card {
-      width: 100%;
-      position: relative;
-    }
+      .c-card {
+        --padding: 10px 20px 20px 20px;
+        margin: 0;
+        width: 100%;
+      }
 
-    .c-card [slot='header'] {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+      .c-card ::slotted(*[slot='content']) {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+    `,
+  ]
 
-    .c-card ::slotted(div[slot='content']) {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .c-card sl-icon-button {
-      font-size: var(--sl-font-size-medium);
-    }
-
-    .drawer {
-      border: 1px solid black;
-      background-color: green;
-    }
-
-   /*  :host(:not([editable])) div[slot="header"] {
-      display: none
-    } */
-  `
-
-  _handleToggleDrawer() {
-    const drawer = this.renderRoot.querySelector('.drawer');
-    drawer.open = !drawer.open
-  }
-
-  render(){
+  render(): TemplateResult<1> {
     return html`
       <sl-card class="c-card">
-        <div slot="header">
-          <h2><slot name="title"></slot></h2>
-          <sl-icon-button name="gear" label="Settings" @click=${this._handleToggleDrawer}></sl-icon-button>
-        </div>
-        <slot name="content">
-        </slot>
-        <sl-drawer label="Settings" contained class="drawer" style="--size: 80%;">
-          <slot name="settings">
-        </sl-drawer>
+        <h1><slot name="title"></slot></h1>
+        <slot name="content"> </slot>
       </sl-card>
-    `;
+    `
   }
 }

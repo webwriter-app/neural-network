@@ -1,31 +1,52 @@
-import { LitElementWw } from "@webwriter/lit"
-import { html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { LitElementWw } from '@webwriter/lit'
+import { CSSResult, TemplateResult, html } from 'lit'
+import { customElement, property, query } from 'lit/decorators.js'
 
-import Layer from "@/network/layer";
-import Activation from '@/network/activation'
+import { SlSelect, SlChangeEvent } from '@shoelace-style/shoelace'
+
+import { globalStyles } from '@/global_styles'
+
+import { CLayer } from '@/components/network/c_layer'
+import {
+  ActivationOption,
+  activationOptions,
+} from '@/components/network/activation'
 
 @customElement('layer-activation-card')
-class LayerActivationCard extends LitElementWw {
+export class LayerActivationCard extends LitElementWw {
+  @property()
+  layer: CLayer
 
-    @property() layer: Layer | null
+  @query('sl-select')
+  _selectActivationFormElm: SlSelect
 
-    _handleChangeActivation(e) {
-        this.layer.setActivation(this.renderRoot.querySelector('sl-select').value)
-    }
+  _handleChangeActivation(): void {
+    this.layer.setActivation(
+      <ActivationOption>this._selectActivationFormElm.value
+    )
+  }
 
-    render(){
-        return html`
-            <c-card>
-                <div slot="title">
-                    Activation function
-                </div>
-                <div slot="content">
-                    <sl-select .value="${this.layer.activation.name}" help-text="The selected activation will be applied to all neurons in this layer." @sl-change="${this._handleChangeActivation}">
-                    ${Activation.getOptions().map((option) => html`<sl-option .value="${option}">${option}</sl-option>`)}
-                    </sl-select>
-                </div>
-            </c-card>
-        `;
-    }
+  static styles: CSSResult[] = [globalStyles]
+
+  render(): TemplateResult<1> {
+    return html`
+      <c-card>
+        <div slot="title">Activation function</div>
+        <div slot="content">
+          <sl-select
+            .value="${this.layer.activation}"
+            help-text="The selected activation will be applied to all neurons in this layer."
+            @sl-change="${(_e: SlChangeEvent) => {
+              this._handleChangeActivation()
+            }}"
+          >
+            ${activationOptions.map(
+              (option) =>
+                html`<sl-option .value="${option}">${option}</sl-option>`
+            )}
+          </sl-select>
+        </div>
+      </c-card>
+    `
+  }
 }
