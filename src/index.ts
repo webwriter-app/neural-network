@@ -1,6 +1,6 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
@@ -30,11 +30,14 @@ import { CLayerConnection } from '@/components/network/c_layer_connection'
 import { Neuron } from '@/components/network/neuron'
 import { Edge } from '@/components/network/edge'
 
+import { spawnAlert } from '@/utils/alerts'
+
 import '@/components/network/network'
 import '@/components/canvas_area'
 import '@/components/menu_area'
 
 import * as tf from '@tensorflow/tfjs'
+import * as tfvis from '@tensorflow/tfjs-vis'
 
 @customElement('ww-deeplearning')
 export class WwDeepLearning extends LitElementWw {
@@ -72,13 +75,21 @@ export class WwDeepLearning extends LitElementWw {
   @provide({ context: trainOptionsContext })
   @property({ attribute: true, reflect: true })
   trainOptions: TrainOptions = {
-    learningRate: 0.2,
-    dropoutRate: 0.2,
-    epochs: 3,
-    batchSize: 50,
+    learningRate: '0.01',
+    dropoutRate: '0',
+    epochs: '7',
+    batchSize: '50',
     lossFunction: 'meanSquaredError',
     optimizer: 'sgd',
+    setOption: (attribute: string, value: string) => {
+      this.trainOptions[attribute] = value
+      this.trainOptions = <TrainOptions>Object.create(this.trainOptions)
+    },
   }
+
+  // HTML container where metrics like accuracy and loss are plotted into
+  @state()
+  trainMetricsContainer: HTMLDivElement
 
   // model context: provides the tensorflow.js model based on the network and
   // corresponding actions like training
@@ -87,55 +98,136 @@ export class WwDeepLearning extends LitElementWw {
   model: Model = {
     model: null,
     reset: () => {
-      this.model.model = null
-      this.model = <Model>Object.create(this.model)
+      if (this.model.model) {
+        // set stopRequested to true because we want to be able to call reset()
+        // also to abort a current running training session. Will not have any
+        // complications because the train method itself sets it to false before
+        // it is used
+        this.model.stopRequested = true
+
+        // set the model to null
+        this.model.model = null
+        this.model = <Model>Object.create(this.model)
+
+        // empty the container for the metrics. if we did not do this, it would
+        // also show the metrics from the previous training
+        this.trainMetricsContainer.innerHTML = ''
+      }
     },
     build: () => {
       this.model.reset()
       const model = this.networkConf.network.buildModel()
-      if (model) {
+      if (model && this.dataSet) {
+        const optimizer = tf.train.sgd(
+          parseFloat(this.trainOptions.learningRate)
+        )
+        const metrics: string[] = []
+        let loss: string
+        if (this.dataSet.type == 'regression') {
+          loss = 'meanSquaredError'
+          metrics.push('mse')
+        } else if (this.dataSet.type == 'classification') {
+          loss = 'softmaxCrossEntropy'
+          metrics.push('acc')
+        } else {
+          return
+        }
         model.compile({
-          optimizer: 'sgd',
-          loss: 'meanSquaredError',
-          metrics: ['mse'],
+          optimizer,
+          loss,
+          metrics,
         })
         this.model.model = model
+        console.log(model.summary())
+        spawnAlert({
+          message: `The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!`,
+          variant: 'success',
+          icon: 'check-circle',
+        })
         this.model = <Model>Object.create(this.model)
       }
     },
+    isTraining: false,
+    actBatch: null,
+    actEpoch: null,
     train: () => {
       if (!this.model.model) {
         this.model.build()
       }
 
       if (this.model.model) {
+        // a manual stop can be requested by setting this variable to true (is
+        // periodically checked)
+        this.model.stopRequested = false
+
+        // set the isTraining boolean variable that is used in the ui do
+        // determine what to display
+        this.model.actEpoch = 0
+        this.model.actBatch = 0
+        this.model.isTraining = true
+        this.model = <Model>Object.create(this.model)
+
         // inputs
         const inputs: number[][] = []
         for (const inputLayer of this.networkConf.network.getInputLayers()) {
           inputs.push(...this.dataSet.getInputDataForLayer(inputLayer))
         }
+        console.log(tf.tensor(inputs).shape)
 
         // labels
         const labels: number[] = this.dataSet.getLabelData()
 
+        // desired metrics
+        const metrics: string[] = ['loss']
+        if (this.dataSet.type == 'regression') {
+          metrics.push('mse')
+        } else if (this.dataSet.type == 'classification') {
+          metrics.push('acc')
+        } else {
+          return
+        }
+
         // start the training itself
         void this.model.model
           .fit(tf.tensor(inputs), tf.tensor(labels), {
-            epochs: 10,
-            batchSize: 10,
-            callbacks: {
-              onBatchEnd: (batch, logs) => {
-                console.log('MSE', logs.mse)
+            epochs: parseInt(this.trainOptions.epochs),
+            batchSize: parseInt(this.trainOptions.batchSize),
+            callbacks: [
+              tfvis.show.fitCallbacks(this.trainMetricsContainer, metrics, {
+                height: 100,
+              }),
+              {
+                onBatchEnd: (batch: number, _logs) => {
+                  // after each batch check if a stop was requested
+                  if (this.model.stopRequested) {
+                    this.model.model.stopTraining = true
+                  }
+                  this.model.actBatch = batch + 1
+                  this.model = <Model>Object.create(this.model)
+                },
+                onEpochEnd: (epoch: number, _logs) => {
+                  this.model.actEpoch = epoch + 1
+                  this.model = <Model>Object.create(this.model)
+                },
               },
-            },
+            ],
           })
           .then((info) => {
             console.log('Final MSE', info.history.mse)
+            console.log(info)
           })
-
-        this.model = <Model>Object.create(this.model)
+          .catch((err) => {
+            console.error(err)
+          })
+          .finally(() => {
+            setTimeout(() => {
+              this.model.isTraining = false
+              this.model = <Model>Object.create(this.model)
+            }, 500)
+          })
       }
     },
+    stopRequested: false,
     predict: () => {
       return
     },
@@ -261,10 +353,27 @@ export class WwDeepLearning extends LitElementWw {
     console.log('cleared network')
   }
 
-  // set the dataset and notifies the network to adjust accordingly.
+  // set the dataset and handles everything that needs to be done on a dataset
+  // change
   setDataSet(dataSet: DataSet) {
     this.dataSet = dataSet
+    // reset the model
+    this.model.reset()
+    // notify the network to update its layers
     if (this.networkConf.network) this.networkConf.network.handleDataSetChange()
+  }
+
+  // set error rate container
+  setTrainMetricsContainer(container: HTMLDivElement) {
+    this.trainMetricsContainer = container
+    console.log('setting train metrics container to ')
+    console.log(container)
+    console.log(this.trainMetricsContainer)
+  }
+
+  // stop training
+  stopTraining() {
+    this.model.stopRequested = true
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -277,6 +386,17 @@ export class WwDeepLearning extends LitElementWw {
         flex-direction: row;
         overflow: hidden;
         background-color: #f7f7f7;
+      }
+
+      #loadingDiv {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       canvas-area {
@@ -311,36 +431,56 @@ export class WwDeepLearning extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <div id="app">
-        <canvas-area
-          class="${!this.panels.containsSome(...panelGroups['right'])
-            ? 'right-collapsed'
-            : ''}"
-          @canvas-created="${(e: CustomEvent<HTMLDivElement>) =>
-            this.createCanvas(e.detail)}"
-        ></canvas-area>
+        ${this.dataSet
+          ? html`
+            <canvas-area
+              class="${
+                !this.panels.containsSome(...panelGroups['right'])
+                  ? 'right-collapsed'
+                  : ''
+              }"
+              @canvas-created="${(e: CustomEvent<HTMLDivElement>) =>
+                this.createCanvas(e.detail)}"
+            ></canvas-area>
 
-        <div
-          id="divider"
-          class="${!this.panels.containsSome(...panelGroups['right'])
-            ? 'hidden'
-            : ''}"
-        ></div>
+            <div
+              id="divider"
+              class="${
+                !this.panels.containsSome(...panelGroups['right'])
+                  ? 'hidden'
+                  : ''
+              }"
+            ></div>
 
-        <menu-area
-          class="${!this.panels.containsSome(...panelGroups['right'])
-            ? 'right-collapsed'
-            : ''}"
-          @change-data-set="${(e: CustomEvent<DataSet>) =>
-            this.setDataSet(e.detail)}"
-          @clear-network="${(_e: Event) => this.clearNetwork()}"
-        ></menu-area>
+            <menu-area
+              class="${
+                !this.panels.containsSome(...panelGroups['right'])
+                  ? 'right-collapsed'
+                  : ''
+              }"
+              @change-data-set="${(e: CustomEvent<DataSet>) =>
+                this.setDataSet(e.detail)}"
+              @clear-network="${(_e: Event) => this.clearNetwork()}"
+              @set-train-metrics-container="${(
+                e: CustomEvent<HTMLDivElement>
+              ) => this.setTrainMetricsContainer(e.detail)}"
+              @stop-training="${(_e: Event) => this.stopTraining()}"
+            ></menu-area>
+          </div>
+        `
+          : html`
+              <div id="loadingDiv">
+                <h1>Loading</h1>
+                <sl-spinner style="font-size: 3rem;"></sl-spinner>
+              </div>
+            `}
+        ${this.networkConf
+          ? html` <c-network
+              @network-created="${(e: CustomEvent<Network>) =>
+                this.createNetwork(e.detail)}"
+            ></c-network>`
+          : html``}
       </div>
-      ${this.networkConf
-        ? html` <c-network
-            @network-created="${(e: CustomEvent<Network>) =>
-              this.createNetwork(e.detail)}"
-          ></c-network>`
-        : html``}
     `
   }
 }

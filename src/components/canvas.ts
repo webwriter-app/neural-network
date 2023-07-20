@@ -151,14 +151,13 @@ export class Canvas implements ReactiveController {
         const cyNode = evtTarget
 
         if (cyNode.data('type') == 'layer') {
-          const layer /* : CLayer */ =
-            this.host.networkConf.network.getLayerById(
-              <number>cyNode.data('layer')
-            )
+          const layer /* : CLayer */ = this.host.networkConf.layers.get(
+            <number>cyNode.data('layer')
+          )
           this.host.selected.select({ layer })
         } else if (cyNode.data('type') == 'neuron') {
           const layer /* : NeuronLayer */ =
-            /* <NeuronLayer> */ this.host.networkConf.network.getLayerById(
+            /* <NeuronLayer> */ this.host.networkConf.layers.get(
               <number>cyNode.data('layer')
             )
           const neuron /* : Neuron */ =
@@ -167,18 +166,16 @@ export class Canvas implements ReactiveController {
         }
       } else if (evtTarget.isEdge()) {
         const cyEdge = evtTarget
-        const sourceLayer /* : CLayer */ =
-          this.host.networkConf.network.getLayerById(
-            <number>cyEdge.source().data('layer')
-          )
+        const sourceLayer /* : CLayer */ = this.host.networkConf.layers.get(
+          <number>cyEdge.source().data('layer')
+        )
         let sourceNeuron /* : Neuron */ = null
         /* if (sourceLayer instanceof NeuronLayer) { */
         sourceNeuron = sourceLayer.neurons[cyEdge.source().data('neuron') - 1]
         /* } */
-        const targetLayer /* : CLayer */ =
-          this.host.networkConf.network.getLayerById(
-            <number>cyEdge.target().data('layer')
-          )
+        const targetLayer /* : CLayer */ = this.host.networkConf.layers.get(
+          <number>cyEdge.target().data('layer')
+        )
         let targetNeuron /* : Neuron */ = null
         /* if (targetLayer instanceof NeuronLayer) { */
         targetNeuron = targetLayer.neurons[cyEdge.target().data('neuron') - 1]

@@ -167,9 +167,6 @@ export class Neuron extends LitElementWw {
         )
     }
 
-    if (this.layer instanceof InputLayer)
-      console.log('shifted neuron for ' + this.label + ' left')
-
     // notify the network that the parent layer changed its neurons and thus,
     // connections from and to this layer have to be rerendered
     this.dispatchEvent(

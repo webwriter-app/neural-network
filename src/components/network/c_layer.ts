@@ -4,6 +4,12 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { consume } from '@lit-labs/context'
 import { Canvas, canvasContext } from '@/contexts/canvas_context'
+import { dataSetContext } from '@/contexts/data_set_context'
+import { DataSet } from '@/data_set/data_set'
+import {
+  trainOptionsContext,
+  TrainOptions,
+} from '@/contexts/train_options_context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -19,9 +25,6 @@ export abstract class CLayer extends LitElementWw {
   // instance.constructor
   declare ['constructor']: typeof CLayer
 
-  @consume({ context: canvasContext, subscribe: true })
-  canvas: Canvas
-
   @property()
   layerId: number
 
@@ -34,6 +37,15 @@ export abstract class CLayer extends LitElementWw {
 
   @property()
   alert = true
+
+  @consume({ context: canvasContext, subscribe: true })
+  canvas: Canvas
+
+  @consume({ context: dataSetContext, subscribe: true })
+  dataSet: DataSet
+
+  @consume({ context: trainOptionsContext, subscribe: true })
+  trainOptions: TrainOptions
 
   // a type and description that is displayed as an info for the layer
   static LAYER_TYPE: string
@@ -113,7 +125,7 @@ export abstract class CLayer extends LitElementWw {
   }
 
   // BUILDING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  //abstract build(): void
+  abstract build(inputs: tf.SymbolicTensor[]): void
 
   getTensorName(): string {
     return this.getName()

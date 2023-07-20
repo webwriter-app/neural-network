@@ -45,7 +45,7 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
       (layerId) => !currentLayerIds.includes(layerId)
     )
     for (const addedLayerId of addedLayerIds) {
-      const targetLayer = this.networkConf.network.getLayerById(addedLayerId)
+      const targetLayer = this.networkConf.layers.get(addedLayerId)
       this.networkConf.network.addLayerConnection(this.layer, targetLayer)
     }
 
@@ -54,7 +54,7 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
       (layerId) => !selectedLayerIds.includes(layerId)
     )
     for (const removedLayerId of removedLayerIds) {
-      const targetLayer = this.networkConf.network.getLayerById(removedLayerId)
+      const targetLayer = this.networkConf.layers.get(removedLayerId)
       this.networkConf.network.removeLayerConnection(this.layer, targetLayer)
     }
   }

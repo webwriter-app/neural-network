@@ -8,6 +8,13 @@ export const globalStyles = css`
     font-family: var(--sl-font-sans);
   }
 
+  .sl-toast-stack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: auto;
+  }
+
   h1,
   h2,
   h3,
@@ -37,5 +44,17 @@ export const globalStyles = css`
 
   .hidden {
     display: none !important;
+  }
+
+  sl-progress-bar {
+    --height: 7px;
+    --track-color: var(--sl-color-primary-100);
+    --indicator-color: var(--sl-color-primary-600);
+    margin-bottom: 10px;
+  }
+
+  sl-range {
+    --track-color-active: var(--sl-color-primary-600);
+    --track-color-inactive: var(--sl-color-primary-100);
   }
 `

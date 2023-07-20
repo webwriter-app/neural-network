@@ -10,6 +10,7 @@ import {
   networkConfContext,
 } from '@/contexts/network_conf_context'
 import { dataSetContext } from '@/contexts/data_set_context'
+import { Model, modelContext } from '@/contexts/model_context'
 
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
 
@@ -24,6 +25,9 @@ export class PredictCard extends LitElementWw {
 
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
+
+  @consume({ context: modelContext, subscribe: true })
+  model: Model
 
   @query('#predictForm')
   _predictForm: HTMLFormElement
@@ -44,8 +48,6 @@ export class PredictCard extends LitElementWw {
   }
 
   getInputFieldsForLayer(layer: InputLayer): TemplateResult<1>[] {
-    console.log('input fields')
-    console.log(this.dataSet.getAssignedInputsFor(layer))
     const assignedInputs: DataSetInput[] =
       this.dataSet.getAssignedInputsFor(layer)
     return assignedInputs.map((assignedInput: DataSetInput) => {
@@ -53,7 +55,7 @@ export class PredictCard extends LitElementWw {
         <sl-tooltip content=${assignedInput['description']}>
           <sl-input
             name="${assignedInput['key']}"
-            placeholder="${assignedInput['key']}"
+            label="${assignedInput['key']}"
             type="number"
             required
           ></sl-input>

@@ -4,14 +4,11 @@ import { customElement } from 'lit/decorators.js'
 
 import { consume } from '@lit-labs/context'
 import { Selected, selectedContext } from '@/contexts/selected_context'
-import { dataSetContext } from '@/contexts/data_set_context'
 
 import { globalStyles } from '@/global_styles'
 
 import { InputLayer } from '@/components/network/input_layer'
 import { Neuron } from '@/components/network/neuron'
-
-import { DataSet } from '@/data_set/data_set'
 
 import '@/components/cards/neuron_info_card'
 import '@/components/cards/plots_card'
@@ -19,9 +16,6 @@ import { CLayer } from '@/components/network/c_layer'
 
 @customElement('neuron-panel')
 export class NeuronPanel extends LitElementWw {
-  @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
-
   @consume({ context: selectedContext, subscribe: true })
   selected: Selected
 
@@ -36,18 +30,9 @@ export class NeuronPanel extends LitElementWw {
     const layer: CLayer = this.selected.layer
 
     return html`
-      <neuron-info-card
-        .neuron=${neuron}
-        .layer=${layer}
-        .dataSet=${this.dataSet}
-      ></neuron-info-card>
+      <neuron-info-card .neuron=${neuron} .layer=${layer}></neuron-info-card>
       ${layer instanceof InputLayer && neuron.label
-        ? html`
-            <plots-card
-              .dataSet=${this.dataSet}
-              .inputKey=${neuron.label}
-            ></plots-card>
-          `
+        ? html` <plots-card .inputKey=${neuron.label}></plots-card> `
         : html``}
     `
   }

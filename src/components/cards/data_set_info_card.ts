@@ -47,6 +47,7 @@ export class DataSetInfoCard extends LitElementWw {
               ${this.dataSet.inputs.map(
                 (input) => html`
                   <c-data-info
+                    type="feature"
                     .dataProperty="${input}"
                     class="clickable"
                     @click="${(_e: MouseEvent) =>
@@ -57,7 +58,10 @@ export class DataSetInfoCard extends LitElementWw {
             </div>
             <h2>Output</h2>
             <div class="data-pills">
-              <c-data-info .dataProperty="${this.dataSet.label}"></c-data-info>
+              <c-data-info
+                type="label"
+                .dataProperty="${this.dataSet.label}"
+              ></c-data-info>
             </div>
           </div>
         </div>

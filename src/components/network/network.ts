@@ -16,12 +16,8 @@ import { Selected, selectedContext } from '@/contexts/selected_context'
 
 import { CLayer } from '@/components/network/c_layer'
 import { InputLayer } from '@/components/network/input_layer'
-import { DenseLayer } from '@/components/network/dense_layer'
 import { OutputLayer } from '@/components/network/output_layer'
-import { ActivationOption } from '@/components/network/activation'
 import { CLayerConnection } from '@/components/network/c_layer_connection'
-
-import { Position } from '@/types/position'
 
 import { spawnAlert } from '@/utils/alerts'
 
@@ -78,16 +74,9 @@ export class Network extends LitElementWw {
     )
   }
 
-  // OWN METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // LAYER MANAGEMENT  - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // GETTING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // get one layer by its id
-  getLayerById(layerId: number): CLayer {
-    return this.networkConf.layers.get(layerId)
-  }
-
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // -> LAYERS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // ---> GETTING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // get the input layers. important for everything related to training, testing
   // or predicting because the entrypoint is always in these layers
   getInputLayers(): InputLayer[] {
@@ -107,7 +96,7 @@ export class Network extends LitElementWw {
     )
   }
 
-  // ADDING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // ---> ADDING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // returns an id currently not in the layer. Since new layers are added in the
   // end of our layers array and always get higher ids than the previous layers,
   // it suffices to take the id of the last layer and add 1 to it to get an
@@ -122,21 +111,7 @@ export class Network extends LitElementWw {
     }
   }
 
-  // CONNECTING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  addLayerConnection(source: CLayer, target: CLayer): void {
-    const layerConnection: CLayerConnection = <CLayerConnection>(
-      document.createElement('c-layer-connection')
-    )
-    layerConnection.sourceLayer = source
-    layerConnection.targetLayer = target
-    this.networkConf.addLayerConnection(layerConnection)
-  }
-
-  removeLayerConnection(source: CLayer, target: CLayer): void {
-    this.networkConf.removeLayerConnection([source.layerId, target.layerId])
-  }
-
-  // REMOVING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // ---> REMOVING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // remove a layer from the network. does not delete the layer itself (therfore
   // call the layers delete method which should call this method)
   removeLayer(layerArg: CLayer): void {
@@ -168,11 +143,37 @@ export class Network extends LitElementWw {
     this.selected.select()
   }
 
+  // -> CONNECTIONS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // ---> GETTING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  getTargetsFor(source: CLayer): CLayer[] {
+    return Array.from(this.networkConf.layerConnections.keys())
+      .filter(([sourceId, _targetId]) => sourceId == source.layerId)
+      .map(([_sourceId, targetId]) => this.networkConf.layers.get(targetId))
+  }
+
+  getSourcesFor(target: CLayer): CLayer[] {
+    return Array.from(this.networkConf.layerConnections.keys())
+      .filter(([_sourceId, targetId]) => targetId == target.layerId)
+      .map(([sourceId, _targetId]) => this.networkConf.layers.get(sourceId))
+  }
+
+  // ---> ADDING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  addLayerConnection(source: CLayer, target: CLayer): void {
+    const layerConnection: CLayerConnection = <CLayerConnection>(
+      document.createElement('c-layer-connection')
+    )
+    layerConnection.sourceLayer = source
+    layerConnection.targetLayer = target
+    this.networkConf.addLayerConnection(layerConnection)
+  }
+
+  removeLayerConnection(source: CLayer, target: CLayer): void {
+    this.networkConf.removeLayerConnection([source.layerId, target.layerId])
+  }
+
   // BUILD MODEL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // @TODO needs to be rewritten completely
   buildModel(): tf.LayersModel {
-    return tf.model({ inputs: null, outputs: null })
-    /* console.log('building network')
+    console.log('building network')
 
     // check if at least one input layer exists
     if (!this.getInputLayers().length) {
@@ -194,10 +195,27 @@ export class Network extends LitElementWw {
       return null
     }
 
-    // create a model beginning at the input layer(s)
-    // layers are built somehow recursively
-    for (const inputLayer of this.getInputLayers()) {
-      inputLayer.build()
+    // reset the tensors of all layer
+    Array.from(this.networkConf.layers.values()).forEach((layer) => {
+      layer.tensor = null
+    })
+    // now we can start building the network iteratively using a queue of layers
+    // that we initialize with the input layers since they dont need to fulfill
+    // any preconditions in order to be built.
+    const buildQueue: CLayer[] = this.getInputLayers()
+
+    // iterate over the build queue but skip layers that have sources which are
+    // not yet built. They will end up in the build queue later again.
+    while (buildQueue.length) {
+      const layer = buildQueue[0]
+      // build the current layer in the build queue
+      if (this.getSourcesFor(layer).every((layer) => layer.tensor)) {
+        layer.build(this.getSourcesFor(layer).map((layer) => layer.tensor))
+      }
+      // add all layers the current layer connects to the the queue
+      this.getTargetsFor(layer).forEach((layer) => buildQueue.push(layer))
+      // we are done with the current layer, so we remove it from the queue
+      buildQueue.shift()
     }
 
     // check if there is a connected output layer, else abort (might lead to
@@ -223,12 +241,12 @@ export class Network extends LitElementWw {
     const tfModel = tf.model({ inputs, outputs: output })
 
     console.log(tfModel)
-    return tfModel */
+    return tfModel
   }
 
   // EVENT HANDLERS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleLayerCreated(layer: CLayer): void {
-    // get the layer a fresh unused id and add the layer to the layers array
+    // get the layer a fresh unused id
     layer['layerId'] = this.getFreshId()
 
     // assign all unassigned inputs to the layer in case it is an input layer
@@ -242,8 +260,6 @@ export class Network extends LitElementWw {
         this.dataSet.getNonAssignedLabelKey()
       )
     }
-
-    console.log(layer)
 
     // add the layer to the network
     this.networkConf.addLayer(layer)

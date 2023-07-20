@@ -21,6 +21,7 @@ export class LayerOutgoingDataCard extends LitElementWw {
           ${this.layer.dataSetLabel.key
             ? html`
                 <c-data-info
+                  type="label"
                   .dataProperty="${this.layer.dataSetLabel}"
                 ></c-data-info>
               `

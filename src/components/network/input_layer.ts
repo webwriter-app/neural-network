@@ -8,6 +8,8 @@ import { ActivationOption } from '@/components/network/activation'
 import { NeuronLayer } from '@/components/network/neuron_layer'
 import { spawnAlert } from '@/utils/alerts'
 
+import * as tf from '@tensorflow/tfjs'
+
 // an input layer is a special type of a neuron layer. We do not allow
 // activation functions and provide methods to assign input data from the
 // dataSet to this input layer. We do not allow manual editing of the neurons
@@ -87,9 +89,7 @@ export class InputLayer extends NeuronLayer {
     return 'An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)'
   }
 
-  /*
-  DATASET
-  */
+  // -> DATASET  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // assigning inputs
   getAssignedInputs(): string[] {
     return this.neurons.map((neuron) => neuron.label)
@@ -112,26 +112,16 @@ export class InputLayer extends NeuronLayer {
     this.requestUpdate()
   }
 
-  /*
-  BUILD
-  */
-  /* build(): void {
-    console.log(`Building layer ${this.getName()}`)
-
+  // -> BUILD  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  build(inputs: tf.SymbolicTensor[]): void {
+    <[]>inputs
     //  create our input tensor
     this.tensor = tf.input({
       shape: [this.neurons.length],
       name: this.getTensorName(),
     })
-    this.tensor['layer_id'] = this.id
-    console.log(`This input tensor:`)
-    console.log(this.tensor)
-
-    // try to build all connected outputs
-    for (const connectedOutput of this.outputTo) {
-      connectedOutput.build()
-    }
-  } */
+    this.tensor['layer_id'] = this.layerId
+  }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [globalStyles]

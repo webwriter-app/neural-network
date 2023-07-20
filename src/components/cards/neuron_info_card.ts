@@ -2,11 +2,14 @@ import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
+import { consume } from '@lit-labs/context'
+import { dataSetContext } from '@/contexts/data_set_context'
+import { DataSet } from '@/data_set/data_set'
+
 import { globalStyles } from '@/global_styles'
 
 import { CLayer } from '@/components/network/c_layer'
 import { Neuron } from '@/components/network/neuron'
-import { DataSet } from '@/data_set/data_set'
 import { OutputLayer } from '@/components/network/output_layer'
 import { InputLayer } from '@/components/network/input_layer'
 
@@ -18,17 +21,19 @@ export class NeuronInfoCard extends LitElementWw {
   @property()
   layer: CLayer
 
-  @property()
+  @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
   static styles: CSSResult[] = [globalStyles]
 
   render(): TemplateResult<1> {
-    let dataProperty
+    let type, dataProperty
     if (this.neuron.layer instanceof InputLayer) {
+      type = 'feature'
       dataProperty = this.dataSet.getByKey(this.neuron.label)
     } else if (this.neuron.layer instanceof OutputLayer) {
-      dataProperty = this.neuron.layer.dataSetLabel
+      type = 'label'
+      dataProperty = this.dataSet.getByKey(this.neuron.label)
     }
     return html`
       <c-card>
@@ -48,7 +53,10 @@ export class NeuronInfoCard extends LitElementWw {
             ${dataProperty
               ? html`
                   <h2>Assigned data</h2>
-                  <c-data-info .dataProperty="${dataProperty}"></c-data-info>
+                  <c-data-info
+                    .type="${type}"
+                    .dataProperty="${dataProperty}"
+                  ></c-data-info>
                 `
               : html``}
           </div>

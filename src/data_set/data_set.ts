@@ -6,6 +6,7 @@ export class DataSet {
   // information about the dataSet
   name: string
   description: string
+  type: 'regression' | 'classification'
 
   // formal description of input and labels, not the data
   inputs: DataSetInput[]
@@ -21,11 +22,13 @@ export class DataSet {
     {
       name,
       description,
+      type,
       inputs,
       label,
     }: {
       name: string
       description: string
+      type: 'regression' | 'classification'
       inputs: DataSetInput[]
       label: DataSetLabel
     },
@@ -33,6 +36,7 @@ export class DataSet {
   ) {
     this.name = name
     this.description = description
+    this.type = type
     this.inputs = inputs
     this.label = label
     this.data = data
@@ -42,7 +46,6 @@ export class DataSet {
   GENERAL
   */
   unassignKey(key: string): void {
-    console.log('unassign key')
     this.assignKey(key, null)
   }
 
@@ -81,9 +84,6 @@ export class DataSet {
   }): void {
     const input = this.getInputByKey(key)
     if (input) {
-      console.log(
-        'DATASET assigning ' + key + ' to layer ' + (layer ? 'layer' : 'null')
-      )
       input.layer = layer
     }
   }

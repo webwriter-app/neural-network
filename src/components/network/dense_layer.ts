@@ -7,7 +7,12 @@ import { NeuronLayer } from '@/components/network/neuron_layer'
 
 import { spawnAlert } from '@/utils/alerts'
 import { Position } from '@/types/position'
-import { ActivationOption } from '@/components/network/activation'
+import {
+  ActivationOption,
+  activationsMap,
+} from '@/components/network/activation'
+
+import * as tf from '@tensorflow/tfjs'
 
 @customElement('dense-layer')
 export class DenseLayer extends NeuronLayer {
@@ -108,6 +113,45 @@ export class DenseLayer extends NeuronLayer {
       activation: this.activation,
       pos: newPos,
     })
+  }
+
+  // -> BUILD  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  build(inputs: tf.SymbolicTensor[]): void {
+    // check if we have multiple inputs.
+    let input: tf.SymbolicTensor | tf.SymbolicTensor[] | tf.Tensor | tf.Tensor[]
+    if (inputs.length > 1) {
+      // if there are multiple inputs we concatenate them into one
+      input = tf.layers
+        .concatenate({ axis: 1, name: `concatinputs-${this.getTensorName()}` })
+        .apply(inputs)
+    } else {
+      // we know that we must have one input since this method has to have been
+      // called from somewhere, so we set the input to the tensor of the first
+      // (and single) input of our inputFrom array
+      input = inputs[0]
+    }
+
+    // lets now create the main tensor
+    const dense = <tf.SymbolicTensor>tf.layers
+      .dense({
+        units: this.neurons.length,
+        activation: <tf.ActivationIdentifier>(
+          activationsMap.get(this.activation)
+        ),
+        name: this.getTensorName(),
+      })
+      .apply(input)
+
+    // finally apply dropout
+    const dropout: tf.SymbolicTensor = <tf.SymbolicTensor>(
+      tf.layers
+        .dropout({ rate: parseInt(this.trainOptions.dropoutRate) })
+        .apply(dense)
+    )
+
+    // set this tensor to the dropout tensor and add the layer id
+    this.tensor = dropout
+    this.tensor['layer_id'] = this.layerId
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
