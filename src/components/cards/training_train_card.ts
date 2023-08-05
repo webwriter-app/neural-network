@@ -25,11 +25,21 @@ export class TrainingTrainCard extends LitElementWw {
   dataSet: DataSet
 
   _handleReset(): void {
-    void this.model.reset()
+    this.dispatchEvent(
+      new Event('reset-model', {
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   _handleTrain(): void {
-    void this.model.train()
+    this.dispatchEvent(
+      new Event('train-model', {
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   _handleStopTraining(): void {
@@ -43,77 +53,60 @@ export class TrainingTrainCard extends LitElementWw {
 
   static styles: CSSResult[] = [globalStyles]
 
+  getContent(): TemplateResult<1> {
+    if (!this.model.model && !this.model.isTraining) {
+      return html` <sl-tooltip
+        content="${this.model.model ? 'Continue training' : 'Start training'}"
+      >
+        <sl-button
+          variant="primary"
+          size="large"
+          @click="${(_e: MouseEvent) => this._handleTrain()}"
+        >
+          <sl-icon name="play" label="Run"></sl-icon>
+          Run training
+        </sl-button>
+      </sl-tooltip>`
+    } else if (this.model.isTraining) {
+      return html`
+        <sl-progress-bar
+          value="${(this.model.actEpoch / parseInt(this.trainOptions.epochs)) *
+          100}"
+        ></sl-progress-bar>
+        <p>
+          Epoch ${this.model.actEpoch}/${this.trainOptions.epochs} • Batch
+          ${this.model.actBatch}/${Math.ceil(
+            this.dataSet.data.length / parseInt(this.trainOptions.batchSize)
+          )}
+        </p>
+        <sl-button
+          circle
+          size="large"
+          @click="${(_e: MouseEvent) => this._handleStopTraining()}"
+        >
+          <sl-icon name="stop" label="Stop"></sl-icon>
+        </sl-button>
+      `
+    } else if (this.model.model) {
+      return html`
+        <span>Training done</span>
+        <sl-tooltip
+          content="Resets the model, so you can edit the network and settings again and are able to start a new training"
+        >
+          <sl-button @click="${(_e: MouseEvent) => this._handleReset()}">
+            <sl-icon name="arrow-counterclockwise" label="Reset"></sl-icon>
+            Reset
+          </sl-button>
+        </sl-tooltip>
+      `
+    }
+  }
+
   render(): TemplateResult<1> {
     return html`
       <c-card>
         <div slot="title">Train</div>
-        <div slot="content">
-          <div>
-            ${this.model.isTraining
-              ? html`
-                  <sl-progress-bar
-                    value="${(this.model.actEpoch /
-                      parseInt(this.trainOptions.epochs)) *
-                    100}"
-                  ></sl-progress-bar>
-                  <p>
-                    Epoch ${this.model.actEpoch}/${this.trainOptions.epochs} •
-                    Batch
-                    ${this.model.actBatch}/${Math.ceil(
-                      this.dataSet.data.length /
-                        parseInt(this.trainOptions.batchSize)
-                    )}
-                  </p>
-                  <sl-tooltip content="Stop training">
-                    <sl-button
-                      size="large"
-                      circle
-                      @click="${(_e: MouseEvent) => this._handleStopTraining()}"
-                    >
-                      <sl-icon name="stop" label="Stop"></sl-icon>
-                    </sl-button>
-                  </sl-tooltip>
-                `
-              : html`
-                  <sl-tooltip content="Reset model">
-                    <sl-button
-                      size="large"
-                      circle
-                      @click="${(_e: MouseEvent) => this._handleReset()}"
-                    >
-                      <sl-icon
-                        name="arrow-counterclockwise"
-                        label="Reset"
-                      ></sl-icon>
-                    </sl-button>
-                  </sl-tooltip>
-                  <sl-tooltip
-                    content="${this.model.model
-                      ? 'Continue training'
-                      : 'Start training'}"
-                  >
-                    <sl-button
-                      variant="primary"
-                      size="large"
-                      circle
-                      @click="${(_e: MouseEvent) => this._handleTrain()}"
-                    >
-                      <sl-icon name="play" label="Run"></sl-icon>
-                    </sl-button>
-                  </sl-tooltip>
-                  <sl-tooltip content="Train a single batch">
-                    <sl-button size="large" circle>
-                      <sl-icon name="fast-forward" label="Next"></sl-icon>
-                    </sl-button>
-                  </sl-tooltip>
-                  <sl-tooltip content="Train a single epoch">
-                    <sl-button size="large" circle>
-                      <sl-icon name="fast-forward" label="Next"></sl-icon>
-                    </sl-button>
-                  </sl-tooltip>
-                `}
-          </div>
-        </div>
+        <div slot="content">${this.getContent()}</div>
       </c-card>
     `
   }

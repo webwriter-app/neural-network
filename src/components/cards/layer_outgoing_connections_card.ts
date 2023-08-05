@@ -3,15 +3,16 @@ import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
 
 import { consume } from '@lit-labs/context'
-import {
-  NetworkConf,
-  networkConfContext,
-} from '@/contexts/network_conf_context'
+import { layerConfsContext } from '@/contexts/layer_confs_context'
+import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
+import { networkContext } from '@/contexts/network_context'
 
 import { globalStyles } from '@/global_styles'
 
+import { Network } from '@/components/network/network'
+import { CLayerConf } from '@/components/network/c_layer_conf'
 import { CLayer } from '@/components/network/c_layer'
-import { InputLayer } from '@/components/network/input_layer'
+import { CLayerConnectionConf } from '@/components/network/c_layer_connection_conf'
 
 import { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
 
@@ -20,8 +21,14 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
   @property()
   layer: CLayer
 
-  @consume({ context: networkConfContext, subscribe: true })
-  networkConf: NetworkConf
+  @consume({ context: layerConfsContext, subscribe: true })
+  layerConfs: CLayerConf[]
+
+  @consume({ context: layerConnectionConfsContext, subscribe: true })
+  layerConnectionConfs: CLayerConnectionConf[]
+
+  @consume({ context: networkContext, subscribe: true })
+  network: Network
 
   @query('#connectionSelect')
   _connectionSelect: SlSelect
@@ -29,9 +36,11 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   _handleChangeConnections(): void {
     // current layer ids of the outgoing connections
-    const currentLayerIds = Array.from(this.networkConf.layerConnections.keys())
-      .filter(([sourceId, _targetId]) => sourceId == this.layer.layerId)
-      .map(([_sourceId, targetId]) => targetId)
+    const currentLayerIds: number[] = this.layerConnectionConfs
+      .filter((conConf) => {
+        return conConf.sourceLayerId == this.layer.conf.layerId
+      })
+      .map((conConf) => conConf.targetLayerId)
 
     // outgoing layer ids of the connections we want to have
     const selectedLayerIds: number[] = (<string[]>(
@@ -45,8 +54,22 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
       (layerId) => !currentLayerIds.includes(layerId)
     )
     for (const addedLayerId of addedLayerIds) {
-      const targetLayer = this.networkConf.layers.get(addedLayerId)
-      this.networkConf.network.addLayerConnection(this.layer, targetLayer)
+      const targetLayerConf = this.layerConfs.find(
+        (layer) => layer.layerId == addedLayerId
+      )
+      this.dispatchEvent(
+        new CustomEvent<{
+          source: number
+          target: number
+        }>('add-layer-connection', {
+          detail: {
+            source: this.layer.conf.layerId,
+            target: targetLayerConf.layerId,
+          },
+          bubbles: true,
+          composed: true,
+        })
+      )
     }
 
     // remove connections that existed but were unselected
@@ -54,18 +77,35 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
       (layerId) => !selectedLayerIds.includes(layerId)
     )
     for (const removedLayerId of removedLayerIds) {
-      const targetLayer = this.networkConf.layers.get(removedLayerId)
-      this.networkConf.network.removeLayerConnection(this.layer, targetLayer)
+      const targetLayerConf = this.layerConfs.find(
+        (layerConf) => layerConf.layerId == removedLayerId
+      )
+      this.dispatchEvent(
+        new CustomEvent<{
+          source: number
+          target: number
+        }>('remove-layer-connection', {
+          detail: {
+            source: this.layer.conf.layerId,
+            target: targetLayerConf.layerId,
+          },
+          bubbles: true,
+          composed: true,
+        })
+      )
     }
   }
 
   _getConnectionOptions(): TemplateResult<1>[] {
-    const options = Array.from(this.networkConf.layers.values()).filter(
-      (layer) => layer != this.layer && !(layer instanceof InputLayer)
-    )
+    const options = this.layerConfs
+      .filter(
+        (layerConf) =>
+          layerConf != this.layer.conf && !(layerConf.LAYER_TYPE == 'Input')
+      )
+      .map((layerConf) => this.network.getLayerById(layerConf.layerId))
     return options.map(
       (layer) =>
-        html`<sl-option value="${layer.layerId.toString()}"
+        html`<sl-option value="${layer.conf.layerId.toString()}"
           >${layer.getName()}</sl-option
         >`
     )
@@ -82,11 +122,11 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
         <div slot="content">
           <sl-select
             id="connectionSelect"
-            value=${Array.from(this.networkConf.layerConnections.keys())
-              .filter(([sourceId, _targetId]) => {
-                sourceId == this.layer.layerId
+            value=${this.layerConnectionConfs
+              .filter((conConf) => {
+                return conConf.sourceLayerId == this.layer.conf.layerId
               })
-              .map(([_sourceId, targetId]) => targetId)
+              .map((conConf) => conConf.targetLayerId)
               .join(' ')}
             multiple
             clearable

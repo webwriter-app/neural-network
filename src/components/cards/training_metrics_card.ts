@@ -16,8 +16,6 @@ export class TrainingMetricsCard extends LitElementWw {
   _trainMetricsContainer: HTMLDivElement
 
   firstUpdated(): void {
-    console.log('connected training metrics card')
-    console.log(this._trainMetricsContainer)
     const event = new CustomEvent<HTMLDivElement>(
       'set-train-metrics-container',
       {

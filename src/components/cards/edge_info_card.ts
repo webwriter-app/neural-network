@@ -9,16 +9,16 @@ import { Neuron } from '@/components/network/neuron'
 
 @customElement('edge-info-card')
 export class EdgeInfoCard extends LitElementWw {
-  @property()
+  @property({ attribute: false })
   sourceLayer: CLayer
 
-  @property()
+  @property({ attribute: false })
   targetLayer: CLayer
 
-  @property()
+  @property({ attribute: false })
   sourceNeuron: Neuron
 
-  @property()
+  @property({ attribute: false })
   targetNeuron: Neuron
 
   static styles: CSSResult[] = [globalStyles]
@@ -37,7 +37,7 @@ export class EdgeInfoCard extends LitElementWw {
                   >
                   inside
                 `
-              : html``}.id
+              : html``}
             <c-network-link .target="${this.sourceLayer}"
               >${this.sourceLayer.getName()}</c-network-link
             >

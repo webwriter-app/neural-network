@@ -1,42 +1,33 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
-import { customElement, query } from 'lit/decorators.js'
-
+import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
-import {
-  NetworkConf,
-  networkConfContext,
-} from '@/contexts/network_conf_context'
-import { Canvas, canvasContext } from '@/contexts/canvas_context'
 
 import { globalStyles } from '@/global_styles'
 
+import { layerConfsContext } from '@/contexts/layer_confs_context'
+import { canvasContext } from '@/contexts/canvas_context'
+
+import type { CCanvas } from '@/components/canvas'
+
+import { CLayerConf } from '@/components/network/c_layer_conf'
+
+import '@/components/canvas'
 import '@/components/cards/canvas_info_card'
-import '@/components/cards/get_started_card'
+import '@/components/cards/canvas_get_started_card'
 
 @customElement('canvas-area')
-export class CanvasArea extends LitElementWw {
-  @query('#canvasElm') _canvasElm: HTMLDivElement
-
-  @consume({ context: networkConfContext, subscribe: true })
-  networkConf: NetworkConf
+export class CCanvasArea extends LitElementWw {
+  @consume({ context: layerConfsContext, subscribe: true })
+  layerConfs: CLayerConf[]
 
   @consume({ context: canvasContext, subscribe: true })
-  canvas: Canvas
+  canvas: CCanvas
 
   async connectedCallback() {
     super.connectedCallback()
 
     await this.updateComplete
-
-    // notify the root element that the canvas was created
-    this.dispatchEvent(
-      new CustomEvent<HTMLDivElement>('canvas-created', {
-        detail: this._canvasElm,
-        bubbles: true,
-        composed: true,
-      })
-    )
   }
 
   /* STYLES */
@@ -47,11 +38,9 @@ export class CanvasArea extends LitElementWw {
         position: relative;
       }
 
-      #canvasElm {
-        height: 100%;
+      c-canvas {
         width: 100%;
-        display: flex;
-        align-items: center;
+        height: 100%;
       }
 
       #welcomeArea {
@@ -85,12 +74,12 @@ export class CanvasArea extends LitElementWw {
 
   render(): TemplateResult<1> {
     return html`
-      <div id="canvasElm"></div>
-      ${!this.networkConf.layers.size
+      <c-canvas></c-canvas>
+      ${!this.layerConfs.length
         ? html`
             <c-panel id="welcomeArea">
               <canvas-info-card></canvas-info-card>
-              <get-started-card></get-started-card>
+              <canvas-get-started-card></canvas-get-started-card>
             </c-panel>
           `
         : html``}

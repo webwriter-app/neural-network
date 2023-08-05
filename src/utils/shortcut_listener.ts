@@ -1,12 +1,12 @@
 import { ReactiveController } from 'lit'
-import { CReactiveControllerHost } from '@/types/c_reactive_controller_host'
+import { WwApp } from '@/app'
 
 import { spawnAlert } from '@/utils/alerts'
 
 export class ShortcutListener implements ReactiveController {
-  host: CReactiveControllerHost
+  host: WwApp
 
-  constructor(host: CReactiveControllerHost) {
+  constructor(host: WwApp) {
     this.host = host
     host.addController(this)
   }
@@ -40,7 +40,7 @@ export class ShortcutListener implements ReactiveController {
           variant: 'danger',
           icon: 'trash',
         })
-        this.host.networkConf.network.removeLayer(layer)
+        this.host.network.removeLayer(layer)
       }
 
       // delete neuron
@@ -81,7 +81,6 @@ export class ShortcutListener implements ReactiveController {
       } else if (e.code == 'KeyD' || e.code == 'ArrowRight') {
         layerCy.shift('x', SPEED)
       }
-      this.host.selected.layer.updateInternalPos()
     }
   }
 }

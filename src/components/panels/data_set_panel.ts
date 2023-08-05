@@ -48,10 +48,7 @@ export class DataSetPanel extends LitElementWw {
               ></data-set-info-card>
             `
           : ``}
-        <plots-card
-          .dataSet="${this.dataSet}"
-          .inputKey="${this.selectedInputKey}"
-        ></plots-card>
+        <plots-card .inputKey="${this.selectedInputKey}"></plots-card>
       </c-panel>
     `
   }

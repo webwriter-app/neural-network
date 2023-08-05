@@ -1,12 +1,15 @@
-import { CSSResult, TemplateResult } from 'lit'
+import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
 import { Position } from '@/types/position'
 import { ActivationOption } from '@/components/network/activation'
+import { InputLayerConf } from '@/components/network/input_layer_conf'
 import { NeuronLayer } from '@/components/network/neuron_layer'
 import { spawnAlert } from '@/utils/alerts'
+
+import { DataSet } from '@/data_set/data_set'
 
 import * as tf from '@tensorflow/tfjs'
 
@@ -17,24 +20,20 @@ import * as tf from '@tensorflow/tfjs'
 // layer are marked with the name of the associated input
 @customElement('input-layer')
 export class InputLayer extends NeuronLayer {
-  static LAYER_TYPE = 'Input'
-  static LAYER_NAME = 'Input layer'
-
   @property()
-  dataSetKeys: string[] = []
+  conf: InputLayerConf
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   updated(changedProperties: Map<string, unknown>) {
-    if (changedProperties.has('dataSetKeys')) {
+    super.updated(changedProperties)
+    if (changedProperties.has('conf')) {
       // check the updated data set keys
-      if (this.dataSetKeys.length) {
-        // re-create our neurons if some key(s) was/were assigned
-        this.handleKeysChange()
-      } else {
+      if (!this.conf.dataSetKeys.length) {
         // if no key was assigned, notify the network that this layer wants to
         // be deleted
         this.dispatchEvent(
-          new Event('query-layer-deletion', {
+          new CustomEvent<InputLayer>('query-layer-deletion', {
+            detail: this,
             bubbles: true,
             composed: true,
           })
@@ -46,42 +45,59 @@ export class InputLayer extends NeuronLayer {
         })
       }
     }
+    if (
+      changedProperties.has('dataSet') &&
+      changedProperties.get('dataSet') &&
+      (<DataSet>changedProperties.get('dataSet')).name != this.dataSet.name
+    ) {
+      this.conf.dataSetKeys = this.dataSet.inputs.map((input) => input.key)
+      this.dispatchEvent(
+        new Event('layer-confs-updated', {
+          bubbles: true,
+          composed: true,
+        })
+      )
+    }
   }
 
   // FACTORY - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static create({
     activation = 'None',
     pos = null,
-    alert = true,
   }: {
     activation?: ActivationOption
     pos?: Position
-    alert?: boolean
-  } = {}): InputLayer {
-    // create a new dense layer element with the specified properties
-    const layer: InputLayer = <InputLayer>document.createElement('input-layer')
-    layer.activation = activation
-    layer.firstNeuronPos = pos
-    layer.alert = alert
+  } = {}): InputLayerConf {
+    // create a new dense layer configuration with the specified properties
+    const inputLayerConf: InputLayerConf = {
+      HTML_TAG: 'input-layer',
+      LAYER_TYPE: 'Input',
+      LAYER_NAME: 'Input layer',
+      activation: activation,
+      pos: pos,
+      // layer id, data set and data set keys will be added by the layer
+      layerId: undefined,
+      dataSetKeys: undefined,
+    }
 
-    // emit an layer-created event - the network listens to them, so it can add
-    // a unique layer id to the layer and add it to the network array
+    // emit an layer-conf-created event - the network listens to them, so it can add
+    // a unique layer id to the layer conf and add it to the network array
     dispatchEvent(
-      new CustomEvent<InputLayer>('layer-created', {
-        detail: layer,
+      new CustomEvent<InputLayerConf>('layer-conf-created', {
+        detail: inputLayerConf,
         bubbles: true,
         composed: true,
       })
     )
 
-    return layer
+    return inputLayerConf
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // overwrite getName function because activation function is always 'None' for
   // input layer
   getName(): string {
-    return `${this.layerId} - ${this.constructor.LAYER_NAME}`
+    return `${this.conf.layerId} - ${this.conf.LAYER_NAME}`
   }
 
   // get description
@@ -92,35 +108,19 @@ export class InputLayer extends NeuronLayer {
   // -> DATASET  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // assigning inputs
   getAssignedInputs(): string[] {
-    return this.neurons.map((neuron) => neuron.label)
-  }
-
-  // handle the change of assigned dataSet keys by updating the neurons
-  handleKeysChange(): void {
-    console.log('handling keys change')
-    console.log(this.dataSetKeys)
-
-    // remove all neurons
-    for (let index = this.neurons.length - 1; index >= 0; index--) {
-      this.removeNeuron({ force: true })
-    }
-
-    // add new neurons for every assigned data input
-    for (const inputKey of this.dataSetKeys) {
-      this.addNeuron({ label: inputKey })
-    }
-    this.requestUpdate()
+    return Array.from(this._neurons).map((neuron) => neuron.label)
   }
 
   // -> BUILD  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  build(inputs: tf.SymbolicTensor[]): void {
+  build(inputs: tf.SymbolicTensor[]): tf.SymbolicTensor {
     <[]>inputs
     //  create our input tensor
-    this.tensor = tf.input({
-      shape: [this.neurons.length],
+    const tensor = tf.input({
+      shape: [this.conf.dataSetKeys.length],
       name: this.getTensorName(),
     })
-    this.tensor['layer_id'] = this.layerId
+    tensor['layer_id'] = this.conf.layerId
+    return tensor
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -128,6 +128,31 @@ export class InputLayer extends NeuronLayer {
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
-    return super.render()
+    return html`
+      ${super.render()}
+      ${this.conf.pos
+        ? html`${this.conf.dataSetKeys.map(
+            (dataSetKey, i) => html`
+              <c-neuron
+                class="neuron"
+                .layer="${this}"
+                neuronId="${i + 1}"
+                .pos="${{
+                  x:
+                    this.conf.pos.x +
+                    i *
+                      (this.canvas.NEURON_SIZE + this.canvas.NEURON_DISTANCE) -
+                    ((this.conf.dataSetKeys.length - 1) *
+                      (this.canvas.NEURON_SIZE + this.canvas.NEURON_DISTANCE)) /
+                      2,
+                  y: this.conf.pos.y,
+                }}"
+                label="${dataSetKey}"
+                labelPos="bottom"
+              ></c-neuron>
+            `
+          )}`
+        : html``}
+    `
   }
 }

@@ -17,6 +17,7 @@ export class CButtonGroup extends LitElementWw {
         display: flex;
         justify-content: space-between;
         gap: 20px;
+        flex-wrap: wrap;
       }
 
       .c-button-group ::slotted(*) {

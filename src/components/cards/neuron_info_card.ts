@@ -4,7 +4,7 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { consume } from '@lit-labs/context'
 import { dataSetContext } from '@/contexts/data_set_context'
-import { DataSet } from '@/data_set/data_set'
+import { DataSet, getDataSetInputByKey } from '@/data_set/data_set'
 
 import { globalStyles } from '@/global_styles'
 
@@ -23,6 +23,7 @@ export class NeuronInfoCard extends LitElementWw {
 
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
+  getDataSetInputByKey = getDataSetInputByKey
 
   static styles: CSSResult[] = [globalStyles]
 
@@ -30,10 +31,10 @@ export class NeuronInfoCard extends LitElementWw {
     let type, dataProperty
     if (this.neuron.layer instanceof InputLayer) {
       type = 'feature'
-      dataProperty = this.dataSet.getByKey(this.neuron.label)
+      dataProperty = this.getDataSetInputByKey(this.neuron.label)
     } else if (this.neuron.layer instanceof OutputLayer) {
       type = 'label'
-      dataProperty = this.dataSet.getByKey(this.neuron.label)
+      dataProperty = this.dataSet.label
     }
     return html`
       <c-card>
@@ -56,6 +57,7 @@ export class NeuronInfoCard extends LitElementWw {
                   <c-data-info
                     .type="${type}"
                     .dataProperty="${dataProperty}"
+                    .dataSet="${this.dataSet}"
                   ></c-data-info>
                 `
               : html``}

@@ -4,6 +4,9 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
+import { consume } from '@lit-labs/context'
+import { dataSetContext } from '@/contexts/data_set_context'
+
 import * as tfvis from '@tensorflow/tfjs-vis'
 import { DataSet } from '@/data_set/data_set'
 import { DataSetInput } from '@/types/data_set_input'
@@ -11,7 +14,7 @@ import { DataSetLabel } from '@/types/data_set_label'
 
 @customElement('plots-card')
 export class PlotsCard extends LitElementWw {
-  @property()
+  @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
   @property()

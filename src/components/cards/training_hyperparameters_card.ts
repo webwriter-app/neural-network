@@ -9,7 +9,7 @@ import {
 import { Model, modelContext } from '@/contexts/model_context'
 
 import { globalStyles } from '@/global_styles'
-import { SlChangeEvent, SlRange } from '@shoelace-style/shoelace'
+import { SlChangeEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace'
 
 @customElement('training-hyperparameters-card')
 export class TrainingHyperparametersCard extends LitElementWw {
@@ -19,23 +19,61 @@ export class TrainingHyperparametersCard extends LitElementWw {
   @consume({ context: modelContext, subscribe: true })
   model: Model
 
+  private batchSizeOptions: number[] = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
+  @query('#batchSizeRadioGroup')
+  _batchSizeRadioGroup: SlRadioGroup
+
   @query('#learningRateRange')
   _learningRateRange: SlRange
 
   @query('#dropoutRateRange')
   _dropoutRateRange: SlRange
 
+  _handleChangeBatchSize(): void {
+    this.dispatchEvent(
+      new CustomEvent<{
+        option: string
+        value: string
+      }>('set-train-option', {
+        detail: {
+          option: 'batchSize',
+          value: this._batchSizeRadioGroup.value,
+        },
+        bubbles: true,
+        composed: true,
+      })
+    )
+  }
+
   _handleChangeLearningRate(): void {
-    this.trainOptions.setOption(
-      'learningRate',
-      this._learningRateRange.value.toString()
+    this.dispatchEvent(
+      new CustomEvent<{
+        option: string
+        value: string
+      }>('set-train-option', {
+        detail: {
+          option: 'learningRate',
+          value: this._learningRateRange.value.toString(),
+        },
+        bubbles: true,
+        composed: true,
+      })
     )
   }
 
   _handleChangeDropoutRate(): void {
-    this.trainOptions.setOption(
-      'dropoutRate',
-      this._dropoutRateRange.value.toString()
+    this.dispatchEvent(
+      new CustomEvent<{
+        option: string
+        value: string
+      }>('set-train-option', {
+        detail: {
+          option: 'dropoutRate',
+          value: this._dropoutRateRange.value.toString(),
+        },
+        bubbles: true,
+        composed: true,
+      })
     )
   }
 
@@ -53,13 +91,34 @@ export class TrainingHyperparametersCard extends LitElementWw {
                 able to change these options again!</span
               >`
             : html``}
+          <label for="batchSizeRadioGroup">Batch size</label>
+          <c-hscroll-container>
+            <sl-radio-group
+              id="batchSizeRadioGroup"
+              value="${this.trainOptions.batchSize}"
+              @sl-change="${(_e: SlChangeEvent) =>
+                this._handleChangeBatchSize()}"
+            >
+              ${this.batchSizeOptions.map((batchSize) => {
+                return html`
+                  <sl-radio-button
+                    size="small"
+                    value="${batchSize}"
+                    ?disabled=${this.model.model &&
+                    this._batchSizeRadioGroup.value != batchSize.toString()}
+                    >${batchSize}</sl-radio-button
+                  >
+                `
+              })}
+            </sl-radio-group>
+          </c-hscroll-container>
           <sl-range
             id="learningRateRange"
             label="learning rate: ${this.trainOptions.learningRate}"
             help-text="Adjust the speed at which the network learns"
             min="0"
-            max="1"
-            step="0.01"
+            max="0.1"
+            step="0.001"
             value="${this.trainOptions.learningRate}"
             ?disabled=${this.model.model}
             @sl-change="${(_e: SlChangeEvent) =>

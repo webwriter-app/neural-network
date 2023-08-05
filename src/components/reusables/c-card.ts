@@ -11,13 +11,15 @@ export class CCard extends LitElementWw {
     globalStyles,
     css`
       :host {
+        display: block;
         width: 100%;
+        height: 100%;
       }
-
       .c-card {
         --padding: 10px 20px 20px 20px;
         margin: 0;
         width: 100%;
+        height: 100%;
       }
 
       .c-card ::slotted(*[slot='content']) {
@@ -32,7 +34,9 @@ export class CCard extends LitElementWw {
     return html`
       <sl-card class="c-card">
         <h1><slot name="title"></slot></h1>
-        <slot name="content"> </slot>
+        <div>
+          <slot name="content"> </slot>
+        </div>
       </sl-card>
     `
   }

@@ -5,10 +5,7 @@ import { customElement, query } from 'lit/decorators.js'
 import { globalStyles } from '@/global_styles'
 
 import { consume } from '@lit-labs/context'
-import {
-  NetworkConf,
-  networkConfContext,
-} from '@/contexts/network_conf_context'
+import { networkContext } from '@/contexts/network_context'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { Model, modelContext } from '@/contexts/model_context'
 
@@ -16,15 +13,17 @@ import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
 
 import { DataSetInput } from '@/types/data_set_input'
 import { InputLayer } from '@/components/network/input_layer'
-import { DataSet } from '@/data_set/data_set'
+import { DataSet, getDataSetInputsByKeys } from '@/data_set/data_set'
+import { Network } from '@/components/network/network'
 
 @customElement('predict-card')
 export class PredictCard extends LitElementWw {
-  @consume({ context: networkConfContext, subscribe: true })
-  networkConf: NetworkConf
+  @consume({ context: networkContext, subscribe: true })
+  network: Network
 
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
+  getDataSetInputsByKeys = getDataSetInputsByKeys
 
   @consume({ context: modelContext, subscribe: true })
   model: Model
@@ -43,13 +42,13 @@ export class PredictCard extends LitElementWw {
   _handlePredict(e: SubmitEvent): void {
     e.preventDefault()
     const formData = serialize(this._predictForm)
-    console.log(formData)
     this._predictForm.reset()
   }
 
   getInputFieldsForLayer(layer: InputLayer): TemplateResult<1>[] {
-    const assignedInputs: DataSetInput[] =
-      this.dataSet.getAssignedInputsFor(layer)
+    const assignedInputs: DataSetInput[] = this.getDataSetInputsByKeys(
+      layer.conf.dataSetKeys
+    )
     return assignedInputs.map((assignedInput: DataSetInput) => {
       return html`
         <sl-tooltip content=${assignedInput['description']}>
@@ -65,7 +64,7 @@ export class PredictCard extends LitElementWw {
   }
 
   getInputFields(): TemplateResult<1>[] {
-    const inputLayers = this.networkConf.network.getInputLayers()
+    const inputLayers = this.network.getInputLayers()
     return inputLayers.map((inputLayer) => {
       return html`
         ${inputLayer.getName()} ${this.getInputFieldsForLayer(inputLayer)}

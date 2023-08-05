@@ -1,32 +1,47 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, nothing } from 'lit'
 import { customElement, query, property } from 'lit/decorators.js'
+import { consume } from '@lit-labs/context'
 
-import { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
+import { SlChangeEvent, SlDialog, SlSelect } from '@shoelace-style/shoelace'
 
 import { globalStyles } from '@/global_styles'
 
-import { DataSetFactory } from '@/data_set/data_set_factory'
-import { DataSet } from '@/data_set/data_set'
+import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
+
+import '@/components/dialogs/create_data_set_dialog'
+
+import type { DataSet } from '@/data_set/data_set'
 
 @customElement('data-set-select-card')
 export class DataSetSelectCard extends LitElementWw {
-  @property()
+  @consume({ context: availableDataSetsContext, subscribe: true })
+  availableDataSets: DataSet[]
+
+  @property({ attribute: false })
   dataSet: DataSet
 
   @query('#dataSetSelect')
   _dataSetSelect: SlSelect
 
-  async _handleChangeDataSet(): Promise<void> {
-    const newDataSet = await DataSetFactory.getDataSetByName(
-      decodeURI(<string>this._dataSetSelect.value)
+  @query('create-data-set-dialog')
+  _createDataSetDialog: SlDialog
+
+  _handleChangeDataSet(): void {
+    const newDataSet = this.availableDataSets.find(
+      (option) => option.name == decodeURI(<string>this._dataSetSelect.value)
     )
-    const event = new CustomEvent<DataSet>('change-data-set', {
-      detail: newDataSet,
-      bubbles: true,
-      composed: true,
-    })
-    this.dispatchEvent(event)
+    this.dispatchEvent(
+      new CustomEvent<DataSet>('change-data-set', {
+        detail: newDataSet,
+        bubbles: true,
+        composed: true,
+      })
+    )
+  }
+
+  async openCreateDataSetDialog() {
+    await this._createDataSetDialog.show()
   }
 
   static styles: CSSResult[] = [globalStyles]
@@ -44,16 +59,20 @@ export class DataSetSelectCard extends LitElementWw {
               void this._handleChangeDataSet()
             }}"
           >
-            ${DataSetFactory.getOptions().map(
+            ${this.availableDataSets.map(
               (option) =>
-                html`<sl-option .value="${encodeURI(option)}"
-                  >${option}</sl-option
+                html`<sl-option .value="${encodeURI(option.name)}"
+                  >${option.name}</sl-option
                 >`
             )}
           </sl-select>
-          <sl-button disabled>Create your own data set</sl-button>
+          <sl-button
+            @click="${(_e: MouseEvent) => this.openCreateDataSetDialog()}"
+            >Create a new data set</sl-button
+          >
         </div>
       </c-card>
+      <create-data-set-dialog> </create-data-set-dialog>
     `
   }
 }

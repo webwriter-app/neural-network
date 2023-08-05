@@ -5,7 +5,7 @@ import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 import { Model, modelContext } from '@/contexts/model_context'
 import { Selected, selectedContext } from '@/contexts/selected_context'
-import { panelGroups, Panels, panelsContext } from '@/contexts/panels_context'
+import { panelGroups, openPanelsContext } from '@/contexts/panels_context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -26,8 +26,8 @@ export class MenuArea extends LitElementWw {
   @consume({ context: selectedContext, subscribe: true })
   selected: Selected
 
-  @consume({ context: panelsContext, subscribe: true })
-  panels: Panels
+  @consume({ context: openPanelsContext, subscribe: true })
+  openPanels: string[]
 
   /* STYLES */
   static styles: CSSResult[] = [
@@ -68,7 +68,9 @@ export class MenuArea extends LitElementWw {
     return html`
       <div
         id="rightMenu"
-        class="${!this.panels.containsSome(...panelGroups['right'])
+        class="${!this.openPanels.some((openPanel: string) => {
+          return panelGroups['right'].includes(openPanel)
+        })
           ? 'collapsed'
           : ''}"
       >
@@ -94,7 +96,9 @@ export class MenuArea extends LitElementWw {
         </div>
         <div
           id="rightMenuPanel"
-          class="${!this.panels.containsSome(...panelGroups['right'])
+          class="${!this.openPanels.some((openPanel: string) => {
+            return panelGroups['right'].includes(openPanel)
+          })
             ? 'collapsed'
             : ''}"
         >

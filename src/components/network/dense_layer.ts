@@ -1,11 +1,12 @@
-import { CSSResult, TemplateResult } from 'lit'
+import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { map } from 'lit/directives/map.js'
+import { range } from 'lit/directives/range.js'
 
 import { globalStyles } from '@/global_styles'
 
 import { NeuronLayer } from '@/components/network/neuron_layer'
 
-import { spawnAlert } from '@/utils/alerts'
 import { Position } from '@/types/position'
 import {
   ActivationOption,
@@ -13,6 +14,7 @@ import {
 } from '@/components/network/activation'
 
 import * as tf from '@tensorflow/tfjs'
+import { DenseLayerConf } from '@/components/network/dense_layer_conf'
 
 @customElement('dense-layer')
 export class DenseLayer extends NeuronLayer {
@@ -21,48 +23,44 @@ export class DenseLayer extends NeuronLayer {
   static LAYER_NAME = 'Dense layer'
 
   @property()
-  units: number
+  conf: DenseLayerConf
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  firstUpdated() {
-    super.firstUpdated()
-
-    // add the neurons
-    for (let unit = 1; unit <= this.units; unit++) {
-      this.addNeuron()
-    }
-  }
+  // empty
 
   // FACTORY - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static create({
-    units = 2,
-    activation = 'None',
+    units = 5,
+    activation = 'ReLu',
     pos = null,
-    alert = true,
   }: {
     units?: number
     activation?: ActivationOption
     pos?: Position
-    alert?: boolean
-  } = {}): DenseLayer {
-    // create a new dense layer element with the specified properties
-    const layer: DenseLayer = <DenseLayer>document.createElement('dense-layer')
-    layer.units = units
-    layer.activation = activation
-    layer.firstNeuronPos = pos
-    layer.alert = alert
+  } = {}): DenseLayerConf {
+    // create a new dense layer configuration with the specified properties
+    const denseLayerConf: DenseLayerConf = {
+      HTML_TAG: 'dense-layer',
+      LAYER_TYPE: 'Dense',
+      LAYER_NAME: 'Dense layer',
+      units: units,
+      activation: activation,
+      pos: pos,
+      // layerId and data set will be added later by the network
+      layerId: undefined,
+    }
 
-    // emit an layer-created event - the network listens to them, so it can add
-    // a unique layer id to the layer and add it to the network array
+    // emit an layer-conf-created event - the network listens to them, so it can add
+    // a unique layer id to the layer conf and add it to the network array
     dispatchEvent(
-      new CustomEvent<DenseLayer>('layer-created', {
-        detail: layer,
+      new CustomEvent<DenseLayerConf>('layer-conf-created', {
+        detail: denseLayerConf,
         bubbles: true,
         composed: true,
       })
     )
 
-    return layer
+    return denseLayerConf
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -71,52 +69,8 @@ export class DenseLayer extends NeuronLayer {
     return 'A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.'
   }
 
-  // set the neurons to a specific number
-  setNeurons(units: number): void {
-    if (units >= 1) {
-      if (units > this.neurons.length) {
-        for (let unit = this.neurons.length + 1; unit <= units; unit++) {
-          this.addNeuron()
-        }
-      } else if (units < this.neurons.length) {
-        for (let unit = this.neurons.length; unit > units; unit--) {
-          this.removeNeuron()
-        }
-      }
-      spawnAlert({
-        message: `The number of neurons in '${this.getName()}' has been updated to ${units}!`,
-        variant: 'success',
-        icon: 'check-circle',
-      })
-    } else {
-      spawnAlert({
-        message: `The number of neurons in '${this.getName()}' could not be updated to ${units}! Layer needs at least one neuron!`,
-        variant: 'warning',
-        icon: 'x-circle',
-      })
-    }
-  }
-
-  // duplicated the layer by creating a new one and passing it to the network by
-  // emitting an event
-  duplicate(): void {
-    const newPos = {
-      x: this.canvas.cy.getElementById(this.getCyId()).position().x,
-      y:
-        this.firstNeuronPos.y -
-        this.canvas.getHeight(this.getCyId()) -
-        this.canvas.LAYER_DISTANCE,
-    }
-
-    DenseLayer.create({
-      units: this.neurons.length,
-      activation: this.activation,
-      pos: newPos,
-    })
-  }
-
   // -> BUILD  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  build(inputs: tf.SymbolicTensor[]): void {
+  build(inputs: tf.SymbolicTensor[]): tf.SymbolicTensor {
     // check if we have multiple inputs.
     let input: tf.SymbolicTensor | tf.SymbolicTensor[] | tf.Tensor | tf.Tensor[]
     if (inputs.length > 1) {
@@ -134,9 +88,9 @@ export class DenseLayer extends NeuronLayer {
     // lets now create the main tensor
     const dense = <tf.SymbolicTensor>tf.layers
       .dense({
-        units: this.neurons.length,
+        units: this.conf.units,
         activation: <tf.ActivationIdentifier>(
-          activationsMap.get(this.activation)
+          activationsMap.get(this.conf.activation)
         ),
         name: this.getTensorName(),
       })
@@ -150,8 +104,8 @@ export class DenseLayer extends NeuronLayer {
     )
 
     // set this tensor to the dropout tensor and add the layer id
-    this.tensor = dropout
-    this.tensor['layer_id'] = this.layerId
+    dropout['layer_id'] = this.conf.layerId
+    return dropout
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -159,6 +113,31 @@ export class DenseLayer extends NeuronLayer {
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
-    return super.render()
+    return html`
+      ${super.render()}
+      ${this.conf.pos
+        ? html`${map(
+            range(this.conf.units),
+            (i) => html`
+              <c-neuron
+                class="neuron"
+                .layer="${this}"
+                neuronId="${i + 1}"
+                .pos="${{
+                  x:
+                    this.conf.pos.x +
+                    i *
+                      (this.canvas.NEURON_SIZE + this.canvas.NEURON_DISTANCE) -
+                    ((this.conf.units - 1) *
+                      (this.canvas.NEURON_SIZE + this.canvas.NEURON_DISTANCE)) /
+                      2,
+                  y: this.conf.pos.y,
+                }}"
+                bias="${this.bias ? this.bias[i] : null}"
+              ></c-neuron>
+            `
+          )}`
+        : html``}
+    `
   }
 }

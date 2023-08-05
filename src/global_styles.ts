@@ -57,4 +57,8 @@ export const globalStyles = css`
     --track-color-active: var(--sl-color-primary-600);
     --track-color-inactive: var(--sl-color-primary-100);
   }
+
+  sl-tag[draggable='true'] {
+    cursor: grab;
+  }
 `

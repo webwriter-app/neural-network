@@ -5,7 +5,7 @@ import { customElement } from 'lit/decorators.js'
 import { globalStyles } from '@/global_styles'
 
 @customElement('canvas-info-card')
-export class CanvasInfoCard extends LitElementWw {
+export class CCanvasInfoCard extends LitElementWw {
   static styles: CSSResult[] = [globalStyles]
 
   render(): TemplateResult<1> {
@@ -14,9 +14,8 @@ export class CanvasInfoCard extends LitElementWw {
         <div slot="title">Welcome :)</div>
         <div slot="content">
           Your network is currently empty - select an option below to get
-          started! You can also find these and a few more options (like for
-          building your network from scratch) in the right menu under the tab
-          'network'.
+          started! You can also setup everything from scratch - find the options
+          in the right menu!
         </div>
       </c-card>
     `

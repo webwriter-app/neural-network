@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { globalStyles } from '@/global_styles'
 
 import { consume } from '@lit-labs/context'
-import { Panels, panelsContext } from '@/contexts/panels_context'
+import { openPanelsContext } from '@/contexts/panels_context'
 
 @customElement('c-tab')
 export class CTab extends LitElementWw {
@@ -18,8 +18,8 @@ export class CTab extends LitElementWw {
   @property({ type: Boolean })
   colored: boolean
 
-  @consume({ context: panelsContext, subscribe: true })
-  panels: Panels
+  @consume({ context: openPanelsContext, subscribe: true })
+  openPanels: string[]
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
@@ -45,9 +45,21 @@ export class CTab extends LitElementWw {
     return html`
       <div class="c-tab">
         <sl-button 
-          class="${this.panels.openPanels.includes(this.name) ? 'active' : ''}" 
+          class="${this.openPanels.includes(this.name) ? 'active' : ''}" 
           @click="${(_e: MouseEvent) =>
-            this.panels.open(this.name, this.group)}"
+            this.dispatchEvent(
+              new CustomEvent<{
+                panel: string
+                group?: string
+              }>('open-panel', {
+                detail: {
+                  panel: this.name,
+                  group: this.group,
+                },
+                bubbles: true,
+                composed: true,
+              })
+            )}"
         >
           <slot>
         </sl-button>

@@ -11,10 +11,10 @@ export const panelGroups: { [key: string]: string[] } = {
     'edge',
   ],
 }
-export interface Panels {
-  openPanels: string[]
-  open: (...panels: string[]) => void
-  close: (...panels: string[]) => void
-  containsSome: (...panels: string[]) => boolean
-}
-export const panelsContext = createContext<Panels>('panels')
+
+export const openPanelsContext = createContext<string[]>('open-panels')
+
+/* related functions
+  openPanel: (panels: string, group?: string) => void
+  closePanels: (...panels: string[]) => void
+*/

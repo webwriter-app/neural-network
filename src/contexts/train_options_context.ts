@@ -6,6 +6,9 @@ export interface TrainOptions {
   batchSize: string
   lossFunction: string
   optimizer: string
-  setOption: (attribute: string, value: string) => void
 }
 export const trainOptionsContext = createContext<TrainOptions>('train-options')
+
+/* related functions
+  setOption: (attribute: string, value: string) => void
+*/

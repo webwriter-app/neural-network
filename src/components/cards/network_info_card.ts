@@ -13,9 +13,10 @@ export class NetworkInfoCard extends LitElementWw {
       <c-card>
         <div slot="title">Info</div>
         <div slot="content">
-          Build your network by adding layers or choose a quick setup option
-          below. Select layers in the graph to edit their properties and connect
-          them with other layers.
+          <p>
+            Add layers manually to the network. You might also want to clear the
+            network for a fresh start or export your current configuration!
+          </p>
         </div>
       </c-card>
     `

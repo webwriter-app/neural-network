@@ -1,21 +1,23 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
-
 import { consume } from '@lit-labs/context'
-import { Canvas, canvasContext } from '@/contexts/canvas_context'
+
+import { globalStyles } from '@/global_styles'
+
+import { canvasContext } from '@/contexts/canvas_context'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { DataSet } from '@/data_set/data_set'
 
-import { globalStyles } from '@/global_styles'
-import { NeuronLayer } from '@/components/network/neuron_layer'
+import type { CCanvas } from '@/components/canvas'
 
-import { InputLayer } from './input_layer'
+import { NeuronLayer } from '@/components/network/neuron_layer'
+import { Position } from '@/types/position'
 
 @customElement('c-neuron')
 export class Neuron extends LitElementWw {
   @consume({ context: canvasContext, subscribe: true })
-  canvas: Canvas
+  canvas: CCanvas
 
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
@@ -23,6 +25,10 @@ export class Neuron extends LitElementWw {
   // reference to the layer
   @property()
   layer: NeuronLayer
+
+  // position
+  @property()
+  pos: Position
 
   // the id of the neuron in this layer. first neuron added gets id 1; not to be
   // confused with the id of the corresponding node in the cytoscape canvas
@@ -33,32 +39,31 @@ export class Neuron extends LitElementWw {
   // key of the corresponding dataSet input or label as a label beneath
   @property()
   label: string
+  @property()
+  labelPos: 'bottom' | 'top'
 
-  // value of the neuron between 0 and 1 that is to be trained
-  @state()
-  value: number
+  // bias of the neuron that is to be trained
+  @property()
+  bias: number
 
   // if the neuron has been rendered for the first time
   @state()
   rendered = false
 
+  // same as in c_layer, explanation see there
+  @state()
+  doNotRender = false
+
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   connectedCallback(): void {
     super.connectedCallback()
-    this.value = Math.random()
-  }
-
-  firstUpdated() {
-    if (this.label) {
-      this.dataSet.assignKey(this.label, this.layer)
-    }
+    this.doNotRender = false
   }
 
   disconnectedCallback(): void {
     super.disconnectedCallback()
-    if (this.label) {
-      this.dataSet.unassignKey(this.label)
-    }
+    this.doNotRender = true
+    this.removeFromCanvas()
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -74,17 +79,6 @@ export class Neuron extends LitElementWw {
 
     // if the neuron exists in the canvas, remove it
     if (neuronCy.length) {
-      // shift the layer back to the right (except the first neuron since we
-      // also did not shift to the left)
-      if (this.neuronId != 1) {
-        this.canvas.cy
-          .getElementById(this.layer.getCyId())
-          .shift(
-            'x',
-            (this.canvas.NEURON_SIZE + this.canvas.NEURON_DISTANCE) / 2
-          )
-      }
-
       // remove the neuron from the canvas
       neuronCy.remove()
 
@@ -103,79 +97,84 @@ export class Neuron extends LitElementWw {
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
-    // remove the previously built neuron if exists
-    this.removeFromCanvas()
+    // only render if doNotRender flag is not set
+    // and the parent (the layer) exists
+    if (
+      !this.doNotRender &&
+      this.canvas.cy.getElementById(this.layer.getCyId()).length
+    ) {
+      // remove the previously built neuron if exists
+      this.removeFromCanvas()
 
-    // for the input and output layers we add a wrapper around the neuron that
-    // indicates that this node is input/output and in order to display an
-    // additional label
-    let neuronParent: string = this.layer.getCyId()
-    let wrapped = false
-    if (this.label) {
+      // for the input and output layers we add a wrapper around the neuron that
+      // indicates that this node is input/output and in order to display an
+      // additional label
+      let neuronParent: string = this.layer.getCyId()
+      let wrapped = false
+      if (this.label) {
+        this.canvas.cy.add({
+          group: 'nodes',
+          grabbable: false,
+          selectable: false,
+          data: {
+            id: `${this.getCyId()}w`,
+            parent: neuronParent,
+            type: 'neuron-wrapper',
+            textPos: this.labelPos,
+            layer: this.layer.conf.layerId,
+            neuron: this.neuronId,
+            label: this.label,
+          },
+        })
+
+        neuronParent = `${this.getCyId()}w`
+        wrapped = true
+      }
+
+      // display all bias values in the same format
+      let biasLabel: string
+      if (!this.bias) {
+        biasLabel = ''
+      } else if (!isFinite(this.bias)) {
+        biasLabel = this.bias.toString()
+      } else {
+        biasLabel = (this.bias < 0 ? '' : '+') + this.bias
+        biasLabel = biasLabel.substring(0, 6)
+        if (biasLabel.indexOf('.') != -1) {
+          biasLabel = biasLabel.padEnd(6, '0')
+        }
+      }
+
+      /// add the neuron to the canvas
       this.canvas.cy.add({
         group: 'nodes',
         grabbable: false,
-        selectable: false,
         data: {
-          id: `${this.getCyId()}w`,
+          id: this.getCyId(),
           parent: neuronParent,
-          type: 'neuron-wrapper',
-          layer: this.layer.layerId,
+          type: 'neuron',
+          layer: this.layer.conf.layerId,
           neuron: this.neuronId,
-          label: this.label,
+          label: biasLabel,
+          wrapped: `${String(wrapped)}`,
         },
-        css: {
-          'z-index': this.layer.layerId * 3 + 1,
-        },
+        position: this.pos,
       })
 
-      neuronParent = `${this.getCyId()}w`
-      wrapped = true
+      // confirm that this neuron has rendered (important for the layer
+      // connections that rely on the neurons)
+      this.rendered = true
+
+      // notify the network that the parent layer changed its neurons and thus,
+      // connections from and to this layer have to be rerendered
+      this.dispatchEvent(
+        new CustomEvent<number>('layer-updated', {
+          detail: this.layer.conf.layerId,
+          bubbles: true,
+          composed: true,
+        })
+      )
     }
-
-    /// add the neuron to the canvas
-    this.canvas.cy.add({
-      group: 'nodes',
-      grabbable: false,
-      data: {
-        id: this.getCyId(),
-        parent: neuronParent,
-        type: 'neuron',
-        layer: this.layer.layerId,
-        neuron: this.neuronId,
-        label: `${this.value}`.substring(0, 3),
-        wrapped: `${String(wrapped)}`,
-      },
-      position: this.layer.getPositionForUnit(this.neuronId),
-      css: {
-        'z-index': this.layer.layerId * 3 + 2,
-      },
-    })
-
-    // confirm that this neuron has rendered (important for the layer
-    // connections that rely on the neurons)
-    this.rendered = true
-
-    // shift the layer to the left (except the first neuron since that should
-    // resemble the initial position)
-    if (this.neuronId != 1) {
-      this.canvas.cy
-        .getElementById(this.layer.getCyId())
-        .shift(
-          'x',
-          -(this.canvas.NEURON_SIZE + this.canvas.NEURON_DISTANCE) / 2
-        )
-    }
-
-    // notify the network that the parent layer changed its neurons and thus,
-    // connections from and to this layer have to be rerendered
-    this.dispatchEvent(
-      new CustomEvent<number>('layer-updated', {
-        detail: this.layer.layerId,
-        bubbles: true,
-        composed: true,
-      })
-    )
 
     return html``
   }

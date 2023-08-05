@@ -1,11 +1,13 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-
 import { consume } from '@lit-labs/context'
-import { Canvas, canvasContext } from '@/contexts/canvas_context'
 
 import { globalStyles } from '@/global_styles'
+
+import { canvasContext } from '@/contexts/canvas_context'
+
+import type { CCanvas } from '@/components/canvas'
 
 import { CLayer } from '@/components/network/c_layer'
 import { Neuron } from '@/components/network/neuron'
@@ -19,7 +21,7 @@ export class CNetworkLink extends LitElementWw {
   target: CLayer | Neuron
 
   @consume({ context: canvasContext, subscribe: true })
-  canvas: Canvas
+  canvas: CCanvas
 
   /* STYLES */
   static styles: CSSResult[] = [globalStyles]

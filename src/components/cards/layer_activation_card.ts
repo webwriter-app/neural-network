@@ -14,16 +14,26 @@ import {
 
 @customElement('layer-activation-card')
 export class LayerActivationCard extends LitElementWw {
-  @property()
+  @property({ attribute: false })
   layer: CLayer
 
   @query('sl-select')
   _selectActivationFormElm: SlSelect
 
-  _handleChangeActivation(): void {
+  handleChangeActivation(): void {
     this.layer.setActivation(
       <ActivationOption>this._selectActivationFormElm.value
     )
+    this.dispatchEvent(
+      new Event('layer-confs-updated', {
+        bubbles: true,
+        composed: true,
+      })
+    )
+    // we need to request an update, so that when we select another layer with
+    // the same activation function as this layers activation function before
+    // the update/rerender, lit can detect the changes and rerender
+    this.requestUpdate()
   }
 
   static styles: CSSResult[] = [globalStyles]
@@ -34,10 +44,10 @@ export class LayerActivationCard extends LitElementWw {
         <div slot="title">Activation function</div>
         <div slot="content">
           <sl-select
-            .value="${this.layer.activation}"
+            value="${this.layer.conf.activation}"
             help-text="The selected activation will be applied to all neurons in this layer."
             @sl-change="${(_e: SlChangeEvent) => {
-              this._handleChangeActivation()
+              this.handleChangeActivation()
             }}"
           >
             ${activationOptions.map(

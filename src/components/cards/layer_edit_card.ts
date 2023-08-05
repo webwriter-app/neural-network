@@ -2,32 +2,29 @@ import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
 
-import { consume } from '@lit-labs/context'
-import {
-  NetworkConf,
-  networkConfContext,
-} from '@/contexts/network_conf_context'
-
 import { globalStyles } from '@/global_styles'
+
+import { consume } from '@lit-labs/context'
+import { canvasContext } from '@/contexts/canvas_context'
+
+import type { CCanvas } from '@/components/canvas'
 
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
 
 import { CLayer } from '@/components/network/c_layer'
-import { NeuronLayer } from '@/components/network/neuron_layer'
-import { InputLayer } from '@/components/network/input_layer'
+import { DenseLayerConf } from '@/components/network/dense_layer_conf'
 import { DenseLayer } from '@/components/network/dense_layer'
-import { OutputLayer } from '@/components/network/output_layer'
-import { spawnAlert } from '@/utils/alerts'
 
 import { SlSelect } from '@shoelace-style/shoelace'
+import { spawnAlert } from '@/utils/alerts'
 
 @customElement('layer-edit-card')
 export class LayerEditCard extends LitElementWw {
   @property()
   layer: CLayer
 
-  @consume({ context: networkConfContext, subscribe: true })
-  networkConf: NetworkConf
+  @consume({ context: canvasContext, subscribe: true })
+  canvas: CCanvas
 
   @query('#inputSelect')
   _inputSelect: SlSelect
@@ -49,42 +46,75 @@ export class LayerEditCard extends LitElementWw {
   }
 
   _handleRemoveNeuron(): void {
-    if (this.layer instanceof NeuronLayer) {
-      this.layer.removeNeuron()
+    if (this.layer instanceof DenseLayer) {
+      this.layer.conf.units--
+      this.dispatchEvent(
+        new Event('layer-confs-updated', {
+          bubbles: true,
+          composed: true,
+        })
+      )
     }
   }
 
   _handleAddNeuron(): void {
-    if (this.layer instanceof NeuronLayer) {
-      this.layer.addNeuron()
+    if (this.layer instanceof DenseLayer) {
+      this.layer.conf.units++
+      this.dispatchEvent(
+        new Event('layer-confs-updated', {
+          bubbles: true,
+          composed: true,
+        })
+      )
     }
   }
 
   _handleSetNeurons(e: SubmitEvent): void {
     e.preventDefault()
     const formData = serialize(this._updateNeuronsForm)
-    if (typeof formData.units !== 'string')
-      throw new Error(
-        'The number of neurons in the form should be of type string.'
-      )
-    const units: number = parseInt(formData.units)
+    const units: number = parseInt(<string>formData.units)
     if (this.layer instanceof DenseLayer) {
-      this.layer.setNeurons(units)
+      this.layer.conf.units = units
     }
+    this.dispatchEvent(
+      new Event('layer-confs-updated', {
+        bubbles: true,
+        composed: true,
+      })
+    )
     this._updateNeuronsForm.reset()
   }
 
   _handleDuplicateLayer(): void {
-    this.layer.duplicate()
+    if (this.layer instanceof DenseLayer) {
+      const newLayerConf = { ...this.layer.conf }
+      newLayerConf.layerId = undefined
+      newLayerConf.pos.y -=
+        this.canvas.getHeight(this.layer.getCyId()) + this.canvas.LAYER_DISTANCE
+      this.dispatchEvent(
+        new CustomEvent<DenseLayerConf>('layer-conf-created', {
+          detail: newLayerConf,
+          bubbles: true,
+          composed: true,
+        })
+      )
+    } else {
+      spawnAlert({
+        message: `The selected layer can not be duplicated!`,
+        variant: 'warning',
+        icon: 'x-circle',
+      })
+    }
   }
 
   _handleDeleteLayer(): void {
-    this.networkConf.network.removeLayer(this.layer)
-    spawnAlert({
-      message: `'${this.layer.getName()}' has been deleted!`,
-      variant: 'danger',
-      icon: 'trash',
-    })
+    this.dispatchEvent(
+      new CustomEvent<CLayer>('query-layer-deletion', {
+        detail: this.layer,
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   static styles: CSSResult[] = [globalStyles]
@@ -97,16 +127,12 @@ export class LayerEditCard extends LitElementWw {
       <c-card>
         <div slot="title">Edit layer</div>
         <div slot="content">
-          ${!(
-            this.layer instanceof InputLayer ||
-            this.layer instanceof OutputLayer
-          )
+          ${this.layer instanceof DenseLayer
             ? html`<div>
                   <h2>Neurons</h2>
                   <c-button-group>
                     <sl-button
-                      .disabled=${this.layer instanceof NeuronLayer &&
-                      this.layer.neurons.length <= 1}
+                      .disabled=${this.layer.conf.units <= 1}
                       @click="${(_e: MouseEvent) => this._handleRemoveNeuron()}"
                     >
                       <sl-icon slot="prefix" name="dash-square"></sl-icon>
@@ -137,10 +163,7 @@ export class LayerEditCard extends LitElementWw {
             : html``}
           <h2>Layer</h2>
           <c-button-group>
-            ${!(
-              this.layer instanceof InputLayer ||
-              this.layer instanceof OutputLayer
-            )
+            ${this.layer instanceof DenseLayer
               ? html` <sl-button
                   @click="${(_e: MouseEvent) => this._handleDuplicateLayer()}"
                 >

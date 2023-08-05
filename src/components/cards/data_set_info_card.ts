@@ -8,7 +8,7 @@ import { DataSetInput } from '@/types/data_set_input'
 
 @customElement('data-set-info-card')
 export class DataSetInfoCard extends LitElementWw {
-  @property()
+  @property({ attribute: false })
   dataSet: DataSet
 
   _handleSelectDataProperty(input: DataSetInput): void {
@@ -22,13 +22,6 @@ export class DataSetInfoCard extends LitElementWw {
   static styles: CSSResult[] = [
     globalStyles,
     css`
-      .data-pills {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 5px;
-      }
-
       .clickable:hover {
         cursor: pointer;
       }
@@ -43,24 +36,26 @@ export class DataSetInfoCard extends LitElementWw {
           <div>
             <p>${this.dataSet.description}</p>
             <h2>Inputs</h2>
-            <div class="data-pills">
+            <c-tag-group>
               ${this.dataSet.inputs.map(
                 (input) => html`
                   <c-data-info
                     type="feature"
                     .dataProperty="${input}"
+                    .dataSet="${this.dataSet}"
                     class="clickable"
                     @click="${(_e: MouseEvent) =>
                       this._handleSelectDataProperty(input)}"
                   ></c-data-info>
                 `
               )}
-            </div>
+            </c-tag-group>
             <h2>Output</h2>
             <div class="data-pills">
               <c-data-info
                 type="label"
                 .dataProperty="${this.dataSet.label}"
+                .dataSet="${this.dataSet}"
               ></c-data-info>
             </div>
           </div>

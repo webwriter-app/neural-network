@@ -7,7 +7,11 @@ export interface Selected {
   layer?: CLayer
   neuron?: Neuron
   edge?: Edge
-  select: ({
+}
+export const selectedContext = createContext<Selected>('selected')
+
+/* related functions
+select: ({
     layer,
     neuron,
     edge,
@@ -16,5 +20,4 @@ export interface Selected {
     neuron?: Neuron
     edge?: Edge
   }) => void
-}
-export const selectedContext = createContext<Selected>('selected')
+*/

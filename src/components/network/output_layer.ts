@@ -1,4 +1,4 @@
-import { CSSResult, TemplateResult } from 'lit'
+import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
@@ -9,8 +9,10 @@ import {
   activationsMap,
 } from '@/components/network/activation'
 import { NeuronLayer } from '@/components/network/neuron_layer'
+import { OutputLayerConf } from '@/components/network/output_layer_conf'
+
+import { DataSet } from '@/data_set/data_set'
 import { spawnAlert } from '@/utils/alerts'
-import { DataSetLabel } from '@/types/data_set_label'
 
 import * as tf from '@tensorflow/tfjs'
 
@@ -20,20 +22,19 @@ export class OutputLayer extends NeuronLayer {
   static LAYER_NAME = 'Output layer'
 
   @property()
-  dataSetLabel: DataSetLabel
+  conf: OutputLayerConf
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   updated(changedProperties: Map<string, unknown>) {
-    if (changedProperties.has('dataSetLabel')) {
+    super.updated(changedProperties)
+    if (changedProperties.has('conf')) {
       // check the updated data set keys
-      if (this.dataSetLabel) {
-        // re-create our neurons if some key(s) was/were assigned
-        this.handleLabelChange()
-      } else {
+      if (!this.conf.dataSetLabel) {
         // if no label was assigned (should in theory not happen), notify the
         // network that this layer wants to be deleted
         this.dispatchEvent(
-          new Event('query-layer-deletion', {
+          new CustomEvent<OutputLayer>('query-layer-deletion', {
+            detail: this,
             bubbles: true,
             composed: true,
           })
@@ -45,44 +46,59 @@ export class OutputLayer extends NeuronLayer {
         })
       }
     }
+    if (
+      changedProperties.has('dataSet') &&
+      changedProperties.get('dataSet') &&
+      (<DataSet>changedProperties.get('dataSet')).name != this.dataSet.name
+    ) {
+      this.conf.dataSetLabel = this.dataSet.label
+      this.dispatchEvent(
+        new Event('layer-confs-updated', {
+          bubbles: true,
+          composed: true,
+        })
+      )
+    }
   }
 
   // FACTORY - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static create({
     activation = 'None',
     pos = null,
-    alert = true,
   }: {
     activation?: ActivationOption
     pos?: Position
-    alert?: boolean
-  } = {}): OutputLayer {
+  } = {}): OutputLayerConf {
     // create a new dense layer element with the specified properties
-    const layer: OutputLayer = <OutputLayer>(
-      document.createElement('output-layer')
-    )
-    layer.activation = activation
-    layer.firstNeuronPos = pos
-    layer.alert = alert
+    const outputLayerConf: OutputLayerConf = {
+      HTML_TAG: 'output-layer',
+      LAYER_TYPE: 'Output',
+      LAYER_NAME: 'Output layer',
+      activation: activation,
+      pos: pos,
+      // layer id, data set and data set label will be added by the network
+      layerId: undefined,
+      dataSetLabel: undefined,
+    }
 
-    // emit an layer-created event - the network listens to them, so it can add
+    // emit an layer-conf-created event - the network listens to them, so it can add
     // a unique layer id to the layer and add it to the network array
     dispatchEvent(
-      new CustomEvent<OutputLayer>('layer-created', {
-        detail: layer,
+      new CustomEvent<OutputLayerConf>('layer-conf-created', {
+        detail: outputLayerConf,
         bubbles: true,
         composed: true,
       })
     )
 
-    return layer
+    return outputLayerConf
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // overwrite getName for the outputKey
   getName(): string {
-    return `${this.dataSetLabel.key} ${this.constructor.LAYER_NAME} ${
-      this.activation != 'None' ? `(${this.activation})` : ``
+    return `${this.conf.dataSetLabel.key} ${this.conf.LAYER_NAME} ${
+      this.conf.activation != 'None' ? `(${this.conf.activation})` : ``
     }`
   }
   // get description
@@ -96,34 +112,8 @@ export class OutputLayer extends NeuronLayer {
     return description
   }
 
-  /*
-  DATASET
-  */
-  handleLabelChange(): void {
-    // remove all neurons
-    for (let index = this.neurons.length - 1; index >= 0; index--) {
-      this.removeNeuron({ force: true })
-    }
-
-    // redraw the layer so it has the new output key as a label
-    /* this.render() */
-
-    // draw the neuron(s): a single for regression output, once per class for
-    // classification output
-    if (this.dataSet.type == 'regression') {
-      this.addNeuron({ label: this.dataSetLabel.key })
-    } else if (this.dataSet.type == 'classification') {
-      for (const clazz of this.dataSetLabel.classes) {
-        this.addNeuron({ label: clazz.key })
-      }
-    }
-
-    // update the label of the layer in the canvas
-    this.canvas.cy.getElementById(`${this.id}`).data('label', this.getName())
-  }
-
   // -> BUILD  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  build(inputs: tf.SymbolicTensor[]): void {
+  build(inputs: tf.SymbolicTensor[]): tf.SymbolicTensor {
     // check if we have multiple inputs.
     let input: tf.SymbolicTensor | tf.SymbolicTensor[] | tf.Tensor | tf.Tensor[]
     if (inputs.length > 1) {
@@ -139,16 +129,17 @@ export class OutputLayer extends NeuronLayer {
     }
 
     // lets now create the main tensor
-    this.tensor = <tf.SymbolicTensor>tf.layers
+    const tensor = <tf.SymbolicTensor>tf.layers
       .dense({
-        units: this.neurons.length,
+        units: Array.from(this._neurons).length,
         activation: <tf.ActivationIdentifier>(
-          activationsMap.get(this.activation)
+          activationsMap.get(this.conf.activation)
         ),
         name: this.getTensorName(),
       })
       .apply(input)
-    this.tensor['layer_id'] = this.layerId
+    tensor['layer_id'] = this.conf.layerId
+    return tensor
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -156,6 +147,43 @@ export class OutputLayer extends NeuronLayer {
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
-    return super.render()
+    return html`
+      ${super.render()}
+      ${this.dataSet.type == 'regression'
+        ? html`<c-neuron
+            class="neuron"
+            .layer="${this}"
+            neuronId="1"
+            .pos="${this.conf.pos}"
+            label="${this.conf.dataSetLabel.key}"
+            labelPos="top"
+            bias="${this.bias ? this.bias[0] : null}"
+          ></c-neuron>`
+        : html``}
+      ${this.dataSet.type == 'classification' && this.conf.dataSetLabel.classes
+        ? html`${this.conf.dataSetLabel.classes.map(
+            (clazz, i) => html`
+              <c-neuron
+                class="neuron"
+                .layer="${this}"
+                neuronId="${i + 1}"
+                .pos="${{
+                  x:
+                    this.conf.pos.x +
+                    i *
+                      (this.canvas.NEURON_SIZE + this.canvas.NEURON_DISTANCE) -
+                    ((this.conf.dataSetLabel.classes.length - 1) *
+                      (this.canvas.NEURON_SIZE + this.canvas.NEURON_DISTANCE)) /
+                      2,
+                  y: this.conf.pos.y,
+                }}"
+                label="${clazz.key}"
+                labelPos="top"
+                bias="${this.bias ? this.bias[i] : null}"
+              ></c-neuron>
+            `
+          )}`
+        : html``}
+    `
   }
 }

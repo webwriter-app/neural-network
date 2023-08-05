@@ -1,22 +1,31 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
-import { customElement } from 'lit/decorators.js'
+import { customElement, queryAll, state } from 'lit/decorators.js'
+import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { consume } from '@lit-labs/context'
-import { Canvas, canvasContext } from '@/contexts/canvas_context'
 import {
-  NetworkConf,
-  networkConfContext,
-} from '@/contexts/network_conf_context'
+  SetupStatus,
+  setupStatusContext,
+} from '@/contexts/setup_status_context'
+import { canvasContext } from '@/contexts/canvas_context'
+import { layerConfsContext } from '@/contexts/layer_confs_context'
+import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 import { dataSetContext } from '@/contexts/data_set_context'
-import { DataSet } from '@/data_set/data_set'
 import { Selected, selectedContext } from '@/contexts/selected_context'
 
+import type { DataSet } from '@/data_set/data_set'
+import type { CCanvas } from '@/components/canvas'
+
+import { CLayerConf } from '@/components/network/c_layer_conf'
 import { CLayer } from '@/components/network/c_layer'
+import { InputLayerConf } from '@/components/network/input_layer_conf'
 import { InputLayer } from '@/components/network/input_layer'
+import { OutputLayerConf } from '@/components/network/output_layer_conf'
 import { OutputLayer } from '@/components/network/output_layer'
+import { TensorConf } from '@/components/network/tensor_conf'
+import { CLayerConnectionConf } from '@/components/network/c_layer_connection_conf'
 import { CLayerConnection } from '@/components/network/c_layer_connection'
 
 import { spawnAlert } from '@/utils/alerts'
@@ -34,11 +43,11 @@ import * as tf from '@tensorflow/tfjs'
 export class Network extends LitElementWw {
   // FIELDS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // -> CONTEXT  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @consume({ context: canvasContext, subscribe: true })
-  canvas: Canvas
+  @consume({ context: setupStatusContext, subscribe: true })
+  setupStatus: SetupStatus
 
-  @consume({ context: networkConfContext, subscribe: true })
-  networkConf: NetworkConf
+  @consume({ context: canvasContext, subscribe: true })
+  canvas: CCanvas
 
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
@@ -46,24 +55,34 @@ export class Network extends LitElementWw {
   @consume({ context: selectedContext, subscribe: true })
   selected: Selected
 
+  @consume({ context: layerConfsContext, subscribe: true })
+  layerConfs: CLayerConf[]
+
+  @consume({ context: layerConnectionConfsContext, subscribe: true })
+  layerConnectionConfs: CLayerConnectionConf[]
+
+  // -> STATE  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @state()
+  tensorConfs: Map<number, TensorConf> = new Map()
+
+  // -> QUERY  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @queryAll('.layer')
+  _layers: NodeListOf<CLayer>
+
+  @queryAll('.layer-connection')
+  _layerConnections: NodeListOf<CLayerConnection>
+
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   connectedCallback(): void {
     super.connectedCallback()
-    // emit an event to notify the root component about the creation of the
-    // network, so it can store it inside the network conf for other components
-    // to reference this
-    const event = new CustomEvent<Network>('network-created', {
-      detail: this,
-      bubbles: true,
-      composed: true,
-    })
-    this.dispatchEvent(event)
 
-    // listen to layer-created events that layer emit after their static factory
-    // method was called. now we can give the freshly created layer a unique id
-    // and add it to the network
-    window.addEventListener('layer-created', (e: CustomEvent<CLayer>) =>
-      this.handleLayerCreated(e.detail)
+    // listen to layer-conf-created events that layer emit after their static
+    // factory method was called. now we can give the freshly created layer a
+    // unique id and add it to the network. we have to listen on window since
+    // this event can also be triggered by menu options
+    window.addEventListener(
+      'layer-conf-created',
+      (e: CustomEvent<CLayerConf>) => this.handleLayerConfCreated(e.detail)
     )
 
     // listen to event neurons emit when they are rerendered, so we can force
@@ -72,6 +91,16 @@ export class Network extends LitElementWw {
       'layer-updated',
       (e: CustomEvent<number>) => this.handleLayerUpdated(e.detail)
     )
+
+    // a deletion of a layer can be queried by they layers themselves (e.g.
+    // because no data was assigned to them) or by the UI.
+    window.addEventListener('query-layer-deletion', (e: CustomEvent<CLayer>) =>
+      this.removeLayer(e.detail)
+    )
+  }
+
+  disconnectedCallback(): void {
+    super.disconnectedCallback()
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -79,20 +108,26 @@ export class Network extends LitElementWw {
   // ---> GETTING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // get the input layers. important for everything related to training, testing
   // or predicting because the entrypoint is always in these layers
+  getLayerById(layerId: number): CLayer {
+    return Array.from(this._layers).find(
+      (layer) => layer.conf.layerId == layerId
+    )
+  }
+
   getInputLayers(): InputLayer[] {
     return <InputLayer[]>(
-      Array.from(this.networkConf.layers.values()).filter(
-        (layer) => layer instanceof InputLayer
-      )
+      this.layerConfs
+        .map((layerConf) => this.getLayerById(layerConf.layerId))
+        .filter((layer) => layer instanceof InputLayer)
     )
   }
 
   // get the output layer
   getOutputLayer(): OutputLayer {
     return <OutputLayer>(
-      Array.from(this.networkConf.layers.values()).find(
-        (layer) => layer instanceof OutputLayer
-      )
+      this.layerConfs
+        .map((layerConf) => this.getLayerById(layerConf.layerId))
+        .find((layer) => layer instanceof OutputLayer)
     )
   }
 
@@ -102,76 +137,102 @@ export class Network extends LitElementWw {
   // it suffices to take the id of the last layer and add 1 to it to get an
   // unused id
   private getFreshId(): number {
-    if (!this.networkConf.layers.size) {
+    if (!this.layerConfs.length) {
       // if we do not have any layer yet, id 1 is not taken for sure
       return 1
     } else {
       // else we get the maximum id and add 1
-      return Math.max(...this.networkConf.layers.keys()) + 1
+      return (
+        Math.max(...this.layerConfs.map((layerConf) => layerConf.layerId)) + 1
+      )
     }
   }
 
   // ---> REMOVING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // remove a layer from the network. does not delete the layer itself (therfore
-  // call the layers delete method which should call this method)
-  removeLayer(layerArg: CLayer): void {
+  // remove a layer from the network and thus triggers the disconnectedCallback
+  // function of the layer which handles the removing of the layer itself
+  removeLayer(layer: CLayer): void {
     // remove the connections from and to this layer
-    for (const [key, con] of this.networkConf.layerConnections.entries()) {
-      if (con.sourceLayer == layerArg || con.targetLayer == layerArg) {
-        console.log(`removing connection`)
-        console.log(key)
-        this.networkConf.removeLayerConnection(key)
-        console.log(this.networkConf.layerConnections)
+    for (const conConf of this.layerConnectionConfs) {
+      if (
+        conConf.sourceLayerId == layer.conf.layerId ||
+        conConf.targetLayerId == layer.conf.layerId
+      ) {
+        this.dispatchEvent(
+          new CustomEvent<{
+            source: number
+            target: number
+          }>('remove-layer-connection', {
+            detail: {
+              source: conConf.sourceLayerId,
+              target: conConf.targetLayerId,
+            },
+            bubbles: true,
+            composed: true,
+          })
+        )
       }
-    }
-
-    // check if dataset keys were assigned to layer and notify the dataset to
-    // remove the association
-    if (layerArg instanceof InputLayer) {
-      for (const dataSetKey of layerArg.dataSetKeys) {
-        this.dataSet.unassignKey(dataSetKey)
-      }
-    }
-    if (layerArg instanceof OutputLayer) {
-      this.dataSet.unassignKey(layerArg.dataSetLabel.key)
     }
 
     // remove the reference to the layer in our layers array
-    this.networkConf.removeLayer(layerArg.layerId)
+    this.dispatchEvent(
+      new CustomEvent<number>('remove-layer', {
+        detail: layer.conf.layerId,
+        bubbles: true,
+        composed: true,
+      })
+    )
 
     // deselect the layer
-    this.selected.select()
+    this.dispatchEvent(
+      new CustomEvent<unknown>('select', {
+        detail: {},
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   // -> CONNECTIONS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // ---> GETTING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  getLayerConnectionByLayerIds(
+    sourceLayerId: number,
+    targetLayerId: number
+  ): CLayerConnection {
+    return Array.from(this._layerConnections).find((layerConnection) => {
+      return (
+        layerConnection.conf.sourceLayerId == sourceLayerId &&
+        layerConnection.conf.targetLayerId == targetLayerId
+      )
+    })
+  }
+
   getTargetsFor(source: CLayer): CLayer[] {
-    return Array.from(this.networkConf.layerConnections.keys())
-      .filter(([sourceId, _targetId]) => sourceId == source.layerId)
-      .map(([_sourceId, targetId]) => this.networkConf.layers.get(targetId))
+    return this.layerConnectionConfs
+      .filter((conConf) => conConf.sourceLayerId == source.conf.layerId)
+      .map((conConf) => this.getLayerById(conConf.targetLayerId))
   }
 
   getSourcesFor(target: CLayer): CLayer[] {
-    return Array.from(this.networkConf.layerConnections.keys())
-      .filter(([_sourceId, targetId]) => targetId == target.layerId)
-      .map(([sourceId, _targetId]) => this.networkConf.layers.get(sourceId))
+    return this.layerConnectionConfs
+      .filter((conConf) => conConf.targetLayerId == target.conf.layerId)
+      .map((conConf) => this.getLayerById(conConf.sourceLayerId))
   }
 
-  // ---> ADDING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  addLayerConnection(source: CLayer, target: CLayer): void {
-    const layerConnection: CLayerConnection = <CLayerConnection>(
-      document.createElement('c-layer-connection')
+  // MODEL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // -> RESET  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  handleResetModel() {
+    // reset the tensors of all layer
+    this.tensorConfs = new Map()
+    this.dispatchEvent(
+      new Event('layer-confs-updated', {
+        bubbles: true,
+        composed: true,
+      })
     )
-    layerConnection.sourceLayer = source
-    layerConnection.targetLayer = target
-    this.networkConf.addLayerConnection(layerConnection)
   }
 
-  removeLayerConnection(source: CLayer, target: CLayer): void {
-    this.networkConf.removeLayerConnection([source.layerId, target.layerId])
-  }
-
-  // BUILD MODEL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // -> BUILD  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   buildModel(): tf.LayersModel {
     console.log('building network')
 
@@ -195,10 +256,6 @@ export class Network extends LitElementWw {
       return null
     }
 
-    // reset the tensors of all layer
-    Array.from(this.networkConf.layers.values()).forEach((layer) => {
-      layer.tensor = null
-    })
     // now we can start building the network iteratively using a queue of layers
     // that we initialize with the input layers since they dont need to fulfill
     // any preconditions in order to be built.
@@ -210,13 +267,21 @@ export class Network extends LitElementWw {
       const layer = buildQueue[0]
       // build the current layer in the build queue
       if (this.getSourcesFor(layer).every((layer) => layer.tensor)) {
-        layer.build(this.getSourcesFor(layer).map((layer) => layer.tensor))
+        const tensor = layer.build(
+          this.getSourcesFor(layer).map((layer) => layer.tensor)
+        )
+        this.tensorConfs.set(layer.conf.layerId, { tensor })
+        layer.tensor = tensor
       }
       // add all layers the current layer connects to the the queue
       this.getTargetsFor(layer).forEach((layer) => buildQueue.push(layer))
       // we are done with the current layer, so we remove it from the queue
       buildQueue.shift()
     }
+
+    this.tensorConfs = new Map(this.tensorConfs)
+
+    console.log(this.tensorConfs)
 
     // check if there is a connected output layer, else abort (might lead to
     // some problems else)
@@ -244,79 +309,134 @@ export class Network extends LitElementWw {
     return tfModel
   }
 
+  // -> UPDATE WEIGHTS - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  updateWeights(weights: tf.Tensor[]): void {
+    console.log(weights)
+    for (const weight of weights) {
+      const layerIdAndWeightType: string[] = weight.name.split('/')
+      console.log(weight)
+      if (layerIdAndWeightType.length != 2) {
+        console.error('malformed weight name string')
+        return
+      }
+      const weightType: 'kernel' | 'bias' = <'kernel' | 'bias'>(
+        layerIdAndWeightType[1].split('_')[0]
+      )
+      const layerId: number = parseInt(layerIdAndWeightType[0])
+      switch (weightType) {
+        case 'bias': {
+          this.tensorConfs.get(layerId).bias = <Float32Array>weight.dataSync()
+          this.dispatchEvent(
+            new Event('layer-confs-updated', {
+              bubbles: true,
+              composed: true,
+            })
+          )
+          break
+        }
+        case 'kernel': {
+          this.tensorConfs.get(layerId).weights = <Float32Array>(
+            weight.dataSync()
+          )
+          this.dispatchEvent(
+            new Event('layer-confs-updated', {
+              bubbles: true,
+              composed: true,
+            })
+          )
+          break
+        }
+        default:
+          console.error('malformed weight name string: weightType')
+      }
+    }
+    this.tensorConfs = new Map(this.tensorConfs)
+  }
+
   // EVENT HANDLERS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  handleLayerCreated(layer: CLayer): void {
+  handleLayerConfCreated(layerConf: CLayerConf): void {
     // get the layer a fresh unused id
-    layer['layerId'] = this.getFreshId()
+    layerConf['layerId'] = this.getFreshId()
 
     // assign all unassigned inputs to the layer in case it is an input layer
-    if (layer instanceof InputLayer) {
-      layer.dataSetKeys = this.dataSet.getNonAssignedInputKeys()
-    }
-
-    // assign the label to the layer in case it is an output layer
-    else if (layer instanceof OutputLayer) {
-      layer.dataSetLabel = this.dataSet.getLabelByKey(
-        this.dataSet.getNonAssignedLabelKey()
+    if (layerConf.LAYER_TYPE == 'Input') {
+      ;(<InputLayerConf>layerConf).dataSetKeys = this.dataSet.inputs.map(
+        (input) => input.key
       )
     }
 
+    // assign the label to the layer in case it is an output layer
+    else if (layerConf.LAYER_TYPE == 'Output') {
+      ;(<OutputLayerConf>layerConf).dataSetLabel = this.dataSet.label
+    }
+
+    // get the layer a position if none was specified
+    if (!layerConf['pos']) {
+      layerConf['pos'] = this.canvas.generatePos()
+    }
+
     // add the layer to the network
-    this.networkConf.addLayer(layer)
+    this.dispatchEvent(
+      new CustomEvent<CLayerConf>('add-layer', {
+        detail: layerConf,
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   handleLayerUpdated(layerId: number): void {
-    const affectedConnectionKeys = Array.from(
-      this.networkConf.layerConnections.keys()
-    ).filter(([sourceId, targetId]) => {
-      return sourceId == layerId || targetId == layerId
-    })
-    for (const affectedConnectionKey of affectedConnectionKeys) {
-      this.networkConf.layerConnections
-        .get(affectedConnectionKey)
-        .requestUpdate()
-    }
-  }
-
-  handleDataSetChange(): void {
-    if (this.dataSet) {
-      // spawn an alert
-      let msg = `The data set has been set to '${this.dataSet.name}'!`
-      if (this.getInputLayers().length >= 2)
-        msg +=
-          ' All inputs of this dataSet were assigned to the first input layer - all other input layers were deleted!'
-      spawnAlert({ message: msg, variant: 'success', icon: 'check-circle' })
-
-      // assign all inputs to the first input layer and remove the others
-      for (let i = 0; i < this.getInputLayers().length; i++) {
-        if (i == 0) {
-          this.getInputLayers()[i].dataSetKeys =
-            this.dataSet.getNonAssignedInputKeys()
-        } else {
-          this.removeLayer(this.getInputLayers()[i])
-        }
-      }
-
-      // assign the new label to the output layer
-      const outputLayer = this.getOutputLayer()
-      if (outputLayer) {
-        outputLayer.dataSetLabel = this.dataSet.getLabelByKey(
-          this.dataSet.getNonAssignedLabelKey()
+    const affectedConnectionConfs = this.layerConnectionConfs.filter(
+      (conConf) => {
+        return (
+          conConf.sourceLayerId == layerId || conConf.targetLayerId == layerId
         )
       }
+    )
+    for (const affectedConnectionConf of affectedConnectionConfs) {
+      this.getLayerConnectionByLayerIds(
+        affectedConnectionConf.sourceLayerId,
+        affectedConnectionConf.targetLayerId
+      ).requestUpdate()
     }
-  }
-
-  handleQueryLayerDeletion(layer: CLayer): void {
-    this.removeLayer(layer)
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [globalStyles]
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  getHTMLForLayerConf(layerConf: CLayerConf) {
+    const layer = <CLayer>document.createElement(layerConf.HTML_TAG)
+    layer.conf = layerConf
+    const tensorConf = this.tensorConfs?.get(layerConf.layerId)
+    layer.tensor = tensorConf?.tensor
+    layer.bias = tensorConf?.bias
+    layer.weights = tensorConf?.weights
+    layer.classList.add('layer')
+    return layer
+  }
+
+  getHTMLForLayerConnectionConf(layerConnectionConf: CLayerConnectionConf) {
+    const layerConnection = <CLayerConnection>(
+      document.createElement('c-layer-connection')
+    )
+    layerConnection.conf = layerConnectionConf
+    layerConnection.classList.add('layer-connection')
+    return layerConnection
+  }
+
   render(): TemplateResult<1> {
-    return html` ${Array.from(this.networkConf.layers.values())}
-    ${Array.from(this.networkConf.layerConnections.values())}`
+    return html`
+      <div id="layers">
+        ${this.layerConfs.map((layerConf) =>
+          this.getHTMLForLayerConf(layerConf)
+        )}
+      </div>
+      <div id="layerConnections">
+        ${this.layerConnectionConfs.map((layerConnectionConf) =>
+          this.getHTMLForLayerConnectionConf(layerConnectionConf)
+        )}
+      </div>
+    `
   }
 }
