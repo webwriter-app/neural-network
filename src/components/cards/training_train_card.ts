@@ -3,7 +3,7 @@ import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
 import { consume } from '@lit-labs/context'
-import { Model, modelContext } from '@/contexts/model_context'
+import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 import {
   TrainOptions,
   trainOptionsContext,
@@ -15,8 +15,8 @@ import { globalStyles } from '@/global_styles'
 
 @customElement('training-train-card')
 export class TrainingTrainCard extends LitElementWw {
-  @consume({ context: modelContext, subscribe: true })
-  model: Model
+  @consume({ context: modelConfContext, subscribe: true })
+  modelConf: ModelConf
 
   @consume({ context: trainOptionsContext, subscribe: true })
   trainOptions: TrainOptions
@@ -54,9 +54,11 @@ export class TrainingTrainCard extends LitElementWw {
   static styles: CSSResult[] = [globalStyles]
 
   getContent(): TemplateResult<1> {
-    if (!this.model.model && !this.model.isTraining) {
+    if (!this.modelConf.model && !this.modelConf.isTraining) {
       return html` <sl-tooltip
-        content="${this.model.model ? 'Continue training' : 'Start training'}"
+        content="${this.modelConf.model
+          ? 'Continue training'
+          : 'Start training'}"
       >
         <sl-button
           variant="primary"
@@ -67,15 +69,16 @@ export class TrainingTrainCard extends LitElementWw {
           Run training
         </sl-button>
       </sl-tooltip>`
-    } else if (this.model.isTraining) {
+    } else if (this.modelConf.isTraining) {
       return html`
         <sl-progress-bar
-          value="${(this.model.actEpoch / parseInt(this.trainOptions.epochs)) *
+          value="${(this.modelConf.actEpoch /
+            parseInt(this.trainOptions.epochs)) *
           100}"
         ></sl-progress-bar>
         <p>
-          Epoch ${this.model.actEpoch}/${this.trainOptions.epochs} • Batch
-          ${this.model.actBatch}/${Math.ceil(
+          Epoch ${this.modelConf.actEpoch}/${this.trainOptions.epochs} • Batch
+          ${this.modelConf.actBatch}/${Math.ceil(
             this.dataSet.data.length / parseInt(this.trainOptions.batchSize)
           )}
         </p>
@@ -87,7 +90,7 @@ export class TrainingTrainCard extends LitElementWw {
           <sl-icon name="stop" label="Stop"></sl-icon>
         </sl-button>
       `
-    } else if (this.model.model) {
+    } else if (this.modelConf.model) {
       return html`
         <span>Training done</span>
         <sl-tooltip

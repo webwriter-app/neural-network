@@ -17,7 +17,7 @@ import type { DataSet } from '@/data_set/data_set'
 
 import { CLayerConf } from '@/components/network/c_layer_conf'
 import { CLayerConnectionConf } from '@/components/network/c_layer_connection_conf'
-import { FileConfig } from '@/types/file_config'
+import { FileConfigV1 } from '@/types/file_config_v1'
 import { spawnAlert } from '@/utils/alerts'
 
 @customElement('network-actions-card')
@@ -42,7 +42,7 @@ export class GetStartedActions extends LitElementWw {
   }
 
   async _handleExport() {
-    const config: FileConfig = {
+    const config: FileConfigV1 = {
       version: 1,
       dataSet: this.dataSet,
       layerConfs: this.layerConfs,

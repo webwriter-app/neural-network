@@ -3,7 +3,7 @@ import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
 import { consume } from '@lit-labs/context'
-import { Model, modelContext } from '@/contexts/model_context'
+import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -13,8 +13,8 @@ import '@/components/cards/training_hyperparameters_card.js'
 
 @customElement('train-panel')
 export class TrainPanel extends LitElementWw {
-  @consume({ context: modelContext, subscribe: true })
-  model: Model
+  @consume({ context: modelConfContext, subscribe: true })
+  modelConf: ModelConf
 
   static styles: CSSResult[] = [globalStyles]
 
@@ -23,7 +23,7 @@ export class TrainPanel extends LitElementWw {
       <c-panel name="train">
         <training-train-card></training-train-card>
         <training-metrics-card
-          class="${!this.model.model ? 'hidden' : ''}"
+          class="${!this.modelConf.model ? 'hidden' : ''}"
         ></training-metrics-card>
         <training-hyperparameters-card></training-hyperparameters-card>
       </c-panel>

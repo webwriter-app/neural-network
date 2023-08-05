@@ -3,7 +3,7 @@ import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
 import { consume } from '@lit-labs/context'
-import { Model, modelContext } from '@/contexts/model_context'
+import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 import { Selected, selectedContext } from '@/contexts/selected_context'
 import { panelGroups, openPanelsContext } from '@/contexts/panels_context'
 
@@ -20,8 +20,8 @@ import '@/components/panels/edge_panel.ts'
 
 @customElement('menu-area')
 export class MenuArea extends LitElementWw {
-  @consume({ context: modelContext, subscribe: true })
-  model: Model
+  @consume({ context: modelConfContext, subscribe: true })
+  modelConf: ModelConf
 
   @consume({ context: selectedContext, subscribe: true })
   selected: Selected
@@ -81,7 +81,7 @@ export class MenuArea extends LitElementWw {
           <c-tab group="right" name="network">Network</c-tab>
           <c-tab group="right" name="dataSet">Data set</c-tab>
           <c-tab group="right" name="train">Train</c-tab>
-          ${this.model.model
+          ${this.modelConf.model
             ? html` <c-tab group="right" name="predict">Predict</c-tab> `
             : html``}
           ${this.selected.layer
@@ -106,7 +106,9 @@ export class MenuArea extends LitElementWw {
           <network-panel></network-panel>
           <data-set-panel></data-set-panel>
           <train-panel></train-panel>
-          ${this.model.model ? html` <predict-panel></predict-panel> ` : html``}
+          ${this.modelConf.model
+            ? html` <predict-panel></predict-panel> `
+            : html``}
           ${this.selected.layer ? html` <layer-panel></layer-panel> ` : html``}
           ${this.selected.neuron
             ? html` <neuron-panel></neuron-panel> `

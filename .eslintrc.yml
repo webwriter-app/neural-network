@@ -19,3 +19,4 @@ rules:
     - argsIgnorePattern: '^_'
       varsIgnorePattern: '^_'
       caughtErrorsIgnorePattern: '^_'
+  no-extra-semi: off

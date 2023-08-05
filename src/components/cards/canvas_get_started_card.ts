@@ -4,6 +4,7 @@ import { customElement } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 import { FileConfig } from '@/types/file_config'
+import { FileConfigV1 } from '@/types/file_config_v1'
 import { spawnAlert } from '@/utils/alerts'
 
 @customElement('canvas-get-started-card')
@@ -18,12 +19,11 @@ export class GetStartedActions extends LitElementWw {
       ],
     })
     const file = await handle.getFile()
-    let config: FileConfig
     try {
       const text = await file.text()
-      const fileConfig: FileConfig = await JSON.parse(text)
+      let fileConfig: FileConfig = await JSON.parse(text)
       switch (fileConfig.version) {
-        case 1:
+        case 1: {
           if (
             !(
               Object.hasOwn(fileConfig, 'dataSet') &&
@@ -36,18 +36,27 @@ export class GetStartedActions extends LitElementWw {
               'The version of the config file is not compatible with the widget version you currently use!'
             )
           }
-          config = {
+          const config: FileConfigV1 = {
             version: 1,
             dataSet: fileConfig.dataSet,
             layerConfs: fileConfig.layerConfs,
             layerConnectionConfs: fileConfig.layerConnectionConfs,
             trainOptions: fileConfig.trainOptions,
           }
+          this.dispatchEvent(
+            new CustomEvent<FileConfigV1>('config-v1-imported', {
+              detail: config,
+              bubbles: true,
+              composed: true,
+            })
+          )
           break
-        default:
+        }
+        default: {
           throw new Error(
             'The version of the config file is not compatible with the widget version you currently use!'
           )
+        }
       }
     } catch (err: unknown) {
       const error = err as Error
@@ -56,16 +65,6 @@ export class GetStartedActions extends LitElementWw {
         variant: 'danger',
         icon: 'x-circle',
       })
-    }
-    if (config) {
-      // notify the root element that the canvas was created
-      this.dispatchEvent(
-        new CustomEvent<FileConfig>('config-imported', {
-          detail: config,
-          bubbles: true,
-          composed: true,
-        })
-      )
     }
   }
 

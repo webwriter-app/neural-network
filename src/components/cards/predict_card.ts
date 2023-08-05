@@ -7,7 +7,7 @@ import { globalStyles } from '@/global_styles'
 import { consume } from '@lit-labs/context'
 import { networkContext } from '@/contexts/network_context'
 import { dataSetContext } from '@/contexts/data_set_context'
-import { Model, modelContext } from '@/contexts/model_context'
+import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
 
@@ -25,8 +25,8 @@ export class PredictCard extends LitElementWw {
   dataSet: DataSet
   getDataSetInputsByKeys = getDataSetInputsByKeys
 
-  @consume({ context: modelContext, subscribe: true })
-  model: Model
+  @consume({ context: modelConfContext, subscribe: true })
+  modelConf: ModelConf
 
   @query('#predictForm')
   _predictForm: HTMLFormElement

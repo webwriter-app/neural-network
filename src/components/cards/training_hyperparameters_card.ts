@@ -6,7 +6,7 @@ import {
   TrainOptions,
   trainOptionsContext,
 } from '@/contexts/train_options_context'
-import { Model, modelContext } from '@/contexts/model_context'
+import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 
 import { globalStyles } from '@/global_styles'
 import { SlChangeEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace'
@@ -16,8 +16,8 @@ export class TrainingHyperparametersCard extends LitElementWw {
   @consume({ context: trainOptionsContext, subscribe: true })
   trainOptions: TrainOptions
 
-  @consume({ context: modelContext, subscribe: true })
-  model: Model
+  @consume({ context: modelConfContext, subscribe: true })
+  modelConf: ModelConf
 
   private batchSizeOptions: number[] = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
   @query('#batchSizeRadioGroup')
@@ -84,7 +84,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
       <c-card>
         <div slot="title">Hyperparameters</div>
         <div slot="content">
-          ${this.model.model
+          ${this.modelConf.model
             ? html`<span
                 >The options below are currently disabled because these options
                 can not be changed in the current model. Reset the model to be
@@ -104,7 +104,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
                   <sl-radio-button
                     size="small"
                     value="${batchSize}"
-                    ?disabled=${this.model.model &&
+                    ?disabled=${this.modelConf.model &&
                     this._batchSizeRadioGroup.value != batchSize.toString()}
                     >${batchSize}</sl-radio-button
                   >
@@ -120,7 +120,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
             max="0.1"
             step="0.001"
             value="${this.trainOptions.learningRate}"
-            ?disabled=${this.model.model}
+            ?disabled=${this.modelConf.model}
             @sl-change="${(_e: SlChangeEvent) =>
               this._handleChangeLearningRate()}"
           >
@@ -133,7 +133,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
             max="1"
             step="0.01"
             value="${this.trainOptions.dropoutRate}"
-            ?disabled=${this.model.model}
+            ?disabled=${this.modelConf.model}
             @sl-change="${(_e: SlChangeEvent) =>
               this._handleChangeDropoutRate()}"
           >

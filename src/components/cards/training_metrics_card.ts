@@ -3,14 +3,14 @@ import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 
 import { consume } from '@lit-labs/context'
-import { Model, modelContext } from '@/contexts/model_context'
+import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 
 import { globalStyles } from '@/global_styles'
 
 @customElement('training-metrics-card')
 export class TrainingMetricsCard extends LitElementWw {
-  @consume({ context: modelContext, subscribe: true })
-  model: Model
+  @consume({ context: modelConfContext, subscribe: true })
+  modelConf: ModelConf
 
   @query('#trainMetricsContainer')
   _trainMetricsContainer: HTMLDivElement

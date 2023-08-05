@@ -1,4 +1,6 @@
 import { createContext } from '@lit-labs/context'
+import type { WwDeepLearning } from '@/app'
+
 export interface TrainOptions {
   learningRate: string
   dropoutRate: string
@@ -9,6 +11,18 @@ export interface TrainOptions {
 }
 export const trainOptionsContext = createContext<TrainOptions>('train-options')
 
-/* related functions
-  setOption: (attribute: string, value: string) => void
-*/
+export const defaultTrainOptions: TrainOptions = {
+  learningRate: '0.001',
+  dropoutRate: '0',
+  epochs: '7',
+  batchSize: '32',
+  lossFunction: 'meanSquaredError',
+  optimizer: 'sgd',
+}
+
+export function setTrainOption(option: string, value: string) {
+  ;(<WwDeepLearning>this).trainOptions[option] = value
+  ;(<WwDeepLearning>this).trainOptions = {
+    ...(<WwDeepLearning>this).trainOptions,
+  }
+}

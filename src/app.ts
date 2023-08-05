@@ -9,25 +9,56 @@ import { ShortcutListener } from '@/utils/shortcut_listener'
 
 import {
   SetupStatus,
+  checkLoading,
+  defaultSetupStatus,
+  setupCompleted,
   setupStatusContext,
 } from '@/contexts/setup_status_context'
-import { Guard, guardContext } from '@/contexts/guard_context'
+import { Guard, guard, guardContext } from '@/contexts/guard_context'
 import { canvasContext } from '@/contexts/canvas_context'
-import { layerConfsContext } from '@/contexts/layer_confs_context'
-import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
+import {
+  layerConfsContext,
+  addLayer,
+  updateLayerConfs,
+  removeLayer,
+} from '@/contexts/layer_confs_context'
+import {
+  addLayerConnection,
+  layerConnectionConfsContext,
+  removeLayerConnection,
+} from '@/contexts/layer_con_confs_context'
 import { networkContext } from '@/contexts/network_context'
 import { dataSetContext } from '@/contexts/data_set_context'
-import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
+import {
+  addDataSet,
+  availableDataSetsContext,
+} from '@/contexts/available_data_sets_context'
 import {
   TrainOptions,
+  defaultTrainOptions,
+  setTrainOption,
   trainOptionsContext,
 } from '@/contexts/train_options_context'
-import { Model, modelContext } from '@/contexts/model_context'
-import { Selected, selectedContext } from '@/contexts/selected_context'
-import { panelGroups, openPanelsContext } from '@/contexts/panels_context'
+import {
+  ModelConf,
+  buildModel,
+  defaultModelConf,
+  modelConfContext,
+  predictModel,
+  resetModel,
+  stopTraining,
+  trainModel,
+} from '@/contexts/model_conf_context'
+import { Selected, select, selectedContext } from '@/contexts/selected_context'
+import {
+  panelGroups,
+  openPanelsContext,
+  openPanel,
+  closePanels,
+} from '@/contexts/panels_context'
 
 import type { CCanvas } from '@/components/canvas'
-import type { FileConfig } from '@/types/file_config'
+import type { FileConfigV1 } from '@/types/file_config_v1'
 import type { DataSet } from '@/data_set/data_set'
 import { getInputDataByKeys, getLabelData } from '@/data_set/data_set'
 import { bostonHousePricing } from '@/data_set/boston'
@@ -40,14 +71,9 @@ import { CLayer } from '@/components/network/c_layer'
 import { Neuron } from '@/components/network/neuron'
 import { Edge } from '@/components/network/edge'
 
-import { spawnAlert } from '@/utils/alerts'
-
 import '@/components/network/network'
 import '@/components/canvas_area'
 import '@/components/menu_area'
-
-import * as tf from '@tensorflow/tfjs'
-import * as tfvis from '@tensorflow/tfjs-vis'
 
 @customElement('ww-deeplearning')
 export class WwDeepLearning extends LitElementWw {
@@ -70,24 +96,10 @@ export class WwDeepLearning extends LitElementWw {
   // completed.
   @provide({ context: setupStatusContext })
   @property({ attribute: false })
-  setupStatus: SetupStatus = {
-    canvasCompleted: false,
-    dataSetCompleted: false,
-    loading: true,
-  }
+  setupStatus: SetupStatus = defaultSetupStatus
 
-  setupCompleted(name: string): void {
-    this.setupStatus[`${name}Completed`] = true
-    this.setupStatus = { ...this.setupStatus }
-    this.checkLoading()
-  }
-
-  checkLoading(): void {
-    if (!Object.values(this.setupStatus).some((value) => value == false)) {
-      this.setupStatus.loading = false
-      this.setupStatus = { ...this.setupStatus }
-    }
-  }
+  setupCompleted = setupCompleted
+  checkLoading = checkLoading
 
   // -> GUARD  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // guard context: provides boolean functions that are used throughout the
@@ -96,12 +108,7 @@ export class WwDeepLearning extends LitElementWw {
   // attribute (which would even cause problems)
   @provide({ context: guardContext })
   @property({ attribute: false })
-  guard: Guard = {
-    mayChangeNetworkTopology: () => {
-      if (this.model.model) return false
-      return true
-    },
-  }
+  guard: Guard = guard
 
   // -> CANVAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // canvas context: provides the canvas (currently a reactive controller) and
@@ -116,24 +123,9 @@ export class WwDeepLearning extends LitElementWw {
   @property({ attribute: true, type: Array, reflect: true })
   layerConfs: CLayerConf[] = []
 
-  addLayer(layerConf: CLayerConf): void {
-    this.layerConfs.push(layerConf)
-    this.updateLayerConfs()
-  }
-
-  updateLayerConfs() {
-    this.layerConfs = [...this.layerConfs]
-  }
-
-  removeLayer(layerId: number): void {
-    const index = this.layerConfs.findIndex((layerConf) => {
-      return layerConf.layerId == layerId
-    })
-    if (index > -1) {
-      this.layerConfs.splice(index, 1)
-      this.updateLayerConfs()
-    }
-  }
+  addLayer = addLayer
+  updateLayerConfs = updateLayerConfs
+  removeLayer = removeLayer
 
   // layer connections conf context: provides the layer connection
   // configurations
@@ -141,27 +133,8 @@ export class WwDeepLearning extends LitElementWw {
   @property({ attribute: true, type: Array, reflect: true })
   layerConnectionConfs: CLayerConnectionConf[] = []
 
-  addLayerConnection(source: number, target: number): void {
-    const layerConnectionConf: CLayerConnectionConf = {
-      sourceLayerId: source,
-      targetLayerId: target,
-    }
-    this.layerConnectionConfs.push(layerConnectionConf)
-    this.layerConnectionConfs = [...this.layerConnectionConfs]
-  }
-
-  removeLayerConnection(source: number, target: number): void {
-    const index = this.layerConnectionConfs.findIndex((layerConnectionConf) => {
-      return (
-        layerConnectionConf.sourceLayerId == source &&
-        layerConnectionConf.targetLayerId == target
-      )
-    })
-    if (index > -1) {
-      this.layerConnectionConfs.splice(index, 1)
-      this.layerConnectionConfs = [...this.layerConnectionConfs]
-    }
-  }
+  addLayerConnection = addLayerConnection
+  removeLayerConnection = removeLayerConnection
 
   @query('c-network')
   _network: Network
@@ -175,40 +148,26 @@ export class WwDeepLearning extends LitElementWw {
   // and its corresponding actions
   @provide({ context: dataSetContext })
   @property({ attribute: true, type: Object, reflect: true })
-  dataSet: DataSet
+  dataSet: DataSet = bostonHousePricing
+
+  getInputDataByKeys = getInputDataByKeys
+  getLabelData = getLabelData
 
   // available data sets
   @provide({ context: availableDataSetsContext })
   @property({ attribute: false })
   availableDataSets: DataSet[] = [bostonHousePricing, pimaIndiansDiabetes]
 
-  addDataSet(dataSet: DataSet) {
-    this.availableDataSets.push(dataSet)
-    this.availableDataSets = [...this.availableDataSets]
-  }
-
-  // bind functions to 'this'
-  getInputDataByKeys = getInputDataByKeys
-  getLabelData = getLabelData
+  addDataSet = addDataSet
 
   // -> TRAIN OPTIONS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // trainOptions context: provides the dataSet (currently a simple class instance)
   // and its corresponding actions
   @provide({ context: trainOptionsContext })
   @property({ attribute: true, type: Object, reflect: true })
-  trainOptions: TrainOptions = {
-    learningRate: '0.001',
-    dropoutRate: '0',
-    epochs: '7',
-    batchSize: '32',
-    lossFunction: 'meanSquaredError',
-    optimizer: 'sgd',
-  }
+  trainOptions: TrainOptions = defaultTrainOptions
 
-  setTrainOption(option: string, value: string) {
-    this.trainOptions[option] = value
-    this.trainOptions = { ...this.trainOptions }
-  }
+  setTrainOption = setTrainOption
 
   // HTML container where metrics like accuracy and loss are plotted into
   @state()
@@ -217,163 +176,15 @@ export class WwDeepLearning extends LitElementWw {
   // -> MODEL  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // model context: provides the tensorflow.js model based on the network and
   // corresponding actions like training
-  @provide({ context: modelContext })
+  @provide({ context: modelConfContext })
   @property({ attribute: false })
-  model: Model = {
-    model: null,
-    isTraining: false,
-    actBatch: null,
-    actEpoch: null,
-    stopRequested: false,
-  }
+  modelConf: ModelConf = defaultModelConf
 
-  resetModel(): void {
-    if (this.model.model) {
-      // set stopRequested to true because we want to be able to call reset()
-      // also to abort a current running training session. Will not have any
-      // complications because the train method itself sets it to false before
-      // it is used
-      this.model.stopRequested = true
-
-      // set the model to null
-      this.model.model = null
-      this.model = { ...this.model }
-
-      // empty the container for the metrics. if we did not do this, it would
-      // also show the metrics from the previous training
-      this.trainMetricsContainer.innerHTML = ''
-
-      // remove model references (like tensor and weights) in the network
-      this.network.handleResetModel()
-    }
-  }
-
-  buildModel(): void {
-    this.resetModel()
-    const model = this.network.buildModel()
-    if (model && this.dataSet) {
-      const metrics: string[] = []
-      let loss: string
-      if (this.dataSet.type == 'regression') {
-        loss = 'meanSquaredError'
-      } else if (this.dataSet.type == 'classification') {
-        loss = 'categoricalCrossentropy'
-        metrics.push('acc')
-      } else {
-        return
-      }
-      const optimizer = tf.train.sgd(parseFloat(this.trainOptions.learningRate))
-      model.compile({
-        optimizer,
-        loss,
-        metrics,
-      })
-      this.model.model = model
-      console.log(model.summary())
-      spawnAlert({
-        message: `The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!`,
-        variant: 'success',
-        icon: 'check-circle',
-      })
-      this.model = { ...this.model }
-    }
-  }
-
-  trainModel(): void {
-    //if (!this.model.model) {
-    this.buildModel()
-    //}
-
-    if (this.model.model) {
-      // a manual stop can be requested by setting this variable to true (is
-      // periodically checked)
-      this.model.stopRequested = false
-
-      // set the isTraining boolean variable that is used in the ui do
-      // determine what to display
-      this.model.actEpoch = 0
-      this.model.actBatch = 0
-      this.model.isTraining = true
-      this.model = { ...this.model }
-
-      // inputs
-      const inputData: number[][] = []
-      for (const inputLayer of this.network.getInputLayers()) {
-        inputData.push(...this.getInputDataByKeys(inputLayer.conf.dataSetKeys))
-      }
-      const inputs: tf.Tensor = tf.tensor(inputData)
-
-      // metrics and label tensors depend on regression vs classification type
-      const labelData: number[] = this.getLabelData()
-      const metrics: string[] = ['loss']
-      let labels: tf.Tensor
-      if (this.dataSet.type == 'regression') {
-        labels = tf.tensor(labelData)
-      } else if (
-        this.dataSet.type == 'classification' &&
-        this.dataSet.label.classes
-      ) {
-        metrics.push('acc')
-        labels = tf.oneHot(
-          tf.tensor(labelData, undefined, 'int32'),
-          this.dataSet.label.classes.length
-        )
-      } else {
-        return
-      }
-
-      // start the training itself
-      void this.model.model
-        .fit(inputs, labels, {
-          epochs: parseInt(this.trainOptions.epochs),
-          batchSize: parseInt(this.trainOptions.batchSize),
-          callbacks: [
-            tfvis.show.fitCallbacks(this.trainMetricsContainer, metrics, {
-              height: 100,
-            }),
-            {
-              onBatchEnd: (batch: number, _logs) => {
-                // after each batch check if a stop was requested
-                if (this.model.stopRequested) {
-                  this.model.model.stopTraining = true
-                }
-                // update the act batch var (for displaying purposes)
-                this.model.actBatch = batch + 1
-                // update the weights to be displayed in the neurons
-                this.network.updateWeights(this.model.model.getWeights())
-                // update the model to reflect all changes
-                this.model = { ...this.model }
-              },
-              onEpochEnd: (epoch: number, _logs) => {
-                this.model.actEpoch = epoch + 1
-                this.model = { ...this.model }
-              },
-            },
-          ],
-        })
-        .then((info) => {
-          console.log(info)
-        })
-        .catch((err) => {
-          console.error(err)
-        })
-        .finally(() => {
-          setTimeout(() => {
-            this.model.isTraining = false
-            this.model = { ...this.model }
-          }, 500)
-        })
-    }
-  }
-
-  // stop training
-  stopTraining() {
-    this.model.stopRequested = true
-  }
-
-  predict(): void {
-    return
-  }
+  resetModel = resetModel
+  buildModel = buildModel
+  trainModel = trainModel
+  stopTraining = stopTraining
+  predictModel = predictModel
 
   // -> SELECTED - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // selected context: provides info about what item in the canvas (layer,
@@ -382,26 +193,7 @@ export class WwDeepLearning extends LitElementWw {
   @property({ attribute: false })
   selected: Selected = {}
 
-  select({
-    layer = null,
-    neuron = null,
-    edge = null,
-  }: { layer?: CLayer; neuron?: Neuron; edge?: Edge } = {}): void {
-    const newSelected = {}
-    if (neuron && layer) {
-      newSelected['neuron'] = neuron
-      newSelected['layer'] = layer
-      this.openPanel('neuron', 'right')
-    } else if (layer) {
-      newSelected['layer'] = layer
-      this.openPanel('layer', 'right')
-    } else if (edge) {
-      /* if(elm instanceof Edge) */
-      newSelected['edge'] = edge
-      this.openPanel('edge', 'right')
-    }
-    this.selected = newSelected
-  }
+  select = select
 
   // -> PANELS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // panels context: provide the open panels and functions to change them
@@ -409,20 +201,8 @@ export class WwDeepLearning extends LitElementWw {
   @property({ attribute: false })
   openPanels: string[] = []
 
-  openPanel(panel: string, group?: string): void {
-    if (group) {
-      this.closePanels(panelGroups[group])
-    }
-    this.openPanels.push(panel)
-    this.openPanels = [...this.openPanels]
-  }
-
-  closePanels(panels: string[]): void {
-    this.openPanels = this.openPanels.filter((openPanel: string) => {
-      return !panels.includes(openPanel)
-    })
-    this.openPanels = [...this.openPanels]
-  }
+  openPanel = openPanel
+  closePanels = closePanels
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   connectedCallback() {
@@ -436,8 +216,8 @@ export class WwDeepLearning extends LitElementWw {
     )
     // ---> IMPORT
     this.renderRoot.addEventListener(
-      'config-imported',
-      (e: CustomEvent<FileConfig>) => this.handleConfigImported(e.detail)
+      'config-v1-imported',
+      (e: CustomEvent<FileConfigV1>) => this.handleConfigV1Imported(e.detail)
     )
     // ---> SELECT
     this.renderRoot.addEventListener(
@@ -493,15 +273,6 @@ export class WwDeepLearning extends LitElementWw {
       (e: CustomEvent<{ source: number; target: number }>) =>
         this.removeLayerConnection(e.detail.source, e.detail.target)
     )
-
-    // -> DATA SET
-    // load the standard dataSet if none was loaded by default
-    if (!this.dataSet) {
-      this.dataSet = this.availableDataSets[0]
-      this.setupCompleted('dataSet')
-    } else {
-      this.setupCompleted('dataSet')
-    }
   }
 
   updated(changedProperties: Map<string, unknown>) {
@@ -517,9 +288,9 @@ export class WwDeepLearning extends LitElementWw {
     }
   }
 
-  // OWN METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // EVENT HANDLERS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // -> IMPORTING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  handleConfigImported(config: FileConfig): void {
+  handleConfigV1Imported(config: FileConfigV1): void {
     if (this.availableDataSets.includes(this.dataSet)) {
       this.addDataSet(config.dataSet)
     }
@@ -544,11 +315,11 @@ export class WwDeepLearning extends LitElementWw {
   // reset the network by resetting the network conf
   clearNetwork() {
     // deselect the currently selected element since it will be removed
-    this.select({})
+    this.select()
 
     // empty the network
-    this.layerConfs = []
     this.layerConnectionConfs = []
+    this.layerConfs = []
   }
 
   // set error rate container

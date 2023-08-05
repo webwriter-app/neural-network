@@ -1,6 +1,5 @@
 import { DataSetInput } from '@/types/data_set_input'
 import { DataSetLabel } from '@/types/data_set_label'
-import { HasDataSet } from '@/types/has_data_set'
 
 export interface DataSet {
   // information about the dataSet
@@ -17,6 +16,10 @@ export interface DataSet {
     inputs: number[]
     label: number
   }>
+}
+
+interface HasDataSet {
+  dataSet: DataSet
 }
 
 // OPENING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
