@@ -5,19 +5,16 @@ import { range } from 'lit/directives/range.js'
 
 import { globalStyles } from '@/global_styles'
 
-import { NeuronLayer } from '@/components/network/neuron_layer'
+import { CLayer } from '@/network/c_layer'
 
 import { Position } from '@/types/position'
-import {
-  ActivationOption,
-  activationsMap,
-} from '@/components/network/activation'
+import { Activation, actReLu } from '@/network/activation'
 
 import * as tf from '@tensorflow/tfjs'
-import { DenseLayerConf } from '@/components/network/dense_layer_conf'
+import { DenseLayerConf } from '@/network/dense_layer_conf'
 
 @customElement('dense-layer')
-export class DenseLayer extends NeuronLayer {
+export class DenseLayer extends CLayer {
   // a type and description that is displayed as an info for the layer
   static LAYER_TYPE = 'Dense'
   static LAYER_NAME = 'Dense layer'
@@ -26,16 +23,24 @@ export class DenseLayer extends NeuronLayer {
   conf: DenseLayerConf
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // empty
+  updated(changedProperties: Map<string, unknown>) {
+    super.updated(changedProperties)
+
+    // eventhough the ui should not allow setting the number of units to 0 or
+    // even negative values, this is safeguarded here
+    if (this.conf.units <= 0) {
+      this.conf.units = 1
+    }
+  }
 
   // FACTORY - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static create({
     units = 5,
-    activation = 'ReLu',
+    activation = actReLu,
     pos = null,
   }: {
     units?: number
-    activation?: ActivationOption
+    activation?: Activation
     pos?: Position
   } = {}): DenseLayerConf {
     // create a new dense layer configuration with the specified properties
@@ -89,9 +94,7 @@ export class DenseLayer extends NeuronLayer {
     const dense = <tf.SymbolicTensor>tf.layers
       .dense({
         units: this.conf.units,
-        activation: <tf.ActivationIdentifier>(
-          activationsMap.get(this.conf.activation)
-        ),
+        activation: this.conf.activation.tfName,
         name: this.getTensorName(),
       })
       .apply(input)
@@ -120,7 +123,6 @@ export class DenseLayer extends NeuronLayer {
             range(this.conf.units),
             (i) => html`
               <c-neuron
-                class="neuron"
                 .layer="${this}"
                 neuronId="${i + 1}"
                 .pos="${{

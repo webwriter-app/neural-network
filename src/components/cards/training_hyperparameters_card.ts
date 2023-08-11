@@ -2,17 +2,27 @@ import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
+
+import { globalStyles } from '@/global_styles'
+
+import { editableContext } from '@/contexts/editable_context'
+import { settingsContext, Settings } from '@/contexts/settings_context'
 import {
   TrainOptions,
   trainOptionsContext,
 } from '@/contexts/train_options_context'
 import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 
-import { globalStyles } from '@/global_styles'
 import { SlChangeEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace'
 
 @customElement('training-hyperparameters-card')
 export class TrainingHyperparametersCard extends LitElementWw {
+  @consume({ context: editableContext, subscribe: true })
+  editable: boolean
+
+  @consume({ context: settingsContext, subscribe: true })
+  settings: Settings
+
   @consume({ context: trainOptionsContext, subscribe: true })
   trainOptions: TrainOptions
 
@@ -84,15 +94,15 @@ export class TrainingHyperparametersCard extends LitElementWw {
       <c-card>
         <div slot="title">Hyperparameters</div>
         <div slot="content">
-          ${this.modelConf.model
-            ? html`<span
-                >The options below are currently disabled because these options
-                can not be changed in the current model. Reset the model to be
-                able to change these options again!</span
-              >`
-            : html``}
-          <label for="batchSizeRadioGroup">Batch size</label>
-          <c-hscroll-container>
+          <label for="batchSizeRadioGroup"
+            >Batch size: ${this.trainOptions.batchSize}</label
+          >
+          <div
+            class="hscroll-container ${this.modelConf.model ||
+            (!this.editable && !this.settings.mayEditBatchSize)
+              ? 'hidden'
+              : ``}"
+          >
             <sl-radio-group
               id="batchSizeRadioGroup"
               value="${this.trainOptions.batchSize}"
@@ -101,39 +111,45 @@ export class TrainingHyperparametersCard extends LitElementWw {
             >
               ${this.batchSizeOptions.map((batchSize) => {
                 return html`
-                  <sl-radio-button
-                    size="small"
-                    value="${batchSize}"
-                    ?disabled=${this.modelConf.model &&
-                    this._batchSizeRadioGroup.value != batchSize.toString()}
+                  <sl-radio-button size="small" value="${batchSize}"
                     >${batchSize}</sl-radio-button
                   >
                 `
               })}
             </sl-radio-group>
-          </c-hscroll-container>
+          </div>
+          <label for="learningRateRange"
+            >Learning rate: ${this.trainOptions.learningRate}</label
+          >
           <sl-range
             id="learningRateRange"
-            label="learning rate: ${this.trainOptions.learningRate}"
+            class="${this.modelConf.model ||
+            (!this.editable && !this.settings.mayEditLearningRate)
+              ? 'hidden'
+              : ``}"
             help-text="Adjust the speed at which the network learns"
             min="0"
             max="0.1"
             step="0.001"
             value="${this.trainOptions.learningRate}"
-            ?disabled=${this.modelConf.model}
             @sl-change="${(_e: SlChangeEvent) =>
               this._handleChangeLearningRate()}"
           >
           </sl-range>
+          <label for="dropoutRateRange"
+            >Dropout rate: ${this.trainOptions.dropoutRate}</label
+          >
           <sl-range
             id="dropoutRateRange"
-            label="dropout rate: ${this.trainOptions.dropoutRate}"
+            class="${this.modelConf.model ||
+            (!this.editable && !this.settings.mayEditDropoutRate)
+              ? 'hidden'
+              : ``}"
             help-text="Adjust the probability of neurons being deactivated during training"
             min="0"
             max="1"
             step="0.01"
             value="${this.trainOptions.dropoutRate}"
-            ?disabled=${this.modelConf.model}
             @sl-change="${(_e: SlChangeEvent) =>
               this._handleChangeDropoutRate()}"
           >

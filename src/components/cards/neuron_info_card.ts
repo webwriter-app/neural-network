@@ -8,18 +8,14 @@ import { DataSet, getDataSetInputByKey } from '@/data_set/data_set'
 
 import { globalStyles } from '@/global_styles'
 
-import { CLayer } from '@/components/network/c_layer'
-import { Neuron } from '@/components/network/neuron'
-import { OutputLayer } from '@/components/network/output_layer'
-import { InputLayer } from '@/components/network/input_layer'
+import { Neuron } from '@/network/neuron'
+import { OutputLayer } from '@/network/output_layer'
+import { InputLayer } from '@/network/input_layer'
 
 @customElement('neuron-info-card')
 export class NeuronInfoCard extends LitElementWw {
-  @property()
+  @property({ attribute: false })
   neuron: Neuron
-
-  @property()
-  layer: CLayer
 
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
@@ -38,16 +34,18 @@ export class NeuronInfoCard extends LitElementWw {
     }
     return html`
       <c-card>
-        <div slot="title">Info</div>
+        <div slot="title">Neuron</div>
         <div slot="content">
           <div>
             <p>
-              Selected item:
+              Name:
               <c-network-link .target="${this.neuron}"
-                >Neuron ${this.neuron.neuronId}</c-network-link
+                >${this.neuron.getName()}</c-network-link
               >
-              inside
-              <c-network-link .target="${this.layer}"
+            </p>
+            <p>
+              Corresponding layer:
+              <c-network-link .target="${this.neuron.layer}"
                 >${this.neuron.layer.getName()}</c-network-link
               >
             </p>

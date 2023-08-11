@@ -1,6 +1,6 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult } from 'lit'
-import { customElement, state, property } from 'lit/decorators.js'
+import { CSSResult, TemplateResult, html } from 'lit'
+import { customElement, state, property, queryAll } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
@@ -11,9 +11,13 @@ import { layerConfsContext } from '@/contexts/layer_confs_context'
 
 import type { CCanvas } from '@/components/canvas'
 
-import { Network } from '@/components/network/network'
-import { CLayerConf } from '@/components/network/c_layer_conf'
-import { CLayerConnectionConf } from '@/components/network/c_layer_connection_conf'
+import { Network } from '@/network/network'
+import { CLayerConf } from '@/network/c_layer_conf'
+import { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
+import { Neuron } from '@/network/neuron'
+import { CEdge } from '@/network/c_edge'
+
+import '@/network/c_edge'
 
 @customElement('c-layer-connection')
 export class CLayerConnection extends LitElementWw {
@@ -37,37 +41,26 @@ export class CLayerConnection extends LitElementWw {
   @state()
   doNotRender = false
 
+  @queryAll('c-edge')
+  _edges: NodeListOf<CEdge>
+
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   connectedCallback(): void {
     super.connectedCallback()
     this.doNotRender = false
   }
 
-  // completely remove the connection on disconnect
   disconnectedCallback(): void {
     super.disconnectedCallback()
     this.doNotRender = true
-    this.removeFromCanvas()
-  }
-
-  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // remove the connection from the canvas
-  removeFromCanvas(): void {
-    const eles = this.canvas.cy.filter((element) => {
-      return (
-        element.isEdge() &&
-        element.data('sourceLayer') == this.conf.sourceLayerId &&
-        element.data('targetLayer') == this.conf.sourceLayerId
-      )
-    }, this)
-    eles.remove()
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [globalStyles]
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  render(): void {
+  render(): TemplateResult<1> {
+    console.log('RENDERING LAYER CONNECTION')
     if (!this.doNotRender) {
       // get layers from network
       const sourceLayer = this.network.getLayerById(this.conf.sourceLayerId)
@@ -80,31 +73,35 @@ export class CLayerConnection extends LitElementWw {
         this.canvas.cy.getElementById(sourceLayer.getCyId()).length &&
         this.canvas.cy.getElementById(targetLayer.getCyId()).length
       ) {
-        // remove potential previously drawn connection
-        this.removeFromCanvas()
+        // get the cytoscape ids of all the neurons to connect from and to
+        const sources: Neuron[] = sourceLayer.getNeurons()
+        const targets: Neuron[] = targetLayer.getNeurons()
 
-        // get the ids of all the cytoscape elements to connect from and to
-        const sourceIds: string[] = sourceLayer.getConnectionIds()
-        const targetIds: string[] = targetLayer.getConnectionIds()
-
-        // connect every source id to every target id
-        let i = 0
-        for (const sourceId of sourceIds) {
-          for (const targetId of targetIds) {
-            this.canvas.cy.add({
-              group: 'edges',
-              data: {
-                id: `${sourceId}e${targetId}`,
-                source: sourceId,
-                target: targetId,
-                sourceLayer: this.conf.sourceLayerId,
-                targetLayer: this.conf.targetLayerId,
-                weight: targetLayer.weights?.[i],
-              },
-            })
-            i++
-          }
+        // manually request an update of the edges in case their properties do
+        // not change (else they would just disappear e.g. on change of the
+        // hyperparameters)
+        for (const edge of this._edges) {
+          edge.requestUpdate()
         }
+
+        // add an edge from every source id to every target id
+        return html`
+          ${sources.map(
+            (source, sIndex) =>
+              html`${targets.map(
+                (target, tIndex, tArr) =>
+                  html`<c-edge
+                    .source=${source}
+                    .target=${target}
+                    sourceLayerId=${this.conf.sourceLayerId}
+                    targetLayerId=${this.conf.targetLayerId}
+                    weight=${targetLayer.weights?.[
+                      sIndex * tArr.length + tIndex
+                    ]}
+                  ></c-edge>`
+              )}`
+          )}
+        `
       }
     }
   }

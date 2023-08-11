@@ -9,6 +9,8 @@ import {
   SetupStatus,
   setupStatusContext,
 } from '@/contexts/setup_status_context'
+import { editableContext } from '@/contexts/editable_context'
+import { settingsContext, Settings } from '@/contexts/settings_context'
 import { canvasContext } from '@/contexts/canvas_context'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
@@ -18,24 +20,23 @@ import { Selected, selectedContext } from '@/contexts/selected_context'
 import type { DataSet } from '@/data_set/data_set'
 import type { CCanvas } from '@/components/canvas'
 
-import { CLayerConf } from '@/components/network/c_layer_conf'
-import { CLayer } from '@/components/network/c_layer'
-import { InputLayerConf } from '@/components/network/input_layer_conf'
-import { InputLayer } from '@/components/network/input_layer'
-import { OutputLayerConf } from '@/components/network/output_layer_conf'
-import { OutputLayer } from '@/components/network/output_layer'
-import { TensorConf } from '@/components/network/tensor_conf'
-import { CLayerConnectionConf } from '@/components/network/c_layer_connection_conf'
-import { CLayerConnection } from '@/components/network/c_layer_connection'
+import { CLayerConf } from '@/network/c_layer_conf'
+import { CLayer } from '@/network/c_layer'
+import { InputLayerConf } from '@/network/input_layer_conf'
+import { InputLayer } from '@/network/input_layer'
+import { OutputLayerConf } from '@/network/output_layer_conf'
+import { OutputLayer } from '@/network/output_layer'
+import { TensorConf } from '@/network/tensor_conf'
+import { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
+import { CLayerConnection } from '@/network/c_layer_connection'
 
 import { spawnAlert } from '@/utils/alerts'
 
-import '@/components/network/input_layer'
-import '@/components/network/dense_layer'
-import '@/components/network/output_layer'
-import '@/components/network/neuron_layer'
-import '@/components/network/c_layer'
-import '@/components/network/c_layer_connection'
+import '@/network/input_layer'
+import '@/network/dense_layer'
+import '@/network/output_layer'
+import '@/network/c_layer'
+import '@/network/c_layer_connection'
 
 import * as tf from '@tensorflow/tfjs'
 
@@ -45,6 +46,12 @@ export class Network extends LitElementWw {
   // -> CONTEXT  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @consume({ context: setupStatusContext, subscribe: true })
   setupStatus: SetupStatus
+
+  @consume({ context: editableContext, subscribe: true })
+  editable: boolean
+
+  @consume({ context: settingsContext, subscribe: true })
+  settings: Settings
 
   @consume({ context: canvasContext, subscribe: true })
   canvas: CCanvas
@@ -69,7 +76,7 @@ export class Network extends LitElementWw {
   @queryAll('.layer')
   _layers: NodeListOf<CLayer>
 
-  @queryAll('.layer-connection')
+  @queryAll('c-layer-connection')
   _layerConnections: NodeListOf<CLayerConnection>
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -152,45 +159,53 @@ export class Network extends LitElementWw {
   // remove a layer from the network and thus triggers the disconnectedCallback
   // function of the layer which handles the removing of the layer itself
   removeLayer(layer: CLayer): void {
-    // remove the connections from and to this layer
-    for (const conConf of this.layerConnectionConfs) {
-      if (
-        conConf.sourceLayerId == layer.conf.layerId ||
-        conConf.targetLayerId == layer.conf.layerId
-      ) {
-        this.dispatchEvent(
-          new CustomEvent<{
-            source: number
-            target: number
-          }>('remove-layer-connection', {
-            detail: {
-              source: conConf.sourceLayerId,
-              target: conConf.targetLayerId,
-            },
-            bubbles: true,
-            composed: true,
-          })
-        )
+    // only perform action if allowed
+    if (this.editable || this.settings.mayAddAndRemoveLayers) {
+      // remove the connections from and to this layer
+      for (const conConf of this.layerConnectionConfs) {
+        if (
+          conConf.sourceLayerId == layer.conf.layerId ||
+          conConf.targetLayerId == layer.conf.layerId
+        ) {
+          this.dispatchEvent(
+            new CustomEvent<{
+              source: number
+              target: number
+            }>('remove-layer-connection', {
+              detail: {
+                source: conConf.sourceLayerId,
+                target: conConf.targetLayerId,
+              },
+              bubbles: true,
+              composed: true,
+            })
+          )
+        }
       }
+
+      // remove the reference to the layer in our layers array
+      this.dispatchEvent(
+        new CustomEvent<number>('remove-layer', {
+          detail: layer.conf.layerId,
+          bubbles: true,
+          composed: true,
+        })
+      )
+
+      // deselect the layer
+      this.dispatchEvent(
+        new Event('unselect', {
+          bubbles: true,
+          composed: true,
+        })
+      )
+
+      spawnAlert({
+        message: `'${layer.getName()}' has been deleted!`,
+        variant: 'danger',
+        icon: 'trash',
+      })
     }
-
-    // remove the reference to the layer in our layers array
-    this.dispatchEvent(
-      new CustomEvent<number>('remove-layer', {
-        detail: layer.conf.layerId,
-        bubbles: true,
-        composed: true,
-      })
-    )
-
-    // deselect the layer
-    this.dispatchEvent(
-      new CustomEvent<unknown>('select', {
-        detail: {},
-        bubbles: true,
-        composed: true,
-      })
-    )
   }
 
   // -> CONNECTIONS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -225,7 +240,7 @@ export class Network extends LitElementWw {
     // reset the tensors of all layer
     this.tensorConfs = new Map()
     this.dispatchEvent(
-      new Event('layer-confs-updated', {
+      new Event('update-layer-confs', {
         bubbles: true,
         composed: true,
       })
@@ -327,7 +342,7 @@ export class Network extends LitElementWw {
         case 'bias': {
           this.tensorConfs.get(layerId).bias = <Float32Array>weight.dataSync()
           this.dispatchEvent(
-            new Event('layer-confs-updated', {
+            new Event('update-layer-confs', {
               bubbles: true,
               composed: true,
             })
@@ -339,7 +354,7 @@ export class Network extends LitElementWw {
             weight.dataSync()
           )
           this.dispatchEvent(
-            new Event('layer-confs-updated', {
+            new Event('update-layer-confs', {
               bubbles: true,
               composed: true,
             })
@@ -359,7 +374,7 @@ export class Network extends LitElementWw {
     layerConf['layerId'] = this.getFreshId()
 
     // assign all unassigned inputs to the layer in case it is an input layer
-    if (layerConf.LAYER_TYPE == 'Input') {
+    if (layerConf.LAYER_TYPE == 'Input' && !layerConf.dataSetKeys) {
       ;(<InputLayerConf>layerConf).dataSetKeys = this.dataSet.inputs.map(
         (input) => input.key
       )
@@ -421,7 +436,6 @@ export class Network extends LitElementWw {
       document.createElement('c-layer-connection')
     )
     layerConnection.conf = layerConnectionConf
-    layerConnection.classList.add('layer-connection')
     return layerConnection
   }
 

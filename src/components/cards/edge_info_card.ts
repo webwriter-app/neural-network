@@ -4,56 +4,36 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
-import { CLayer } from '@/components/network/c_layer'
-import { Neuron } from '@/components/network/neuron'
+import { CLayer } from '@/network/c_layer'
+import { Neuron } from '@/network/neuron'
 
 @customElement('edge-info-card')
 export class EdgeInfoCard extends LitElementWw {
   @property({ attribute: false })
-  sourceLayer: CLayer
+  source: CLayer | Neuron
 
   @property({ attribute: false })
-  targetLayer: CLayer
-
-  @property({ attribute: false })
-  sourceNeuron: Neuron
-
-  @property({ attribute: false })
-  targetNeuron: Neuron
+  target: CLayer | Neuron
 
   static styles: CSSResult[] = [globalStyles]
 
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Info</div>
+        <div slot="title">Edge</div>
         <div slot="content">
-          <span>
-            Selected: Edge connecting
-            ${this.sourceNeuron != null
-              ? html`
-                  <c-network-link .target="${this.sourceNeuron}"
-                    >Neuron ${this.sourceNeuron.neuronId}</c-network-link
-                  >
-                  inside
-                `
-              : html``}
-            <c-network-link .target="${this.sourceLayer}"
-              >${this.sourceLayer.getName()}</c-network-link
+          <p>
+            From:
+            <c-network-link .target="${this.source}"
+              >${this.source.getName()}</c-network-link
             >
-            with
-            ${this.targetNeuron != null
-              ? html`
-                  <c-network-link .target="${this.targetNeuron}"
-                    >Neuron ${this.targetNeuron.neuronId}</c-network-link
-                  >
-                  inside
-                `
-              : html``}
-            <c-network-link .target="${this.targetLayer}"
-              >${this.targetLayer.getName()}</c-network-link
+          </p>
+          <p>
+            To:
+            <c-network-link .target="${this.target}"
+              >${this.target.getName()}</c-network-link
             >
-          </span>
+          </p>
         </div>
       </c-card>
     `

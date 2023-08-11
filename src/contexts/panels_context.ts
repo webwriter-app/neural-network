@@ -1,34 +1,27 @@
 import { createContext } from '@lit-labs/context'
 import type { WwDeepLearning } from '@/app'
 
-export const panelGroups: { [key: string]: string[] } = {
-  right: [
-    'settings',
-    'network',
-    'dataSet',
-    'train',
-    'predict',
-    'layer',
-    'neuron',
-    'edge',
-  ],
-}
+export const panels = [
+  'settings',
+  'start',
+  'help',
+  'network',
+  'dataSet',
+  'train',
+  'predict',
+  'layer',
+  'neuron',
+  'edge',
+]
 
-export const openPanelsContext = createContext<string[]>('open-panels')
+export const panelContext = createContext<string>('panel')
 
-export function openPanel(panel: string, group?: string): void {
-  if (group) {
-    ;(<WwDeepLearning>this).closePanels(panelGroups[group])
-  }
-  ;(<WwDeepLearning>this).openPanels.push(panel)
-  ;(<WwDeepLearning>this).openPanels = [...(<WwDeepLearning>this).openPanels]
+export function openPanel(panel: string): void {
+  ;(<WwDeepLearning>this).panel = panel
 }
 
 export function closePanels(panels: string[]): void {
-  ;(<WwDeepLearning>this).openPanels = (<WwDeepLearning>this).openPanels.filter(
-    (openPanel: string) => {
-      return !panels.includes(openPanel)
-    }
-  )
-  ;(<WwDeepLearning>this).openPanels = [...(<WwDeepLearning>this).openPanels]
+  if (panels.includes((<WwDeepLearning>this).panel)) {
+    ;(<WwDeepLearning>this).panel = undefined
+  }
 }

@@ -5,6 +5,9 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
+import { Settings, settingsContext } from '@/contexts/settings_context'
+import { HelpEntry, helpContext } from '@/contexts/help_context'
+import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
@@ -15,13 +18,22 @@ import {
 
 import type { DataSet } from '@/data_set/data_set'
 
-import { CLayerConf } from '@/components/network/c_layer_conf'
-import { CLayerConnectionConf } from '@/components/network/c_layer_connection_conf'
+import { CLayerConf } from '@/network/c_layer_conf'
+import { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
 import { FileConfigV1 } from '@/types/file_config_v1'
 import { spawnAlert } from '@/utils/alerts'
 
-@customElement('network-actions-card')
-export class GetStartedActions extends LitElementWw {
+@customElement('start-export-card')
+export class StartExportCard extends LitElementWw {
+  @consume({ context: settingsContext, subscribe: true })
+  settings: Settings
+
+  @consume({ context: helpContext, subscribe: true })
+  help: HelpEntry[]
+
+  @consume({ context: availableDataSetsContext, subscribe: true })
+  availableDataSets: DataSet[]
+
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
@@ -34,16 +46,12 @@ export class GetStartedActions extends LitElementWw {
   @consume({ context: trainOptionsContext, subscribe: true })
   trainOptions: TrainOptions
 
-  _handleClear() {
-    // network conf
-    this.dispatchEvent(
-      new CustomEvent('clear-network', { bubbles: true, composed: true })
-    )
-  }
-
-  async _handleExport() {
+  async handleExport() {
     const config: FileConfigV1 = {
       version: 1,
+      settings: this.settings,
+      help: this.help,
+      availableDataSets: this.availableDataSets,
       dataSet: this.dataSet,
       layerConfs: this.layerConfs,
       layerConnectionConfs: this.layerConnectionConfs,
@@ -74,26 +82,26 @@ export class GetStartedActions extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Actions</div>
+        <div slot="title">Export</div>
         <div slot="content">
-          <c-button-group>
+          <p>
+            Export the current configuration to your local file system as a JSON
+            file. It contains the set settings, the current and all other
+            available data sets, the whole network configuration and the set
+            training settings. Storing trained models is currently not yet
+            supported. NOTE: this feature is currently not available in Safari
+            and Firefox.
+          </p>
+          <div class="button-group">
             <sl-button
               @click="${(_e: MouseEvent) => {
-                void this._handleClear()
-              }}"
-            >
-              <sl-icon slot="prefix" name="trash"></sl-icon>
-              Clear
-            </sl-button>
-            <sl-button
-              @click="${(_e: MouseEvent) => {
-                this._handleExport()
+                void this.handleExport()
               }}"
             >
               <sl-icon slot="prefix" name="file-earmark-arrow-down"></sl-icon>
               Export
             </sl-button>
-          </c-button-group>
+          </div>
         </div>
       </c-card>
     `

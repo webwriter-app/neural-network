@@ -5,15 +5,15 @@ import { customElement, property } from 'lit/decorators.js'
 import { globalStyles } from '@/global_styles'
 
 import { consume } from '@lit-labs/context'
-import { openPanelsContext } from '@/contexts/panels_context'
+import { panelContext } from '@/contexts/panels_context'
 
 @customElement('c-panel')
 export class CPanel extends LitElementWw {
   @property({ type: String })
   name: string
 
-  @consume({ context: openPanelsContext, subscribe: true })
-  openPanels: string[]
+  @consume({ context: panelContext, subscribe: true })
+  panel: string
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // on disconnect (which should only happen when the panel as well as the
@@ -49,12 +49,7 @@ export class CPanel extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <div class="c-panel ${
-        this.name &&
-        !this.openPanels.some((openPanel: string) => {
-          return openPanel == this.name
-        })
-          ? 'hidden'
-          : ''
+        this.name && !(this.panel == this.name) ? 'hidden' : ''
       }">
         <slot>
       </div>

@@ -9,10 +9,10 @@ import { networkContext } from '@/contexts/network_context'
 
 import { globalStyles } from '@/global_styles'
 
-import { Network } from '@/components/network/network'
-import { CLayerConf } from '@/components/network/c_layer_conf'
-import { CLayer } from '@/components/network/c_layer'
-import { CLayerConnectionConf } from '@/components/network/c_layer_connection_conf'
+import { Network } from '@/network/network'
+import { CLayerConf } from '@/network/c_layer_conf'
+import { CLayer } from '@/network/c_layer'
+import { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
 
 import { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
 

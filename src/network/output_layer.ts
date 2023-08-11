@@ -4,12 +4,9 @@ import { customElement, property } from 'lit/decorators.js'
 import { globalStyles } from '@/global_styles'
 
 import { Position } from '@/types/position'
-import {
-  ActivationOption,
-  activationsMap,
-} from '@/components/network/activation'
-import { NeuronLayer } from '@/components/network/neuron_layer'
-import { OutputLayerConf } from '@/components/network/output_layer_conf'
+import { Activation, actNone } from '@/network/activation'
+import { CLayer } from '@/network/c_layer'
+import { OutputLayerConf } from '@/network/output_layer_conf'
 
 import { DataSet } from '@/data_set/data_set'
 import { spawnAlert } from '@/utils/alerts'
@@ -17,7 +14,7 @@ import { spawnAlert } from '@/utils/alerts'
 import * as tf from '@tensorflow/tfjs'
 
 @customElement('output-layer')
-export class OutputLayer extends NeuronLayer {
+export class OutputLayer extends CLayer {
   static LAYER_TYPE = 'Output'
   static LAYER_NAME = 'Output layer'
 
@@ -53,7 +50,7 @@ export class OutputLayer extends NeuronLayer {
     ) {
       this.conf.dataSetLabel = this.dataSet.label
       this.dispatchEvent(
-        new Event('layer-confs-updated', {
+        new Event('update-layer-confs', {
           bubbles: true,
           composed: true,
         })
@@ -63,10 +60,10 @@ export class OutputLayer extends NeuronLayer {
 
   // FACTORY - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static create({
-    activation = 'None',
+    activation = actNone,
     pos = null,
   }: {
-    activation?: ActivationOption
+    activation?: Activation
     pos?: Position
   } = {}): OutputLayerConf {
     // create a new dense layer element with the specified properties
@@ -98,7 +95,7 @@ export class OutputLayer extends NeuronLayer {
   // overwrite getName for the outputKey
   getName(): string {
     return `${this.conf.dataSetLabel.key} ${this.conf.LAYER_NAME} ${
-      this.conf.activation != 'None' ? `(${this.conf.activation})` : ``
+      this.conf.activation != actNone ? `(${this.conf.activation.name})` : ``
     }`
   }
   // get description
@@ -132,9 +129,7 @@ export class OutputLayer extends NeuronLayer {
     const tensor = <tf.SymbolicTensor>tf.layers
       .dense({
         units: Array.from(this._neurons).length,
-        activation: <tf.ActivationIdentifier>(
-          activationsMap.get(this.conf.activation)
-        ),
+        activation: this.conf.activation.tfName,
         name: this.getTensorName(),
       })
       .apply(input)
@@ -151,7 +146,6 @@ export class OutputLayer extends NeuronLayer {
       ${super.render()}
       ${this.dataSet.type == 'regression'
         ? html`<c-neuron
-            class="neuron"
             .layer="${this}"
             neuronId="1"
             .pos="${this.conf.pos}"
@@ -164,7 +158,6 @@ export class OutputLayer extends NeuronLayer {
         ? html`${this.conf.dataSetLabel.classes.map(
             (clazz, i) => html`
               <c-neuron
-                class="neuron"
                 .layer="${this}"
                 neuronId="${i + 1}"
                 .pos="${{

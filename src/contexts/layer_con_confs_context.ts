@@ -1,5 +1,5 @@
 import { createContext } from '@lit-labs/context'
-import { CLayerConnectionConf } from '@/components/network/c_layer_connection_conf'
+import { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
 import type { WwDeepLearning } from '@/app'
 
 export const layerConnectionConfsContext = createContext<

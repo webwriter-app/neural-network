@@ -4,6 +4,7 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
+/* UNDER CONSTRUCTION !!! */
 @customElement('c-confirm-dialog')
 export class CConfirmDialog extends LitElementWw {
   @property({ type: String }) label: string

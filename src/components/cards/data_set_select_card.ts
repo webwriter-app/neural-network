@@ -1,38 +1,48 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, nothing } from 'lit'
-import { customElement, query, property } from 'lit/decorators.js'
+import { customElement, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
 import { SlChangeEvent, SlDialog, SlSelect } from '@shoelace-style/shoelace'
 
 import { globalStyles } from '@/global_styles'
 
+import { editableContext } from '@/contexts/editable_context'
+import { settingsContext, Settings } from '@/contexts/settings_context'
+import { dataSetContext } from '@/contexts/data_set_context'
 import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
-
-import '@/components/dialogs/create_data_set_dialog'
 
 import type { DataSet } from '@/data_set/data_set'
 
+import '@/components/dialogs/manage_data_sets_dialog'
+import '@/components/dialogs/create_data_set_dialog'
+
 @customElement('data-set-select-card')
 export class DataSetSelectCard extends LitElementWw {
+  @consume({ context: editableContext, subscribe: true })
+  editable: boolean
+
+  @consume({ context: settingsContext, subscribe: true })
+  settings: Settings
+
   @consume({ context: availableDataSetsContext, subscribe: true })
   availableDataSets: DataSet[]
 
-  @property({ attribute: false })
+  @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
   @query('#dataSetSelect')
   _dataSetSelect: SlSelect
 
-  @query('create-data-set-dialog')
-  _createDataSetDialog: SlDialog
+  @query('manage-data-sets-dialog')
+  _manageDataSetsDialog: SlDialog
 
   _handleChangeDataSet(): void {
     const newDataSet = this.availableDataSets.find(
       (option) => option.name == decodeURI(<string>this._dataSetSelect.value)
     )
     this.dispatchEvent(
-      new CustomEvent<DataSet>('change-data-set', {
+      new CustomEvent<DataSet>('select-data-set', {
         detail: newDataSet,
         bubbles: true,
         composed: true,
@@ -40,8 +50,8 @@ export class DataSetSelectCard extends LitElementWw {
     )
   }
 
-  async openCreateDataSetDialog() {
-    await this._createDataSetDialog.show()
+  async openManageDataSetsDialog() {
+    await this._manageDataSetsDialog.show()
   }
 
   static styles: CSSResult[] = [globalStyles]
@@ -66,13 +76,18 @@ export class DataSetSelectCard extends LitElementWw {
                 >`
             )}
           </sl-select>
-          <sl-button
-            @click="${(_e: MouseEvent) => this.openCreateDataSetDialog()}"
-            >Create a new data set</sl-button
-          >
+          ${this.editable || this.settings.mayManageDataSets
+            ? html`
+                <sl-button
+                  @click="${(_e: MouseEvent) =>
+                    this.openManageDataSetsDialog()}"
+                  >Manage data sets</sl-button
+                >
+              `
+            : html``}
         </div>
       </c-card>
-      <create-data-set-dialog> </create-data-set-dialog>
+      <manage-data-sets-dialog> </manage-data-sets-dialog>
     `
   }
 }

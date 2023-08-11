@@ -46,6 +46,42 @@ export const globalStyles = css`
     display: none !important;
   }
 
+  .hscroll-container {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .button-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .button-group * {
+    flex-grow: 1;
+  }
+
+  .tag-group {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  sl-details::part(content) {
+    display: flex;
+    flex-direction: column !important;
+    gap: 10px;
+  }
+
+  sl-input {
+    max-width: 100%;
+  }
+
   sl-progress-bar {
     --height: 7px;
     --track-color: var(--sl-color-primary-100);
@@ -58,7 +94,16 @@ export const globalStyles = css`
     --track-color-inactive: var(--sl-color-primary-100);
   }
 
+  sl-switch::part(base) {
+    display: inline-flex;
+    align-items: flex-start;
+  }
+
   sl-tag[draggable='true'] {
     cursor: grab;
+  }
+
+  sl-tooltip {
+    max-width: 100%;
   }
 `

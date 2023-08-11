@@ -1,20 +1,23 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
+import { consume } from '@lit-labs/context'
 
 import { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
 
 import { globalStyles } from '@/global_styles'
 
-import { InputLayer } from '@/components/network/input_layer'
-import { DataSet } from '@/data_set/data_set'
+import { dataSetContext } from '@/contexts/data_set_context'
+import type { DataSet } from '@/data_set/data_set'
+
+import { InputLayer } from '@/network/input_layer'
 
 @customElement('layer-incoming-data-card')
 export class LayerIncomingDataCard extends LitElementWw {
   @property()
   layer: InputLayer
 
-  @property()
+  @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
   @query('#inputDataSelect')
@@ -24,7 +27,7 @@ export class LayerIncomingDataCard extends LitElementWw {
     const inputKeys: string[] = <string[]>this._inputDataSelect.value
     this.layer.conf.dataSetKeys = inputKeys
     this.dispatchEvent(
-      new Event('layer-confs-updated', {
+      new Event('update-layer-confs', {
         bubbles: true,
         composed: true,
       })

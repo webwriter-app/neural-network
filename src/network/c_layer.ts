@@ -1,6 +1,6 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { customElement, property, queryAll, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
@@ -18,8 +18,9 @@ import type { CCanvas } from '@/components/canvas'
 import * as tf from '@tensorflow/tfjs'
 
 import { DataSet } from '@/data_set/data_set'
-import { CLayerConf } from '@/components/network/c_layer_conf'
-import { ActivationOption } from '@/components/network/activation'
+import { CLayerConf } from '@/network/c_layer_conf'
+import { Activation, actNone } from '@/network/activation'
+import { Neuron } from '@/network/neuron'
 
 @customElement('c-layer')
 export abstract class CLayer extends LitElementWw {
@@ -56,8 +57,14 @@ export abstract class CLayer extends LitElementWw {
   @state()
   doNotRender = false
 
+  @property({ attribute: false })
+  time = 0
+
   @state()
   positionListenerActive: boolean = false
+
+  @queryAll('c-neuron')
+  _neurons: NodeListOf<Neuron>
 
   // a type and description that is displayed as an info for the layer
   static LAYER_TYPE: string
@@ -93,6 +100,19 @@ export abstract class CLayer extends LitElementWw {
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // -> INFORMATION  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // get the already rendered neurons. used for layer connections so that the
+  // connection class knows where to draw an edge. filtering by rendered neurons
+  // is necessary since else, the connection class would attempt to draw a
+  // connection from/to a node that does not exist and will throw an error. when
+  // neurons are rendered, they trigger a redrawing of the connection
+  // afterwards, so eventhough we filter by rendered neurons eventually, after
+  // the last neuron has been drawn, all neurons are rendered and thus this
+  // method will return all neurons
+  getNeurons(): Neuron[] {
+    return Array.from(this._neurons).filter((neuron) => neuron.rendered)
+  }
+
   // CANVAS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // return the id of the element in the canvas
   getCyId(): string {
@@ -111,7 +131,7 @@ export abstract class CLayer extends LitElementWw {
         y: layerCy.position().y /* firstNeuronCy.position().y */,
       }
       this.dispatchEvent(
-        new Event('layer-confs-updated', {
+        new Event('update-layer-confs', {
           bubbles: true,
           composed: true,
         })
@@ -119,20 +139,14 @@ export abstract class CLayer extends LitElementWw {
     }
   }
 
-  // each subclass should specify a function that returns an array of cytoscape
-  // node ids that should be connected to other allow to allow flexibility in
-  // whether connecting the layer as a whole, all neurons in the layer or
-  // anything other
-  abstract getConnectionIds(): string[]
-
   // remove the previous built layer if exists. these are all nodes with its
   // layer property being this.layerId or edges with either source or target being
   // this.layerId
   removeFromCanvas(): void {
-    const eles = this.canvas.cy.filter((element) => {
-      return element.isNode() && element.data('layer') == this.conf.layerId
-    }, this)
-    eles.remove()
+    const ele = this.canvas.cy.getElementById(this.getCyId())
+    if (ele.length) {
+      ele.remove()
+    }
   }
 
   // LAYER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -140,7 +154,7 @@ export abstract class CLayer extends LitElementWw {
   // the name for referencing purposes
   getName(): string {
     return `${this.conf.layerId} - ${this.conf.LAYER_NAME} ${
-      this.conf.activation != 'None' ? `(${this.conf.activation})` : ``
+      this.conf.activation != actNone ? `(${this.conf.activation.name})` : ``
     }`
   }
 
@@ -149,7 +163,7 @@ export abstract class CLayer extends LitElementWw {
   abstract getDescription(): string
 
   // set the activation function
-  setActivation(activation: ActivationOption): void {
+  setActivation(activation: Activation): void {
     this.conf.activation = activation
 
     // also update the label of the layer in the canvas
@@ -184,13 +198,19 @@ export abstract class CLayer extends LitElementWw {
             layer_type: `${this.conf.LAYER_TYPE}`,
           },
         })
-      // select the layer
-      console.log(this.selected?.layer?.conf?.layerId == this.conf?.layerId)
-      if (this.selected?.layer?.conf?.layerId == this.conf?.layerId) {
-        console.log(this.canvas.cy.getElementById(this.getCyId()))
-        //this.canvas.cy.getElementById(this.getCyId()).select()
+
+      // add the element to the selected context (which will also take care of
+      // selecting the element in cytoscape)
+      if (this.selected?.layer == this.getCyId()) {
+        this.dispatchEvent(
+          new CustomEvent<CLayer>('selected-ele-rendered', {
+            detail: this,
+            bubbles: true,
+            composed: true,
+          })
+        )
       }
-      return html``
     }
+    return html``
   }
 }

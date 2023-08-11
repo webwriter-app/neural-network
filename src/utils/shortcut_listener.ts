@@ -1,12 +1,12 @@
 import { ReactiveController } from 'lit'
-import { WwApp } from '@/app'
+import { WwDeepLearning } from '@/app'
 
 import { spawnAlert } from '@/utils/alerts'
 
 export class ShortcutListener implements ReactiveController {
-  host: WwApp
+  host: WwDeepLearning
 
-  constructor(host: WwApp) {
+  constructor(host: WwDeepLearning) {
     this.host = host
     host.addController(this)
   }
@@ -31,15 +31,10 @@ export class ShortcutListener implements ReactiveController {
 
   removeListener(e: KeyboardEvent) {
     // 'remove' event (triggerd by delete or backspace key)
-    if (e.code == 'Delete' || e.code == 'Backspace') {
+    if (e.code == 'Delete') {
       // delete layer
       if (this.host.selected.layer) {
-        const layer = this.host.selected.layer
-        spawnAlert({
-          message: `'${layer.getName()}' has been deleted!`,
-          variant: 'danger',
-          icon: 'trash',
-        })
+        const layer = this.host.network.getLayerById(this.host.selected.layer)
         this.host.network.removeLayer(layer)
       }
 
@@ -54,9 +49,8 @@ export class ShortcutListener implements ReactiveController {
 
       // delete edge (not possible, alert)
       else if (this.host.selected.edge) {
-        const edge = this.host.selected.edge
         spawnAlert({
-          message: `Can not delete edges manually. If you wish to delete the connection between '${edge.sourceLayer.getName()}' and '${edge.targetLayer.getName()}' select one of the layers and remove the other layer as its input resp. output!`,
+          message: `Can not delete edges manually. If you wish to delete all connections between two layers, select one of the affected layers and change its input`,
           variant: 'warning',
           icon: 'x-circle',
         })
@@ -66,19 +60,19 @@ export class ShortcutListener implements ReactiveController {
 
   moveListener(e: KeyboardEvent) {
     if (this.host.selected.layer) {
-      const layer = this.host.selected.layer
+      const layer = this.host.network.getLayerById(this.host.selected.layer)
       const layerCy = this.host.canvas.cy.getElementById(layer.getCyId())
 
       // move according to pressed key
       const SPEED = 10
 
-      if (e.code == 'KeyW' || e.code == 'ArrowUp') {
+      if (e.code == 'ArrowUp') {
         layerCy.shift('y', -SPEED)
-      } else if (e.code == 'KeyA' || e.code == 'ArrowLeft') {
+      } else if (e.code == 'ArrowLeft') {
         layerCy.shift('x', -SPEED)
-      } else if (e.code == 'KeyS' || e.code == 'ArrowDown') {
+      } else if (e.code == 'ArrowDown') {
         layerCy.shift('y', SPEED)
-      } else if (e.code == 'KeyD' || e.code == 'ArrowRight') {
+      } else if (e.code == 'ArrowRight') {
         layerCy.shift('x', SPEED)
       }
     }

@@ -14,8 +14,23 @@ import {
   setupCompleted,
   setupStatusContext,
 } from '@/contexts/setup_status_context'
-import { Guard, guard, guardContext } from '@/contexts/guard_context'
-import { canvasContext } from '@/contexts/canvas_context'
+import { editableContext } from '@/contexts/editable_context'
+import {
+  Settings,
+  defaultSettings,
+  settingsContext,
+  setSetting,
+  setSettings,
+} from '@/contexts/settings_context'
+import {
+  HelpEntry,
+  helpContext,
+  addNewHelpEntry,
+  removeHelpEntry,
+  updateHelpEntry,
+  defaultHelp,
+} from '@/contexts/help_context'
+import { setCanvas, canvasContext } from '@/contexts/canvas_context'
 import {
   layerConfsContext,
   addLayer,
@@ -27,10 +42,11 @@ import {
   layerConnectionConfsContext,
   removeLayerConnection,
 } from '@/contexts/layer_con_confs_context'
-import { networkContext } from '@/contexts/network_context'
-import { dataSetContext } from '@/contexts/data_set_context'
+import { clearNetwork, networkContext } from '@/contexts/network_context'
+import { selectDataSet, dataSetContext } from '@/contexts/data_set_context'
 import {
   addDataSet,
+  deleteDataSet,
   availableDataSetsContext,
 } from '@/contexts/available_data_sets_context'
 import {
@@ -41,21 +57,30 @@ import {
 } from '@/contexts/train_options_context'
 import {
   ModelConf,
+  setTrainMetricsContainer,
   buildModel,
   defaultModelConf,
   modelConfContext,
   predictModel,
+  deletePrediction,
   resetModel,
   stopTraining,
   trainModel,
 } from '@/contexts/model_conf_context'
-import { Selected, select, selectedContext } from '@/contexts/selected_context'
 import {
-  panelGroups,
-  openPanelsContext,
-  openPanel,
-  closePanels,
-} from '@/contexts/panels_context'
+  Selected,
+  unselect,
+  selectLayer,
+  selectNeuron,
+  selectEdge,
+  selectedContext,
+} from '@/contexts/selected_context'
+import {
+  SelectedEle,
+  selectedEleRendered,
+  selectedEleContext,
+} from '@/contexts/selected_ele_context'
+import { panelContext, openPanel, closePanels } from '@/contexts/panels_context'
 
 import type { CCanvas } from '@/components/canvas'
 import type { FileConfigV1 } from '@/types/file_config_v1'
@@ -64,14 +89,14 @@ import { getInputDataByKeys, getLabelData } from '@/data_set/data_set'
 import { bostonHousePricing } from '@/data_set/boston'
 import { pimaIndiansDiabetes } from '@/data_set/diabetes'
 
-import { Network } from '@/components/network/network'
-import { CLayerConf } from '@/components/network/c_layer_conf'
-import { CLayerConnectionConf } from '@/components/network/c_layer_connection_conf'
-import { CLayer } from '@/components/network/c_layer'
-import { Neuron } from '@/components/network/neuron'
-import { Edge } from '@/components/network/edge'
+import { Network } from '@/network/network'
+import { CLayerConf } from '@/network/c_layer_conf'
+import { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
+import type { CLayer } from '@/network/c_layer'
+import type { Neuron } from '@/network/neuron'
+import type { CEdge } from '@/network/c_edge'
 
-import '@/components/network/network'
+import '@/network/network'
 import '@/components/canvas_area'
 import '@/components/menu_area'
 
@@ -101,14 +126,31 @@ export class WwDeepLearning extends LitElementWw {
   setupCompleted = setupCompleted
   checkLoading = checkLoading
 
-  // -> GUARD  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // guard context: provides boolean functions that are used throughout the
-  // widget to check if some action is currently allowed. since the guard
-  // context does not provide data itself, it is unnecessary to store it as an
-  // attribute (which would even cause problems)
-  @provide({ context: guardContext })
-  @property({ attribute: false })
-  guard: Guard = guard
+  // -> EDITABLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // editable context: provides information if the editable attribute is set
+  @provide({ context: editableContext })
+  @property({ attribute: true, type: Boolean, reflect: true })
+  editable: boolean = false
+
+  // -> SETTINGS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // settings context: mostly for checking permission for actions. only use
+  // together with editable!
+  @provide({ context: settingsContext })
+  @property({ attribute: true, type: Object, reflect: true })
+  settings: Settings = { ...defaultSettings }
+
+  setSetting = setSetting
+  setSettings = setSettings
+
+  // -> HELP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // help context: provides the help entries
+  @provide({ context: helpContext })
+  @property({ attribute: true, type: Object, reflect: true })
+  help: HelpEntry[] = [...defaultHelp]
+
+  addNewHelpEntry = addNewHelpEntry
+  removeHelpEntry = removeHelpEntry
+  updateHelpEntry = updateHelpEntry
 
   // -> CANVAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // canvas context: provides the canvas (currently a reactive controller) and
@@ -116,6 +158,8 @@ export class WwDeepLearning extends LitElementWw {
   @provide({ context: canvasContext })
   @property({ attribute: false })
   canvas: CCanvas
+
+  setCanvas = setCanvas
 
   // -> NETWORK  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // layer conf context: provides the layer configurations
@@ -143,6 +187,8 @@ export class WwDeepLearning extends LitElementWw {
   @property({ attribute: false })
   network: Network
 
+  clearNetwork = clearNetwork
+
   // -> DATA SET - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // dataSet context: provides the dataSet (currently a simple class instance)
   // and its corresponding actions
@@ -150,22 +196,25 @@ export class WwDeepLearning extends LitElementWw {
   @property({ attribute: true, type: Object, reflect: true })
   dataSet: DataSet = bostonHousePricing
 
+  selectDataSet = selectDataSet
+
   getInputDataByKeys = getInputDataByKeys
   getLabelData = getLabelData
 
   // available data sets
   @provide({ context: availableDataSetsContext })
-  @property({ attribute: false })
+  @property({ attribute: true, type: Array, reflect: true })
   availableDataSets: DataSet[] = [bostonHousePricing, pimaIndiansDiabetes]
 
   addDataSet = addDataSet
+  deleteDataSet = deleteDataSet
 
   // -> TRAIN OPTIONS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // trainOptions context: provides the dataSet (currently a simple class instance)
   // and its corresponding actions
   @provide({ context: trainOptionsContext })
   @property({ attribute: true, type: Object, reflect: true })
-  trainOptions: TrainOptions = defaultTrainOptions
+  trainOptions: TrainOptions = { ...defaultTrainOptions }
 
   setTrainOption = setTrainOption
 
@@ -178,28 +227,39 @@ export class WwDeepLearning extends LitElementWw {
   // corresponding actions like training
   @provide({ context: modelConfContext })
   @property({ attribute: false })
-  modelConf: ModelConf = defaultModelConf
+  modelConf: ModelConf = { ...defaultModelConf }
 
+  setTrainMetricsContainer = setTrainMetricsContainer
   resetModel = resetModel
   buildModel = buildModel
   trainModel = trainModel
   stopTraining = stopTraining
   predictModel = predictModel
+  deletePrediction = deletePrediction
 
   // -> SELECTED - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // selected context: provides info about what item in the canvas (layer,
-  // neuron, edge) is currently selected and a function to change that
+  // selected context: provides info about what kind of item in the canvas (layer,
+  // neuron, edge) is currently selected and its cyId
   @provide({ context: selectedContext })
   @property({ attribute: false })
   selected: Selected = {}
 
-  select = select
+  unselect = unselect
+  selectLayer = selectLayer
+  selectNeuron = selectNeuron
+  selectEdge = selectEdge
+
+  @provide({ context: selectedEleContext })
+  @property({ attribute: false })
+  selectedEle: SelectedEle
+
+  selectedEleRendered = selectedEleRendered
 
   // -> PANELS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // panels context: provide the open panels and functions to change them
-  @provide({ context: openPanelsContext })
+  // panel context: provide the current panel
+  @provide({ context: panelContext })
   @property({ attribute: false })
-  openPanels: string[] = []
+  panel: string
 
   openPanel = openPanel
   closePanels = closePanels
@@ -207,6 +267,9 @@ export class WwDeepLearning extends LitElementWw {
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   connectedCallback() {
     super.connectedCallback()
+
+    // set theme to dark
+    document.documentElement.classList.add('sl-theme-dark')
 
     // -> ADD EVENT LISTENERS
     // ---> SETUP
@@ -216,29 +279,57 @@ export class WwDeepLearning extends LitElementWw {
     )
     // ---> IMPORT
     this.renderRoot.addEventListener(
-      'config-v1-imported',
-      (e: CustomEvent<FileConfigV1>) => this.handleConfigV1Imported(e.detail)
+      'import-config',
+      (e: CustomEvent<FileConfigV1>) => this.importConfig(e.detail)
+    )
+    // ---> SETTINGS
+    window.addEventListener(
+      'set-setting',
+      (
+        e: CustomEvent<{
+          name: string
+          value: boolean
+        }>
+      ) => this.setSetting(e.detail.name, e.detail.value)
+    )
+    this.renderRoot.addEventListener(
+      'set-settings',
+      (e: CustomEvent<Settings>) => this.setSettings(e.detail)
+    )
+
+    // ---> HELP
+    this.renderRoot.addEventListener(
+      'add-new-help-entry',
+      (e: CustomEvent<HelpEntry>) => this.addNewHelpEntry(e.detail)
+    )
+    this.renderRoot.addEventListener(
+      'update-help-entry',
+      (e: CustomEvent<HelpEntry>) => this.updateHelpEntry(e.detail)
+    )
+    this.renderRoot.addEventListener(
+      'remove-help-entry',
+      (e: CustomEvent<string>) => this.removeHelpEntry(e.detail)
     )
     // ---> SELECT
+    this.renderRoot.addEventListener('unselect', (_e: Event) => this.unselect())
+    this.renderRoot.addEventListener('select-layer', (e: CustomEvent<string>) =>
+      this.selectLayer(e.detail)
+    )
     this.renderRoot.addEventListener(
-      'select',
-      (
-        e: CustomEvent<{
-          layer?: CLayer
-          neuron?: Neuron
-          Edge?: Edge
-        }>
-      ) => this.select(e.detail)
+      'select-neuron',
+      (e: CustomEvent<string>) => this.selectNeuron(e.detail)
+    )
+    this.renderRoot.addEventListener('select-edge', (e: CustomEvent<string>) =>
+      this.selectEdge(e.detail)
+    )
+    this.renderRoot.addEventListener(
+      'selected-ele-rendered',
+      (e: CustomEvent<CLayer | Neuron | CEdge>) =>
+        this.selectedEleRendered(e.detail)
     )
     // ---> PANELS
-    this.renderRoot.addEventListener(
-      'open-panel',
-      (
-        e: CustomEvent<{
-          panel: string
-          group?: string
-        }>
-      ) => this.openPanel(e.detail.panel, e.detail.group)
+    this.renderRoot.addEventListener('open-panel', (e: CustomEvent<string>) =>
+      this.openPanel(e.detail)
     )
     // we need to listen on window element since events to close panels
     // sometimes are emitted in disconnected callback functions, so they need to
@@ -247,12 +338,23 @@ export class WwDeepLearning extends LitElementWw {
     window.addEventListener('close-panels', (e: CustomEvent<string[]>) =>
       this.closePanels(e.detail)
     )
-    // ---> DATA SEt
+    // ---> DATA SET
+    this.renderRoot.addEventListener(
+      'select-data-set',
+      (e: CustomEvent<DataSet>) => this.selectDataSet(e.detail)
+    )
     this.renderRoot.addEventListener(
       'add-data-set',
       (e: CustomEvent<DataSet>) => this.addDataSet(e.detail)
     )
+    this.renderRoot.addEventListener(
+      'delete-data-set',
+      (e: CustomEvent<string>) => this.deleteDataSet(e.detail)
+    )
     // ---> NETWORK
+    this.renderRoot.addEventListener('clear-network', (_e: Event) =>
+      this.clearNetwork()
+    )
     this.renderRoot.addEventListener(
       'add-layer',
       (e: CustomEvent<CLayerConf>) => this.addLayer(e.detail)
@@ -265,13 +367,39 @@ export class WwDeepLearning extends LitElementWw {
       (e: CustomEvent<{ source: number; target: number }>) =>
         this.addLayerConnection(e.detail.source, e.detail.target)
     )
-    this.renderRoot.addEventListener('layer-confs-updated', (_e: Event) =>
+    this.renderRoot.addEventListener('update-layer-confs', (_e: Event) =>
       this.updateLayerConfs()
     )
     this.renderRoot.addEventListener(
       'remove-layer-connection',
       (e: CustomEvent<{ source: number; target: number }>) =>
         this.removeLayerConnection(e.detail.source, e.detail.target)
+    )
+    // ---> TRAIN
+    this.renderRoot.addEventListener(
+      'set-train-option',
+      (
+        e: CustomEvent<{
+          option: string
+          value: string
+        }>
+      ) => this.setTrainOption(e.detail.option, e.detail.value)
+    )
+    this.renderRoot.addEventListener('reset-model', (_e: Event) =>
+      this.resetModel()
+    )
+    this.renderRoot.addEventListener('train-model', (_e: Event) =>
+      this.trainModel()
+    )
+    this.renderRoot.addEventListener(
+      'predict-model',
+      (e: CustomEvent<Record<string, number>>) => this.predictModel(e.detail)
+    )
+    this.renderRoot.addEventListener('delete-prediction', (_e: Event) =>
+      this.deletePrediction()
+    )
+    this.renderRoot.addEventListener('stop-training', (_e: Event) =>
+      this.stopTraining()
     )
   }
 
@@ -281,50 +409,28 @@ export class WwDeepLearning extends LitElementWw {
     if (!this.network) {
       this.network = this._network
     }
-
-    // reset the model on data set change
-    if (changedProperties.has('dataSet')) {
-      this.resetModel()
-    }
   }
 
-  // EVENT HANDLERS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // -> IMPORTING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  handleConfigV1Imported(config: FileConfigV1): void {
-    if (this.availableDataSets.includes(this.dataSet)) {
-      this.addDataSet(config.dataSet)
+  importConfig(config: FileConfigV1): void {
+    // import settings: only overwrite the current when in editable mode
+    if (this.editable) {
+      this.settings = { ...config.settings }
+      this.help = [...config.help]
     }
+
     this.dataSet = config.dataSet
+    this.availableDataSets = config.availableDataSets
     this.layerConfs = config.layerConfs
     this.layerConnectionConfs = config.layerConnectionConfs
-    this.resetModel()
-    this.openPanels = []
-    this.selected = {}
     this.trainOptions = config.trainOptions
+    this.resetModel()
+    this.panel = undefined
+    this.selected = {}
     setTimeout(() => {
       this.canvas.fit()
     }, 50)
-  }
-
-  // initialize the canvas
-  createCanvas(canvas: CCanvas) {
-    this.canvas = canvas
-    this.setupCompleted('canvas')
-  }
-
-  // reset the network by resetting the network conf
-  clearNetwork() {
-    // deselect the currently selected element since it will be removed
-    this.select()
-
-    // empty the network
-    this.layerConnectionConfs = []
-    this.layerConfs = []
-  }
-
-  // set error rate container
-  setTrainMetricsContainer(container: HTMLDivElement) {
-    this.trainMetricsContainer = container
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -336,7 +442,7 @@ export class WwDeepLearning extends LitElementWw {
         display: flex;
         flex-direction: row;
         overflow: hidden;
-        background-color: #f7f7f7;
+        background-color: var(--sl-color-neutral-0);
       }
 
       #loadingPage {
@@ -345,7 +451,7 @@ export class WwDeepLearning extends LitElementWw {
         top: 0;
         right: 0;
         bottom: 0;
-        background-color: #f7f7f7;
+        background-color: var(--sl-color-neutral-0);
       }
 
       #loadingDiv {
@@ -382,23 +488,20 @@ export class WwDeepLearning extends LitElementWw {
         width: 2px;
         top: 10px;
         bottom: 10px;
-        background-color: #efefef;
+        background-color: var(--sl-color-neutral-50);
       }
     `,
   ]
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // @TODO move all event handlers in connected callback
   render(): TemplateResult<1>[] {
     const renderedHTML: TemplateResult<1>[] = []
     renderedHTML.push(html` <canvas-area
-      class="${!this.openPanels.some((openPanel: string) => {
-        return panelGroups['right'].includes(openPanel)
-      })
-        ? 'right-collapsed'
-        : ''}"
-      @canvas-created="${(e: CustomEvent<CCanvas>) =>
-        this.createCanvas(e.detail)}"
-    ></canvas-area>`)
+      class="${!this.panel ? 'right-collapsed' : ''}"
+      @canvas-created="${(e: CustomEvent<CCanvas>) => this.setCanvas(e.detail)}"
+    >
+    </canvas-area>`)
     if (this.setupStatus.loading) {
       renderedHTML.push(html`
         <div id="loadingPage">
@@ -410,35 +513,13 @@ export class WwDeepLearning extends LitElementWw {
       `)
     } else {
       renderedHTML.push(html`
-        <div
-          id="divider"
-          class="${!this.openPanels.some((openPanel: string) => {
-            return panelGroups['right'].includes(openPanel)
-          })
-            ? 'hidden'
-            : ''}"
-        ></div>
+        <div id="divider" class="${!this.panel ? 'hidden' : ''}"></div>
 
         <menu-area
-          class="${!this.openPanels.some((openPanel: string) => {
-            return panelGroups['right'].includes(openPanel)
-          })
-            ? 'right-collapsed'
-            : ''}"
-          @change-data-set="${(e: CustomEvent<DataSet>) =>
-            (this.dataSet = e.detail)}"
-          @clear-network="${(_e: Event) => this.clearNetwork()}"
+          part="action"
+          class="${!this.panel ? 'right-collapsed' : ''}"
           @set-train-metrics-container="${(e: CustomEvent<HTMLDivElement>) =>
             this.setTrainMetricsContainer(e.detail)}"
-          @set-train-option="${(
-            e: CustomEvent<{
-              option: string
-              value: string
-            }>
-          ) => this.setTrainOption(e.detail.option, e.detail.value)}"
-          @reset-model="${(_e: Event) => this.resetModel()}"
-          @train-model="${(_e: Event) => this.trainModel()}"
-          @stop-training="${(_e: Event) => this.stopTraining()}"
         ></menu-area>
 
         <c-network></c-network>

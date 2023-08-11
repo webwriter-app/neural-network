@@ -709,6 +709,13 @@ color-name@~1.1.4:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
+colorcolor@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/colorcolor/-/colorcolor-3.0.1.tgz#b8a2b741a29125fcceef82507bd6581adfd52f01"
+  integrity sha512-DIGQgRENjBP+MTI5Ua9teyZs2E7+ismYFxVN1vb3It1u+7G93aZzmDsUeRgxyoSKIsAz9PzEa7mHCCc6bChfJw==
+  dependencies:
+    css-color-names "^1.0.1"
+
 combined-stream@^1.0.8:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.8.tgz#c3d45a8b34fd730631a110a8a2520682b31d5a7f"
@@ -754,6 +761,11 @@ cross-spawn@^7.0.2:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
+
+css-color-names@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/css-color-names/-/css-color-names-1.0.1.tgz#6ff7ee81a823ad46e020fa2fd6ab40a887e2ba67"
+  integrity sha512-/loXYOch1qU1biStIFsHH8SxTmOseh1IJqFvy8IujXOm1h+QjUdDhkzOrR5HG8K8mlxREj0yfi8ewCHx0eMxzA==
 
 css-in-js-utils@^2.0.0:
   version "2.0.1"

@@ -7,11 +7,12 @@ import { globalStyles } from '@/global_styles'
 
 import { canvasContext } from '@/contexts/canvas_context'
 import { dataSetContext } from '@/contexts/data_set_context'
+import { Selected, selectedContext } from '@/contexts/selected_context'
 import { DataSet } from '@/data_set/data_set'
 
 import type { CCanvas } from '@/components/canvas'
 
-import { NeuronLayer } from '@/components/network/neuron_layer'
+import { CLayer } from '@/network/c_layer'
 import { Position } from '@/types/position'
 
 @customElement('c-neuron')
@@ -22,9 +23,12 @@ export class Neuron extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
+  @consume({ context: selectedContext, subscribe: true })
+  selected: Selected
+
   // reference to the layer
   @property()
-  layer: NeuronLayer
+  layer: CLayer
 
   // position
   @property()
@@ -70,6 +74,10 @@ export class Neuron extends LitElementWw {
   // return the id of the element in the canvas
   getCyId(): string {
     return `${this.layer.getCyId()}n${this.neuronId}`
+  }
+
+  getName(): string {
+    return `Neuron ${this.neuronId} inside ${this.layer.getName()}`
   }
 
   // remove the neuron from the canvas
@@ -139,9 +147,11 @@ export class Neuron extends LitElementWw {
         biasLabel = this.bias.toString()
       } else {
         biasLabel = (this.bias < 0 ? '' : '+') + this.bias
-        biasLabel = biasLabel.substring(0, 6)
         if (biasLabel.indexOf('.') != -1) {
-          biasLabel = biasLabel.padEnd(6, '0')
+          while (biasLabel.length > 7 && biasLabel.slice(-1) != '.') {
+            biasLabel = biasLabel.slice(0, -1)
+          }
+          biasLabel = biasLabel.padEnd(7, '0')
         }
       }
 
@@ -164,6 +174,18 @@ export class Neuron extends LitElementWw {
       // confirm that this neuron has rendered (important for the layer
       // connections that rely on the neurons)
       this.rendered = true
+
+      // add the element to the selected context (which will also take care of
+      // selecting the element in cytoscape)
+      if (this.selected?.neuron == this.getCyId()) {
+        this.dispatchEvent(
+          new CustomEvent<Neuron>('selected-ele-rendered', {
+            detail: this,
+            bubbles: true,
+            composed: true,
+          })
+        )
+      }
 
       // notify the network that the parent layer changed its neurons and thus,
       // connections from and to this layer have to be rerendered

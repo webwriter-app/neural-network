@@ -1,18 +1,24 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html, nothing } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
+import { consume } from '@lit-labs/context'
 
 import { SlChangeEvent, SlDialog } from '@shoelace-style/shoelace'
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
-import { getFormControls } from '@shoelace-style/shoelace/dist/utilities/form.js'
 
 import { globalStyles } from '@/global_styles'
+
+import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
 
 import { spawnAlert } from '@/utils/alerts'
 import type { DataSet } from '@/data_set/data_set'
 
 @customElement('create-data-set-dialog')
 export class CreateDataSetDialog extends LitElementWw {
+  // CONSUME - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @consume({ context: availableDataSetsContext, subscribe: true })
+  availableDataSets: DataSet[]
+
   // STATE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   emptyConfig: DataSet = {
     name: '',
@@ -53,11 +59,11 @@ export class CreateDataSetDialog extends LitElementWw {
     this._dialogForm.addEventListener('submit', (e: MouseEvent) =>
       this.nextStep(e)
     )
-    setInterval(() => {
+    /*     setInterval(() => {
       const formControls = getFormControls(this._dialogForm)
 
       console.log(formControls) // e.g. [input, sl-input, ...]
-    }, 1000)
+    }, 1000) */
   }
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   async show() {
@@ -111,13 +117,21 @@ export class CreateDataSetDialog extends LitElementWw {
     // get data
     const data: string = <string>serialize(this._dialogForm).data
 
+    if (
+      this.availableDataSets.find((dataSet) => dataSet.name == this.config.name)
+    ) {
+      spawnAlert({
+        message: `A data set with the same name already exists!`,
+        variant: 'danger',
+        icon: 'x-circle',
+      })
+      return
+    }
+
     // additional validation
     const pattern = new RegExp(
       `^(\\s*(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))(?:\\s+(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))){${this.config.inputs.length}}\\s*)+$`
     )
-    console.log(data)
-    console.log(pattern)
-    console.log(pattern.test(data))
     const result = pattern.test(data)
     if (!result) {
       spawnAlert({
@@ -175,8 +189,7 @@ export class CreateDataSetDialog extends LitElementWw {
   static styles: CSSResult[] = [
     globalStyles,
     css`
-      :host {
-        position: relative;
+      sl-dialog::part(body) {
         text-align: center;
       }
       .form-main {
@@ -206,7 +219,7 @@ export class CreateDataSetDialog extends LitElementWw {
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
-      <sl-dialog no-header>
+      <sl-dialog label="Create a new data set">
         <div class="step-chooser">
           <sl-button
             circle
@@ -255,8 +268,7 @@ export class CreateDataSetDialog extends LitElementWw {
               <p>
                 This tour will guide you through creating your own data set in a
                 few simple steps. Everything is stored automatically, so you can
-                close this modal at any time (by clicking in the background) and
-                resume.
+                close this modal at any time and resume.
               </p>
             </div>
             <div class="${this.step != 2 ? 'hidden' : ''}">
@@ -468,7 +480,7 @@ export class CreateDataSetDialog extends LitElementWw {
             <div class="${this.step != 5 ? 'hidden' : ''}">
               <h1>You are nearly done</h1>
               <p>The only thing missing now is the data itself</p>
-              <c-tag-group>
+              <div class="tag-group">
                 ${this.config.inputs.map(
                   (input) => html`
                     <c-data-info
@@ -485,7 +497,7 @@ export class CreateDataSetDialog extends LitElementWw {
                   .dataSet="${this.config}"
                   class="clickable"
                 ></c-data-info>
-              </c-tag-group>
+              </div>
               <sl-textarea
                 id="dataTextarea"
                 rows="10"
@@ -500,7 +512,7 @@ export class CreateDataSetDialog extends LitElementWw {
               ></sl-textarea>
             </div>
           </div>
-          <c-button-group class="form-footer">
+          <div class="button-group form-footer">
             ${this.step != 1
               ? html`
                   <sl-button
@@ -523,7 +535,7 @@ export class CreateDataSetDialog extends LitElementWw {
                     <sl-icon slot="suffix" name="arrow-right-circle"></sl-icon>
                   `}
             </sl-button>
-          </c-button-group>
+          </div>
         </form>
       </sl-dialog>
     `

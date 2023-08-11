@@ -1,5 +1,6 @@
-// shoelace theme
+// shoelace themes
 import '@shoelace-style/shoelace/dist/themes/light.css'
+import '@shoelace-style/shoelace/dist/themes/dark.css'
 
 // standard shoelace elements
 import '@shoelace-style/shoelace/dist/components/alert/alert.js'
@@ -35,11 +36,9 @@ import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path'
 setBasePath('/shoelace')
 
 // my own reusable components (mostly based on shoelace)
-import './components/reusables/c-button-group'
 import './components/reusables/c-card'
 import './components/reusables/c-data-info'
-import './components/reusables/c-hscroll-container'
 import './components/reusables/c-network-link'
 import './components/reusables/c-panel'
+import './components/reusables/c-setting'
 import './components/reusables/c-tab'
-import './components/reusables/c-tag-group'

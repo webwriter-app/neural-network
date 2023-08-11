@@ -1,33 +1,38 @@
 import { createContext } from '@lit-labs/context'
-import { CLayer } from '@/components/network/c_layer'
-import { Neuron } from '@/components/network/neuron'
-import { Edge } from '@/components/network/edge'
 import type { WwDeepLearning } from '@/app'
 
+// layer/neuron/edge represent the cyId of the element, ele the actual element
+// (which will be added later after first render as selected)
 export interface Selected {
-  layer?: CLayer
-  neuron?: Neuron
-  edge?: Edge
+  layer?: string
+  neuron?: string
+  edge?: string
 }
 export const selectedContext = createContext<Selected>('selected')
 
-export function select({
-  layer = null,
-  neuron = null,
-  edge = null,
-}: { layer?: CLayer; neuron?: Neuron; edge?: Edge } = {}): void {
-  const newSelected = {}
-  if (neuron && layer) {
-    newSelected['neuron'] = neuron
-    newSelected['layer'] = layer
-    ;(<WwDeepLearning>this).openPanel('neuron', 'right')
-  } else if (layer) {
-    newSelected['layer'] = layer
-    ;(<WwDeepLearning>this).openPanel('layer', 'right')
-  } else if (edge) {
-    /* if(elm instanceof Edge) */
-    newSelected['edge'] = edge
-    ;(<WwDeepLearning>this).openPanel('edge', 'right')
-  }
+export function unselect() {
+  const newSelected: Selected = {}
   ;(<WwDeepLearning>this).selected = newSelected
+  ;(<WwDeepLearning>this).selectedEle = undefined
+}
+
+export function selectLayer(layer: string) {
+  const newSelected: Selected = {}
+  newSelected['layer'] = layer
+  ;(<WwDeepLearning>this).selected = newSelected
+  ;(<WwDeepLearning>this).selectedEle = undefined
+}
+
+export function selectNeuron(neuron: string) {
+  const newSelected: Selected = {}
+  newSelected['neuron'] = neuron
+  ;(<WwDeepLearning>this).selected = newSelected
+  ;(<WwDeepLearning>this).selectedEle = undefined
+}
+
+export function selectEdge(edge: string) {
+  const newSelected: Selected = {}
+  newSelected['edge'] = edge
+  ;(<WwDeepLearning>this).selected = newSelected
+  ;(<WwDeepLearning>this).selectedEle = undefined
 }

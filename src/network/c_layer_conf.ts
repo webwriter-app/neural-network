@@ -1,4 +1,4 @@
-import { ActivationOption } from '@/components/network/activation'
+import { Activation } from '@/network/activation'
 import { Position } from '@/types/position'
 
 export interface CLayerConf {
@@ -10,7 +10,7 @@ export interface CLayerConf {
   // layer id
   layerId: number
   // activation
-  activation: ActivationOption
+  activation: Activation
   // position
   pos: Position
 }

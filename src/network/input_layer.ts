@@ -4,9 +4,9 @@ import { customElement, property } from 'lit/decorators.js'
 import { globalStyles } from '@/global_styles'
 
 import { Position } from '@/types/position'
-import { ActivationOption } from '@/components/network/activation'
-import { InputLayerConf } from '@/components/network/input_layer_conf'
-import { NeuronLayer } from '@/components/network/neuron_layer'
+import { Activation, actNone } from '@/network/activation'
+import { InputLayerConf } from '@/network/input_layer_conf'
+import { CLayer } from '@/network/c_layer'
 import { spawnAlert } from '@/utils/alerts'
 
 import { DataSet } from '@/data_set/data_set'
@@ -19,7 +19,7 @@ import * as tf from '@tensorflow/tfjs'
 // and other layers can not connect to an input layer. Neurons in the input
 // layer are marked with the name of the associated input
 @customElement('input-layer')
-export class InputLayer extends NeuronLayer {
+export class InputLayer extends CLayer {
   @property()
   conf: InputLayerConf
 
@@ -52,7 +52,7 @@ export class InputLayer extends NeuronLayer {
     ) {
       this.conf.dataSetKeys = this.dataSet.inputs.map((input) => input.key)
       this.dispatchEvent(
-        new Event('layer-confs-updated', {
+        new Event('update-layer-confs', {
           bubbles: true,
           composed: true,
         })
@@ -62,10 +62,12 @@ export class InputLayer extends NeuronLayer {
 
   // FACTORY - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static create({
-    activation = 'None',
-    pos = null,
+    activation = actNone,
+    dataSetKeys = undefined,
+    pos = undefined,
   }: {
-    activation?: ActivationOption
+    activation?: Activation
+    dataSetKeys: string[]
     pos?: Position
   } = {}): InputLayerConf {
     // create a new dense layer configuration with the specified properties
@@ -77,7 +79,7 @@ export class InputLayer extends NeuronLayer {
       pos: pos,
       // layer id, data set and data set keys will be added by the layer
       layerId: undefined,
-      dataSetKeys: undefined,
+      dataSetKeys: dataSetKeys,
     }
 
     // emit an layer-conf-created event - the network listens to them, so it can add
@@ -134,7 +136,6 @@ export class InputLayer extends NeuronLayer {
         ? html`${this.conf.dataSetKeys.map(
             (dataSetKey, i) => html`
               <c-neuron
-                class="neuron"
                 .layer="${this}"
                 neuronId="${i + 1}"
                 .pos="${{

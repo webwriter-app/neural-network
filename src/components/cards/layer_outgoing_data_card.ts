@@ -8,7 +8,7 @@ import { globalStyles } from '@/global_styles'
 import { dataSetContext } from '@/contexts/data_set_context'
 import type { DataSet } from '@/data_set/data_set'
 
-import { OutputLayer } from '@/components/network/output_layer'
+import { OutputLayer } from '@/network/output_layer'
 
 @customElement('layer-outgoing-data-card')
 export class LayerOutgoingDataCard extends LitElementWw {

@@ -1,19 +1,29 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
-
+import { consume } from '@lit-labs/context'
 import { SlSelect, SlChangeEvent } from '@shoelace-style/shoelace'
 
 import { globalStyles } from '@/global_styles'
 
-import { CLayer } from '@/components/network/c_layer'
-import {
-  ActivationOption,
-  activationOptions,
-} from '@/components/network/activation'
+import { editableContext } from '@/contexts/editable_context'
+import { settingsContext, Settings } from '@/contexts/settings_context'
+import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
+
+import { CLayer } from '@/network/c_layer'
+import { Activation, activationOptions } from '@/network/activation'
 
 @customElement('layer-activation-card')
 export class LayerActivationCard extends LitElementWw {
+  @consume({ context: editableContext, subscribe: true })
+  editable: boolean
+
+  @consume({ context: settingsContext, subscribe: true })
+  settings: Settings
+
+  @consume({ context: modelConfContext, subscribe: true })
+  modelConf: ModelConf
+
   @property({ attribute: false })
   layer: CLayer
 
@@ -21,11 +31,13 @@ export class LayerActivationCard extends LitElementWw {
   _selectActivationFormElm: SlSelect
 
   handleChangeActivation(): void {
-    this.layer.setActivation(
-      <ActivationOption>this._selectActivationFormElm.value
+    const activationName = this._selectActivationFormElm.value
+    const activation: Activation = activationOptions.find(
+      (activation) => activation.name == activationName
     )
+    this.layer.setActivation(activation)
     this.dispatchEvent(
-      new Event('layer-confs-updated', {
+      new Event('update-layer-confs', {
         bubbles: true,
         composed: true,
       })
@@ -44,17 +56,31 @@ export class LayerActivationCard extends LitElementWw {
         <div slot="title">Activation function</div>
         <div slot="content">
           <sl-select
-            value="${this.layer.conf.activation}"
-            help-text="The selected activation will be applied to all neurons in this layer."
-            @sl-change="${(_e: SlChangeEvent) => {
+            value=${this.layer.conf.activation.name}
+            ?disabled=${this.modelConf.model ||
+            (!this.editable && !this.settings.mayChangeActivationFunction)}
+            help-text="The selected activation applies to all neurons in this layer."
+            @sl-change=${(_e: SlChangeEvent) => {
               this.handleChangeActivation()
-            }}"
+            }}
           >
             ${activationOptions.map(
-              (option) =>
-                html`<sl-option .value="${option}">${option}</sl-option>`
+              (activation) =>
+                html`<sl-option value="${activation.name}"
+                  >${activation.name}</sl-option
+                >`
             )}
           </sl-select>
+          ${Object.hasOwn(this.layer.conf.activation, 'img')
+            ? html`<img src=${this.layer.conf.activation.img} />`
+            : html``}
+          <p>
+            After calculating a neuron's value by adding up its weighted input
+            values and its bias: ${this.layer.conf.activation.description}
+          </p>
+          <p>
+            Range of possible output values: ${this.layer.conf.activation.range}
+          </p>
         </div>
       </c-card>
     `

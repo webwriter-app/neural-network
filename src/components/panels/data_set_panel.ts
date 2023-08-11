@@ -1,14 +1,18 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { consume } from '@lit-labs/context'
+import { editableContext } from '@/contexts/editable_context'
+import { settingsContext, Settings } from '@/contexts/settings_context'
 import { dataSetContext } from '@/contexts/data_set_context'
+import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 
 import { DataSet } from '@/data_set/data_set'
 
+import '@/components/cards/core_model_features_unavailable_card'
 import '@/components/cards/data_set_info_card'
 import '@/components/cards/plots_card'
 import '@/components/cards/data_set_select_card'
@@ -18,9 +22,17 @@ export class DataSetPanel extends LitElementWw {
   @property({ attribute: true, reflect: true })
   selectedInputKey: string | null
 
+  @consume({ context: editableContext, subscribe: true })
+  editable: boolean
+
+  @consume({ context: settingsContext, subscribe: true })
+  settings: Settings
+
   @consume({ context: dataSetContext, subscribe: true })
-  @property({ attribute: false })
   dataSet: DataSet
+
+  @consume({ context: modelConfContext, subscribe: true })
+  modelConf: ModelConf
 
   updated(changedProperties: Map<string, unknown>) {
     if (changedProperties.has('dataSet')) {
@@ -28,22 +40,24 @@ export class DataSetPanel extends LitElementWw {
     }
   }
 
-  _handleClickedDataProperty(e: CustomEvent<string>) {
-    this.selectedInputKey = e.detail
-  }
-
   static styles: CSSResult[] = [globalStyles]
 
   render(): TemplateResult<1> {
     return html`
       <c-panel name="dataSet">
-        <data-set-select-card .dataSet="${this.dataSet}"></data-set-select-card>
+        ${this.modelConf.model &&
+        (this.editable || this.settings.maySelectDataSet)
+          ? html`<core-model-features-unavailable-card></core-model-features-unavailable-card>`
+          : html``}
+        ${!this.modelConf.model &&
+        (this.editable || this.settings.maySelectDataSet)
+          ? html` <data-set-select-card></data-set-select-card> `
+          : html``}
         ${this.dataSet
           ? html`
               <data-set-info-card
-                .dataSet="${this.dataSet}"
                 @clicked-data-property="${(e: CustomEvent<string>) => {
-                  this._handleClickedDataProperty(e)
+                  this.selectedInputKey = e.detail
                 }}"
               ></data-set-info-card>
             `
