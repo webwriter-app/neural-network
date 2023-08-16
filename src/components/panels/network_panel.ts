@@ -7,6 +7,8 @@ import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
 import { settingsContext, Settings } from '@/contexts/settings_context'
+import { layerConfsContext } from '@/contexts/layer_confs_context'
+import { CLayerConf } from '@/network/c_layer_conf'
 import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 
 import '@/components/cards/core_model_features_unavailable_card'
@@ -22,6 +24,9 @@ export class NetworkPanel extends LitElementWw {
   @consume({ context: settingsContext, subscribe: true })
   settings: Settings
 
+  @consume({ context: layerConfsContext, subscribe: true })
+  layerConfs: CLayerConf[]
+
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
 
@@ -36,8 +41,12 @@ export class NetworkPanel extends LitElementWw {
         <network-info-card></network-info-card>
         ${!this.modelConf.model &&
         (this.editable || this.settings.mayAddAndRemoveLayers)
-          ? html` <network-clear-card></network-clear-card>
-              <network-add-layer-card> </network-add-layer-card>`
+          ? html`
+              <network-add-layer-card> </network-add-layer-card>
+              ${this.layerConfs.length
+                ? html`<network-clear-card></network-clear-card>`
+                : html``}
+            `
           : html``}
       </c-panel>
     `

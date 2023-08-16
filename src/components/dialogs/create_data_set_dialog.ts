@@ -173,12 +173,20 @@ export class CreateDataSetDialog extends LitElementWw {
         composed: true,
       })
     )
+    this.dispatchEvent(
+      new CustomEvent<DataSet>('select-data-set', {
+        detail: this.config,
+        bubbles: true,
+        composed: true,
+      })
+    )
+
     this.config = this.emptyConfig
     this.step = 1
 
     spawnAlert({
       message:
-        'A new data set was successfully created! You can now select it in the menu!',
+        'A new data set was successfully created and automatically selected!',
       variant: 'success',
       icon: 'check-circle',
     })
