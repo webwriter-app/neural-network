@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -11,7 +11,7 @@ import { DataSet } from '@/data_set/data_set'
 import { CLayer } from '@/network/c_layer'
 
 @customElement('layer-info-card')
-export class LayerInfoCard extends LitElementWw {
+export class LayerInfoCard extends LitElement {
   @property() layer: CLayer
 
   // eventhough we do not directly need the data set in this component, we need

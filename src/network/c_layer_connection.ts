@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, state, property, queryAll } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -20,7 +20,7 @@ import { CEdge } from '@/network/c_edge'
 import '@/network/c_edge'
 
 @customElement('c-layer-connection')
-export class CLayerConnection extends LitElementWw {
+export class CLayerConnection extends LitElement {
   @consume({ context: canvasContext, subscribe: true })
   canvas: CCanvas
 

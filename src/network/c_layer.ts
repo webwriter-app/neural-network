@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, queryAll, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -23,7 +23,7 @@ import { Activation, actNone } from '@/network/activation'
 import { Neuron } from '@/network/neuron'
 
 @customElement('c-layer')
-export abstract class CLayer extends LitElementWw {
+export abstract class CLayer extends LitElement {
   @consume({ context: canvasContext, subscribe: true })
   canvas: CCanvas
 

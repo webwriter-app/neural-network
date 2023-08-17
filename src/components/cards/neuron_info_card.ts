@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -13,7 +13,7 @@ import { OutputLayer } from '@/network/output_layer'
 import { InputLayer } from '@/network/input_layer'
 
 @customElement('neuron-info-card')
-export class NeuronInfoCard extends LitElementWw {
+export class NeuronInfoCard extends LitElement {
   @property({ attribute: false })
   neuron: Neuron
 

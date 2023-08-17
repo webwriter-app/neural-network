@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -24,7 +24,7 @@ import { FileConfigV1 } from '@/types/file_config_v1'
 import { spawnAlert } from '@/utils/alerts'
 
 @customElement('start-export-card')
-export class StartExportCard extends LitElementWw {
+export class StartExportCard extends LitElement {
   @consume({ context: settingsContext, subscribe: true })
   settings: Settings
 

@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
@@ -20,7 +20,7 @@ import '@/components/cards/neuron_info_card'
 import '@/components/cards/plots_card'
 
 @customElement('neuron-panel')
-export class NeuronPanel extends LitElementWw {
+export class NeuronPanel extends LitElement {
   @consume({ context: networkContext, subscribe: true })
   network: Network
 

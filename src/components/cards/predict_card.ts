@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, css, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 
@@ -16,7 +16,7 @@ import { DataSet, getDataSetInputsByKeys } from '@/data_set/data_set'
 import { Network } from '@/network/network'
 
 @customElement('predict-card')
-export class PredictCard extends LitElementWw {
+export class PredictCard extends LitElement {
   @consume({ context: networkContext, subscribe: true })
   network: Network
 

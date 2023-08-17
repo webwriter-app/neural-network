@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -31,7 +31,7 @@ import '@/components/cards/layer_outgoing_connections_card'
 import '@/components/cards/layer_outgoing_data_card'
 
 @customElement('layer-panel')
-export class LayerPanel extends LitElementWw {
+export class LayerPanel extends LitElement {
   @consume({ context: editableContext, subscribe: true })
   editable: boolean
 

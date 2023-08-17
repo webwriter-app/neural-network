@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -14,7 +14,7 @@ import { CLayer } from '@/network/c_layer'
 import { Activation, activationOptions } from '@/network/activation'
 
 @customElement('layer-activation-card')
-export class LayerActivationCard extends LitElementWw {
+export class LayerActivationCard extends LitElement {
   @consume({ context: editableContext, subscribe: true })
   editable: boolean
 

@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -28,7 +28,7 @@ import '@/components/panels/neuron_panel.ts'
 import '@/components/panels/edge_panel.ts'
 
 @customElement('menu-area')
-export class MenuArea extends LitElementWw {
+export class MenuArea extends LitElement {
   @consume({ context: editableContext, subscribe: true })
   editable: boolean
 

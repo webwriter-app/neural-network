@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -8,7 +8,7 @@ import { CLayer } from '@/network/c_layer'
 import { Neuron } from '@/network/neuron'
 
 @customElement('edge-info-card')
-export class EdgeInfoCard extends LitElementWw {
+export class EdgeInfoCard extends LitElement {
   @property({ attribute: false })
   source: CLayer | Neuron
 

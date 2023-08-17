@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import {
   customElement,
@@ -14,7 +14,7 @@ import { settingsContext, Settings } from '@/contexts/settings_context'
 import { SlChangeEvent, SlSwitch } from '@shoelace-style/shoelace'
 
 @customElement('c-setting')
-export class CSetting extends LitElementWw {
+export class CSetting extends LitElement {
   @consume({ context: settingsContext, subscribe: true })
   settings: Settings
 

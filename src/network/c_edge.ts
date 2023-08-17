@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -11,7 +11,7 @@ import type { CCanvas } from '@/components/canvas'
 import { Neuron } from '@/network/neuron'
 
 @customElement('c-edge')
-export class CEdge extends LitElementWw {
+export class CEdge extends LitElement {
   @consume({ context: canvasContext, subscribe: true })
   canvas: CCanvas
 

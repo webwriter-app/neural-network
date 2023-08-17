@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -18,7 +18,7 @@ import '@/components/canvas'
 import '@/components/cards/start_get_started_card'
 
 @customElement('canvas-area')
-export class CCanvasArea extends LitElementWw {
+export class CCanvasArea extends LitElement {
   @consume({ context: editableContext, subscribe: true })
   editable: boolean
 
@@ -33,12 +33,6 @@ export class CCanvasArea extends LitElementWw {
 
   @state()
   isDragging: boolean = false
-
-  async connectedCallback() {
-    super.connectedCallback()
-
-    await this.updateComplete
-  }
 
   _handleZoomIn() {
     this.canvas.zoomIn()

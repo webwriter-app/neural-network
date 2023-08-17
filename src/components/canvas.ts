@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, state, query } from 'lit/decorators.js'
 
@@ -19,7 +19,7 @@ import type { Position } from '@/types/position'
 import * as colorcolor from 'colorcolor'
 
 @customElement('c-canvas')
-export class CCanvas extends LitElementWw {
+export class CCanvas extends LitElement {
   LAYER_WIDTH = 300
   LAYER_PADDING = 20
   LAYER_DISTANCE = 150

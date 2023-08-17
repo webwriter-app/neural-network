@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -18,7 +18,7 @@ import '@/components/cards/plots_card'
 import '@/components/cards/data_set_select_card'
 
 @customElement('data-set-panel')
-export class DataSetPanel extends LitElementWw {
+export class DataSetPanel extends LitElement {
   @property({ attribute: true, reflect: true })
   selectedInputKey: string | null
 

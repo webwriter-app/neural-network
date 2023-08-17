@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
@@ -12,7 +12,7 @@ import '@/components/cards/training_metrics_card'
 import '@/components/cards/training_hyperparameters_card.js'
 
 @customElement('train-panel')
-export class TrainPanel extends LitElementWw {
+export class TrainPanel extends LitElement {
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
 

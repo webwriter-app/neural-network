@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, queryAll, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -41,7 +41,7 @@ import '@/network/c_layer_connection'
 import * as tf from '@tensorflow/tfjs'
 
 @customElement('c-network')
-export class Network extends LitElementWw {
+export class Network extends LitElement {
   // FIELDS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // -> CONTEXT  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @consume({ context: setupStatusContext, subscribe: true })

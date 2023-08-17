@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
@@ -7,7 +7,7 @@ import { globalStyles } from '@/global_styles'
 import '@/components/cards/predict_card'
 
 @customElement('predict-panel')
-export class PredictPanel extends LitElementWw {
+export class PredictPanel extends LitElement {
   static styles: CSSResult[] = globalStyles
 
   render(): TemplateResult<1> {

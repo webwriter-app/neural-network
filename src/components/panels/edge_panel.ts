@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
@@ -18,7 +18,7 @@ import { CEdge } from '@/network/c_edge'
 import '@/components/cards/edge_info_card'
 
 @customElement('edge-panel')
-export class EdgePanel extends LitElementWw {
+export class EdgePanel extends LitElement {
   @consume({ context: networkContext, subscribe: true })
   network: Network
 

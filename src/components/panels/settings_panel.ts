@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
@@ -7,7 +7,7 @@ import { globalStyles } from '@/global_styles'
 import '@/components/cards/settings_card'
 
 @customElement('settings-panel')
-export class SettingsPanel extends LitElementWw {
+export class SettingsPanel extends LitElement {
   static styles: CSSResult[] = globalStyles
 
   render(): TemplateResult<1> {

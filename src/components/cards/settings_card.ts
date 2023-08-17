@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -11,7 +11,7 @@ import {
 } from '@/contexts/settings_context'
 
 @customElement('settings-card')
-export class SettingsCard extends LitElementWw {
+export class SettingsCard extends LitElement {
   @consume({ context: settingsContext, subscribe: true })
   settings: Settings
 

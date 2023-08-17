@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 
@@ -8,7 +8,7 @@ import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 import { globalStyles } from '@/global_styles'
 
 @customElement('training-metrics-card')
-export class TrainingMetricsCard extends LitElementWw {
+export class TrainingMetricsCard extends LitElement {
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
 

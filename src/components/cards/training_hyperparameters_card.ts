@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -16,7 +16,7 @@ import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 import { SlChangeEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace'
 
 @customElement('training-hyperparameters-card')
-export class TrainingHyperparametersCard extends LitElementWw {
+export class TrainingHyperparametersCard extends LitElement {
   @consume({ context: editableContext, subscribe: true })
   editable: boolean
 

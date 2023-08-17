@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -11,7 +11,7 @@ import type { DataSet } from '@/data_set/data_set'
 import { OutputLayer } from '@/network/output_layer'
 
 @customElement('layer-outgoing-data-card')
-export class LayerOutgoingDataCard extends LitElementWw {
+export class LayerOutgoingDataCard extends LitElement {
   @property()
   layer: OutputLayer
 

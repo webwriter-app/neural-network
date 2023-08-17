@@ -1,11 +1,11 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
 @customElement('network-clear-card')
-export class NetworkClearCard extends LitElementWw {
+export class NetworkClearCard extends LitElement {
   handleClear() {
     this.dispatchEvent(
       new CustomEvent('clear-network', { bubbles: true, composed: true })

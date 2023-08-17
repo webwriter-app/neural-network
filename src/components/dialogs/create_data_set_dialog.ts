@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, css, html, nothing } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -14,7 +14,7 @@ import { spawnAlert } from '@/utils/alerts'
 import type { DataSet } from '@/data_set/data_set'
 
 @customElement('create-data-set-dialog')
-export class CreateDataSetDialog extends LitElementWw {
+export class CreateDataSetDialog extends LitElement {
   // CONSUME - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @consume({ context: availableDataSetsContext, subscribe: true })
   availableDataSets: DataSet[]
