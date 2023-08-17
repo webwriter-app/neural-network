@@ -62,7 +62,7 @@ export class PlotsCard extends LitElementWw {
   }
 
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       #plots {
         display: flex;

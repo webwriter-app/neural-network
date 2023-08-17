@@ -20,7 +20,7 @@ export class CDataInfo extends LitElementWw {
   @property()
   dataSet: DataSet
 
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   getTooltipContent(): TemplateResult<1> {
     switch (this.type) {

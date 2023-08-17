@@ -8,7 +8,7 @@ import '@/components/cards/predict_card'
 
 @customElement('predict-panel')
 export class PredictPanel extends LitElementWw {
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   render(): TemplateResult<1> {
     return html`

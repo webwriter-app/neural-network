@@ -27,7 +27,7 @@ export class NeuronPanel extends LitElementWw {
   @consume({ context: selectedEleContext, subscribe: true })
   selectedEle: SelectedEle
 
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   render(): TemplateResult<1> {
     if (this.selectedEle && this.selectedEle instanceof Neuron) {

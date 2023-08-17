@@ -35,7 +35,7 @@ export class CPanel extends LitElementWw {
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       .c-panel {
         display: flex;

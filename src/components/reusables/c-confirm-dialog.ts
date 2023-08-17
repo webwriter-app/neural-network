@@ -11,7 +11,7 @@ export class CConfirmDialog extends LitElementWw {
 
   /* STYLES */
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       sl-card {
         --padding: 10px 20px 20px 20px;

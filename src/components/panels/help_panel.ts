@@ -8,7 +8,7 @@ import '@/components/cards/help_card'
 
 @customElement('help-panel')
 export class HelpPanel extends LitElementWw {
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   render(): TemplateResult<1> {
     return html`

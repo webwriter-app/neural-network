@@ -54,7 +54,7 @@ export class CCanvasArea extends LitElementWw {
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       :host {
         position: relative;

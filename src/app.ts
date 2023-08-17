@@ -5,6 +5,8 @@ import { provide } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
+import '@/imports'
+
 import { ShortcutListener } from '@/utils/shortcut_listener'
 
 import {
@@ -268,7 +270,6 @@ export class WwDeepLearning extends LitElementWw {
   connectedCallback() {
     super.connectedCallback()
 
-    // set theme to dark
     document.documentElement.classList.add('sl-theme-dark')
 
     // -> ADD EVENT LISTENERS
@@ -435,7 +436,7 @@ export class WwDeepLearning extends LitElementWw {
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       :host {
         height: 100vh;

@@ -71,7 +71,7 @@ export class LayerNeuronsCard extends LitElementWw {
     this._updateNeuronsForm.reset()
   }
 
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   // @TODO: somehow make the number of units reactive, so that when removing
   // multiple neurons, the button to remove is disabled when we reach a units

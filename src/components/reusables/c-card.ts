@@ -8,7 +8,7 @@ import { globalStyles } from '@/global_styles'
 export class CCard extends LitElementWw {
   /* STYLES */
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       :host {
         display: block;

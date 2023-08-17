@@ -23,7 +23,7 @@ export class DataSetInfoCard extends LitElementWw {
   }
 
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       .clickable:hover {
         cursor: pointer;

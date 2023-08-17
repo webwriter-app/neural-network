@@ -18,7 +18,7 @@ export class LayerOutgoingDataCard extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   render(): TemplateResult<1> {
     return html`

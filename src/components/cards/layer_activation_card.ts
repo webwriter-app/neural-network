@@ -48,7 +48,7 @@ export class LayerActivationCard extends LitElementWw {
     this.requestUpdate()
   }
 
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   render(): TemplateResult<1> {
     return html`

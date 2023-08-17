@@ -14,7 +14,7 @@ export const trainOptionsContext = createContext<TrainOptions>('train-options')
 export const defaultTrainOptions: TrainOptions = {
   learningRate: '0.001',
   dropoutRate: '0',
-  epochs: '7',
+  epochs: '8',
   batchSize: '32',
   lossFunction: 'meanSquaredError',
   optimizer: 'sgd',

@@ -54,7 +54,7 @@ export class DataSetSelectCard extends LitElementWw {
     await this._manageDataSetsDialog.show()
   }
 
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   render(): TemplateResult<1> {
     return html`

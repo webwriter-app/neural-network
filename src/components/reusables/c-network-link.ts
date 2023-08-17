@@ -24,7 +24,7 @@ export class CNetworkLink extends LitElementWw {
   canvas: CCanvas
 
   /* STYLES */
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   // handle link click
   _handleClick() {

@@ -84,7 +84,7 @@ export class GetStartedCard extends LitElementWw {
   }
 
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       #getStartedGrid {
         display: grid;

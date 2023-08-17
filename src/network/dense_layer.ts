@@ -102,7 +102,7 @@ export class DenseLayer extends CLayer {
     // finally apply dropout
     const dropout: tf.SymbolicTensor = <tf.SymbolicTensor>(
       tf.layers
-        .dropout({ rate: parseInt(this.trainOptions.dropoutRate) })
+        .dropout({ rate: parseFloat(this.trainOptions.dropoutRate) })
         .apply(dense)
     )
 
@@ -112,7 +112,7 @@ export class DenseLayer extends CLayer {
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

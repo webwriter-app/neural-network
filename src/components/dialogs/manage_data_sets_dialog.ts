@@ -48,7 +48,7 @@ export class ManageDataSetsDialog extends LitElementWw {
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       sl-dialog::part(body) {
         display: flex;

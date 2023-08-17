@@ -52,7 +52,7 @@ export class MenuArea extends LitElementWw {
 
   /* STYLES */
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       #rightMenu {
         width: 100%;

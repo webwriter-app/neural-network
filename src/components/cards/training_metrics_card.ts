@@ -27,7 +27,7 @@ export class TrainingMetricsCard extends LitElementWw {
     this.dispatchEvent(event)
   }
 
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   render(): TemplateResult<1> {
     return html`

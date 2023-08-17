@@ -65,7 +65,7 @@ export class PredictCard extends LitElementWw {
   }
 
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       :host {
         position: relative;

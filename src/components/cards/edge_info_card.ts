@@ -15,7 +15,7 @@ export class EdgeInfoCard extends LitElementWw {
   @property({ attribute: false })
   target: CLayer | Neuron
 
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   render(): TemplateResult<1> {
     return html`

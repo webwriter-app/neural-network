@@ -20,7 +20,7 @@ export class CTab extends LitElementWw {
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       sl-button {
         width: 100%;

@@ -195,7 +195,7 @@ export class CreateDataSetDialog extends LitElementWw {
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       sl-dialog::part(body) {
         text-align: center;

@@ -8,7 +8,7 @@ import '@/components/cards/settings_card'
 
 @customElement('settings-panel')
 export class SettingsPanel extends LitElementWw {
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   render(): TemplateResult<1> {
     return html`

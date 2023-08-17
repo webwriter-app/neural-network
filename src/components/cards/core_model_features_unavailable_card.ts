@@ -21,7 +21,7 @@ export class CoreModelFeaturesUnavailableCard extends LitElementWw {
     )
   }
 
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   getContent(): TemplateResult<1> {}
 

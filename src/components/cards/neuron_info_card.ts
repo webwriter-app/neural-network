@@ -21,7 +21,7 @@ export class NeuronInfoCard extends LitElementWw {
   dataSet: DataSet
   getDataSetInputByKey = getDataSetInputByKey
 
-  static styles: CSSResult[] = [globalStyles]
+  static styles: CSSResult[] = globalStyles
 
   render(): TemplateResult<1> {
     let type, dataProperty

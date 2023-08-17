@@ -42,16 +42,15 @@ export class CCanvas extends LitElementWw {
     super.connectedCallback()
     await this.updateComplete
     if (!this.cy) {
+      console.log(this.renderRoot)
       const MAIN_COLOR: string = <string>(
         colorcolor(
-          getComputedStyle(document.documentElement).getPropertyValue(
-            '--sl-color-primary-50'
-          )
+          getComputedStyle(this).getPropertyValue('--sl-color-primary-50')
         )
       )
       const TEXT_COLOR: string = <string>(
         colorcolor(
-          getComputedStyle(document.documentElement).getPropertyValue(
+          getComputedStyle(this).getPropertyValue(
             '--sl-color-primary-950',
             'hex'
           )
@@ -59,30 +58,22 @@ export class CCanvas extends LitElementWw {
       )
       const ACCENT_COLOR: string = <string>(
         colorcolor(
-          getComputedStyle(document.documentElement).getPropertyValue(
-            '--sl-color-primary-500'
-          )
+          getComputedStyle(this).getPropertyValue('--sl-color-primary-500')
         )
       )
       const SELECTED_COLOR: string = <string>(
         colorcolor(
-          getComputedStyle(document.documentElement).getPropertyValue(
-            '--sl-color-primary-950'
-          )
+          getComputedStyle(this).getPropertyValue('--sl-color-primary-950')
         )
       )
       const POSITIVE_COLOR: string = <string>(
         colorcolor(
-          getComputedStyle(document.documentElement).getPropertyValue(
-            '--sl-color-success-200'
-          )
+          getComputedStyle(this).getPropertyValue('--sl-color-success-200')
         )
       )
       const NEGATIVE_COLOR: string = <string>(
         colorcolor(
-          getComputedStyle(document.documentElement).getPropertyValue(
-            '--sl-color-danger-200'
-          )
+          getComputedStyle(this).getPropertyValue('--sl-color-danger-200')
         )
       )
 
@@ -398,7 +389,7 @@ export class CCanvas extends LitElementWw {
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    globalStyles,
+    ...globalStyles,
     css`
       #canvasElm {
         height: 100%;
