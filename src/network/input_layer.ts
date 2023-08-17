@@ -67,7 +67,7 @@ export class InputLayer extends CLayer {
     pos = undefined,
   }: {
     activation?: Activation
-    dataSetKeys: string[]
+    dataSetKeys?: string[]
     pos?: Position
   } = {}): InputLayerConf {
     // create a new dense layer configuration with the specified properties

@@ -16,7 +16,7 @@ import { DenseLayer } from '@/network/dense_layer'
 import { OutputLayer } from '@/network/output_layer'
 import type { Position } from '@/types/position'
 
-import * as colorcolor from 'colorcolor'
+import { colorcolor } from 'colorcolor'
 
 @customElement('c-canvas')
 export class CCanvas extends LitElementWw {
@@ -43,38 +43,23 @@ export class CCanvas extends LitElementWw {
     await this.updateComplete
     if (!this.cy) {
       console.log(this.renderRoot)
-      const MAIN_COLOR: string = <string>(
-        colorcolor(
-          getComputedStyle(this).getPropertyValue('--sl-color-primary-50')
-        )
+      const MAIN_COLOR: string = colorcolor(
+        getComputedStyle(this).getPropertyValue('--sl-color-primary-50')
       )
-      const TEXT_COLOR: string = <string>(
-        colorcolor(
-          getComputedStyle(this).getPropertyValue(
-            '--sl-color-primary-950',
-            'hex'
-          )
-        )
+      const TEXT_COLOR: string = colorcolor(
+        getComputedStyle(this).getPropertyValue('--sl-color-primary-950')
       )
-      const ACCENT_COLOR: string = <string>(
-        colorcolor(
-          getComputedStyle(this).getPropertyValue('--sl-color-primary-500')
-        )
+      const ACCENT_COLOR: string = colorcolor(
+        getComputedStyle(this).getPropertyValue('--sl-color-primary-500')
       )
-      const SELECTED_COLOR: string = <string>(
-        colorcolor(
-          getComputedStyle(this).getPropertyValue('--sl-color-primary-950')
-        )
+      const SELECTED_COLOR: string = colorcolor(
+        getComputedStyle(this).getPropertyValue('--sl-color-primary-950')
       )
-      const POSITIVE_COLOR: string = <string>(
-        colorcolor(
-          getComputedStyle(this).getPropertyValue('--sl-color-success-200')
-        )
+      const POSITIVE_COLOR: string = colorcolor(
+        getComputedStyle(this).getPropertyValue('--sl-color-success-200')
       )
-      const NEGATIVE_COLOR: string = <string>(
-        colorcolor(
-          getComputedStyle(this).getPropertyValue('--sl-color-danger-200')
-        )
+      const NEGATIVE_COLOR: string = colorcolor(
+        getComputedStyle(this).getPropertyValue('--sl-color-danger-200')
       )
 
       // create cytoscape canvas
