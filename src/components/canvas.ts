@@ -16,7 +16,7 @@ import { DenseLayer } from '@/network/dense_layer'
 import { OutputLayer } from '@/network/output_layer'
 import type { Position } from '@/types/position'
 
-import { colorcolor } from 'colorcolor'
+import * as colorcolor from 'colorcolor'
 
 @customElement('c-canvas')
 export class CCanvas extends LitElementWw {
@@ -42,7 +42,7 @@ export class CCanvas extends LitElementWw {
     super.connectedCallback()
     await this.updateComplete
     if (!this.cy) {
-      console.log(this.renderRoot)
+      console.log(colorcolor)
       const MAIN_COLOR: string = colorcolor(
         getComputedStyle(this).getPropertyValue('--sl-color-primary-50')
       )
