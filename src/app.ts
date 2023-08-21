@@ -65,8 +65,7 @@ import {
   modelConfContext,
   predictModel,
   deletePrediction,
-  resetModel,
-  stopTraining,
+  discardModel,
   trainModel,
 } from '@/contexts/model_conf_context'
 import {
@@ -139,7 +138,7 @@ export class WwDeepLearning extends LitElementWw {
   // together with editable!
   @provide({ context: settingsContext })
   @property({ attribute: true, type: Object, reflect: true })
-  settings: Settings = { ...defaultSettings }
+  settings: Settings = <Settings>JSON.parse(JSON.stringify(defaultSettings))
 
   setSetting = setSetting
   setSettings = setSettings
@@ -216,7 +215,9 @@ export class WwDeepLearning extends LitElementWw {
   // and its corresponding actions
   @provide({ context: trainOptionsContext })
   @property({ attribute: true, type: Object, reflect: true })
-  trainOptions: TrainOptions = { ...defaultTrainOptions }
+  trainOptions: TrainOptions = <TrainOptions>(
+    JSON.parse(JSON.stringify(defaultTrainOptions))
+  )
 
   setTrainOption = setTrainOption
 
@@ -229,13 +230,12 @@ export class WwDeepLearning extends LitElementWw {
   // corresponding actions like training
   @provide({ context: modelConfContext })
   @property({ attribute: false })
-  modelConf: ModelConf = { ...defaultModelConf }
+  modelConf: ModelConf = <ModelConf>JSON.parse(JSON.stringify(defaultModelConf))
 
   setTrainMetricsContainer = setTrainMetricsContainer
-  resetModel = resetModel
+  discardModel = discardModel
   buildModel = buildModel
   trainModel = trainModel
-  stopTraining = stopTraining
   predictModel = predictModel
   deletePrediction = deletePrediction
 
@@ -386,11 +386,11 @@ export class WwDeepLearning extends LitElementWw {
         }>
       ) => this.setTrainOption(e.detail.option, e.detail.value)
     )
-    this.renderRoot.addEventListener('reset-model', (_e: Event) =>
-      this.resetModel()
+    this.renderRoot.addEventListener('discard-model', (_e: Event) =>
+      this.discardModel()
     )
-    this.renderRoot.addEventListener('train-model', (_e: Event) =>
-      this.trainModel()
+    this.renderRoot.addEventListener('train-model', (e: CustomEvent<number>) =>
+      this.trainModel(e.detail)
     )
     this.renderRoot.addEventListener(
       'predict-model',
@@ -398,9 +398,6 @@ export class WwDeepLearning extends LitElementWw {
     )
     this.renderRoot.addEventListener('delete-prediction', (_e: Event) =>
       this.deletePrediction()
-    )
-    this.renderRoot.addEventListener('stop-training', (_e: Event) =>
-      this.stopTraining()
     )
   }
 
@@ -426,7 +423,7 @@ export class WwDeepLearning extends LitElementWw {
     this.layerConfs = config.layerConfs
     this.layerConnectionConfs = config.layerConnectionConfs
     this.trainOptions = config.trainOptions
-    this.resetModel()
+    this.discardModel()
     this.panel = undefined
     this.selected = {}
     setTimeout(() => {

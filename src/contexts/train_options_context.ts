@@ -4,7 +4,6 @@ import type { WwDeepLearning } from '@/app'
 export interface TrainOptions {
   learningRate: string
   dropoutRate: string
-  epochs: string
   batchSize: string
   lossFunction: string
   optimizer: string
@@ -14,7 +13,6 @@ export const trainOptionsContext = createContext<TrainOptions>('train-options')
 export const defaultTrainOptions: TrainOptions = {
   learningRate: '0.001',
   dropoutRate: '0',
-  epochs: '8',
   batchSize: '32',
   lossFunction: 'meanSquaredError',
   optimizer: 'sgd',

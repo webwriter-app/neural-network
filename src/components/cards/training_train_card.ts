@@ -1,6 +1,6 @@
 import { LitElement } from 'lit'
 import { CSSResult, TemplateResult, html } from 'lit'
-import { customElement } from 'lit/decorators.js'
+import { customElement, query, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
@@ -13,6 +13,8 @@ import {
 import { dataSetContext } from '@/contexts/data_set_context'
 import { DataSet } from '@/data_set/data_set'
 
+import { SlChangeEvent, SlRange } from '@shoelace-style/shoelace'
+
 @customElement('training-train-card')
 export class TrainingTrainCard extends LitElement {
   @consume({ context: modelConfContext, subscribe: true })
@@ -24,27 +26,20 @@ export class TrainingTrainCard extends LitElement {
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
-  _handleReset(): void {
-    this.dispatchEvent(
-      new Event('reset-model', {
-        bubbles: true,
-        composed: true,
-      })
-    )
+  @query('#numberOfEpochsRange')
+  _numberOfEpochsRange: SlRange
+
+  @state()
+  numberOfEpochs: number = 3
+
+  _handleChangeNumberOfEpochs(): void {
+    this.numberOfEpochs = this._numberOfEpochsRange.value
   }
 
-  _handleTrain(): void {
+  _handleTrain(epochs: number): void {
     this.dispatchEvent(
-      new Event('train-model', {
-        bubbles: true,
-        composed: true,
-      })
-    )
-  }
-
-  _handleStopTraining(): void {
-    this.dispatchEvent(
-      new Event('stop-training', {
+      new CustomEvent('train-model', {
+        detail: epochs,
         bubbles: true,
         composed: true,
       })
@@ -53,71 +48,62 @@ export class TrainingTrainCard extends LitElement {
 
   static styles: CSSResult[] = globalStyles
 
-  getContent(): TemplateResult<1> {}
-
   render(): TemplateResult<1> {
     return html`
       <c-card>
         <div slot="title">Train</div>
         <div slot="content">
-          ${!this.modelConf.model && !this.modelConf.isTraining
-            ? html` <sl-tooltip
-                content="${this.modelConf.model
-                  ? 'Continue training'
-                  : 'Start training'}"
-              >
-                <sl-button
-                  variant="primary"
-                  size="large"
-                  @click="${(_e: MouseEvent) => this._handleTrain()}"
-                >
-                  <sl-icon name="play" label="Run"></sl-icon>
-                  Run training
-                </sl-button>
-              </sl-tooltip>`
+          ${!this.modelConf.isTraining
+            ? html` ${this.modelConf.model
+                  ? html`
+                      <sl-progress-bar value="100"></sl-progress-bar>
+                      <p>✅ Training completed!</p>
+                      <p>
+                        Feel free to continue training your model for some
+                        additional epochs which might get you even better
+                        results!
+                      </p>
+                    `
+                  : html``}
+                <sl-range
+                  id="numberOfEpochsRange"
+                  label="Epochs: ${this.numberOfEpochs}"
+                  help-text="Number of iterations over the whole training data set"
+                  min="1"
+                  max="10"
+                  step="1"
+                  value="${this.numberOfEpochs}"
+                  @sl-change="${(_e: SlChangeEvent) =>
+                    this._handleChangeNumberOfEpochs()}"
+                ></sl-range>
+                <div class="button-group">
+                  <sl-button
+                    variant="primary"
+                    size="large"
+                    @click="${(_e: MouseEvent) =>
+                      this._handleTrain(this.numberOfEpochs)}"
+                  >
+                    <sl-icon name="play" label="Run"></sl-icon>
+                    ${this.numberOfEpochs == 1
+                      ? html`Train for 1 epoch`
+                      : html` Train for ${this.numberOfEpochs} epochs`}
+                  </sl-button>
+                </div>`
             : html``}
           ${this.modelConf.isTraining
             ? html`
                 <sl-progress-bar
                   value="${(this.modelConf.actEpoch /
-                    parseInt(this.trainOptions.epochs)) *
+                    this.modelConf.totalEpochs) *
                   100}"
                 ></sl-progress-bar>
                 <p>
-                  Epoch ${this.modelConf.actEpoch}/${this.trainOptions.epochs} •
-                  Batch
+                  Epoch ${this.modelConf.actEpoch} • Batch
                   ${this.modelConf.actBatch}/${Math.ceil(
                     this.dataSet.data.length /
                       parseInt(this.trainOptions.batchSize)
                   )}
                 </p>
-                <sl-button
-                  circle
-                  size="large"
-                  @click="${(_e: MouseEvent) => this._handleStopTraining()}"
-                >
-                  <sl-icon name="stop" label="Stop"></sl-icon>
-                </sl-button>
-              `
-            : html``}
-          ${this.modelConf.model && !this.modelConf.isTraining
-            ? html`
-                <span>Training done</span>
-                <div class="button-group">
-                  <sl-tooltip
-                    content="Resets the model, so you can edit the network and settings again and are able to start a new training"
-                  >
-                    <sl-button
-                      @click="${(_e: MouseEvent) => this._handleReset()}"
-                    >
-                      <sl-icon
-                        name="arrow-counterclockwise"
-                        label="Reset"
-                      ></sl-icon>
-                      Reset
-                    </sl-button>
-                  </sl-tooltip>
-                </div>
               `
             : html``}
         </div>

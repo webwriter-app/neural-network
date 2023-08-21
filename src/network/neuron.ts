@@ -15,6 +15,8 @@ import type { CCanvas } from '@/components/canvas'
 import { CLayer } from '@/network/c_layer'
 import { Position } from '@/types/position'
 
+import { formatWeight } from '@/utils/formatWeight'
+
 @customElement('c-neuron')
 export class Neuron extends LitElement {
   @consume({ context: canvasContext, subscribe: true })
@@ -139,22 +141,6 @@ export class Neuron extends LitElement {
         wrapped = true
       }
 
-      // display all bias values in the same format
-      let biasLabel: string
-      if (!this.bias) {
-        biasLabel = ''
-      } else if (!isFinite(this.bias)) {
-        biasLabel = this.bias.toString()
-      } else {
-        biasLabel = (this.bias < 0 ? '' : '+') + this.bias
-        if (biasLabel.indexOf('.') != -1) {
-          while (biasLabel.length > 7 && biasLabel.slice(-1) != '.') {
-            biasLabel = biasLabel.slice(0, -1)
-          }
-          biasLabel = biasLabel.padEnd(7, '0')
-        }
-      }
-
       /// add the neuron to the canvas
       this.canvas.cy.add({
         group: 'nodes',
@@ -165,7 +151,7 @@ export class Neuron extends LitElement {
           type: 'neuron',
           layer: this.layer.conf.layerId,
           neuron: this.neuronId,
-          label: biasLabel,
+          label: formatWeight(this.bias),
           wrapped: `${String(wrapped)}`,
         },
         position: this.pos,

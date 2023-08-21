@@ -12,9 +12,9 @@ export class CoreModelFeaturesUnavailableCard extends LitElement {
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
 
-  _handleReset(): void {
+  _handleDiscardModel(): void {
     this.dispatchEvent(
-      new Event('reset-model', {
+      new Event('discard-model', {
         bubbles: true,
         composed: true,
       })
@@ -23,8 +23,6 @@ export class CoreModelFeaturesUnavailableCard extends LitElement {
 
   static styles: CSSResult[] = globalStyles
 
-  getContent(): TemplateResult<1> {}
-
   render(): TemplateResult<1> {
     return html`
       ${this.modelConf.model
@@ -32,25 +30,27 @@ export class CoreModelFeaturesUnavailableCard extends LitElement {
             <div slot="title">Important info</div>
             <div slot="content">
               <p>
-                You are currently in read-only mode with all network and data
-                set realted editing options disabled. This is because you
-                decided to train a model with the current configuration. If you
-                want to make changes, you need to reset the model first. If you
-                reset your model, you can again perform any changes and train a
-                new model.
+                You decided to train a model with the current configuration. As
+                an effect, all options to edit the configuration have been
+                temporarily removed or disabled to make sure the configuration
+                you see is the same configuration the model uses. If you want to
+                make changes to your configuration, you need to discard the
+                current model first. If you discard your model, you can again
+                perform any changes and train a new model based on the new
+                configuration.
               </p>
               <div class="button-group">
                 <sl-tooltip
-                  content="Resets the model, so you can edit the network and settings again and are able to start a new training"
+                  content="Discards the model, which gains you back your editing capabilities"
                 >
                   <sl-button
-                    @click="${(_e: MouseEvent) => this._handleReset()}"
+                    @click="${(_e: MouseEvent) => this._handleDiscardModel()}"
                   >
                     <sl-icon
                       name="arrow-counterclockwise"
-                      label="Reset"
+                      label="Discard"
                     ></sl-icon>
-                    Reset
+                    Discard model
                   </sl-button>
                 </sl-tooltip>
               </div>

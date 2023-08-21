@@ -6,20 +6,26 @@ import { spawnAlert } from '@/utils/alerts'
 
 export interface ModelConf {
   model: tf.LayersModel
+  loss: string
+  metrics: string[]
   isTraining: boolean
+  totalEpochs: number
   actEpoch: number
   actBatch: number
-  stopRequested: boolean
+  history: tf.Logs[]
   predictedValue: number
 }
 export const modelConfContext = createContext<ModelConf>('model-conf')
 
 export const defaultModelConf: ModelConf = {
   model: null,
+  loss: null,
+  metrics: [],
   isTraining: false,
-  actBatch: 0,
+  totalEpochs: 0,
   actEpoch: 0,
-  stopRequested: false,
+  actBatch: 0,
+  history: [],
   predictedValue: null,
 }
 
@@ -27,8 +33,10 @@ export function setTrainMetricsContainer(container: HTMLDivElement) {
   ;(<WwDeepLearning>this).trainMetricsContainer = container
 }
 
-export function resetModel(): void {
-  ;(<WwDeepLearning>this).modelConf = { ...defaultModelConf }
+export function discardModel(): void {
+  ;(<WwDeepLearning>this).modelConf = <ModelConf>(
+    JSON.parse(JSON.stringify(defaultModelConf))
+  )
   // empty the container for the metrics. if we did not do this, it would
   // also show the metrics from the previous training
   if ((<WwDeepLearning>this).trainMetricsContainer) {
@@ -37,34 +45,32 @@ export function resetModel(): void {
 
   // remove model references (like tensor and weights) in the network
   if ((<WwDeepLearning>this).network) {
-    ;(<WwDeepLearning>this).network.handleResetModel()
+    ;(<WwDeepLearning>this).network.handlediscardModel()
   }
 }
 
 export function buildModel(): void {
-  ;(<WwDeepLearning>this).resetModel()
+  ;(<WwDeepLearning>this).discardModel()
   const model = (<WwDeepLearning>this).network.buildModel()
   if (model && (<WwDeepLearning>this).dataSet) {
-    const metrics: string[] = []
-    let loss: string
     if ((<WwDeepLearning>this).dataSet.type == 'regression') {
-      loss = 'meanSquaredError'
+      ;(<WwDeepLearning>this).modelConf.loss = 'meanSquaredError'
     } else if ((<WwDeepLearning>this).dataSet.type == 'classification') {
-      loss = 'categoricalCrossentropy'
-      metrics.push('acc')
+      ;(<WwDeepLearning>this).modelConf.loss = 'categoricalCrossentropy'
+      ;(<WwDeepLearning>this).modelConf.metrics.push('acc')
     } else {
       return
     }
+    ;(<WwDeepLearning>this).modelConf = { ...(<WwDeepLearning>this).modelConf }
     const optimizer = tf.train.sgd(
       parseFloat((<WwDeepLearning>this).trainOptions.learningRate)
     )
     model.compile({
       optimizer,
-      loss,
-      metrics,
+      loss: (<WwDeepLearning>this).modelConf.loss,
+      metrics: (<WwDeepLearning>this).modelConf.metrics,
     })
     ;(<WwDeepLearning>this).modelConf.model = model
-    console.log(model.summary())
     spawnAlert({
       message: `The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!`,
       variant: 'success',
@@ -74,7 +80,7 @@ export function buildModel(): void {
   }
 }
 
-export function trainModel(): void {
+export function trainModel(epochs: number): void {
   // first build the model if it does not exist (since we allow additional
   // training steps after it has been started, we do not want to rebuild each
   // time)
@@ -84,12 +90,13 @@ export function trainModel(): void {
 
   // now we should have a model and can start training
   if ((<WwDeepLearning>this).modelConf.model) {
-    // set the stop requested variable initially to false (if set to true the
-    // training will stop)
-    ;(<WwDeepLearning>this).modelConf.stopRequested = false
+    // add the number of epochs we want to train to the total epoch count
+    ;(<WwDeepLearning>this).modelConf.totalEpochs += epochs
 
     // set training state
     ;(<WwDeepLearning>this).modelConf.isTraining = true
+
+    // save the changes
     ;(<WwDeepLearning>this).modelConf = { ...(<WwDeepLearning>this).modelConf }
 
     // inputs
@@ -104,9 +111,8 @@ export function trainModel(): void {
       inputs.push(tf.tensor(inputData))
     }
 
-    // metrics and label tensors depend on regression vs classification type
+    // label tensor depends on regression vs classification type
     const labelData: number[] = (<WwDeepLearning>this).getLabelData()
-    const metrics: string[] = ['loss']
     let labels: tf.Tensor
     if ((<WwDeepLearning>this).dataSet.type == 'regression') {
       labels = tf.tensor(labelData)
@@ -114,7 +120,6 @@ export function trainModel(): void {
       (<WwDeepLearning>this).dataSet.type == 'classification' &&
       (<WwDeepLearning>this).dataSet.label.classes
     ) {
-      metrics.push('acc')
       labels = tf.oneHot(
         tf.tensor(labelData, undefined, 'int32'),
         (<WwDeepLearning>this).dataSet.label.classes.length
@@ -126,22 +131,12 @@ export function trainModel(): void {
     // start the training itself
     void (<WwDeepLearning>this).modelConf.model
       .fit(inputs, labels, {
-        epochs: parseInt((<WwDeepLearning>this).trainOptions.epochs),
+        epochs: (<WwDeepLearning>this).modelConf.totalEpochs,
         batchSize: parseInt((<WwDeepLearning>this).trainOptions.batchSize),
+
         callbacks: [
-          tfvis.show.fitCallbacks(
-            (<WwDeepLearning>this).trainMetricsContainer,
-            metrics,
-            {
-              height: 100,
-            }
-          ),
           {
-            onBatchEnd: (batch: number, _logs) => {
-              // after each batch check if a stop was requested
-              if ((<WwDeepLearning>this).modelConf.stopRequested) {
-                ;(<WwDeepLearning>this).modelConf.model.stopTraining = true
-              }
+            onBatchEnd: (batch: number, _logs: tf.Logs) => {
               // update the act batch var (for displaying purposes)
               ;(<WwDeepLearning>this).modelConf.actBatch = batch + 1
               // update the weights to be displayed in the neurons
@@ -153,14 +148,33 @@ export function trainModel(): void {
                 ...(<WwDeepLearning>this).modelConf,
               }
             },
-            onEpochEnd: (epoch: number, _logs) => {
+            onEpochEnd: (epoch: number, logs: tf.Logs) => {
               ;(<WwDeepLearning>this).modelConf.actEpoch = epoch + 1
+              ;(<WwDeepLearning>this).modelConf.history.push(logs)
               ;(<WwDeepLearning>this).modelConf = {
                 ...(<WwDeepLearning>this).modelConf,
               }
+              console.log((<WwDeepLearning>this).modelConf.history)
+              tfvis.show
+                .history(
+                  (<WwDeepLearning>this).trainMetricsContainer,
+                  (<WwDeepLearning>this).modelConf.history,
+                  ['loss', ...(<WwDeepLearning>this).modelConf.metrics],
+                  {
+                    height: 100,
+                    xLabel: 'Epoch',
+                  }
+                )
+                .then(() => {
+                  ;(<WwDeepLearning>this).modelConf = {
+                    ...(<WwDeepLearning>this).modelConf,
+                  }
+                })
+                .catch((err) => console.error(err))
             },
           },
         ],
+        initialEpoch: (<WwDeepLearning>this).modelConf.actEpoch,
       })
       .then((info) => {
         console.log(info)
@@ -169,18 +183,12 @@ export function trainModel(): void {
         console.error(err)
       })
       .finally(() => {
-        setTimeout(() => {
-          ;(<WwDeepLearning>this).modelConf.isTraining = false
-          ;(<WwDeepLearning>this).modelConf = {
-            ...(<WwDeepLearning>this).modelConf,
-          }
-        }, 500)
+        ;(<WwDeepLearning>this).modelConf.isTraining = false
+        ;(<WwDeepLearning>this).modelConf = {
+          ...(<WwDeepLearning>this).modelConf,
+        }
       })
   }
-}
-
-export function stopTraining(): void {
-  ;(<WwDeepLearning>this).modelConf.stopRequested = true
 }
 
 export function predictModel(inputObject: Record<string, number>): void {

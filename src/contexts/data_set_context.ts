@@ -6,5 +6,5 @@ export const dataSetContext = createContext<DataSet>('data-set')
 
 export function selectDataSet(dataSet: DataSet) {
   ;(<WwDeepLearning>this).dataSet = dataSet
-  ;(<WwDeepLearning>this).resetModel()
+  ;(<WwDeepLearning>this).discardModel()
 }

@@ -236,7 +236,7 @@ export class Network extends LitElement {
 
   // MODEL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // -> RESET  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  handleResetModel() {
+  handlediscardModel() {
     // reset the tensors of all layer
     this.tensorConfs = new Map()
     this.dispatchEvent(

@@ -6,6 +6,8 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
+import { editableContext } from '@/contexts/editable_context'
+import { settingsContext, Settings } from '@/contexts/settings_context'
 import { networkContext } from '@/contexts/network_context'
 import {
   SelectedEle,
@@ -21,6 +23,12 @@ import '@/components/cards/plots_card'
 
 @customElement('neuron-panel')
 export class NeuronPanel extends LitElement {
+  @consume({ context: editableContext, subscribe: true })
+  editable: boolean
+
+  @consume({ context: settingsContext, subscribe: true })
+  settings: Settings
+
   @consume({ context: networkContext, subscribe: true })
   network: Network
 
@@ -35,7 +43,9 @@ export class NeuronPanel extends LitElement {
       return html`
         <c-panel name="neuron">
           <neuron-info-card .neuron=${neuron}></neuron-info-card>
-          ${neuron.layer instanceof InputLayer && neuron.label
+          ${(this.editable || this.settings.showPlots) &&
+          neuron.layer instanceof InputLayer &&
+          neuron.label
             ? html` <plots-card .inputKey=${neuron.label}></plots-card> `
             : html``}
         </c-panel>

@@ -62,7 +62,11 @@ export class DataSetPanel extends LitElement {
               ></data-set-info-card>
             `
           : ``}
-        <plots-card .inputKey="${this.selectedInputKey}"></plots-card>
+        ${this.editable || this.settings.showPlots
+          ? html`
+              <plots-card .inputKey="${this.selectedInputKey}"></plots-card>
+            `
+          : html``}
       </c-panel>
     `
   }

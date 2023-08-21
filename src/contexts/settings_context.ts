@@ -19,6 +19,7 @@ export interface Settings {
   // data set
   maySelectDataSet: boolean
   mayManageDataSets: boolean
+  showPlots: boolean
 
   // training
   mayEditHyperparameters: boolean
@@ -41,6 +42,7 @@ export const defaultSettings: Settings = {
   mayChangeLayerConnections: true,
   maySelectDataSet: true,
   mayManageDataSets: true,
+  showPlots: true,
   mayEditHyperparameters: true,
   mayEditBatchSize: true,
   mayEditLearningRate: true,

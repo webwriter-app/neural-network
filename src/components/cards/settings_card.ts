@@ -18,7 +18,7 @@ export class SettingsCard extends LitElement {
   resetSettings() {
     this.dispatchEvent(
       new CustomEvent<Settings>('set-settings', {
-        detail: defaultSettings,
+        detail: <Settings>JSON.parse(JSON.stringify(defaultSettings)),
         composed: true,
         bubbles: true,
       })
@@ -108,6 +108,7 @@ export class SettingsCard extends LitElement {
             >
             </c-setting>
           </c-setting>
+          <c-setting name="showPlots" description="Show plots"></c-setting>
           <h2>Training</h2>
           <c-setting
             name="mayEditHyperparameters"

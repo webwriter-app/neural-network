@@ -5,7 +5,7 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { DataSet } from '@/data_set/data_set'
+import { DataSet, getData } from '@/data_set/data_set'
 import { DataSetInput } from '@/types/data_set_input'
 import { dataSetContext } from '@/contexts/data_set_context'
 
@@ -13,6 +13,8 @@ import { dataSetContext } from '@/contexts/data_set_context'
 export class DataSetInfoCard extends LitElement {
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
+
+  getData = getData
 
   _handleSelectDataProperty(input: DataSetInput): void {
     this.dispatchEvent(
@@ -62,6 +64,17 @@ export class DataSetInfoCard extends LitElement {
               ></c-data-info>
             </div>
           </div>
+          <sl-details summary="View raw data">
+            <div style="max-height: 200px; overflow-y: auto;">
+              ${this.getData().map(
+                (dataItem) =>
+                  html`<p>
+                    ${dataItem.inputs.map((input) => html`${input} `)} →
+                    ${dataItem.label}
+                  </p>`
+              )}
+            </div>
+          </sl-details>
         </div>
       </c-card>
     `

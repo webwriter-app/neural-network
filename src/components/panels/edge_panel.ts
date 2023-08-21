@@ -16,6 +16,7 @@ import type { Network } from '@/network/network'
 import { CEdge } from '@/network/c_edge'
 
 import '@/components/cards/edge_info_card'
+import '@/components/cards/edge_weight_card'
 
 @customElement('edge-panel')
 export class EdgePanel extends LitElement {
@@ -34,6 +35,9 @@ export class EdgePanel extends LitElement {
         <c-panel name="edge">
           <edge-info-card .source=${edge.source} .target=${edge.target}>
           </edge-info-card>
+          ${edge.weight
+            ? html`<edge-weight-card .weight=${edge.weight}></edge-weight-card>`
+            : html``}
         </c-panel>
       `
     }
