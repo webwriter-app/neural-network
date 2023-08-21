@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -10,7 +10,7 @@ import { DataSetInput } from '@/types/data_set_input'
 import { DataSetLabel } from '@/types/data_set_label'
 
 @customElement('c-data-info')
-export class CDataInfo extends LitElement {
+export class CDataInfo extends LitElementWw {
   @property()
   type: 'feature' | 'label'
 

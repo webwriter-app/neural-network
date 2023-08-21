@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
 
@@ -11,7 +11,7 @@ import { DenseLayer } from '@/network/dense_layer'
 import { SlSelect } from '@shoelace-style/shoelace'
 
 @customElement('layer-neurons-card')
-export class LayerNeuronsCard extends LitElement {
+export class LayerNeuronsCard extends LitElementWw {
   @property()
   layer: DenseLayer
 

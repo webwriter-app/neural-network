@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -13,7 +13,7 @@ import { CLayer } from '@/network/c_layer'
 import { Neuron } from '@/network/neuron'
 
 @customElement('c-network-link')
-export class CNetworkLink extends LitElement {
+export class CNetworkLink extends LitElementWw {
   @property({ type: Boolean })
   disabled: boolean
 

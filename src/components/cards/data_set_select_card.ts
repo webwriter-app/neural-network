@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, nothing } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -18,7 +18,7 @@ import '@/components/dialogs/manage_data_sets_dialog'
 import '@/components/dialogs/create_data_set_dialog'
 
 @customElement('data-set-select-card')
-export class DataSetSelectCard extends LitElement {
+export class DataSetSelectCard extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
   editable: boolean
 

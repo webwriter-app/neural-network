@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -10,7 +10,7 @@ import { DataSetInput } from '@/types/data_set_input'
 import { dataSetContext } from '@/contexts/data_set_context'
 
 @customElement('data-set-info-card')
-export class DataSetInfoCard extends LitElement {
+export class DataSetInfoCard extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 

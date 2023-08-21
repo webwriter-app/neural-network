@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -17,7 +17,7 @@ import { OutputLayer } from '@/network/output_layer'
 import { spawnAlert } from '@/utils/alerts'
 
 @customElement('layer-actions-card')
-export class LayerActionsCard extends LitElement {
+export class LayerActionsCard extends LitElementWw {
   @property()
   layer: CLayer
 

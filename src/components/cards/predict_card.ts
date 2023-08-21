@@ -1,10 +1,11 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
+import { choose } from 'lit/directives/choose.js'
+import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { consume } from '@lit-labs/context'
 import { networkContext } from '@/contexts/network_context'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
@@ -15,8 +16,10 @@ import { DataSetInput } from '@/types/data_set_input'
 import { DataSet, getDataSetInputsByKeys } from '@/data_set/data_set'
 import { Network } from '@/network/network'
 
+import { formatWeight } from '@/utils/formatWeight'
+
 @customElement('predict-card')
-export class PredictCard extends LitElement {
+export class PredictCard extends LitElementWw {
   @consume({ context: networkContext, subscribe: true })
   network: Network
 
@@ -124,7 +127,36 @@ export class PredictCard extends LitElement {
                     .dataProperty="${this.dataSet.label}"
                     .dataSet="${this.dataSet}"
                   ></c-data-info>
-                  ${Math.round(this.modelConf.predictedValue * 100000) / 100000}
+                  ${choose(
+                    this.dataSet.type,
+                    [
+                      [
+                        'classification',
+                        () => {
+                          const index = (<number[]>(
+                            this.modelConf.predictedValue
+                          )).indexOf(
+                            Math.max(
+                              ...(<number[]>this.modelConf.predictedValue)
+                            )
+                          )
+                          return html`${this.dataSet.label.classes[index].key}
+                          with a probability of
+                          ${formatWeight(
+                            (<number[]>this.modelConf.predictedValue)[index]
+                          )} `
+                        },
+                      ],
+                      [
+                        'regression',
+                        () =>
+                          html`${formatWeight(
+                            <number>this.modelConf.predictedValue
+                          )}`,
+                      ],
+                    ],
+                    () => html`<h1>Error</h1>`
+                  )}
                 </span>
                 <sl-button
                   @click="${(_e: MouseEvent) => this.prepareNewPrediction()}"

@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -13,7 +13,7 @@ import type { DataSet } from '@/data_set/data_set'
 import { InputLayer } from '@/network/input_layer'
 
 @customElement('layer-incoming-data-card')
-export class LayerIncomingDataCard extends LitElement {
+export class LayerIncomingDataCard extends LitElementWw {
   @property()
   layer: InputLayer
 

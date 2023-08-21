@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -14,7 +14,7 @@ import '@/components/cards/training_metrics_card'
 import '@/components/cards/training_hyperparameters_card.js'
 
 @customElement('train-panel')
-export class TrainPanel extends LitElement {
+export class TrainPanel extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
   editable: boolean
 

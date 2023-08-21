@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html, nothing } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -14,7 +14,7 @@ import { spawnAlert } from '@/utils/alerts'
 import type { DataSet } from '@/data_set/data_set'
 
 @customElement('create-data-set-dialog')
-export class CreateDataSetDialog extends LitElement {
+export class CreateDataSetDialog extends LitElementWw {
   // CONSUME - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @consume({ context: availableDataSetsContext, subscribe: true })
   availableDataSets: DataSet[]
@@ -355,9 +355,9 @@ export class CreateDataSetDialog extends LitElement {
                           value=${input.key}
                           label="Key"
                           placeholder="DIS"
-                          help-text="1-4 capital letters"
+                          help-text="1-6 capital letters"
                           ?required=${this.step == 3}
-                          maxlength=${this.step == 3 ? 4 : nothing}
+                          maxlength=${this.step == 3 ? 6 : nothing}
                           pattern=${this.step == 3 ? '[A-Z]+' : nothing}
                           @sl-change=${(e: SlChangeEvent) => {
                             this.config.inputs[index].key = (<HTMLInputElement>(
@@ -405,9 +405,9 @@ export class CreateDataSetDialog extends LitElement {
                 value=${this.config.label.key}
                 label="Key"
                 placeholder="MEDV"
-                help-text="1-4 capital letters"
+                help-text="1-6 capital letters"
                 ?required=${this.step == 4}
-                maxlength=${this.step == 4 ? 4 : nothing}
+                maxlength=${this.step == 4 ? 6 : nothing}
                 pattern=${this.step == 4 ? '[A-Z]+' : nothing}
                 @sl-change=${(e: SlChangeEvent) => {
                   this.config.label.key = (<HTMLInputElement>e.target).value
@@ -442,9 +442,9 @@ export class CreateDataSetDialog extends LitElement {
                                 value=${clazz.key}
                                 label="Key"
                                 placeholder="HRS"
-                                help-text="1-4 capital letters"
+                                help-text="1-6 capital letters"
                                 ?required=${this.step == 4}
-                                maxlength=${this.step == 4 ? 4 : nothing}
+                                maxlength=${this.step == 4 ? 6 : nothing}
                                 pattern=${this.step == 4 ? '[A-Z]+' : nothing}
                                 @sl-change=${(e: SlChangeEvent) => {
                                   this.config.label.classes[index].key = (<

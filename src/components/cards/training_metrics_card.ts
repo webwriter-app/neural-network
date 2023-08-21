@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import { choose } from 'lit/directives/choose.js'
@@ -12,7 +12,7 @@ import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 import { DataSet } from '@/data_set/data_set'
 
 @customElement('training-metrics-card')
-export class TrainingMetricsCard extends LitElement {
+export class TrainingMetricsCard extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 

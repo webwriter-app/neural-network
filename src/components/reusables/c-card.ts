@@ -1,11 +1,11 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
 @customElement('c-card')
-export class CCard extends LitElement {
+export class CCard extends LitElementWw {
   /* STYLES */
   static styles: CSSResult[] = [
     ...globalStyles,

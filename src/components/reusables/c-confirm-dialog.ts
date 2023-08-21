@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -6,7 +6,7 @@ import { globalStyles } from '@/global_styles'
 
 /* UNDER CONSTRUCTION !!! */
 @customElement('c-confirm-dialog')
-export class CConfirmDialog extends LitElement {
+export class CConfirmDialog extends LitElementWw {
   @property({ type: String }) label: string
 
   /* STYLES */

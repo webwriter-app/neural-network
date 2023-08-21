@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -8,7 +8,7 @@ import { globalStyles } from '@/global_styles'
 import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 
 @customElement('core-model-features-unavailable-card')
-export class CoreModelFeaturesUnavailableCard extends LitElement {
+export class CoreModelFeaturesUnavailableCard extends LitElementWw {
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
 

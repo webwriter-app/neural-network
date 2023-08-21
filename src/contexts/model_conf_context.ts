@@ -13,7 +13,7 @@ export interface ModelConf {
   actEpoch: number
   actBatch: number
   history: tf.Logs[]
-  predictedValue: number
+  predictedValue: number | number[] // regression | classification
 }
 export const modelConfContext = createContext<ModelConf>('model-conf')
 
@@ -213,6 +213,7 @@ export function predictModel(inputObject: Record<string, number>): void {
   console.log(predictedArray)
   ;(<WwDeepLearning>this).modelConf.predictedValue = predictedArray[0]
   ;(<WwDeepLearning>this).modelConf = { ...(<WwDeepLearning>this).modelConf }
+  console.log((<WwDeepLearning>this).modelConf.predictedValue)
 }
 
 export function deletePrediction(): void {

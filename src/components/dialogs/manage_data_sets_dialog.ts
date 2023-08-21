@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -13,7 +13,7 @@ import { availableDataSetsContext } from '@/contexts/available_data_sets_context
 import type { DataSet } from '@/data_set/data_set'
 
 @customElement('manage-data-sets-dialog')
-export class ManageDataSetsDialog extends LitElement {
+export class ManageDataSetsDialog extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 

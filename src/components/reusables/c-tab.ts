@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -8,7 +8,7 @@ import { consume } from '@lit-labs/context'
 import { panelContext } from '@/contexts/panels_context'
 
 @customElement('c-tab')
-export class CTab extends LitElement {
+export class CTab extends LitElementWw {
   @property({ type: String })
   name: string
 

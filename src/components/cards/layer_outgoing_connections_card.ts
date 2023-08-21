@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
 
@@ -17,7 +17,7 @@ import { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
 import { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
 
 @customElement('layer-outgoing-connections-card')
-export class LayerOutgoingConnectionsCard extends LitElement {
+export class LayerOutgoingConnectionsCard extends LitElementWw {
   @property()
   layer: CLayer
 

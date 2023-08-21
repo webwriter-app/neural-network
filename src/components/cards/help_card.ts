@@ -1,4 +1,4 @@
-import { LitElement } from 'lit'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
@@ -11,7 +11,7 @@ import { HelpEntry, helpContext } from '@/contexts/help_context'
 import { SlInput, SlTextarea } from '@shoelace-style/shoelace'
 
 @customElement('help-card')
-export class HelpCard extends LitElement {
+export class HelpCard extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
   editable: boolean
 
