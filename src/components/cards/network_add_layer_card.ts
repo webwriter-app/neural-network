@@ -80,13 +80,6 @@ export class NetworkAddLayerCard extends LitElement {
                   Output
                 </sl-tag>`
               : html``}
-            <div
-              style="background-color: green;"
-              draggable="true"
-              @dragstart="${(e: DragEvent) => console.log(e)}"
-            >
-              Test
-            </div>
           </div>
         </div>
       </c-card>
