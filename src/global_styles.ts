@@ -71,6 +71,7 @@ export const globalStyles: CSSResult[] = [
       width: 100%;
       display: flex;
       justify-content: flex-start;
+      align-items: center;
       gap: 10px;
       flex-wrap: wrap;
     }

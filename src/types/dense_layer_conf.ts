@@ -1,4 +1,4 @@
-import { CLayerConf } from '@/network/c_layer_conf'
+import type { CLayerConf } from '@/types/c_layer_conf'
 
 export interface DenseLayerConf extends CLayerConf {
   HTML_TAG: 'dense-layer'

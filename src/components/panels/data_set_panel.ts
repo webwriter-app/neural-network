@@ -7,10 +7,9 @@ import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
 import { settingsContext, Settings } from '@/contexts/settings_context'
+import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
-
-import { DataSet } from '@/data_set/data_set'
 
 import '@/components/cards/core_model_features_unavailable_card'
 import '@/components/cards/data_set_info_card'

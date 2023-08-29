@@ -6,10 +6,10 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
+import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
-import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
-
-import { DataSet } from '@/data_set/data_set'
+import type { ModelConf } from '@/types/model_conf'
+import { modelConfContext } from '@/contexts/model_conf_context'
 
 @customElement('training-metrics-card')
 export class TrainingMetricsCard extends LitElementWw {
@@ -22,6 +22,7 @@ export class TrainingMetricsCard extends LitElementWw {
   @query('#trainMetricsContainer')
   _trainMetricsContainer: HTMLDivElement
 
+  // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   firstUpdated(): void {
     const event = new CustomEvent<HTMLDivElement>(
       'set-train-metrics-container',
@@ -34,8 +35,10 @@ export class TrainingMetricsCard extends LitElementWw {
     this.dispatchEvent(event)
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>

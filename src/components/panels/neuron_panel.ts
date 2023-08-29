@@ -7,16 +7,17 @@ import { consume } from '@lit-labs/context'
 import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
 import { networkContext } from '@/contexts/network_context'
 import {
   SelectedEle,
   selectedEleContext,
 } from '@/contexts/selected_ele_context'
 
-import type { Network } from '@/network/network'
-import { InputLayer } from '@/network/input_layer'
-import { Neuron } from '@/network/neuron'
+import type { Network } from '@/components/network/network'
+import { InputLayer } from '@/components/network/input_layer'
+import { Neuron } from '@/components/network/neuron'
 
 import '@/components/cards/neuron_info_card'
 import '@/components/cards/plots_card'

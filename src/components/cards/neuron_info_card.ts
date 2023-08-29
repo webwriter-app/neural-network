@@ -1,16 +1,16 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-
 import { consume } from '@lit-labs/context'
-import { dataSetContext } from '@/contexts/data_set_context'
-import { DataSet, getDataSetInputByKey } from '@/data_set/data_set'
 
 import { globalStyles } from '@/global_styles'
 
-import { Neuron } from '@/network/neuron'
-import { OutputLayer } from '@/network/output_layer'
-import { InputLayer } from '@/network/input_layer'
+import type { DataSet } from '@/types/data_set'
+import { dataSetContext } from '@/contexts/data_set_context'
+import { DataSetUtils } from '@/utils/data_set_utils'
+import type { Neuron } from '@/components/network/neuron'
+import { OutputLayer } from '@/components/network/output_layer'
+import { InputLayer } from '@/components/network/input_layer'
 
 @customElement('neuron-info-card')
 export class NeuronInfoCard extends LitElementWw {
@@ -19,15 +19,19 @@ export class NeuronInfoCard extends LitElementWw {
 
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
-  getDataSetInputByKey = getDataSetInputByKey
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     let type, dataProperty
     if (this.neuron.layer instanceof InputLayer) {
       type = 'feature'
-      dataProperty = this.getDataSetInputByKey(this.neuron.label)
+      dataProperty = DataSetUtils.getDataSetInputByKey(
+        this.dataSet,
+        this.neuron.label
+      )
     } else if (this.neuron.layer instanceof OutputLayer) {
       type = 'label'
       dataProperty = this.dataSet.label

@@ -5,12 +5,11 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { SlDialog } from '@shoelace-style/shoelace'
-
+import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
 
-import type { DataSet } from '@/data_set/data_set'
+import type { SlDialog } from '@shoelace-style/shoelace'
 
 @customElement('manage-data-sets-dialog')
 export class ManageDataSetsDialog extends LitElementWw {
@@ -20,7 +19,6 @@ export class ManageDataSetsDialog extends LitElementWw {
   @consume({ context: availableDataSetsContext, subscribe: true })
   availableDataSets: DataSet[]
 
-  // QUERY - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @query('sl-dialog')
   _dialog: SlDialog
 

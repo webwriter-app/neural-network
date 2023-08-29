@@ -5,10 +5,9 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
+import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
-import type { DataSet } from '@/data_set/data_set'
-
-import { OutputLayer } from '@/network/output_layer'
+import type { OutputLayer } from '@/components/network/output_layer'
 
 @customElement('layer-outgoing-data-card')
 export class LayerOutgoingDataCard extends LitElementWw {
@@ -18,8 +17,10 @@ export class LayerOutgoingDataCard extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>

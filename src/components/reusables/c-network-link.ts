@@ -9,8 +9,8 @@ import { canvasContext } from '@/contexts/canvas_context'
 
 import type { CCanvas } from '@/components/canvas'
 
-import { CLayer } from '@/network/c_layer'
-import { Neuron } from '@/network/neuron'
+import { CLayer } from '@/components/network/c_layer'
+import { Neuron } from '@/components/network/neuron'
 
 @customElement('c-network-link')
 export class CNetworkLink extends LitElementWw {

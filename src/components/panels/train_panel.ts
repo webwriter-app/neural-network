@@ -29,13 +29,13 @@ export class TrainPanel extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-panel name="train">
-        ${this.modelConf.model && (this.editable || this.settings.mayImport)
-          ? html`<core-model-features-unavailable-card></core-model-features-unavailable-card>`
-          : html``}
         <training-train-card></training-train-card>
         <training-metrics-card
           class="${!this.modelConf.model ? 'hidden' : ''}"
         ></training-metrics-card>
+        ${this.modelConf.model && (this.editable || this.settings.mayImport)
+          ? html`<core-model-features-unavailable-card></core-model-features-unavailable-card>`
+          : html``}
         <training-hyperparameters-card></training-hyperparameters-card>
       </c-panel>
     `

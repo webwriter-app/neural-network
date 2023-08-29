@@ -12,8 +12,8 @@ import {
   selectedEleContext,
 } from '@/contexts/selected_ele_context'
 
-import type { Network } from '@/network/network'
-import { CEdge } from '@/network/c_edge'
+import type { Network } from '@/components/network/network'
+import type { CEdge } from '@/components/network/c_edge'
 
 import '@/components/cards/edge_info_card'
 import '@/components/cards/edge_weight_card'

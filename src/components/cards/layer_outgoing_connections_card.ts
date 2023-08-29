@@ -1,18 +1,17 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
-
 import { consume } from '@lit-labs/context'
-import { layerConfsContext } from '@/contexts/layer_confs_context'
-import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
-import { networkContext } from '@/contexts/network_context'
 
 import { globalStyles } from '@/global_styles'
 
-import { Network } from '@/network/network'
-import { CLayerConf } from '@/network/c_layer_conf'
-import { CLayer } from '@/network/c_layer'
-import { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
+import type { CLayerConf } from '@/types/c_layer_conf'
+import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
+import type { Network } from '@/components/network/network'
+import type { CLayer } from '@/components/network/c_layer'
+import { networkContext } from '@/contexts/network_context'
+import { layerConfsContext } from '@/contexts/layer_confs_context'
+import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 
 import { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
 
@@ -34,7 +33,7 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
   _connectionSelect: SlSelect
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  _handleChangeConnections(): void {
+  handleChangeConnections(): void {
     // current layer ids of the outgoing connections
     const currentLayerIds: number[] = this.layerConnectionConfs
       .filter((conConf) => {
@@ -96,7 +95,7 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
     }
   }
 
-  _getConnectionOptions(): TemplateResult<1>[] {
+  getConnectionOptions(): TemplateResult<1>[] {
     const options = this.layerConfs
       .filter(
         (layerConf) =>
@@ -132,9 +131,9 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
             clearable
             help-text="Select the layers this layer connects to"
             @sl-change="${(_e: SlChangeEvent) =>
-              this._handleChangeConnections()}"
+              this.handleChangeConnections()}"
           >
-            ${this._getConnectionOptions()}
+            ${this.getConnectionOptions()}
           </sl-select>
         </div>
       </c-card>

@@ -16,13 +16,7 @@
     <ww-deeplearning></ww-deeplearning>
     <form
       autocomplete="off"
-      style="
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        padding: 10px;
-        background: rgba(255, 255, 255, 0.75);
-      "
+      style="position: fixed; top: 0; left: 0; padding: 10px"
     >
       <input
         type="checkbox"
@@ -30,12 +24,6 @@
         onchange="document.querySelector('ww-deeplearning').toggleAttribute('editable')"
       />
       <label for="editableInput">editable</label>
-      <input
-        type="checkbox"
-        id="printableInput"
-        onchange="document.querySelector('ww-deeplearning').toggleAttribute('printable')"
-      />
-      <label for="printableInput">printable</label>
     </form>
   </body>
 </html>

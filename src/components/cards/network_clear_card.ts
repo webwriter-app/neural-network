@@ -6,14 +6,17 @@ import { globalStyles } from '@/global_styles'
 
 @customElement('network-clear-card')
 export class NetworkClearCard extends LitElementWw {
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleClear() {
     this.dispatchEvent(
       new CustomEvent('clear-network', { bubbles: true, composed: true })
     )
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>

@@ -3,14 +3,13 @@ import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
-import { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
-
 import { globalStyles } from '@/global_styles'
 
+import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
-import type { DataSet } from '@/data_set/data_set'
+import type { InputLayer } from '@/components/network/input_layer'
 
-import { InputLayer } from '@/network/input_layer'
+import type { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
 
 @customElement('layer-incoming-data-card')
 export class LayerIncomingDataCard extends LitElementWw {
@@ -23,7 +22,8 @@ export class LayerIncomingDataCard extends LitElementWw {
   @query('#inputDataSelect')
   _inputDataSelect: SlSelect
 
-  _handleChangeInputData(): void {
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  handleChangeInputData(): void {
     const inputKeys: string[] = <string[]>this._inputDataSelect.value
     this.layer.conf.dataSetKeys = inputKeys
     this.dispatchEvent(
@@ -44,8 +44,10 @@ export class LayerIncomingDataCard extends LitElementWw {
     )
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>
@@ -58,7 +60,7 @@ export class LayerIncomingDataCard extends LitElementWw {
             max-options-visible="100"
             help-text="Assign input data to this layer"
             @sl-change="${(_e: SlChangeEvent) => {
-              this._handleChangeInputData()
+              this.handleChangeInputData()
             }}"
           >
             ${this.getInputOptions()}

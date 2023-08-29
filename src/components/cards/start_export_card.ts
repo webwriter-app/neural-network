@@ -5,31 +5,30 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { Settings, settingsContext } from '@/contexts/settings_context'
-import { HelpEntry, helpContext } from '@/contexts/help_context'
-import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+import type { QAndAEntry } from '@/types/q_and_a_entry'
+import { qAndAContext } from '@/contexts/q_and_a_context'
+import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
+import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
+import type { CLayerConf } from '@/types/c_layer_conf'
+import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
-import {
-  TrainOptions,
-  trainOptionsContext,
-} from '@/contexts/train_options_context'
+import type { TrainOptions } from '@/types/train_options'
+import { trainOptionsContext } from '@/contexts/train_options_context'
 
-import type { DataSet } from '@/data_set/data_set'
-
-import { CLayerConf } from '@/network/c_layer_conf'
-import { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
-import { FileConfigV1 } from '@/types/file_config_v1'
-import { spawnAlert } from '@/utils/alerts'
+import type { FileConfigV1 } from '@/types/file_config_v1'
+import { AlertUtils } from '@/utils/alert_utils'
 
 @customElement('start-export-card')
 export class StartExportCard extends LitElementWw {
   @consume({ context: settingsContext, subscribe: true })
   settings: Settings
 
-  @consume({ context: helpContext, subscribe: true })
-  help: HelpEntry[]
+  @consume({ context: qAndAContext, subscribe: true })
+  qAndA: QAndAEntry[]
 
   @consume({ context: availableDataSetsContext, subscribe: true })
   availableDataSets: DataSet[]
@@ -46,11 +45,12 @@ export class StartExportCard extends LitElementWw {
   @consume({ context: trainOptionsContext, subscribe: true })
   trainOptions: TrainOptions
 
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   async handleExport() {
     const config: FileConfigV1 = {
       version: 1,
       settings: this.settings,
-      help: this.help,
+      qAndA: this.qAndA,
       availableDataSets: this.availableDataSets,
       dataSet: this.dataSet,
       layerConfs: this.layerConfs,
@@ -70,15 +70,17 @@ export class StartExportCard extends LitElementWw {
     const writer = await handle.createWritable()
     await writer.write(configJSON)
     await writer.close()
-    spawnAlert({
+    AlertUtils.spawn({
       message: `The current configuration was successfully exported!`,
       variant: 'success',
       icon: 'check-circle',
     })
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>

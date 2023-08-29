@@ -6,7 +6,8 @@ import { consume } from '@lit-labs/context'
 import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
 import { networkContext } from '@/contexts/network_context'
 import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 import {
@@ -14,11 +15,11 @@ import {
   selectedEleContext,
 } from '@/contexts/selected_ele_context'
 
-import type { Network } from '@/network/network'
-import { CLayer } from '@/network/c_layer'
-import { InputLayer } from '@/network/input_layer'
-import { DenseLayer } from '@/network/dense_layer'
-import { OutputLayer } from '@/network/output_layer'
+import type { Network } from '@/components/network/network'
+import { CLayer } from '@/components/network/c_layer'
+import { InputLayer } from '@/components/network/input_layer'
+import { DenseLayer } from '@/components/network/dense_layer'
+import { OutputLayer } from '@/components/network/output_layer'
 
 import '@/components/cards/core_model_features_unavailable_card'
 import '@/components/cards/layer_info_card'

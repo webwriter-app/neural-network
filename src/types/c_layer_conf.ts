@@ -1,5 +1,5 @@
-import { Activation } from '@/network/activation'
-import { Position } from '@/types/position'
+import type { Activation } from '@/types/activation'
+import type { Position } from '@/types/position'
 
 export interface CLayerConf {
   // html tag
@@ -13,4 +13,7 @@ export interface CLayerConf {
   activation: Activation
   // position
   pos: Position
+  // firstSpawn: if true, the layer spawns an alert about its creation when it
+  // is connected and then sets it to false
+  firstSpawn: boolean
 }

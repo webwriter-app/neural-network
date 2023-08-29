@@ -5,17 +5,15 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { canvasContext } from '@/contexts/canvas_context'
-import { dataSetContext } from '@/contexts/data_set_context'
-import { Selected, selectedContext } from '@/contexts/selected_context'
-import { DataSet } from '@/data_set/data_set'
-
 import type { CCanvas } from '@/components/canvas'
-
-import { CLayer } from '@/network/c_layer'
-import { Position } from '@/types/position'
-
-import { formatWeight } from '@/utils/formatWeight'
+import { canvasContext } from '@/contexts/canvas_context'
+import type { DataSet } from '@/types/data_set'
+import { dataSetContext } from '@/contexts/data_set_context'
+import type { Selected } from '@/types/selected'
+import { selectedContext } from '@/contexts/selected_context'
+import type { CLayer } from '@/components/network/c_layer'
+import type { Position } from '@/types/position'
+import { ModelUtils } from '@/utils/model_utils'
 
 @customElement('c-neuron')
 export class Neuron extends LitElementWw {
@@ -73,6 +71,7 @@ export class Neuron extends LitElementWw {
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // -> INFO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // return the id of the element in the canvas
   getCyId(): string {
     return `${this.layer.getCyId()}n${this.neuronId}`
@@ -82,6 +81,7 @@ export class Neuron extends LitElementWw {
     return `Neuron ${this.neuronId} inside ${this.layer.getName()}`
   }
 
+  // -> CANVAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // remove the neuron from the canvas
   removeFromCanvas(): void {
     // find the neuron in the canvas
@@ -100,6 +100,17 @@ export class Neuron extends LitElementWw {
         neuronWrapperCy.remove()
       }
     }
+  }
+
+  // -> MISC - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  openCorrespondingPanel(): void {
+    this.dispatchEvent(
+      new CustomEvent<string>('open-panel', {
+        detail: 'neuron',
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -151,7 +162,7 @@ export class Neuron extends LitElementWw {
           type: 'neuron',
           layer: this.layer.conf.layerId,
           neuron: this.neuronId,
-          label: formatWeight(this.bias),
+          label: ModelUtils.formatWeight(this.bias),
           wrapped: `${String(wrapped)}`,
         },
         position: this.pos,

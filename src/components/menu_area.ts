@@ -6,14 +6,16 @@ import { consume } from '@lit-labs/context'
 import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
-import { HelpEntry, helpContext } from '@/contexts/help_context'
-import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
-import { Selected, selectedContext } from '@/contexts/selected_context'
-import {
-  SelectedEle,
-  selectedEleContext,
-} from '@/contexts/selected_ele_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+import type { QAndAEntry } from '@/types/q_and_a_entry'
+import { qAndAContext } from '@/contexts/q_and_a_context'
+import type { ModelConf } from '@/types/model_conf'
+import { modelConfContext } from '@/contexts/model_conf_context'
+import type { Selected } from '@/types/selected'
+import type { SelectedEle } from '@/types/selected_ele'
+import { selectedContext } from '@/contexts/selected_context'
+import { selectedEleContext } from '@/contexts/selected_ele_context'
 import { panelContext } from '@/contexts/panels_context'
 
 import '@/components/panels/settings_panel.ts'
@@ -35,8 +37,8 @@ export class MenuArea extends LitElementWw {
   @consume({ context: settingsContext, subscribe: true })
   settings: Settings
 
-  @consume({ context: helpContext, subscribe: true })
-  help: HelpEntry[]
+  @consume({ context: qAndAContext, subscribe: true })
+  qAndA: QAndAEntry[]
 
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
@@ -97,7 +99,7 @@ export class MenuArea extends LitElementWw {
           ${this.editable || this.settings.mayExport || this.settings.mayImport
             ? html` <c-tab name="start">Start</c-tab>`
             : html``}
-          ${this.editable || this.help.length
+          ${this.editable || this.qAndA.length
             ? html`<c-tab name="help">Help</c-tab>`
             : html``}
           <c-tab name="network">Network</c-tab>
@@ -119,7 +121,7 @@ export class MenuArea extends LitElementWw {
         <div id="rightMenuPanel" class="${!this.panel ? 'collapsed' : ''}">
           ${this.editable ? html`<settings-panel></settings-panel>` : html``}
           <start-panel></start-panel>
-          ${this.editable || this.help.length
+          ${this.editable || this.qAndA.length
             ? html`<help-panel></help-panel>`
             : html``}
           <network-panel></network-panel>

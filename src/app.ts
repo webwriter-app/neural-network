@@ -1,421 +1,193 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
-import { customElement, property, state, query } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 import { provide } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
 import '@/imports'
 
-import { ShortcutListener } from '@/utils/shortcut_listener'
+import type { SetupStatus } from '@/types/setup_status'
+import { setupStatusContext } from '@/contexts/setup_status_context'
+import { SetupController } from '@/controllers/setup_controller'
 
-import {
-  SetupStatus,
-  checkLoading,
-  defaultSetupStatus,
-  setupCompleted,
-  setupStatusContext,
-} from '@/contexts/setup_status_context'
 import { editableContext } from '@/contexts/editable_context'
-import {
-  Settings,
-  defaultSettings,
-  settingsContext,
-  setSetting,
-  setSettings,
-} from '@/contexts/settings_context'
-import {
-  HelpEntry,
-  helpContext,
-  addNewHelpEntry,
-  removeHelpEntry,
-  updateHelpEntry,
-  defaultHelp,
-} from '@/contexts/help_context'
-import { setCanvas, canvasContext } from '@/contexts/canvas_context'
-import {
-  layerConfsContext,
-  addLayer,
-  updateLayerConfs,
-  removeLayer,
-} from '@/contexts/layer_confs_context'
-import {
-  addLayerConnection,
-  layerConnectionConfsContext,
-  removeLayerConnection,
-} from '@/contexts/layer_con_confs_context'
-import { clearNetwork, networkContext } from '@/contexts/network_context'
-import { selectDataSet, dataSetContext } from '@/contexts/data_set_context'
-import {
-  addDataSet,
-  deleteDataSet,
-  availableDataSetsContext,
-} from '@/contexts/available_data_sets_context'
-import {
-  TrainOptions,
-  defaultTrainOptions,
-  setTrainOption,
-  trainOptionsContext,
-} from '@/contexts/train_options_context'
-import {
-  ModelConf,
-  setTrainMetricsContainer,
-  buildModel,
-  defaultModelConf,
-  modelConfContext,
-  predictModel,
-  deletePrediction,
-  discardModel,
-  trainModel,
-} from '@/contexts/model_conf_context'
-import {
-  Selected,
-  unselect,
-  selectLayer,
-  selectNeuron,
-  selectEdge,
-  selectedContext,
-} from '@/contexts/selected_context'
-import {
-  SelectedEle,
-  selectedEleRendered,
-  selectedEleContext,
-} from '@/contexts/selected_ele_context'
-import { panelContext, openPanel, closePanels } from '@/contexts/panels_context'
+
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+import { SettingsController } from '@/controllers/settings_controller'
+
+import type { QAndAEntry } from '@/types/q_and_a_entry'
+import { qAndAContext } from '@/contexts/q_and_a_context'
+import { QAndAController } from '@/controllers/q_and_a_controller'
 
 import type { CCanvas } from '@/components/canvas'
-import type { FileConfigV1 } from '@/types/file_config_v1'
-import type { DataSet } from '@/data_set/data_set'
-import { getInputDataByKeys, getLabelData } from '@/data_set/data_set'
+import { canvasContext } from '@/contexts/canvas_context'
+
+import type { CLayerConf } from '@/types/c_layer_conf'
+import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
+import type { Network } from '@/components/network/network'
+import { networkContext } from '@/contexts/network_context'
+import { layerConfsContext } from '@/contexts/layer_confs_context'
+import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
+import { NetworkController } from '@/controllers/network_controller'
+
+import type { DataSet } from '@/types/data_set'
+import { dataSetContext } from '@/contexts/data_set_context'
+import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
 import { bostonHousePricing } from '@/data_set/boston'
 import { pimaIndiansDiabetes } from '@/data_set/diabetes'
+import { DataSetController } from '@/controllers/data_set_controller'
 
-import { Network } from '@/network/network'
-import { CLayerConf } from '@/network/c_layer_conf'
-import { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
-import type { CLayer } from '@/network/c_layer'
-import type { Neuron } from '@/network/neuron'
-import type { CEdge } from '@/network/c_edge'
+import type { TrainOptions } from '@/types/train_options'
+import type { ModelConf } from '@/types/model_conf'
+import { trainOptionsContext } from '@/contexts/train_options_context'
+import { modelConfContext } from '@/contexts/model_conf_context'
+import { ModelController } from '@/controllers/model_controller'
 
-import '@/network/network'
+import type { Selected } from '@/types/selected'
+import type { SelectedEle } from '@/types/selected_ele'
+import { selectedContext } from '@/contexts/selected_context'
+import { selectedEleContext } from '@/contexts/selected_ele_context'
+import { SelectionController } from '@/controllers/selection_controller'
+
+import { panelContext } from '@/contexts/panels_context'
+import { PanelController } from '@/controllers/panel_controller'
+
+import type { FileConfigV1 } from '@/types/file_config_v1'
+
+import { AlertUtils } from '@/utils/alert_utils'
+
+import '@/components/network/network'
 import '@/components/canvas_area'
 import '@/components/menu_area'
+import { SetupUtils } from './utils/setup_utils'
+import { SettingsUtils } from './utils/settings_utils'
+import { QAndAUtils } from './utils/q_and_a_utils'
+import { ModelUtils } from './utils/model_utils'
 
 @customElement('ww-deeplearning')
 export class WwDeepLearning extends LitElementWw {
-  // FIELDS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // keyboard shortcuts listener
-  private shortcutListener = new ShortcutListener(this)
-
-  // CONTEXT - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // the only way lit detects changes and notifies the consumers about them is
-  // if the whole context object was reassigned. thus, context functions do not
-  // just assign values to some object properties but reassign the whole object
-  // by either creating a new one or changing the current and reassigning it
-  // with { ... } (similar but not according to the immutable pattern)
-
+  // DATA PROVIDERS AND THEIR CORRESPONDING CONTROLLERS  - - - - - - - - - - - -
   // -> SETUP STATUS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // setup status context: provides information about which phases have been
-  // completed when the app is loaded into the dom. important for components to
-  // check whether they need to some unconvential things at setup that do not
-  // work great with lit lifecycle hooks or the ui to check whether setup is
-  // completed.
   @provide({ context: setupStatusContext })
   @property({ attribute: false })
-  setupStatus: SetupStatus = defaultSetupStatus
+  setupStatus: SetupStatus = SetupUtils.defaultSetupStatus
 
-  setupCompleted = setupCompleted
-  checkLoading = checkLoading
+  setupController = new SetupController(this)
 
   // -> EDITABLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // editable context: provides information if the editable attribute is set
   @provide({ context: editableContext })
   @property({ attribute: true, type: Boolean, reflect: true })
   editable: boolean = false
 
   // -> SETTINGS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // settings context: mostly for checking permission for actions. only use
-  // together with editable!
   @provide({ context: settingsContext })
   @property({ attribute: true, type: Object, reflect: true })
-  settings: Settings = <Settings>JSON.parse(JSON.stringify(defaultSettings))
+  settings: Settings = <Settings>(
+    JSON.parse(JSON.stringify(SettingsUtils.defaultSettings))
+  )
 
-  setSetting = setSetting
-  setSettings = setSettings
+  settingsController = new SettingsController(this)
 
   // -> HELP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // help context: provides the help entries
-  @provide({ context: helpContext })
+  @provide({ context: qAndAContext })
   @property({ attribute: true, type: Object, reflect: true })
-  help: HelpEntry[] = [...defaultHelp]
+  qAndA: QAndAEntry[] = [...QAndAUtils.defaultQAndA]
 
-  addNewHelpEntry = addNewHelpEntry
-  removeHelpEntry = removeHelpEntry
-  updateHelpEntry = updateHelpEntry
+  qAndAController = new QAndAController(this)
 
   // -> CANVAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // canvas context: provides the canvas (currently a reactive controller) and
-  // its corresponding actions
   @provide({ context: canvasContext })
   @property({ attribute: false })
   canvas: CCanvas
 
-  setCanvas = setCanvas
-
   // -> NETWORK  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // layer conf context: provides the layer configurations
-  @provide({ context: layerConfsContext })
-  @property({ attribute: true, type: Array, reflect: true })
-  layerConfs: CLayerConf[] = []
-
-  addLayer = addLayer
-  updateLayerConfs = updateLayerConfs
-  removeLayer = removeLayer
-
-  // layer connections conf context: provides the layer connection
-  // configurations
-  @provide({ context: layerConnectionConfsContext })
-  @property({ attribute: true, type: Array, reflect: true })
-  layerConnectionConfs: CLayerConnectionConf[] = []
-
-  addLayerConnection = addLayerConnection
-  removeLayerConnection = removeLayerConnection
-
-  @query('c-network')
-  _network: Network
-
   @provide({ context: networkContext })
   @property({ attribute: false })
   network: Network
 
-  clearNetwork = clearNetwork
+  @provide({ context: layerConfsContext })
+  @property({ attribute: true, type: Array, reflect: true })
+  layerConfs: CLayerConf[] = []
+
+  @provide({ context: layerConnectionConfsContext })
+  @property({ attribute: true, type: Array, reflect: true })
+  layerConnectionConfs: CLayerConnectionConf[] = []
+
+  networkController = new NetworkController(this)
 
   // -> DATA SET - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // dataSet context: provides the dataSet (currently a simple class instance)
-  // and its corresponding actions
   @provide({ context: dataSetContext })
   @property({ attribute: true, type: Object, reflect: true })
   dataSet: DataSet = bostonHousePricing
 
-  selectDataSet = selectDataSet
-
-  getInputDataByKeys = getInputDataByKeys
-  getLabelData = getLabelData
-
-  // available data sets
   @provide({ context: availableDataSetsContext })
   @property({ attribute: true, type: Array, reflect: true })
   availableDataSets: DataSet[] = [bostonHousePricing, pimaIndiansDiabetes]
 
-  addDataSet = addDataSet
-  deleteDataSet = deleteDataSet
+  dataSetController = new DataSetController(this)
 
-  // -> TRAIN OPTIONS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // trainOptions context: provides the dataSet (currently a simple class instance)
-  // and its corresponding actions
+  // -> MODEL  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: trainOptionsContext })
   @property({ attribute: true, type: Object, reflect: true })
   trainOptions: TrainOptions = <TrainOptions>(
-    JSON.parse(JSON.stringify(defaultTrainOptions))
+    JSON.parse(JSON.stringify(ModelUtils.defaultTrainOptions))
   )
-
-  setTrainOption = setTrainOption
 
   // HTML container where metrics like accuracy and loss are plotted into
   @state()
   trainMetricsContainer: HTMLDivElement
 
-  // -> MODEL  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // model context: provides the tensorflow.js model based on the network and
-  // corresponding actions like training
   @provide({ context: modelConfContext })
   @property({ attribute: false })
-  modelConf: ModelConf = <ModelConf>JSON.parse(JSON.stringify(defaultModelConf))
+  modelConf: ModelConf = <ModelConf>(
+    JSON.parse(JSON.stringify(ModelUtils.defaultModelConf))
+  )
 
-  setTrainMetricsContainer = setTrainMetricsContainer
-  discardModel = discardModel
-  buildModel = buildModel
-  trainModel = trainModel
-  predictModel = predictModel
-  deletePrediction = deletePrediction
+  modelController = new ModelController(this)
 
   // -> SELECTED - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // selected context: provides info about what kind of item in the canvas (layer,
-  // neuron, edge) is currently selected and its cyId
   @provide({ context: selectedContext })
   @property({ attribute: false })
   selected: Selected = {}
 
-  unselect = unselect
-  selectLayer = selectLayer
-  selectNeuron = selectNeuron
-  selectEdge = selectEdge
+  selectionController = new SelectionController(this)
 
   @provide({ context: selectedEleContext })
   @property({ attribute: false })
   selectedEle: SelectedEle
 
-  selectedEleRendered = selectedEleRendered
-
   // -> PANELS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // panel context: provide the current panel
   @provide({ context: panelContext })
   @property({ attribute: false })
   panel: string
 
-  openPanel = openPanel
-  closePanels = closePanels
+  panelController = new PanelController(this)
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   connectedCallback() {
     super.connectedCallback()
 
+    // might not work with WebWriter and should thus be removed. Currently
+    // needed to fix a few remaining theme issues
     document.documentElement.classList.add('sl-theme-dark')
 
-    // -> ADD EVENT LISTENERS
-    // ---> SETUP
-    this.renderRoot.addEventListener(
-      'setup-completed',
-      (e: CustomEvent<string>) => this.setupCompleted(e.detail)
-    )
-    // ---> IMPORT
+    // ADD EVENT LISTENERS
     this.renderRoot.addEventListener(
       'import-config',
       (e: CustomEvent<FileConfigV1>) => this.importConfig(e.detail)
     )
-    // ---> SETTINGS
-    window.addEventListener(
-      'set-setting',
-      (
-        e: CustomEvent<{
-          name: string
-          value: boolean
-        }>
-      ) => this.setSetting(e.detail.name, e.detail.value)
-    )
-    this.renderRoot.addEventListener(
-      'set-settings',
-      (e: CustomEvent<Settings>) => this.setSettings(e.detail)
-    )
-
-    // ---> HELP
-    this.renderRoot.addEventListener(
-      'add-new-help-entry',
-      (e: CustomEvent<HelpEntry>) => this.addNewHelpEntry(e.detail)
-    )
-    this.renderRoot.addEventListener(
-      'update-help-entry',
-      (e: CustomEvent<HelpEntry>) => this.updateHelpEntry(e.detail)
-    )
-    this.renderRoot.addEventListener(
-      'remove-help-entry',
-      (e: CustomEvent<string>) => this.removeHelpEntry(e.detail)
-    )
-    // ---> SELECT
-    this.renderRoot.addEventListener('unselect', (_e: Event) => this.unselect())
-    this.renderRoot.addEventListener('select-layer', (e: CustomEvent<string>) =>
-      this.selectLayer(e.detail)
-    )
-    this.renderRoot.addEventListener(
-      'select-neuron',
-      (e: CustomEvent<string>) => this.selectNeuron(e.detail)
-    )
-    this.renderRoot.addEventListener('select-edge', (e: CustomEvent<string>) =>
-      this.selectEdge(e.detail)
-    )
-    this.renderRoot.addEventListener(
-      'selected-ele-rendered',
-      (e: CustomEvent<CLayer | Neuron | CEdge>) =>
-        this.selectedEleRendered(e.detail)
-    )
-    // ---> PANELS
-    this.renderRoot.addEventListener('open-panel', (e: CustomEvent<string>) =>
-      this.openPanel(e.detail)
-    )
-    // we need to listen on window element since events to close panels
-    // sometimes are emitted in disconnected callback functions, so they need to
-    // emit the event at window level since they are not in the DOM anymore at
-    // this point
-    window.addEventListener('close-panels', (e: CustomEvent<string[]>) =>
-      this.closePanels(e.detail)
-    )
-    // ---> DATA SET
-    this.renderRoot.addEventListener(
-      'select-data-set',
-      (e: CustomEvent<DataSet>) => this.selectDataSet(e.detail)
-    )
-    this.renderRoot.addEventListener(
-      'add-data-set',
-      (e: CustomEvent<DataSet>) => this.addDataSet(e.detail)
-    )
-    this.renderRoot.addEventListener(
-      'delete-data-set',
-      (e: CustomEvent<string>) => this.deleteDataSet(e.detail)
-    )
-    // ---> NETWORK
-    this.renderRoot.addEventListener('clear-network', (_e: Event) =>
-      this.clearNetwork()
-    )
-    this.renderRoot.addEventListener(
-      'add-layer',
-      (e: CustomEvent<CLayerConf>) => this.addLayer(e.detail)
-    )
-    this.renderRoot.addEventListener('remove-layer', (e: CustomEvent<number>) =>
-      this.removeLayer(e.detail)
-    )
-    this.renderRoot.addEventListener(
-      'add-layer-connection',
-      (e: CustomEvent<{ source: number; target: number }>) =>
-        this.addLayerConnection(e.detail.source, e.detail.target)
-    )
-    this.renderRoot.addEventListener('update-layer-confs', (_e: Event) =>
-      this.updateLayerConfs()
-    )
-    this.renderRoot.addEventListener(
-      'remove-layer-connection',
-      (e: CustomEvent<{ source: number; target: number }>) =>
-        this.removeLayerConnection(e.detail.source, e.detail.target)
-    )
-    // ---> TRAIN
-    this.renderRoot.addEventListener(
-      'set-train-option',
-      (
-        e: CustomEvent<{
-          option: string
-          value: string
-        }>
-      ) => this.setTrainOption(e.detail.option, e.detail.value)
-    )
-    this.renderRoot.addEventListener('discard-model', (_e: Event) =>
-      this.discardModel()
-    )
-    this.renderRoot.addEventListener('train-model', (e: CustomEvent<number>) =>
-      this.trainModel(e.detail)
-    )
-    this.renderRoot.addEventListener(
-      'predict-model',
-      (e: CustomEvent<Record<string, number>>) => this.predictModel(e.detail)
-    )
-    this.renderRoot.addEventListener('delete-prediction', (_e: Event) =>
-      this.deletePrediction()
-    )
-  }
-
-  updated(changedProperties: Map<string, unknown>) {
-    super.updated(changedProperties)
-
-    if (!this.network) {
-      this.network = this._network
-    }
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // -> IMPORTING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   importConfig(config: FileConfigV1): void {
-    // import settings: only overwrite the current when in editable mode
+    // only overwrite settings and help when in editable mode, else ignore the
+    // imported ones
     if (this.editable) {
       this.settings = { ...config.settings }
-      this.help = [...config.help]
+      this.qAndA = [...config.qAndA]
     }
 
     this.dataSet = config.dataSet
@@ -423,9 +195,16 @@ export class WwDeepLearning extends LitElementWw {
     this.layerConfs = config.layerConfs
     this.layerConnectionConfs = config.layerConnectionConfs
     this.trainOptions = config.trainOptions
-    this.discardModel()
+    this.modelController.discardModel()
     this.panel = undefined
     this.selected = {}
+
+    AlertUtils.spawn({
+      message: `The imported config was successfully loaded!`,
+      variant: 'success',
+      icon: 'check-circle',
+    })
+
     setTimeout(() => {
       this.canvas.fit()
     }, 50)
@@ -491,13 +270,14 @@ export class WwDeepLearning extends LitElementWw {
     `,
   ]
 
-  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // @TODO move all event handlers in connected callback
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -F
   render(): TemplateResult<1>[] {
     const renderedHTML: TemplateResult<1>[] = []
     renderedHTML.push(html` <canvas-area
       class="${!this.panel ? 'right-collapsed' : ''}"
-      @canvas-created="${(e: CustomEvent<CCanvas>) => this.setCanvas(e.detail)}"
+      @canvas-created="${(e: CustomEvent<CCanvas>) => {
+        this.canvas = e.detail
+      }}"
     >
     </canvas-area>`)
     if (this.setupStatus.loading) {
@@ -517,7 +297,7 @@ export class WwDeepLearning extends LitElementWw {
           part="action"
           class="${!this.panel ? 'right-collapsed' : ''}"
           @set-train-metrics-container="${(e: CustomEvent<HTMLDivElement>) =>
-            this.setTrainMetricsContainer(e.detail)}"
+            this.modelController.setTrainMetricsContainer(e.detail)}"
         ></menu-area>
 
         <c-network></c-network>

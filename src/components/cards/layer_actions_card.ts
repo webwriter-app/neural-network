@@ -1,20 +1,14 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { consume } from '@lit-labs/context'
-import { canvasContext } from '@/contexts/canvas_context'
-
 import type { CCanvas } from '@/components/canvas'
-
-import { CLayer } from '@/network/c_layer'
-import { InputLayer } from '@/network/input_layer'
-import { DenseLayer } from '@/network/dense_layer'
-import { OutputLayer } from '@/network/output_layer'
-
-import { spawnAlert } from '@/utils/alerts'
+import { canvasContext } from '@/contexts/canvas_context'
+import type { CLayer } from '@/components/network/c_layer'
+import { OutputLayer } from '@/components/network/output_layer'
 
 @customElement('layer-actions-card')
 export class LayerActionsCard extends LitElementWw {
@@ -24,46 +18,19 @@ export class LayerActionsCard extends LitElementWw {
   @consume({ context: canvasContext, subscribe: true })
   canvas: CCanvas
 
-  _handleDuplicateLayer(): void {
-    if (this.layer instanceof InputLayer) {
-      const newPos = { ...this.layer.conf.pos }
-      newPos.y -=
-        this.canvas.getHeight(this.layer.getCyId()) + this.canvas.LAYER_DISTANCE
-      InputLayer.create({
-        activation: this.layer.conf.activation,
-        dataSetKeys: this.layer.conf.dataSetKeys,
-        pos: newPos,
-      })
-    } else if (this.layer instanceof DenseLayer) {
-      const newPos = { ...this.layer.conf.pos }
-      newPos.y -=
-        this.canvas.getHeight(this.layer.getCyId()) + this.canvas.LAYER_DISTANCE
-      DenseLayer.create({
-        units: this.layer.conf.units,
-        activation: this.layer.conf.activation,
-        pos: newPos,
-      })
-    } else {
-      spawnAlert({
-        message: `The selected layer can not be duplicated!`,
-        variant: 'warning',
-        icon: 'x-circle',
-      })
-    }
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  handleDuplicateLayer(): void {
+    this.layer.duplicate()
   }
 
-  _handleDeleteLayer(): void {
-    this.dispatchEvent(
-      new CustomEvent<CLayer>('query-layer-deletion', {
-        detail: this.layer,
-        bubbles: true,
-        composed: true,
-      })
-    )
+  handleDeleteLayer(): void {
+    this.layer.delete()
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>
@@ -72,15 +39,13 @@ export class LayerActionsCard extends LitElementWw {
           <div class="button-group">
             ${!(this.layer instanceof OutputLayer)
               ? html` <sl-button
-                  @click="${(_e: MouseEvent) => this._handleDuplicateLayer()}"
+                  @click="${(_e: MouseEvent) => this.handleDuplicateLayer()}"
                 >
                   <sl-icon slot="prefix" name="files"></sl-icon>
                   Duplicate
                 </sl-button>`
               : html``}
-            <sl-button
-              @click="${(_e: MouseEvent) => this._handleDeleteLayer()}"
-            >
+            <sl-button @click="${(_e: MouseEvent) => this.handleDeleteLayer()}">
               <sl-icon slot="prefix" name="trash"></sl-icon>
               Delete
             </sl-button>

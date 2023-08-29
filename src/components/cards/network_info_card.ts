@@ -6,13 +6,14 @@ import { consume } from '@lit-labs/context'
 import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+import type { CLayerConf } from '@/types/c_layer_conf'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
+import type { Network } from '@/components/network/network'
 import { networkContext } from '@/contexts/network_context'
-import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
-
-import type { Network } from '@/network/network'
-import { CLayerConf } from '@/network/c_layer_conf'
+import type { ModelConf } from '@/types/model_conf'
+import { modelConfContext } from '@/contexts/model_conf_context'
 
 @customElement('network-info-card')
 export class NetworkInfoCard extends LitElementWw {
@@ -31,8 +32,10 @@ export class NetworkInfoCard extends LitElementWw {
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>

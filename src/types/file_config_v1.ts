@@ -1,14 +1,14 @@
-import type { CLayerConf } from '@/network/c_layer_conf'
-import type { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
-import type { TrainOptions } from '@/contexts/train_options_context'
-import type { DataSet } from '@/data_set/data_set'
-import type { Settings } from '@/contexts/settings_context'
-import type { HelpEntry } from '@/contexts/help_context'
+import type { CLayerConf } from '@/types/c_layer_conf'
+import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
+import type { TrainOptions } from '@/types/train_options'
+import type { DataSet } from '@/types/data_set'
+import type { Settings } from '@/types/settings'
+import type { QAndAEntry } from '@/types/q_and_a_entry'
 
 export type FileConfigV1 = {
   version: 1
   settings: Settings
-  help: HelpEntry[]
+  qAndA: QAndAEntry[]
   dataSet: DataSet
   availableDataSets: DataSet[]
   layerConfs: CLayerConf[]

@@ -5,13 +5,13 @@ import { range } from 'lit/directives/range.js'
 
 import { globalStyles } from '@/global_styles'
 
-import { CLayer } from '@/network/c_layer'
-
-import { Position } from '@/types/position'
-import { Activation, actReLu } from '@/network/activation'
+import type { Position } from '@/types/position'
+import type { Activation } from '@/types/activation'
+import type { DenseLayerConf } from '@/types/dense_layer_conf'
+import { CLayer } from '@/components/network/c_layer'
+import { NetworkUtils } from '@/utils/network_utils'
 
 import * as tf from '@tensorflow/tfjs'
-import { DenseLayerConf } from '@/network/dense_layer_conf'
 
 @customElement('dense-layer')
 export class DenseLayer extends CLayer {
@@ -33,10 +33,18 @@ export class DenseLayer extends CLayer {
     }
   }
 
-  // FACTORY - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // -> INFO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // get a description of this layer to display in an info card
+  getDescription(): string {
+    return 'A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.'
+  }
+
+  // -> CREATING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // creates a new dense layer with the optionally specified properties
   static create({
     units = 5,
-    activation = actReLu,
+    activation = NetworkUtils.actReLu,
     pos = null,
   }: {
     units?: number
@@ -51,12 +59,13 @@ export class DenseLayer extends CLayer {
       units: units,
       activation: activation,
       pos: pos,
-      // layerId and data set will be added later by the network
+      firstSpawn: true,
+      // layerId will be added later by the network
       layerId: undefined,
     }
 
-    // emit an layer-conf-created event - the network listens to them, so it can add
-    // a unique layer id to the layer conf and add it to the network array
+    // emit an layer-conf-created event - the network listens to them, so it can
+    // add a unique layer id to the layer conf and add it to the network array
     dispatchEvent(
       new CustomEvent<DenseLayerConf>('layer-conf-created', {
         detail: denseLayerConf,
@@ -68,10 +77,16 @@ export class DenseLayer extends CLayer {
     return denseLayerConf
   }
 
-  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // get a description of this layer to display in an info card
-  getDescription(): string {
-    return 'A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.'
+  // duplicate this layer
+  duplicate(): void {
+    const newPos = { ...this.conf.pos }
+    newPos.y -=
+      this.canvas.getHeight(this.getCyId()) + this.canvas.LAYER_DISTANCE
+    DenseLayer.create({
+      units: this.conf.units,
+      activation: this.conf.activation,
+      pos: newPos,
+    })
   }
 
   // -> BUILD  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

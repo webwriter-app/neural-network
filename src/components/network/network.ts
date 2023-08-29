@@ -5,38 +5,36 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import {
-  SetupStatus,
-  setupStatusContext,
-} from '@/contexts/setup_status_context'
+import type { SetupStatus } from '@/types/setup_status'
+import { setupStatusContext } from '@/contexts/setup_status_context'
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
+import type { CLayerConf } from '@/types/c_layer_conf'
+import type { InputLayerConf } from '@/types/input_layer_conf'
+import type { OutputLayerConf } from '@/types/output_layer_conf'
+import type { TensorConf } from '@/types/tensor_conf'
+import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
+import { CLayer } from '@/components/network/c_layer'
+import { InputLayer } from '@/components/network/input_layer'
+import { OutputLayer } from '@/components/network/output_layer'
+import { CLayerConnection } from '@/components/network/c_layer_connection'
+import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
-import { Selected, selectedContext } from '@/contexts/selected_context'
+import type { Selected } from '@/types/selected'
+import { selectedContext } from '@/contexts/selected_context'
 
-import type { DataSet } from '@/data_set/data_set'
-import type { CCanvas } from '@/components/canvas'
+import { AlertUtils } from '@/utils/alert_utils'
 
-import { CLayerConf } from '@/network/c_layer_conf'
-import { CLayer } from '@/network/c_layer'
-import { InputLayerConf } from '@/network/input_layer_conf'
-import { InputLayer } from '@/network/input_layer'
-import { OutputLayerConf } from '@/network/output_layer_conf'
-import { OutputLayer } from '@/network/output_layer'
-import { TensorConf } from '@/network/tensor_conf'
-import { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
-import { CLayerConnection } from '@/network/c_layer_connection'
-
-import { spawnAlert } from '@/utils/alerts'
-
-import '@/network/input_layer'
-import '@/network/dense_layer'
-import '@/network/output_layer'
-import '@/network/c_layer'
-import '@/network/c_layer_connection'
+import '@/components/network/input_layer'
+import '@/components/network/dense_layer'
+import '@/components/network/output_layer'
+import '@/components/network/c_layer'
+import '@/components/network/c_layer_connection'
 
 import * as tf from '@tensorflow/tfjs'
 
@@ -200,7 +198,7 @@ export class Network extends LitElementWw {
         })
       )
 
-      spawnAlert({
+      AlertUtils.spawn({
         message: `'${layer.getName()}' has been deleted!`,
         variant: 'danger',
         icon: 'trash',
@@ -253,7 +251,7 @@ export class Network extends LitElementWw {
 
     // check if at least one input layer exists
     if (!this.getInputLayers().length) {
-      spawnAlert({
+      AlertUtils.spawn({
         message: 'Your network must contain at least one input layer',
         variant: 'warning',
         icon: 'x-circle',
@@ -263,7 +261,7 @@ export class Network extends LitElementWw {
 
     // check if an output layer exists
     if (!this.getOutputLayer()) {
-      spawnAlert({
+      AlertUtils.spawn({
         message: 'Your network must contain at least one output layer',
         variant: 'warning',
         icon: 'x-circle',
@@ -301,7 +299,7 @@ export class Network extends LitElementWw {
     // check if there is a connected output layer, else abort (might lead to
     // some problems else)
     if (!this.getOutputLayer().tensor) {
-      spawnAlert({
+      AlertUtils.spawn({
         message: 'Make sure to have an output layer connected to the network!',
         variant: 'warning',
         icon: 'x-circle',
@@ -374,7 +372,10 @@ export class Network extends LitElementWw {
     layerConf['layerId'] = this.getFreshId()
 
     // assign all unassigned inputs to the layer in case it is an input layer
-    if (layerConf.LAYER_TYPE == 'Input' && !layerConf.dataSetKeys) {
+    if (
+      layerConf.LAYER_TYPE == 'Input' &&
+      !(<InputLayerConf>layerConf).dataSetKeys
+    ) {
       ;(<InputLayerConf>layerConf).dataSetKeys = this.dataSet.inputs.map(
         (input) => input.key
       )

@@ -4,19 +4,20 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
-import { CLayer } from '@/network/c_layer'
-import { Neuron } from '@/network/neuron'
+import type { Neuron } from '@/components/network/neuron'
 
 @customElement('edge-info-card')
 export class EdgeInfoCard extends LitElementWw {
   @property({ attribute: false })
-  source: CLayer | Neuron
+  source: Neuron
 
   @property({ attribute: false })
-  target: CLayer | Neuron
+  target: Neuron
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>

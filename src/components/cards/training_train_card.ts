@@ -5,15 +5,14 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
-import {
-  TrainOptions,
-  trainOptionsContext,
-} from '@/contexts/train_options_context'
+import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
-import { DataSet } from '@/data_set/data_set'
+import type { TrainOptions } from '@/types/train_options'
+import { trainOptionsContext } from '@/contexts/train_options_context'
+import type { ModelConf } from '@/types/model_conf'
+import { modelConfContext } from '@/contexts/model_conf_context'
 
-import { SlChangeEvent, SlRange } from '@shoelace-style/shoelace'
+import type { SlChangeEvent, SlRange } from '@shoelace-style/shoelace'
 
 @customElement('training-train-card')
 export class TrainingTrainCard extends LitElementWw {
@@ -32,11 +31,12 @@ export class TrainingTrainCard extends LitElementWw {
   @state()
   numberOfEpochs: number = 3
 
-  _handleChangeNumberOfEpochs(): void {
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  handleChangeNumberOfEpochs(): void {
     this.numberOfEpochs = this._numberOfEpochsRange.value
   }
 
-  _handleTrain(epochs: number): void {
+  handleTrain(epochs: number): void {
     this.dispatchEvent(
       new CustomEvent('train-model', {
         detail: epochs,
@@ -46,8 +46,10 @@ export class TrainingTrainCard extends LitElementWw {
     )
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>
@@ -74,14 +76,14 @@ export class TrainingTrainCard extends LitElementWw {
                   step="1"
                   value="${this.numberOfEpochs}"
                   @sl-change="${(_e: SlChangeEvent) =>
-                    this._handleChangeNumberOfEpochs()}"
+                    this.handleChangeNumberOfEpochs()}"
                 ></sl-range>
                 <div class="button-group">
                   <sl-button
                     variant="primary"
                     size="large"
                     @click="${(_e: MouseEvent) =>
-                      this._handleTrain(this.numberOfEpochs)}"
+                      this.handleTrain(this.numberOfEpochs)}"
                   >
                     <sl-icon name="play" label="Run"></sl-icon>
                     ${this.numberOfEpochs == 1

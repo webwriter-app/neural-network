@@ -5,10 +5,11 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { canvasContext } from '@/contexts/canvas_context'
-import { Selected, selectedContext } from '@/contexts/selected_context'
 import type { CCanvas } from '@/components/canvas'
-import { Neuron } from '@/network/neuron'
+import { canvasContext } from '@/contexts/canvas_context'
+import type { Neuron } from '@/components/network/neuron'
+import type { Selected } from '@/types/selected'
+import { selectedContext } from '@/contexts/selected_context'
 
 @customElement('c-edge')
 export class CEdge extends LitElementWw {
@@ -49,17 +50,30 @@ export class CEdge extends LitElementWw {
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // -> INFO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // get the unique cytoscape id for this edge
   getCyId(): string {
     return `${this.source.getCyId()}e${this.target.getCyId()}`
   }
 
+  // -> CANVAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // remove the edge from the canvas
   removeFromCanvas(): void {
     const ele = this.canvas.cy.getElementById(this.getCyId())
     if (ele.length) {
       ele.remove()
     }
+  }
+
+  // -> MISC - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  openCorrespondingPanel(): void {
+    this.dispatchEvent(
+      new CustomEvent<string>('open-panel', {
+        detail: 'edge',
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

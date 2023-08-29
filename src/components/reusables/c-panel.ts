@@ -18,14 +18,14 @@ export class CPanel extends LitElementWw {
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // on disconnect (which should only happen when the panel as well as the
   // corresponding tab is conditionally removed from rendering), emit an
-  // close-panels event (on window since this is not in the DOM anymore). if the
+  // close-panel event (on window since this is not in the DOM anymore). if the
   // panel was not open this does not any harm but if it was, the panels context
   // will tell the menu component that there is no right panel currently open,
   // so it collapses the sidebar
   disconnectedCallback(): void {
     window.dispatchEvent(
-      new CustomEvent<string[]>('close-panels', {
-        detail: [this.name],
+      new CustomEvent<string>('close-panel', {
+        detail: this.name,
         bubbles: true,
         composed: true,
       })

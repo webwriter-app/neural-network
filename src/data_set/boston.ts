@@ -1,4 +1,4 @@
-import type { DataSet } from '@/data_set/data_set'
+import type { DataSet } from '@/types/data_set'
 
 export const bostonHousePricing: DataSet = {
   name: 'Boston House Pricing',

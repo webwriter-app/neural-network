@@ -6,12 +6,12 @@ import { consume } from '@lit-labs/context'
 import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
-import { CCanvas } from '@/components/canvas'
-
+import type { CLayerConf } from '../../types/c_layer_conf'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
-import { CLayerConf } from '../../network/c_layer_conf'
 
 @customElement('network-add-layer-card')
 export class NetworkAddLayerCard extends LitElementWw {
@@ -27,6 +27,7 @@ export class NetworkAddLayerCard extends LitElementWw {
   @consume({ context: layerConfsContext, subscribe: true })
   layerConfs: CLayerConf[]
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
     ...globalStyles,
     css`
@@ -39,6 +40,7 @@ export class NetworkAddLayerCard extends LitElementWw {
     `,
   ]
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>

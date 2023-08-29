@@ -5,19 +5,17 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
+import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
+import type { CLayerConf } from '@/types/c_layer_conf'
+import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
+import type { Network } from '@/components/network/network'
+import type { Neuron } from '@/components/network/neuron'
+import type { CEdge } from '@/components/network/c_edge'
 import { networkContext } from '@/contexts/network_context'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 
-import type { CCanvas } from '@/components/canvas'
-
-import { Network } from '@/network/network'
-import { CLayerConf } from '@/network/c_layer_conf'
-import { CLayerConnectionConf } from '@/network/c_layer_connection_conf'
-import { Neuron } from '@/network/neuron'
-import { CEdge } from '@/network/c_edge'
-
-import '@/network/c_edge'
+import '@/components/network/c_edge'
 
 @customElement('c-layer-connection')
 export class CLayerConnection extends LitElementWw {

@@ -12,7 +12,7 @@ import { canvasContext } from '@/contexts/canvas_context'
 
 import type { CCanvas } from '@/components/canvas'
 
-import { CLayerConf } from '@/network/c_layer_conf'
+import { CLayerConf } from '@/types/c_layer_conf'
 
 import '@/components/canvas'
 import '@/components/cards/start_get_started_card'

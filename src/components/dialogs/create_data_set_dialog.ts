@@ -3,24 +3,21 @@ import { CSSResult, TemplateResult, css, html, nothing } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
-import { SlChangeEvent, SlDialog } from '@shoelace-style/shoelace'
-import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
-
 import { globalStyles } from '@/global_styles'
 
+import type { DataSet } from '@/types/data_set'
 import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
 
-import { spawnAlert } from '@/utils/alerts'
-import type { DataSet } from '@/data_set/data_set'
+import type { SlChangeEvent, SlDialog } from '@shoelace-style/shoelace'
+import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
+import { AlertUtils } from '@/utils/alert_utils'
 
 @customElement('create-data-set-dialog')
 export class CreateDataSetDialog extends LitElementWw {
-  // CONSUME - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @consume({ context: availableDataSetsContext, subscribe: true })
   availableDataSets: DataSet[]
 
-  // STATE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  emptyConfig: DataSet = {
+  private emptyConfig: DataSet = {
     name: '',
     description: '',
     type: 'regression',
@@ -35,17 +32,12 @@ export class CreateDataSetDialog extends LitElementWw {
     },
     data: [],
   }
+  @property()
+  config: DataSet = <DataSet>JSON.parse(JSON.stringify(this.emptyConfig))
 
   @state()
   step: number = 1
 
-  @property()
-  config: DataSet = this.emptyConfig
-
-  @state()
-  data: string
-
-  // QUERY - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @query('sl-dialog')
   _dialog: SlDialog
 
@@ -59,19 +51,15 @@ export class CreateDataSetDialog extends LitElementWw {
     this._dialogForm.addEventListener('submit', (e: MouseEvent) =>
       this.nextStep(e)
     )
-    /*     setInterval(() => {
-      const formControls = getFormControls(this._dialogForm)
-
-      console.log(formControls) // e.g. [input, sl-input, ...]
-    }, 1000) */
   }
+
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   async show() {
     await this._dialog.show()
     console.log(this._dialogForm)
     console.log(serialize(this._dialogForm).data)
     if (this.step != 1 || serialize(this._dialogForm).data) {
-      spawnAlert({
+      AlertUtils.spawn({
         message:
           'The progress you made in creating your own data set was successfully restored!',
         variant: 'success',
@@ -120,7 +108,7 @@ export class CreateDataSetDialog extends LitElementWw {
     if (
       this.availableDataSets.find((dataSet) => dataSet.name == this.config.name)
     ) {
-      spawnAlert({
+      AlertUtils.spawn({
         message: `A data set with the same name already exists!`,
         variant: 'danger',
         icon: 'x-circle',
@@ -130,11 +118,11 @@ export class CreateDataSetDialog extends LitElementWw {
 
     // additional validation
     const pattern = new RegExp(
-      `^(\\s*(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))(?:\\s+(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))){${this.config.inputs.length}}\\s*)+$`
+      `^(\\s*(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))(?:\\s*,\\s*(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))){${this.config.inputs.length}}\\s*)+$`
     )
     const result = pattern.test(data)
     if (!result) {
-      spawnAlert({
+      AlertUtils.spawn({
         message: `The provided data does not match the required format! Please check again`,
         variant: 'danger',
         icon: 'x-circle',
@@ -147,14 +135,15 @@ export class CreateDataSetDialog extends LitElementWw {
     for (const line of lines) {
       // remove spaces in the beginning and end with trim and use split to
       // convert into array of the values
-      const values: string[] = line.trim().split(/\s+/)
+      const values: string[] = line.trim().split(',')
+      console.log(values)
 
       // parse input and output data (config.inputs.length * input values and
       // one output/label)
       const inputs: number[] = []
       let index = 0
       for (const _input of this.config.inputs) {
-        inputs.push(parseInt(values[index]))
+        inputs.push(parseInt(values[index].trim()))
         index += 1
       }
       const label: number = parseInt(values[index])
@@ -166,25 +155,27 @@ export class CreateDataSetDialog extends LitElementWw {
       })
     }
 
+    const dataSet: DataSet = <DataSet>JSON.parse(JSON.stringify(this.config))
     this.dispatchEvent(
       new CustomEvent<DataSet>('add-data-set', {
-        detail: this.config,
+        detail: dataSet,
         bubbles: true,
         composed: true,
       })
     )
     this.dispatchEvent(
       new CustomEvent<DataSet>('select-data-set', {
-        detail: this.config,
+        detail: dataSet,
         bubbles: true,
         composed: true,
       })
     )
 
-    this.config = this.emptyConfig
+    this.config = <DataSet>JSON.parse(JSON.stringify(this.emptyConfig))
     this.step = 1
+    this._dialogForm.reset()
 
-    spawnAlert({
+    AlertUtils.spawn({
       message:
         'A new data set was successfully created and automatically selected!',
       variant: 'success',
@@ -487,8 +478,11 @@ export class CreateDataSetDialog extends LitElementWw {
             </div>
             <div class="${this.step != 5 ? 'hidden' : ''}">
               <h1>You are nearly done</h1>
-              <p>The only thing missing now is the data itself</p>
-              <div class="tag-group">
+              <p>Now add your data in the following format*:</p>
+              <div
+                class="tag-group"
+                style="justify-content: center !important;"
+              >
                 ${this.config.inputs.map(
                   (input) => html`
                     <c-data-info
@@ -496,7 +490,8 @@ export class CreateDataSetDialog extends LitElementWw {
                       .dataProperty="${input}"
                       .dataSet="${this.config}"
                       class="clickable"
-                    ></c-data-info>
+                    ></c-data-info
+                    >,
                   `
                 )}
                 <c-data-info
@@ -510,12 +505,7 @@ export class CreateDataSetDialog extends LitElementWw {
                 id="dataTextarea"
                 rows="10"
                 name="data"
-                label="Paste your own data set here"
-                placeholder="0 0 0
-0 1 1
-1 0 1
-1 1 0"
-                help-text="Each row needs to represent one set containing inputs and one label. Seperate items with one or more spaces. The single last item always represents the label while the items before it represent the inputs. You can see a simple configuration for a logical xor-gate as a placeholder! Make sure to use no commas and only dots for floating point values"
+                help-text="*Each row needs to represent one set containing inputs and one label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the inputs. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments."
                 ?required=${this.step == 5}
               ></sl-textarea>
             </div>

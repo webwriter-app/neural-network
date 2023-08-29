@@ -1,22 +1,20 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, state, query } from 'lit/decorators.js'
+import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
 import * as cytoscape from 'cytoscape'
 
-import { consume } from '@lit-labs/context'
-import { networkContext } from '@/contexts/network_context'
-import { panels } from '@/contexts/panels_context'
-
-import type { Network } from '@/network/network'
-import { InputLayer } from '@/network/input_layer'
-import { DenseLayer } from '@/network/dense_layer'
-import { OutputLayer } from '@/network/output_layer'
+import type { Network } from '@/components/network/network'
 import type { Position } from '@/types/position'
+import { InputLayer } from '@/components/network/input_layer'
+import { DenseLayer } from '@/components/network/dense_layer'
+import { OutputLayer } from '@/components/network/output_layer'
+import { networkContext } from '@/contexts/network_context'
 
-import * as colorcolor from 'colorcolor'
+import colorsea from 'colorsea'
 
 @customElement('c-canvas')
 export class CCanvas extends LitElementWw {
@@ -42,25 +40,24 @@ export class CCanvas extends LitElementWw {
     super.connectedCallback()
     await this.updateComplete
     if (!this.cy) {
-      console.log(colorcolor)
-      const MAIN_COLOR: string = colorcolor(
+      const MAIN_COLOR: string = colorsea(
         getComputedStyle(this).getPropertyValue('--sl-color-primary-50')
-      )
-      const TEXT_COLOR: string = colorcolor(
+      ).hex()
+      const TEXT_COLOR: string = colorsea(
         getComputedStyle(this).getPropertyValue('--sl-color-primary-950')
-      )
-      const ACCENT_COLOR: string = colorcolor(
+      ).hex()
+      const ACCENT_COLOR: string = colorsea(
         getComputedStyle(this).getPropertyValue('--sl-color-primary-500')
-      )
-      const SELECTED_COLOR: string = colorcolor(
+      ).hex()
+      const SELECTED_COLOR: string = colorsea(
         getComputedStyle(this).getPropertyValue('--sl-color-primary-950')
-      )
-      const POSITIVE_COLOR: string = colorcolor(
+      ).hex()
+      const POSITIVE_COLOR: string = colorsea(
         getComputedStyle(this).getPropertyValue('--sl-color-success-200')
-      )
-      const NEGATIVE_COLOR: string = colorcolor(
+      ).hex()
+      const NEGATIVE_COLOR: string = colorsea(
         getComputedStyle(this).getPropertyValue('--sl-color-danger-200')
-      )
+      ).hex()
 
       // create cytoscape canvas
       this.cy = cytoscape({
@@ -216,6 +213,15 @@ export class CCanvas extends LitElementWw {
         composed: true,
       })
     )
+
+    // notify the root element that the canvas was created
+    this.dispatchEvent(
+      new CustomEvent<string>('setup-completed', {
+        detail: 'canvas',
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   async updated(changedProperties: Map<string, unknown>): Promise<void> {
@@ -236,8 +242,7 @@ export class CCanvas extends LitElementWw {
             })
           )
           this.dispatchEvent(
-            new CustomEvent<string[]>('close-panels', {
-              detail: panels,
+            new Event('close-all-panels', {
               bubbles: true,
               composed: true,
             })

@@ -3,16 +3,20 @@ import { CSSResult, TemplateResult, html, nothing } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
-import { SlChangeEvent, SlDialog, SlSelect } from '@shoelace-style/shoelace'
-
 import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
 
-import type { DataSet } from '@/data_set/data_set'
+import type {
+  SlChangeEvent,
+  SlDialog,
+  SlSelect,
+} from '@shoelace-style/shoelace'
 
 import '@/components/dialogs/manage_data_sets_dialog'
 import '@/components/dialogs/create_data_set_dialog'
@@ -37,7 +41,8 @@ export class DataSetSelectCard extends LitElementWw {
   @query('manage-data-sets-dialog')
   _manageDataSetsDialog: SlDialog
 
-  _handleChangeDataSet(): void {
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  handleChangeDataSet(): void {
     const newDataSet = this.availableDataSets.find(
       (option) => option.name == decodeURI(<string>this._dataSetSelect.value)
     )
@@ -54,8 +59,10 @@ export class DataSetSelectCard extends LitElementWw {
     await this._manageDataSetsDialog.show()
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>
@@ -66,7 +73,7 @@ export class DataSetSelectCard extends LitElementWw {
             id="dataSetSelect"
             placeholder="Select a data set"
             @sl-change="${(_e: SlChangeEvent) => {
-              void this._handleChangeDataSet()
+              void this.handleChangeDataSet()
             }}"
           >
             ${this.availableDataSets.map(

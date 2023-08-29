@@ -1,4 +1,4 @@
-import * as tf from '@tensorflow/tfjs'
+import type * as tf from '@tensorflow/tfjs'
 
 // the tensor conf is a property of the layer which stores important information
 // about the model after building and during training. we do not store this

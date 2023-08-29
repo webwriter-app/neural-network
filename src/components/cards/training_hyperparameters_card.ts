@@ -6,14 +6,18 @@ import { consume } from '@lit-labs/context'
 import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
-import {
-  TrainOptions,
-  trainOptionsContext,
-} from '@/contexts/train_options_context'
-import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+import type { TrainOptions } from '@/types/train_options'
+import { trainOptionsContext } from '@/contexts/train_options_context'
+import type { ModelConf } from '@/types/model_conf'
+import { modelConfContext } from '@/contexts/model_conf_context'
 
-import { SlChangeEvent, SlRadioGroup, SlRange } from '@shoelace-style/shoelace'
+import type {
+  SlChangeEvent,
+  SlRadioGroup,
+  SlRange,
+} from '@shoelace-style/shoelace'
 
 @customElement('training-hyperparameters-card')
 export class TrainingHyperparametersCard extends LitElementWw {
@@ -39,7 +43,8 @@ export class TrainingHyperparametersCard extends LitElementWw {
   @query('#dropoutRateRange')
   _dropoutRateRange: SlRange
 
-  _handleChangeBatchSize(): void {
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  handleChangeBatchSize(): void {
     this.dispatchEvent(
       new CustomEvent<{
         option: string
@@ -55,7 +60,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
     )
   }
 
-  _handleChangeLearningRate(): void {
+  handleChangeLearningRate(): void {
     this.dispatchEvent(
       new CustomEvent<{
         option: string
@@ -71,7 +76,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
     )
   }
 
-  _handleChangeDropoutRate(): void {
+  handleChangeDropoutRate(): void {
     this.dispatchEvent(
       new CustomEvent<{
         option: string
@@ -87,8 +92,10 @@ export class TrainingHyperparametersCard extends LitElementWw {
     )
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>
@@ -107,7 +114,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
               id="batchSizeRadioGroup"
               value="${this.trainOptions.batchSize}"
               @sl-change="${(_e: SlChangeEvent) =>
-                this._handleChangeBatchSize()}"
+                this.handleChangeBatchSize()}"
             >
               ${this.batchSizeOptions.map((batchSize) => {
                 return html`
@@ -133,7 +140,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
             step="0.001"
             value="${this.trainOptions.learningRate}"
             @sl-change="${(_e: SlChangeEvent) =>
-              this._handleChangeLearningRate()}"
+              this.handleChangeLearningRate()}"
           >
           </sl-range>
           <label for="dropoutRateRange"
@@ -151,7 +158,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
             step="0.01"
             value="${this.trainOptions.dropoutRate}"
             @sl-change="${(_e: SlChangeEvent) =>
-              this._handleChangeDropoutRate()}"
+              this.handleChangeDropoutRate()}"
           >
           </sl-range>
         </div>

@@ -4,21 +4,23 @@ import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
-import {
-  settingsContext,
-  Settings,
-  defaultSettings,
-} from '@/contexts/settings_context'
+
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+import { SettingsUtils } from '@/utils/settings_utils'
 
 @customElement('settings-card')
 export class SettingsCard extends LitElementWw {
   @consume({ context: settingsContext, subscribe: true })
   settings: Settings
 
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   resetSettings() {
     this.dispatchEvent(
       new CustomEvent<Settings>('set-settings', {
-        detail: <Settings>JSON.parse(JSON.stringify(defaultSettings)),
+        detail: <Settings>(
+          JSON.parse(JSON.stringify(SettingsUtils.defaultSettings))
+        ),
         composed: true,
         bubbles: true,
       })

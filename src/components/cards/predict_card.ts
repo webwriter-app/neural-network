@@ -6,17 +6,18 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
+import type { Network } from '@/components/network/network'
 import { networkContext } from '@/contexts/network_context'
+
+import type { DataSet } from '@/types/data_set'
+import type { DataSetInput } from '@/types/data_set_input'
 import { dataSetContext } from '@/contexts/data_set_context'
-import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
+import { DataSetUtils } from '@/utils/data_set_utils'
+import type { ModelConf } from '@/types/model_conf'
+import { modelConfContext } from '@/contexts/model_conf_context'
+import { ModelUtils } from '@/utils/model_utils'
 
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
-
-import { DataSetInput } from '@/types/data_set_input'
-import { DataSet, getDataSetInputsByKeys } from '@/data_set/data_set'
-import { Network } from '@/network/network'
-
-import { formatWeight } from '@/utils/formatWeight'
 
 @customElement('predict-card')
 export class PredictCard extends LitElementWw {
@@ -25,7 +26,6 @@ export class PredictCard extends LitElementWw {
 
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
-  getDataSetInputsByKeys = getDataSetInputsByKeys
 
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
@@ -33,6 +33,7 @@ export class PredictCard extends LitElementWw {
   @query('#predictForm')
   _predictForm: HTMLFormElement
 
+  // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   async connectedCallback() {
     super.connectedCallback()
     await this.updateComplete
@@ -41,6 +42,7 @@ export class PredictCard extends LitElementWw {
     )
   }
 
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handlePredict(e: SubmitEvent): void {
     e.preventDefault()
     const formData = <Record<string, string>>serialize(this._predictForm)
@@ -67,6 +69,7 @@ export class PredictCard extends LitElementWw {
     )
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
     ...globalStyles,
     css`
@@ -85,10 +88,12 @@ export class PredictCard extends LitElementWw {
     `,
   ]
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     const requiredInputs: Set<DataSetInput> = new Set()
     for (const inputLayer of this.network.getInputLayers()) {
-      for (const dataSetInput of this.getDataSetInputsByKeys(
+      for (const dataSetInput of DataSetUtils.getDataSetInputsByKeys(
+        this.dataSet,
         inputLayer.conf.dataSetKeys
       )) {
         requiredInputs.add(dataSetInput)
@@ -142,7 +147,7 @@ export class PredictCard extends LitElementWw {
                           )
                           return html`${this.dataSet.label.classes[index].key}
                           with a probability of
-                          ${formatWeight(
+                          ${ModelUtils.formatWeight(
                             (<number[]>this.modelConf.predictedValue)[index]
                           )} `
                         },
@@ -150,7 +155,7 @@ export class PredictCard extends LitElementWw {
                       [
                         'regression',
                         () =>
-                          html`${formatWeight(
+                          html`${ModelUtils.formatWeight(
                             <number>this.modelConf.predictedValue
                           )}`,
                       ],

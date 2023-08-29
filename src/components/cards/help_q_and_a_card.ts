@@ -6,46 +6,46 @@ import { consume } from '@lit-labs/context'
 import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
-import { HelpEntry, helpContext } from '@/contexts/help_context'
+import type { QAndAEntry } from '@/types/q_and_a_entry'
+import { qAndAContext } from '@/contexts/q_and_a_context'
 
-import { SlInput, SlTextarea } from '@shoelace-style/shoelace'
+import type { SlInput } from '@shoelace-style/shoelace'
 
-@customElement('help-card')
-export class HelpCard extends LitElementWw {
+@customElement('help-q-and-a-card')
+export class HelpQAndACard extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
   editable: boolean
 
-  @consume({ context: helpContext, subscribe: true })
-  help: HelpEntry[]
+  @consume({ context: qAndAContext, subscribe: true })
+  qAndA: QAndAEntry[]
 
-  @query('#newHelpEntryTitle')
-  _newHelpEntryTitle: SlInput
+  @query('#newEntryTitle')
+  _newEntryTitle: SlInput
 
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   addEntry(e: MouseEvent): void {
     e.preventDefault()
-    const entry: HelpEntry = {
-      title: this._newHelpEntryTitle.value,
+    const entry: QAndAEntry = {
+      title: this._newEntryTitle.value,
       description: '',
     }
     this.dispatchEvent(
-      new CustomEvent<HelpEntry>('add-new-help-entry', {
+      new CustomEvent<QAndAEntry>('add-new-help-entry', {
         detail: entry,
         bubbles: true,
         composed: true,
       })
     )
-    this._newHelpEntryTitle.value = ''
+    this._newEntryTitle.value = ''
   }
 
   updateEntry(e: MouseEvent): void {
-    const entry: HelpEntry = {
+    const entry: QAndAEntry = {
       title: <string>e.target.title,
-      description: <SlTextarea>(
-        (<HTMLDivElement>e.target.parentNode).previousElementSibling.value
-      ),
+      description: <string>e.target.parentNode.previousElementSibling.value,
     }
     this.dispatchEvent(
-      new CustomEvent<HelpEntry>('update-help-entry', {
+      new CustomEvent<QAndAEntry>('update-help-entry', {
         detail: entry,
         bubbles: true,
         composed: true,
@@ -55,7 +55,7 @@ export class HelpCard extends LitElementWw {
 
   removeEntry(e: MouseEvent): void {
     this.dispatchEvent(
-      new CustomEvent<HelpEntry>('remove-help-entry', {
+      new CustomEvent<string>('remove-help-entry', {
         detail: <string>e.target.title,
         bubbles: true,
         composed: true,
@@ -63,18 +63,20 @@ export class HelpCard extends LitElementWw {
     )
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Help</div>
+        <div slot="title">Q & A</div>
         <div slot="content">
-          ${!this.help.length && this.editable
+          ${!this.qAndA.length && this.editable
             ? html`There are currently no help entries. If you publish the
               widget like this, the help section will be hidden.`
             : html``}
-          ${this.help.map(
+          ${this.qAndA.map(
             (entry) => html` <sl-details summary=${entry.title}>
               ${this.editable
                 ? html` <sl-textarea value=${entry.description}></sl-textarea>
@@ -110,7 +112,7 @@ export class HelpCard extends LitElementWw {
                     placeholder="Title"
                     required
                     minlength="5"
-                    id="newHelpEntryTitle"
+                    id="newEntryTitle"
                   ></sl-input>
                   <sl-button variant="primary" type="submit">
                     Add entry

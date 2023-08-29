@@ -3,13 +3,14 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
-import { Position } from '@/types/position'
-import { Activation, actNone } from '@/network/activation'
-import { InputLayerConf } from '@/network/input_layer_conf'
-import { CLayer } from '@/network/c_layer'
-import { spawnAlert } from '@/utils/alerts'
+import type { DataSet } from '@/types/data_set'
+import type { InputLayerConf } from '@/types/input_layer_conf'
+import type { Position } from '@/types/position'
+import type { Activation } from '@/types/activation'
+import { CLayer } from '@/components/network/c_layer'
+import { NetworkUtils } from '@/utils/network_utils'
 
-import { DataSet } from '@/data_set/data_set'
+import { AlertUtils } from '@/utils/alert_utils'
 
 import * as tf from '@tensorflow/tfjs'
 
@@ -31,14 +32,8 @@ export class InputLayer extends CLayer {
       if (!this.conf.dataSetKeys.length) {
         // if no key was assigned, notify the network that this layer wants to
         // be deleted
-        this.dispatchEvent(
-          new CustomEvent<InputLayer>('query-layer-deletion', {
-            detail: this,
-            bubbles: true,
-            composed: true,
-          })
-        )
-        spawnAlert({
+        this.delete()
+        AlertUtils.spawn({
           message: `Layer ${this.getCyId()} was deleted because no data could be assigned to it!`,
           variant: 'warning',
           icon: 'x-circle',
@@ -60,9 +55,23 @@ export class InputLayer extends CLayer {
     }
   }
 
-  // FACTORY - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // -> INFO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // overwrite getName function because activation function is always 'None' for
+  // input layer
+  getName(): string {
+    return `${this.conf.layerId} - ${this.conf.LAYER_NAME}`
+  }
+
+  // get description
+  getDescription(): string {
+    return 'An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)'
+  }
+
+  // -> CREATING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // creates a new input layer with the optionally specified properties
   static create({
-    activation = actNone,
+    activation = NetworkUtils.actNone,
     dataSetKeys = undefined,
     pos = undefined,
   }: {
@@ -77,13 +86,14 @@ export class InputLayer extends CLayer {
       LAYER_NAME: 'Input layer',
       activation: activation,
       pos: pos,
-      // layer id, data set and data set keys will be added by the layer
+      firstSpawn: true,
+      // layer id and data set keys will be added by the layer
       layerId: undefined,
       dataSetKeys: dataSetKeys,
     }
 
-    // emit an layer-conf-created event - the network listens to them, so it can add
-    // a unique layer id to the layer conf and add it to the network array
+    // emit an layer-conf-created event - the network listens to them, so it can
+    // add a unique layer id to the layer conf and add it to the network array
     dispatchEvent(
       new CustomEvent<InputLayerConf>('layer-conf-created', {
         detail: inputLayerConf,
@@ -95,16 +105,16 @@ export class InputLayer extends CLayer {
     return inputLayerConf
   }
 
-  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // overwrite getName function because activation function is always 'None' for
-  // input layer
-  getName(): string {
-    return `${this.conf.layerId} - ${this.conf.LAYER_NAME}`
-  }
-
-  // get description
-  getDescription(): string {
-    return 'An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)'
+  // duplicate this layer
+  duplicate(): void {
+    const newPos = { ...this.conf.pos }
+    newPos.y -=
+      this.canvas.getHeight(this.getCyId()) + this.canvas.LAYER_DISTANCE
+    InputLayer.create({
+      activation: this.conf.activation,
+      dataSetKeys: this.conf.dataSetKeys,
+      pos: newPos,
+    })
   }
 
   // -> DATASET  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

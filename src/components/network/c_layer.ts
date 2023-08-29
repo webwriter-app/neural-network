@@ -5,22 +5,22 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { canvasContext } from '@/contexts/canvas_context'
-import { Selected, selectedContext } from '@/contexts/selected_context'
-import { dataSetContext } from '@/contexts/data_set_context'
-import {
-  trainOptionsContext,
-  TrainOptions,
-} from '@/contexts/train_options_context'
-
 import type { CCanvas } from '@/components/canvas'
+import { canvasContext } from '@/contexts/canvas_context'
+import type { DataSet } from '@/types/data_set'
+import { dataSetContext } from '@/contexts/data_set_context'
+import type { CLayerConf } from '@/types/c_layer_conf'
+import type { Activation } from '@/types/activation'
+import type { Neuron } from '@/components/network/neuron'
+import { NetworkUtils } from '@/utils/network_utils'
+import type { TrainOptions } from '@/types/train_options'
+import { trainOptionsContext } from '@/contexts/train_options_context'
+import type { Selected } from '@/types/selected'
+import { selectedContext } from '@/contexts/selected_context'
 
 import * as tf from '@tensorflow/tfjs'
 
-import { DataSet } from '@/data_set/data_set'
-import { CLayerConf } from '@/network/c_layer_conf'
-import { Activation, actNone } from '@/network/activation'
-import { Neuron } from '@/network/neuron'
+import { AlertUtils } from '@/utils/alert_utils'
 
 @customElement('c-layer')
 export abstract class CLayer extends LitElementWw {
@@ -28,7 +28,6 @@ export abstract class CLayer extends LitElementWw {
   canvas: CCanvas
 
   @consume({ context: dataSetContext, subscribe: true })
-  @property({ attribute: false })
   dataSet: DataSet
 
   @consume({ context: selectedContext, subscribe: true })
@@ -57,9 +56,6 @@ export abstract class CLayer extends LitElementWw {
   @state()
   doNotRender = false
 
-  @property({ attribute: false })
-  time = 0
-
   @state()
   positionListenerActive: boolean = false
 
@@ -74,8 +70,20 @@ export abstract class CLayer extends LitElementWw {
   connectedCallback(): void {
     super.connectedCallback()
     this.doNotRender = false
-    console.log(this.getName())
-    console.log('connected')
+    if (this.conf.firstSpawn) {
+      AlertUtils.spawn({
+        message: `'${this.getName()}' was created!`,
+        variant: 'success',
+        icon: 'check-circle',
+      })
+      this.conf.firstSpawn = false
+      this.dispatchEvent(
+        new Event('update-layer-confs', {
+          bubbles: true,
+          composed: true,
+        })
+      )
+    }
   }
 
   updated(changedProperties: Map<string, unknown>): void {
@@ -94,8 +102,6 @@ export abstract class CLayer extends LitElementWw {
     super.disconnectedCallback()
     this.doNotRender = true
     this.positionListenerActive = false
-    console.log(this.getName())
-    console.log('disconnected')
     this.removeFromCanvas()
   }
 
@@ -113,8 +119,48 @@ export abstract class CLayer extends LitElementWw {
     return Array.from(this._neurons).filter((neuron) => neuron.rendered)
   }
 
-  // CANVAS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // return the id of the element in the canvas
+  // get a readable name for this layer that is displayed in the UI. do not use
+  // the name for referencing purposes
+  getName(): string {
+    return `${this.conf.layerId} - ${this.conf.LAYER_NAME} ${
+      this.conf.activation != NetworkUtils.actNone
+        ? `(${this.conf.activation.name})`
+        : ``
+    }`
+  }
+
+  // get a description of the layer that may contain the type and purpose of the
+  // layer
+  abstract getDescription(): string
+
+  // -> ACTIONS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // set the activation function
+  setActivation(activation: Activation): void {
+    this.conf.activation = activation
+
+    // also update the label of the layer in the canvas
+    this.canvas.cy
+      .getElementById(`${this.conf.layerId}`)
+      .data('label', this.getName())
+  }
+
+  // duplicates the layer by creating a copy of this layer with changes in
+  // position and id
+  abstract duplicate(): void
+
+  // completely deletes the layer
+  delete(): void {
+    dispatchEvent(
+      new CustomEvent<CLayer>('query-layer-deletion', {
+        detail: this,
+        bubbles: true,
+        composed: true,
+      })
+    )
+  }
+
+  // -> CANVAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // return the corresponding id of the layer for the canvas
   getCyId(): string {
     return `${this.conf.layerId}`
   }
@@ -140,8 +186,8 @@ export abstract class CLayer extends LitElementWw {
   }
 
   // remove the previous built layer if exists. these are all nodes with its
-  // layer property being this.layerId or edges with either source or target being
-  // this.layerId
+  // layer property being this.layerId or edges with either source or target
+  // being this.layerId
   removeFromCanvas(): void {
     const ele = this.canvas.cy.getElementById(this.getCyId())
     if (ele.length) {
@@ -149,34 +195,27 @@ export abstract class CLayer extends LitElementWw {
     }
   }
 
-  // LAYER - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // get a readable name for this layer that is displayed in the UI. do not use
-  // the name for referencing purposes
-  getName(): string {
-    return `${this.conf.layerId} - ${this.conf.LAYER_NAME} ${
-      this.conf.activation != actNone ? `(${this.conf.activation.name})` : ``
-    }`
-  }
-
-  // get a description of the layer that may contain the type and purpose of the
-  // layer
-  abstract getDescription(): string
-
-  // set the activation function
-  setActivation(activation: Activation): void {
-    this.conf.activation = activation
-
-    // also update the label of the layer in the canvas
-    this.canvas.cy
-      .getElementById(`${this.conf.layerId}`)
-      .data('label', this.getName())
-  }
-
-  // MODEL - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // -> MODEL  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // every layer needs to implement a build function that takes the layer
+  // configuration into account and builds a symbolic tensor that is then used
+  // in the model.
   abstract build(inputs: tf.SymbolicTensor[]): tf.SymbolicTensor
 
+  // in the build method, layers are supposed to call this method to get a
+  // unique name for the corresponding layer. currently not important
   getTensorName(): string {
     return this.conf.layerId.toString()
+  }
+
+  // -> MISC - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  openCorrespondingPanel(): void {
+    this.dispatchEvent(
+      new CustomEvent<string>('open-panel', {
+        detail: 'layer',
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

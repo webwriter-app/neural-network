@@ -2,16 +2,19 @@ import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
-import { SlSelect, SlChangeEvent } from '@shoelace-style/shoelace'
 
 import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
-import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+import type { CLayer } from '@/components/network/c_layer'
+import type { Activation } from '@/types/activation'
+import { NetworkUtils } from '@/utils/network_utils'
+import type { ModelConf } from '@/types/model_conf'
+import { modelConfContext } from '@/contexts/model_conf_context'
 
-import { CLayer } from '@/network/c_layer'
-import { Activation, activationOptions } from '@/network/activation'
+import type { SlSelect, SlChangeEvent } from '@shoelace-style/shoelace'
 
 @customElement('layer-activation-card')
 export class LayerActivationCard extends LitElementWw {
@@ -30,9 +33,10 @@ export class LayerActivationCard extends LitElementWw {
   @query('sl-select')
   _selectActivationFormElm: SlSelect
 
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleChangeActivation(): void {
     const activationName = this._selectActivationFormElm.value
-    const activation: Activation = activationOptions.find(
+    const activation: Activation = NetworkUtils.activationOptions.find(
       (activation) => activation.name == activationName
     )
     this.layer.setActivation(activation)
@@ -48,8 +52,10 @@ export class LayerActivationCard extends LitElementWw {
     this.requestUpdate()
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>
@@ -64,7 +70,7 @@ export class LayerActivationCard extends LitElementWw {
               this.handleChangeActivation()
             }}
           >
-            ${activationOptions.map(
+            ${NetworkUtils.activationOptions.map(
               (activation) =>
                 html`<sl-option value="${activation.name}"
                   >${activation.name}</sl-option

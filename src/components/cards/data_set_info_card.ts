@@ -5,18 +5,18 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { DataSet, getData } from '@/data_set/data_set'
-import { DataSetInput } from '@/types/data_set_input'
+import type { DataSet } from '@/types/data_set'
+import type { DataSetInput } from '@/types/data_set_input'
 import { dataSetContext } from '@/contexts/data_set_context'
+import { DataSetUtils } from '@/utils/data_set_utils'
 
 @customElement('data-set-info-card')
 export class DataSetInfoCard extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
-  getData = getData
-
-  _handleSelectDataProperty(input: DataSetInput): void {
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  handleSelectDataProperty(input: DataSetInput): void {
     this.dispatchEvent(
       new CustomEvent<string>('clicked-data-property', {
         detail: input.key,
@@ -24,6 +24,7 @@ export class DataSetInfoCard extends LitElementWw {
     )
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
     ...globalStyles,
     css`
@@ -33,6 +34,7 @@ export class DataSetInfoCard extends LitElementWw {
     `,
   ]
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>
@@ -50,7 +52,7 @@ export class DataSetInfoCard extends LitElementWw {
                     .dataSet="${this.dataSet}"
                     class="clickable"
                     @click="${(_e: MouseEvent) =>
-                      this._handleSelectDataProperty(input)}"
+                      this.handleSelectDataProperty(input)}"
                   ></c-data-info>
                 `
               )}
@@ -66,7 +68,7 @@ export class DataSetInfoCard extends LitElementWw {
           </div>
           <sl-details summary="View raw data">
             <div style="max-height: 200px; overflow-y: auto;">
-              ${this.getData().map(
+              ${DataSetUtils.getData(this.dataSet).map(
                 (dataItem) =>
                   html`<p>
                     ${dataItem.inputs.map((input) => html`${input} `)} →

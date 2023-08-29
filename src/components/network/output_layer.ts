@@ -3,13 +3,15 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
-import { Position } from '@/types/position'
-import { Activation, actNone } from '@/network/activation'
-import { CLayer } from '@/network/c_layer'
-import { OutputLayerConf } from '@/network/output_layer_conf'
+import type { Position } from '@/types/position'
+import type { Activation } from '@/types/activation'
+import type { OutputLayerConf } from '@/types/output_layer_conf'
+import { CLayer } from '@/components/network/c_layer'
+import { NetworkUtils } from '@/utils/network_utils'
 
-import { DataSet } from '@/data_set/data_set'
-import { spawnAlert } from '@/utils/alerts'
+import type { DataSet } from '@/types/data_set'
+
+import { AlertUtils } from '@/utils/alert_utils'
 
 import * as tf from '@tensorflow/tfjs'
 
@@ -36,7 +38,7 @@ export class OutputLayer extends CLayer {
             composed: true,
           })
         )
-        spawnAlert({
+        AlertUtils.spawn({
           message: `Layer ${this.getCyId()} was deleted because no data could be assigned to it!`,
           variant: 'warning',
           icon: 'x-circle',
@@ -59,8 +61,9 @@ export class OutputLayer extends CLayer {
   }
 
   // FACTORY - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // creates a new output layer with the optionally specified properties
   static create({
-    activation = actNone,
+    activation = NetworkUtils.actNone,
     pos = null,
   }: {
     activation?: Activation
@@ -73,13 +76,14 @@ export class OutputLayer extends CLayer {
       LAYER_NAME: 'Output layer',
       activation: activation,
       pos: pos,
-      // layer id, data set and data set label will be added by the network
+      firstSpawn: true,
+      // layer id and data set label will be added by the network
       layerId: undefined,
       dataSetLabel: undefined,
     }
 
-    // emit an layer-conf-created event - the network listens to them, so it can add
-    // a unique layer id to the layer and add it to the network array
+    // emit an layer-conf-created event - the network listens to them, so it can
+    // add a unique layer id to the layer and add it to the network array
     dispatchEvent(
       new CustomEvent<OutputLayerConf>('layer-conf-created', {
         detail: outputLayerConf,
@@ -91,11 +95,23 @@ export class OutputLayer extends CLayer {
     return outputLayerConf
   }
 
+  // duplicate this layer
+  duplicate(): void {
+    AlertUtils.spawn({
+      message: `The selected layer can not be duplicated! Only a single output layer is currently supported!`,
+      variant: 'warning',
+      icon: 'x-circle',
+    })
+  }
+
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // -> INFO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // overwrite getName for the outputKey
   getName(): string {
     return `${this.conf.dataSetLabel.key} ${this.conf.LAYER_NAME} ${
-      this.conf.activation != actNone ? `(${this.conf.activation.name})` : ``
+      this.conf.activation != NetworkUtils.actNone
+        ? `(${this.conf.activation.name})`
+        : ``
     }`
   }
   // get description

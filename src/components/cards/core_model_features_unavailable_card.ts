@@ -5,14 +5,16 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
+import type { ModelConf } from '@/types/model_conf'
+import { modelConfContext } from '@/contexts/model_conf_context'
 
 @customElement('core-model-features-unavailable-card')
 export class CoreModelFeaturesUnavailableCard extends LitElementWw {
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
 
-  _handleDiscardModel(): void {
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  handleDiscardModel(): void {
     this.dispatchEvent(
       new Event('discard-model', {
         bubbles: true,
@@ -21,8 +23,10 @@ export class CoreModelFeaturesUnavailableCard extends LitElementWw {
     )
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       ${this.modelConf.model
@@ -44,7 +48,7 @@ export class CoreModelFeaturesUnavailableCard extends LitElementWw {
                   content="Discards the model, which gains you back your editing capabilities"
                 >
                   <sl-button
-                    @click="${(_e: MouseEvent) => this._handleDiscardModel()}"
+                    @click="${(_e: MouseEvent) => this.handleDiscardModel()}"
                   >
                     <sl-icon
                       name="arrow-counterclockwise"

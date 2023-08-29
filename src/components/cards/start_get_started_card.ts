@@ -6,11 +6,12 @@ import { consume } from '@lit-labs/context'
 import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
 
-import { FileConfig } from '@/types/file_config'
-import { FileConfigV1 } from '@/types/file_config_v1'
-import { spawnAlert } from '@/utils/alerts'
+import type { FileConfig } from '@/types/file_config'
+import type { FileConfigV1 } from '@/types/file_config_v1'
+import { AlertUtils } from '@/utils/alert_utils'
 
 @customElement('start-get-started-card')
 export class GetStartedCard extends LitElementWw {
@@ -20,6 +21,7 @@ export class GetStartedCard extends LitElementWw {
   @consume({ context: settingsContext, subscribe: true })
   settings: Settings
 
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   async handleImport() {
     const [handle] = await window.showOpenFilePicker({
       types: [
@@ -33,6 +35,7 @@ export class GetStartedCard extends LitElementWw {
     try {
       const text = await file.text()
       let fileConfig: FileConfig = await JSON.parse(text)
+
       switch (fileConfig.version) {
         case 1: {
           if (
@@ -51,7 +54,7 @@ export class GetStartedCard extends LitElementWw {
           const config: FileConfigV1 = {
             version: 1,
             settings: fileConfig.settings,
-            help: fileConfig.help,
+            qAndA: fileConfig.qAndA,
             availableDataSets: fileConfig.availableDataSets,
             dataSet: fileConfig.dataSet,
             layerConfs: fileConfig.layerConfs,
@@ -75,7 +78,7 @@ export class GetStartedCard extends LitElementWw {
       }
     } catch (err: unknown) {
       const error = err as Error
-      spawnAlert({
+      AlertUtils.spawn({
         message: error.message,
         variant: 'danger',
         icon: 'x-circle',
@@ -83,6 +86,7 @@ export class GetStartedCard extends LitElementWw {
     }
   }
 
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
     ...globalStyles,
     css`
@@ -94,6 +98,7 @@ export class GetStartedCard extends LitElementWw {
     `,
   ]
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>

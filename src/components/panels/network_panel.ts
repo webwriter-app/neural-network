@@ -8,7 +8,7 @@ import { globalStyles } from '@/global_styles'
 import { editableContext } from '@/contexts/editable_context'
 import { settingsContext, Settings } from '@/contexts/settings_context'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
-import { CLayerConf } from '@/network/c_layer_conf'
+import { CLayerConf } from '@/types/c_layer_conf'
 import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
 
 import '@/components/cards/core_model_features_unavailable_card'
