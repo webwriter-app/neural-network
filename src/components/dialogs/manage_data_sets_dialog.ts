@@ -3,8 +3,6 @@ import { CSSResult, TemplateResult, css, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
-import { globalStyles } from '@/global_styles'
-
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
@@ -32,6 +30,7 @@ export class ManageDataSetsDialog extends LitElementWw {
 
   async openCreateDataSetDialog() {
     await this._createDataSetDialog.show()
+    await this._dialog.hide()
   }
 
   handleDeleteDataSet(e: MouseEvent) {
@@ -45,28 +44,23 @@ export class ManageDataSetsDialog extends LitElementWw {
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = [
-    ...globalStyles,
-    css`
-      sl-dialog::part(body) {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-    `,
-  ]
+  static styles: CSSResult = css`
+    sl-dialog::part(body) {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  `
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <sl-dialog label="Manage data sets">
-        <div class="button-group">
-          <sl-button
-            variant="primary"
-            @click="${(_e: MouseEvent) => this.openCreateDataSetDialog()}"
-            >Create a new data set</sl-button
-          >
-        </div>
+        <sl-button
+          variant="primary"
+          @click="${(_e: MouseEvent) => this.openCreateDataSetDialog()}"
+          >Create a new data set</sl-button
+        >
         ${this.availableDataSets.map(
           (dataSet) => html`
             <c-card>

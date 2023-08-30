@@ -1,4 +1,5 @@
-// theme for the standard components
+// base styles
+import '@shoelace-style/shoelace/dist/themes/light.css'
 import '@shoelace-style/shoelace/dist/themes/dark.css'
 
 // standard shoelace components

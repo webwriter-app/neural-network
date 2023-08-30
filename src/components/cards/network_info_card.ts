@@ -1,5 +1,5 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
@@ -32,8 +32,8 @@ export class NetworkInfoCard extends LitElementWw {
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
 
-  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  static styles = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

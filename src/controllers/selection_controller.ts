@@ -14,7 +14,9 @@ export class SelectionController implements ReactiveController {
     host.addController(this)
   }
 
+  // HOST LIFECYCLE  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   hostConnected() {
+    // add event listeners for selection related events on host
     this.host.renderRoot.addEventListener('unselect', (_e: Event) =>
       this.unselect()
     )
@@ -37,14 +39,15 @@ export class SelectionController implements ReactiveController {
     )
   }
 
-  hostDisconnected() {}
-
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // unselects the current selection
   unselect() {
     const newSelected: Selected = {}
     this.host.selected = newSelected
     this.host.selectedEle = undefined
   }
 
+  // selects a layer by storing its cyID
   selectLayer(layer: string) {
     const newSelected: Selected = {}
     newSelected['layer'] = layer
@@ -52,6 +55,7 @@ export class SelectionController implements ReactiveController {
     this.host.selectedEle = undefined
   }
 
+  // selects a neuron by storing its cyID
   selectNeuron(neuron: string) {
     const newSelected: Selected = {}
     newSelected['neuron'] = neuron
@@ -59,6 +63,7 @@ export class SelectionController implements ReactiveController {
     this.host.selectedEle = undefined
   }
 
+  // selects an edge by storing its cyID
   selectEdge(edge: string) {
     const newSelected: Selected = {}
     newSelected['edge'] = edge

@@ -6,7 +6,7 @@ import { consume } from '@lit-labs/context'
 import { globalStyles } from '@/global_styles'
 
 import type { DataSet } from '@/types/data_set'
-import type { DataSetInput } from '@/types/data_set_input'
+import type { FeatureDesc } from '@/types/feature_desc'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { DataSetUtils } from '@/utils/data_set_utils'
 
@@ -16,17 +16,17 @@ export class DataSetInfoCard extends LitElementWw {
   dataSet: DataSet
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  handleSelectDataProperty(input: DataSetInput): void {
+  handleSelectDataDesc(featureDesc: FeatureDesc): void {
     this.dispatchEvent(
-      new CustomEvent<string>('clicked-data-property', {
-        detail: input.key,
+      new CustomEvent<string>('select-data-desc', {
+        detail: featureDesc.key,
       })
     )
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    ...globalStyles,
+    globalStyles,
     css`
       .clickable:hover {
         cursor: pointer;
@@ -42,26 +42,26 @@ export class DataSetInfoCard extends LitElementWw {
         <div slot="content">
           <div>
             <p>${this.dataSet.description}</p>
-            <h2>Inputs</h2>
+            <h2>Features</h2>
             <div class="tag-group">
-              ${this.dataSet.inputs.map(
-                (input) => html`
+              ${this.dataSet.featureDescs.map(
+                (featureDesc) => html`
                   <c-data-info
                     type="feature"
-                    .dataProperty="${input}"
+                    .dataDesc="${featureDesc}"
                     .dataSet="${this.dataSet}"
                     class="clickable"
                     @click="${(_e: MouseEvent) =>
-                      this.handleSelectDataProperty(input)}"
+                      this.handleSelectDataDesc(featureDesc)}"
                   ></c-data-info>
                 `
               )}
             </div>
-            <h2>Output</h2>
+            <h2>Label</h2>
             <div class="data-pills">
               <c-data-info
                 type="label"
-                .dataProperty="${this.dataSet.label}"
+                .dataDesc="${this.dataSet.labelDesc}"
                 .dataSet="${this.dataSet}"
               ></c-data-info>
             </div>
@@ -71,7 +71,7 @@ export class DataSetInfoCard extends LitElementWw {
               ${DataSetUtils.getData(this.dataSet).map(
                 (dataItem) =>
                   html`<p>
-                    ${dataItem.inputs.map((input) => html`${input} `)} →
+                    ${dataItem.features.map((feature) => html`${feature} `)} →
                     ${dataItem.label}
                   </p>`
               )}

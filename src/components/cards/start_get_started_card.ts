@@ -3,8 +3,6 @@ import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
-import { globalStyles } from '@/global_styles'
-
 import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
@@ -87,16 +85,13 @@ export class GetStartedCard extends LitElementWw {
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = [
-    ...globalStyles,
-    css`
-      #getStartedGrid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 10px;
-      }
-    `,
-  ]
+  static styles: CSSResult = css`
+    #getStartedGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 10px;
+    }
+  `
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
@@ -122,9 +117,7 @@ export class GetStartedCard extends LitElementWw {
                       <sl-tag variant="neutral">Regression</sl-tag>
                       <sl-tag variant="neutral">Feed Forward</sl-tag>
                     </div>
-                    <div class="button-group">
-                      <sl-button>Create</sl-button>
-                    </div>
+                    <sl-button>Create</sl-button>
                   </div>
                 </c-card>
                 <c-card>
@@ -135,9 +128,7 @@ export class GetStartedCard extends LitElementWw {
                       <sl-tag variant="neutral">Classification</sl-tag>
                       <sl-tag variant="neutral">Feed Forward</sl-tag>
                     </div>
-                    <div class="button-group">
-                      <sl-button>Create</sl-button>
-                    </div>
+                    <sl-button>Create</sl-button>
                   </div>
                 </c-card>
                 <c-card>
@@ -148,9 +139,7 @@ export class GetStartedCard extends LitElementWw {
                       <sl-tag variant="neutral">Regression</sl-tag>
                       <sl-tag variant="neutral">Feed Forward</sl-tag>
                     </div>
-                    <div class="button-group">
-                      <sl-button>Create</sl-button>
-                    </div>
+                    <sl-button>Create</sl-button>
                   </div>
                 </c-card>
               </div>`

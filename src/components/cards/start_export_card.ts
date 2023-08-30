@@ -78,7 +78,7 @@ export class StartExportCard extends LitElementWw {
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
+  static styles: CSSResult = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
@@ -94,16 +94,14 @@ export class StartExportCard extends LitElementWw {
             supported. NOTE: this feature is currently not available in Safari
             and Firefox.
           </p>
-          <div class="button-group">
-            <sl-button
-              @click="${(_e: MouseEvent) => {
-                void this.handleExport()
-              }}"
-            >
-              <sl-icon slot="prefix" name="file-earmark-arrow-down"></sl-icon>
-              Export
-            </sl-button>
-          </div>
+          <sl-button
+            @click="${(_e: MouseEvent) => {
+              void this.handleExport()
+            }}"
+          >
+            <sl-icon slot="prefix" name="file-earmark-arrow-down"></sl-icon>
+            Export
+          </sl-button>
         </div>
       </c-card>
     `

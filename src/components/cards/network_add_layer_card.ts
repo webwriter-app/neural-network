@@ -29,7 +29,7 @@ export class NetworkAddLayerCard extends LitElementWw {
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    ...globalStyles,
+    globalStyles,
     css`
       .drag-area {
         width: 100%;

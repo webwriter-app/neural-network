@@ -10,8 +10,10 @@ import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { settingsContext, Settings } from '@/contexts/settings_context'
-import { SlChangeEvent, SlSwitch } from '@shoelace-style/shoelace'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+
+import type { SlChangeEvent, SlSwitch } from '@shoelace-style/shoelace'
 
 @customElement('c-setting')
 export class CSetting extends LitElementWw {
@@ -61,7 +63,7 @@ export class CSetting extends LitElementWw {
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    ...globalStyles,
+    globalStyles,
     css`
       sl-switch * {
         display: flex;

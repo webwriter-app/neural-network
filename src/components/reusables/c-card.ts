@@ -1,14 +1,21 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
+import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
+import { themeContext } from '@/contexts/theme_context'
+import type { Theme } from '@/types/theme'
+
 @customElement('c-card')
 export class CCard extends LitElementWw {
-  /* STYLES */
+  @consume({ context: themeContext, subscribe: true })
+  theme: Theme
+
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    ...globalStyles,
+    globalStyles,
     css`
       :host {
         display: block;
@@ -16,7 +23,7 @@ export class CCard extends LitElementWw {
         height: 100%;
       }
       .c-card {
-        --padding: 10px 20px 20px 20px;
+        --padding: 5px 15px 15px 15px;
         margin: 0;
         width: 100%;
         height: 100%;
@@ -30,8 +37,12 @@ export class CCard extends LitElementWw {
     `,
   ]
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
+      <style>
+        ${this.theme.styles}
+      </style>
       <sl-card class="c-card">
         <h1><slot name="title"></slot></h1>
         <div>

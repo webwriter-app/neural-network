@@ -21,20 +21,20 @@ export class NeuronInfoCard extends LitElementWw {
   dataSet: DataSet
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
+  static styles: CSSResult = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
-    let type, dataProperty
+    let type, dataDesc
     if (this.neuron.layer instanceof InputLayer) {
       type = 'feature'
-      dataProperty = DataSetUtils.getDataSetInputByKey(
+      dataDesc = DataSetUtils.getDataSetInputByKey(
         this.dataSet,
-        this.neuron.label
+        this.neuron.key
       )
     } else if (this.neuron.layer instanceof OutputLayer) {
       type = 'label'
-      dataProperty = this.dataSet.label
+      dataDesc = this.dataSet.labelDesc
     }
     return html`
       <c-card>
@@ -43,23 +43,23 @@ export class NeuronInfoCard extends LitElementWw {
           <div>
             <p>
               Name:
-              <c-network-link .target="${this.neuron}"
+              <c-network-link .target=${this.neuron}
                 >${this.neuron.getName()}</c-network-link
               >
             </p>
             <p>
               Corresponding layer:
-              <c-network-link .target="${this.neuron.layer}"
+              <c-network-link .target=${this.neuron.layer}
                 >${this.neuron.layer.getName()}</c-network-link
               >
             </p>
-            ${dataProperty
+            ${dataDesc
               ? html`
                   <h2>Assigned data</h2>
                   <c-data-info
-                    .type="${type}"
-                    .dataProperty="${dataProperty}"
-                    .dataSet="${this.dataSet}"
+                    .type=${type}
+                    .dataDesc=${dataDesc}
+                    .dataSet=${this.dataSet}
                   ></c-data-info>
                 `
               : html``}

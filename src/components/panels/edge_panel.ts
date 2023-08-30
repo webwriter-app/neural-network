@@ -1,19 +1,13 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-
 import { consume } from '@lit-labs/context'
 
-import { globalStyles } from '@/global_styles'
-
-import { networkContext } from '@/contexts/network_context'
-import {
-  SelectedEle,
-  selectedEleContext,
-} from '@/contexts/selected_ele_context'
-
 import type { Network } from '@/components/network/network'
-import type { CEdge } from '@/components/network/c_edge'
+import { CEdge } from '@/components/network/c_edge'
+import { networkContext } from '@/contexts/network_context'
+import type { SelectedEle } from '@/types/selected_ele'
+import { selectedEleContext } from '@/contexts/selected_ele_context'
 
 import '@/components/cards/edge_info_card'
 import '@/components/cards/edge_weight_card'
@@ -26,8 +20,7 @@ export class EdgePanel extends LitElementWw {
   @consume({ context: selectedEleContext, subscribe: true })
   selectedEle: SelectedEle
 
-  static styles: CSSResult[] = globalStyles
-
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     if (this.selectedEle && this.selectedEle instanceof CEdge) {
       const edge: CEdge = this.selectedEle

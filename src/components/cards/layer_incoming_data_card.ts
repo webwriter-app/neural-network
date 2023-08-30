@@ -1,9 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
-
-import { globalStyles } from '@/global_styles'
 
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
@@ -19,13 +17,13 @@ export class LayerIncomingDataCard extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
-  @query('#inputDataSelect')
-  _inputDataSelect: SlSelect
+  @query('#featuresSelect')
+  _featuresSelect: SlSelect
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  handleChangeInputData(): void {
-    const inputKeys: string[] = <string[]>this._inputDataSelect.value
-    this.layer.conf.dataSetKeys = inputKeys
+  handleChangeFeatures(): void {
+    const featureKeys: string[] = <string[]>this._featuresSelect.value
+    this.layer.conf.featureKeys = featureKeys
     this.dispatchEvent(
       new Event('update-layer-confs', {
         bubbles: true,
@@ -34,36 +32,35 @@ export class LayerIncomingDataCard extends LitElementWw {
     )
   }
 
-  getInputOptions(): TemplateResult<1>[] {
-    return this.dataSet.inputs.map(
-      (input) => html`
-        <sl-option value="${input.key}">
-          <sl-tooltip content="${input.description}">${input.key}</sl-tooltip>
+  getFeatureOptions(): TemplateResult<1>[] {
+    return this.dataSet.featureDescs.map(
+      (featureDesc) => html`
+        <sl-option value="${featureDesc.key}">
+          <sl-tooltip content="${featureDesc.description}"
+            >${featureDesc.key}</sl-tooltip
+          >
         </sl-option>
       `
     )
   }
 
-  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
-
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Incoming data</div>
+        <div slot="title">Features</div>
         <div slot="content">
           <sl-select
-            id="inputDataSelect"
-            value=${this.layer.conf.dataSetKeys.join(' ')}
+            id="featuresSelect"
+            value=${this.layer.conf.featureKeys.join(' ')}
             multiple
             max-options-visible="100"
-            help-text="Assign input data to this layer"
+            help-text="Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description."
             @sl-change="${(_e: SlChangeEvent) => {
-              this.handleChangeInputData()
+              this.handleChangeFeatures()
             }}"
           >
-            ${this.getInputOptions()}
+            ${this.getFeatureOptions()}
           </sl-select>
         </div>
       </c-card>

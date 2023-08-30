@@ -8,7 +8,7 @@ import { globalStyles } from '@/global_styles'
 export class HelpAboutCard extends LitElementWw {
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    ...globalStyles,
+    globalStyles,
     css`
       .developerSlDetails::part(content) {
         margin: 0;
@@ -50,7 +50,11 @@ export class HelpAboutCard extends LitElementWw {
               data="/assets/THIRDPARTYLICENSES"
             ></object>
           </sl-details>
-          <sl-details summary="Third-party data sets"> TODO </sl-details>
+          <sl-details summary="Third-party data sets">
+            <p>
+              All third-party data sets have been published under public domain
+            </p>
+          </sl-details>
         </div>
       </c-card>
     `

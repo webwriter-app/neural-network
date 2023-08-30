@@ -12,7 +12,7 @@ export class EdgeWeightCard extends LitElementWw {
   weight: number
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
+  static styles: CSSResult = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

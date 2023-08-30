@@ -1,25 +1,28 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { customElement, property /* , query */, state } from 'lit/decorators.js'
 import { provide } from '@lit-labs/context'
 
-import { globalStyles } from '@/global_styles'
-
 import '@/imports'
+
+import { globalStyles } from '@/global_styles'
 
 import type { SetupStatus } from '@/types/setup_status'
 import { setupStatusContext } from '@/contexts/setup_status_context'
 import { SetupController } from '@/controllers/setup_controller'
+import { SetupUtils } from '@/utils/setup_utils'
 
 import { editableContext } from '@/contexts/editable_context'
 
 import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
 import { SettingsController } from '@/controllers/settings_controller'
+import { SettingsUtils } from '@/utils/settings_utils'
 
 import type { QAndAEntry } from '@/types/q_and_a_entry'
 import { qAndAContext } from '@/contexts/q_and_a_context'
 import { QAndAController } from '@/controllers/q_and_a_controller'
+import { QAndAUtils } from '@/utils/q_and_a_utils'
 
 import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
@@ -35,15 +38,15 @@ import { NetworkController } from '@/controllers/network_controller'
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
-import { bostonHousePricing } from '@/data_set/boston'
-import { pimaIndiansDiabetes } from '@/data_set/diabetes'
 import { DataSetController } from '@/controllers/data_set_controller'
+import { DataSetUtils } from '@/utils/data_set_utils'
 
 import type { TrainOptions } from '@/types/train_options'
 import type { ModelConf } from '@/types/model_conf'
 import { trainOptionsContext } from '@/contexts/train_options_context'
 import { modelConfContext } from '@/contexts/model_conf_context'
 import { ModelController } from '@/controllers/model_controller'
+import { ModelUtils } from '@/utils/model_utils'
 
 import type { Selected } from '@/types/selected'
 import type { SelectedEle } from '@/types/selected_ele'
@@ -54,17 +57,20 @@ import { SelectionController } from '@/controllers/selection_controller'
 import { panelContext } from '@/contexts/panels_context'
 import { PanelController } from '@/controllers/panel_controller'
 
-import type { FileConfigV1 } from '@/types/file_config_v1'
-
+/* import { AlertController } from '@/controllers/alert_controller' */
 import { AlertUtils } from '@/utils/alert_utils'
+
+import type { Theme } from '@/types/theme'
+import { themeContext } from '@/contexts/theme_context'
+import { ThemeController } from '@/controllers/theme_controller'
+import { ThemeUtils } from '@/utils/theme_utils'
+
+import type { FileConfigV1 } from '@/types/file_config_v1'
 
 import '@/components/network/network'
 import '@/components/canvas_area'
 import '@/components/menu_area'
-import { SetupUtils } from './utils/setup_utils'
-import { SettingsUtils } from './utils/settings_utils'
-import { QAndAUtils } from './utils/q_and_a_utils'
-import { ModelUtils } from './utils/model_utils'
+import '@/components/theme_switch'
 
 @customElement('ww-deeplearning')
 export class WwDeepLearning extends LitElementWw {
@@ -120,11 +126,11 @@ export class WwDeepLearning extends LitElementWw {
   // -> DATA SET - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: dataSetContext })
   @property({ attribute: true, type: Object, reflect: true })
-  dataSet: DataSet = bostonHousePricing
+  dataSet: DataSet = DataSetUtils.defaultDataSet
 
   @provide({ context: availableDataSetsContext })
   @property({ attribute: true, type: Array, reflect: true })
-  availableDataSets: DataSet[] = [bostonHousePricing, pimaIndiansDiabetes]
+  availableDataSets: DataSet[] = DataSetUtils.defaultAvailableDataSets
 
   dataSetController = new DataSetController(this)
 
@@ -165,13 +171,22 @@ export class WwDeepLearning extends LitElementWw {
 
   panelController = new PanelController(this)
 
+  // -> ALERTS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  /* @query('.sl-toast-stack')
+  _alertStack
+
+  alertController = new AlertController(this) */
+
+  // -> THEME  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @provide({ context: themeContext })
+  @property({ attribute: false })
+  theme: Theme = ThemeUtils.lightTheme
+
+  themeController = new ThemeController(this)
+
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   connectedCallback() {
     super.connectedCallback()
-
-    // might not work with WebWriter and should thus be removed. Currently
-    // needed to fix a few remaining theme issues
-    document.documentElement.classList.add('sl-theme-dark')
 
     // ADD EVENT LISTENERS
     this.renderRoot.addEventListener(
@@ -196,7 +211,7 @@ export class WwDeepLearning extends LitElementWw {
     this.layerConnectionConfs = config.layerConnectionConfs
     this.trainOptions = config.trainOptions
     this.modelController.discardModel()
-    this.panel = undefined
+    this.panel = 'network'
     this.selected = {}
 
     AlertUtils.spawn({
@@ -205,14 +220,15 @@ export class WwDeepLearning extends LitElementWw {
       icon: 'check-circle',
     })
 
+    // TODO this is not really nice and unreliable, but how to fix it?
     setTimeout(() => {
       this.canvas.fit()
-    }, 50)
+    }, 1000)
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    ...globalStyles,
+    globalStyles,
     css`
       :host {
         height: 100vh;
@@ -267,12 +283,30 @@ export class WwDeepLearning extends LitElementWw {
         bottom: 10px;
         background-color: var(--sl-color-neutral-50);
       }
+
+      theme-switch {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+      }
+
+      /* .sl-toast-stack {
+        top: 300 !important;
+        width: 50rem !important;
+      } */
     `,
   ]
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -F
   render(): TemplateResult<1>[] {
     const renderedHTML: TemplateResult<1>[] = []
+    /* renderedHTML.push(html`<div class="sl-toast-stack"></div>`) */
+
+    renderedHTML.push(
+      html`<style>
+        ${this.theme.styles}
+      </style>`
+    )
     renderedHTML.push(html` <canvas-area
       class="${!this.panel ? 'right-collapsed' : ''}"
       @canvas-created="${(e: CustomEvent<CCanvas>) => {
@@ -303,6 +337,7 @@ export class WwDeepLearning extends LitElementWw {
         <c-network></c-network>
       `)
     }
+    renderedHTML.push(html`<theme-switch></theme-switch>`)
     return renderedHTML
   }
 }

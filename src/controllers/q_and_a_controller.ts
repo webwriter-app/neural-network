@@ -12,7 +12,9 @@ export class QAndAController implements ReactiveController {
     host.addController(this)
   }
 
+  // HOST LIFECYCLE  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   hostConnected() {
+    // add event listeners for Q&A related events on host
     this.host.renderRoot.addEventListener(
       'add-new-help-entry',
       (e: CustomEvent<QAndAEntry>) => this.addNewEntry(e.detail)
@@ -29,6 +31,9 @@ export class QAndAController implements ReactiveController {
 
   hostDisconnected() {}
 
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // adds a new Q&A entry if no entry with the same title exists - else spawns
+  // an alert
   addNewEntry(entry: QAndAEntry) {
     console.log([...this.host.qAndA])
     if (
@@ -45,22 +50,33 @@ export class QAndAController implements ReactiveController {
     }
   }
 
+  // removes a Q&A entry by its name
   removeEntry(title: string) {
     const index = this.host.qAndA.findIndex((entry) => entry.title == title)
     this.host.qAndA.splice(index, 1)
     this.host.qAndA = [...this.host.qAndA]
   }
 
+  // updates a Q&A entry by receiving a complete Q&A entry and replacing the
+  // current Q&A entry with this title with it
   updateEntry(entry: QAndAEntry) {
     const index = this.host.qAndA.findIndex(
       (entry) => entry.title == entry.title
     )
-    this.host.qAndA[index].description = entry.description
-    this.host.qAndA = [...this.host.qAndA]
-    AlertUtils.spawn({
-      message: 'Help entry updated successfull',
-      variant: 'success',
-      icon: 'check-circle',
-    })
+    if (index != -1) {
+      this.host.qAndA[index].description = entry.description
+      this.host.qAndA = [...this.host.qAndA]
+      AlertUtils.spawn({
+        message: 'Help entry updated successfull',
+        variant: 'success',
+        icon: 'check-circle',
+      })
+    } else {
+      AlertUtils.spawn({
+        message: `Could not update Q&A entry! An entry with this title does not exist!`,
+        variant: 'danger',
+        icon: 'x-circle',
+      })
+    }
   }
 }

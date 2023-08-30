@@ -1,3 +1,5 @@
+// The QAndAUtils class provides the static default configuration for the Q&A
+// property of the app
 export class QAndAUtils {
   static defaultQAndA = [
     {

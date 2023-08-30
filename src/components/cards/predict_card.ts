@@ -4,13 +4,11 @@ import { customElement, query } from 'lit/decorators.js'
 import { choose } from 'lit/directives/choose.js'
 import { consume } from '@lit-labs/context'
 
-import { globalStyles } from '@/global_styles'
-
 import type { Network } from '@/components/network/network'
 import { networkContext } from '@/contexts/network_context'
 
 import type { DataSet } from '@/types/data_set'
-import type { DataSetInput } from '@/types/data_set_input'
+import type { FeatureDesc } from '@/types/feature_desc'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { DataSetUtils } from '@/utils/data_set_utils'
 import type { ModelConf } from '@/types/model_conf'
@@ -70,33 +68,30 @@ export class PredictCard extends LitElementWw {
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = [
-    ...globalStyles,
-    css`
-      :host {
-        position: relative;
-        width: 100%;
-      }
+  static styles: CSSResult = css`
+    :host {
+      position: relative;
+      width: 100%;
+    }
 
-      .inputs-grid {
-        width: 100%;
-        display: grid;
-        gap: 10px;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-        overflow: hidden;
-      }
-    `,
-  ]
+    .inputs-grid {
+      width: 100%;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+      overflow: hidden;
+    }
+  `
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
-    const requiredInputs: Set<DataSetInput> = new Set()
+    const requiredFeatureDescs: Set<FeatureDesc> = new Set()
     for (const inputLayer of this.network.getInputLayers()) {
-      for (const dataSetInput of DataSetUtils.getDataSetInputsByKeys(
+      for (const dataSetInput of DataSetUtils.getFeatureDescsByKeys(
         this.dataSet,
-        inputLayer.conf.dataSetKeys
+        inputLayer.conf.featureKeys
       )) {
-        requiredInputs.add(dataSetInput)
+        requiredFeatureDescs.add(dataSetInput)
       }
     }
 
@@ -106,16 +101,16 @@ export class PredictCard extends LitElementWw {
         <form slot="content" id="predictForm">
           <h2>Inputs</h2>
           <div class="inputs-grid">
-            ${Array.from(requiredInputs).map(
-              (input) => html`
+            ${Array.from(requiredFeatureDescs).map(
+              (featureDesc) => html`
                 <div>
                   <c-data-info
                     type="feature"
-                    .dataProperty="${input}"
+                    .dataDesc="${featureDesc}"
                     .dataSet="${this.dataSet}"
                   ></c-data-info>
                   <sl-input
-                    name="${input['key']}"
+                    name="${featureDesc['key']}"
                     ?disabled="${this.modelConf.predictedValue}"
                     type="number"
                     required
@@ -129,7 +124,7 @@ export class PredictCard extends LitElementWw {
                 <span>
                   <c-data-info
                     type="label"
-                    .dataProperty="${this.dataSet.label}"
+                    .dataDesc="${this.dataSet.labelDesc}"
                     .dataSet="${this.dataSet}"
                   ></c-data-info>
                   ${choose(
@@ -145,7 +140,8 @@ export class PredictCard extends LitElementWw {
                               ...(<number[]>this.modelConf.predictedValue)
                             )
                           )
-                          return html`${this.dataSet.label.classes[index].key}
+                          return html`${this.dataSet.labelDesc.classes[index]
+                            .key}
                           with a probability of
                           ${ModelUtils.formatWeight(
                             (<number[]>this.modelConf.predictedValue)[index]

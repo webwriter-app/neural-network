@@ -1,9 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement, queryAll, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
-
-import { globalStyles } from '@/global_styles'
 
 import type { SetupStatus } from '@/types/setup_status'
 import { setupStatusContext } from '@/contexts/setup_status_context'
@@ -160,7 +158,8 @@ export class Network extends LitElementWw {
     // only perform action if allowed
     if (this.editable || this.settings.mayAddAndRemoveLayers) {
       // remove the connections from and to this layer
-      for (const conConf of this.layerConnectionConfs) {
+      for (let i = this.layerConnectionConfs.length - 1; i >= 0; i--) {
+        const conConf = this.layerConnectionConfs[i]
         if (
           conConf.sourceLayerId == layer.conf.layerId ||
           conConf.targetLayerId == layer.conf.layerId
@@ -179,6 +178,7 @@ export class Network extends LitElementWw {
             })
           )
         }
+        console.log()
       }
 
       // remove the reference to the layer in our layers array
@@ -374,16 +374,16 @@ export class Network extends LitElementWw {
     // assign all unassigned inputs to the layer in case it is an input layer
     if (
       layerConf.LAYER_TYPE == 'Input' &&
-      !(<InputLayerConf>layerConf).dataSetKeys
+      !(<InputLayerConf>layerConf).featureKeys
     ) {
-      ;(<InputLayerConf>layerConf).dataSetKeys = this.dataSet.inputs.map(
-        (input) => input.key
+      ;(<InputLayerConf>layerConf).featureKeys = this.dataSet.featureDescs.map(
+        (featureDesc) => featureDesc.key
       )
     }
 
     // assign the label to the layer in case it is an output layer
     else if (layerConf.LAYER_TYPE == 'Output') {
-      ;(<OutputLayerConf>layerConf).dataSetLabel = this.dataSet.label
+      ;(<OutputLayerConf>layerConf).labelDesc = this.dataSet.labelDesc
     }
 
     // get the layer a position if none was specified
@@ -416,9 +416,6 @@ export class Network extends LitElementWw {
       ).requestUpdate()
     }
   }
-
-  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   getHTMLForLayerConf(layerConf: CLayerConf) {

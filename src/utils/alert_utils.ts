@@ -4,7 +4,9 @@ function escapeHtml(html: string) {
   return div.innerHTML
 }
 
+// The AlertUtils class provides a static method to spawn alerts
 export class AlertUtils {
+  // spawns an alert with the specified options, most important the message
   static spawn({
     message,
     variant = 'primary',
@@ -12,7 +14,7 @@ export class AlertUtils {
     duration = 7000,
   }: {
     message: string
-    variant?: string
+    variant?: 'primary' | 'success' | 'warning' | 'danger'
     icon?: string
     duration?: number
   }) {
@@ -26,7 +28,6 @@ export class AlertUtils {
     `,
     })
 
-    document.body.append(alert)
     void alert.toast()
   }
 }

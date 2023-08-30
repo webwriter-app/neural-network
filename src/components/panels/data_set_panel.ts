@@ -1,15 +1,15 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
-import { globalStyles } from '@/global_styles'
-
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
-import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
+import type { ModelConf } from '@/types/model_conf'
+import { modelConfContext } from '@/contexts/model_conf_context'
 
 import '@/components/cards/core_model_features_unavailable_card'
 import '@/components/cards/data_set_info_card'
@@ -19,7 +19,7 @@ import '@/components/cards/data_set_select_card'
 @customElement('data-set-panel')
 export class DataSetPanel extends LitElementWw {
   @property({ attribute: true, reflect: true })
-  selectedInputKey: string | null
+  selectedFeatureKey: string | null
 
   @consume({ context: editableContext, subscribe: true })
   editable: boolean
@@ -33,14 +33,14 @@ export class DataSetPanel extends LitElementWw {
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
 
+  // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   updated(changedProperties: Map<string, unknown>) {
     if (changedProperties.has('dataSet')) {
-      this.selectedInputKey = null
+      this.selectedFeatureKey = null
     }
   }
 
-  static styles: CSSResult[] = globalStyles
-
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-panel name="dataSet">
@@ -55,15 +55,15 @@ export class DataSetPanel extends LitElementWw {
         ${this.dataSet
           ? html`
               <data-set-info-card
-                @clicked-data-property="${(e: CustomEvent<string>) => {
-                  this.selectedInputKey = e.detail
+                @select-data-desc="${(e: CustomEvent<string>) => {
+                  this.selectedFeatureKey = e.detail
                 }}"
               ></data-set-info-card>
             `
           : ``}
         ${this.editable || this.settings.showPlots
           ? html`
-              <plots-card .inputKey="${this.selectedInputKey}"></plots-card>
+              <plots-card .featureKey="${this.selectedFeatureKey}"></plots-card>
             `
           : html``}
       </c-panel>

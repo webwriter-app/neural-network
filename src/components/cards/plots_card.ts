@@ -3,11 +3,9 @@ import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
-import { globalStyles } from '@/global_styles'
-
 import type { DataSet } from '@/types/data_set'
-import type { DataSetInput } from '@/types/data_set_input'
-import type { DataSetLabel } from '@/types/data_set_label'
+import type { FeatureDesc } from '@/types/feature_desc'
+import type { LabelDesc } from '@/types/label_desc'
 import { dataSetContext } from '@/contexts/data_set_context'
 
 import * as tfvis from '@tensorflow/tfjs-vis'
@@ -18,27 +16,27 @@ export class PlotsCard extends LitElementWw {
   dataSet: DataSet
 
   @property()
-  inputKey: string | null
+  featureKey: string | null
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   buildPlots(): TemplateResult<1> {
-    if (this.dataSet && this.inputKey) {
+    if (this.dataSet && this.featureKey) {
       const parentContainer: HTMLDivElement = document.createElement('div')
       parentContainer.setAttribute('id', 'plots')
 
-      const label: DataSetLabel = this.dataSet.label
+      const labelDesc: LabelDesc = this.dataSet.labelDesc
 
-      const inputIndex: number = this.dataSet.inputs.findIndex(
-        (input: DataSetInput) => input.key == this.inputKey
+      const featureIndex: number = this.dataSet.featureDescs.findIndex(
+        (featureDesc: FeatureDesc) => featureDesc.key == this.featureKey
       )
 
       const values: tfvis.Point2D[] = this.dataSet.data.map((data) => ({
-        x: data.inputs[inputIndex],
+        x: data.features[featureIndex],
         y: data.label,
       }))
 
-      // @TODO additional series for predicted data; maybe split test/train as
-      // different series
+      // TODO maybe additional series for predicted data?; test/train as
+      // different series?
       const series: string[] = ['Data set']
 
       const container: HTMLDivElement = parentContainer.appendChild(
@@ -48,8 +46,8 @@ export class PlotsCard extends LitElementWw {
         { drawArea: container },
         { values, series },
         {
-          xLabel: this.inputKey,
-          yLabel: label.key,
+          xLabel: this.featureKey,
+          yLabel: labelDesc.key,
           width: 350,
           height: 240,
         }
@@ -57,23 +55,20 @@ export class PlotsCard extends LitElementWw {
 
       return html`${parentContainer}`
     } else {
-      return html`Click on an input pill above to see the relation between this
-      input and the output in a plot`
+      return html`Click on an feature pill above to see the relation between
+      this input and the output in a plot`
     }
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = [
-    ...globalStyles,
-    css`
-      #plots {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        overflow-x: auto;
-      }
-    `,
-  ]
+  static styles: CSSResult = css`
+    #plots {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      overflow-x: auto;
+    }
+  `
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

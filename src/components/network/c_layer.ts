@@ -1,9 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement, property, queryAll, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
-
-import { globalStyles } from '@/global_styles'
 
 import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
@@ -27,7 +25,10 @@ export abstract class CLayer extends LitElementWw {
   @consume({ context: canvasContext, subscribe: true })
   canvas: CCanvas
 
+  // the data set is stored as a property for the layer to realize changes in
+  // the data set in lifecycle hooks and respond to them
   @consume({ context: dataSetContext, subscribe: true })
+  @property({ attribute: false })
   dataSet: DataSet
 
   @consume({ context: selectedContext, subscribe: true })
@@ -217,9 +218,6 @@ export abstract class CLayer extends LitElementWw {
       })
     )
   }
-
-  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

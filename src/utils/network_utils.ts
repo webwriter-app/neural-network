@@ -1,5 +1,6 @@
 import type { Activation } from '@/types/activation'
 
+// The NetworkUtils class provides static preconfigured instances of activations
 export class NetworkUtils {
   static actNone: Activation = {
     name: 'None',

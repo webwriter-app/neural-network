@@ -1,6 +1,9 @@
 import type { TrainOptions } from '@/types/train_options'
 import type { ModelConf } from '@/types/model_conf'
 
+// The ModelUtils class provides a static method to better format an arbitrary
+// long floating point number. In addition, it provides the default
+// configuration for the training related app properties.
 export class ModelUtils {
   static defaultTrainOptions: TrainOptions = {
     learningRate: '0.001',

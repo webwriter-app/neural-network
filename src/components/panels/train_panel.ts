@@ -6,8 +6,10 @@ import { consume } from '@lit-labs/context'
 import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
-import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+import type { ModelConf } from '@/types/model_conf'
+import { modelConfContext } from '@/contexts/model_conf_context'
 
 import '@/components/cards/training_train_card.js'
 import '@/components/cards/training_metrics_card'
@@ -24,8 +26,10 @@ export class TrainPanel extends LitElementWw {
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
 
-  static styles: CSSResult[] = globalStyles
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  static styles: CSSResult = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-panel name="train">

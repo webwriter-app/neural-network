@@ -1,10 +1,10 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import { consume } from '@lit-labs/context'
 import { panelContext } from '@/contexts/panels_context'
 
 @customElement('c-panel')
@@ -35,7 +35,7 @@ export class CPanel extends LitElementWw {
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    ...globalStyles,
+    globalStyles,
     css`
       .c-panel {
         display: flex;

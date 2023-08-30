@@ -1,9 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
-
-import { globalStyles } from '@/global_styles'
 
 import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
@@ -40,11 +38,11 @@ export class Neuron extends LitElementWw {
   @property()
   neuronId: number
 
-  // key of the corresponding dataSet input or label as a label beneath
+  // key of the corresponding dataSet input or label
   @property()
-  label: string
+  key: string
   @property()
-  labelPos: 'bottom' | 'top'
+  keyPos: 'bottom' | 'top'
 
   // bias of the neuron that is to be trained
   @property()
@@ -113,9 +111,6 @@ export class Neuron extends LitElementWw {
     )
   }
 
-  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
-
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     // only render if doNotRender flag is not set
@@ -132,7 +127,7 @@ export class Neuron extends LitElementWw {
       // additional label
       let neuronParent: string = this.layer.getCyId()
       let wrapped = false
-      if (this.label) {
+      if (this.key) {
         this.canvas.cy.add({
           group: 'nodes',
           grabbable: false,
@@ -141,10 +136,10 @@ export class Neuron extends LitElementWw {
             id: `${this.getCyId()}w`,
             parent: neuronParent,
             type: 'neuron-wrapper',
-            textPos: this.labelPos,
+            textPos: this.keyPos,
             layer: this.layer.conf.layerId,
             neuron: this.neuronId,
-            label: this.label,
+            label: this.key,
           },
         })
 

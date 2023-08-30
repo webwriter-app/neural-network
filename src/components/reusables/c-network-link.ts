@@ -1,14 +1,10 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
-import { globalStyles } from '@/global_styles'
-
-import { canvasContext } from '@/contexts/canvas_context'
-
 import type { CCanvas } from '@/components/canvas'
-
+import { canvasContext } from '@/contexts/canvas_context'
 import { CLayer } from '@/components/network/c_layer'
 import { Neuron } from '@/components/network/neuron'
 
@@ -23,11 +19,8 @@ export class CNetworkLink extends LitElementWw {
   @consume({ context: canvasContext, subscribe: true })
   canvas: CCanvas
 
-  /* STYLES */
-  static styles: CSSResult[] = globalStyles
-
-  // handle link click
-  _handleClick() {
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  selectItem() {
     if (this.target instanceof CLayer) {
       this.dispatchEvent(
         new CustomEvent<string>('select-layer', {
@@ -47,12 +40,13 @@ export class CNetworkLink extends LitElementWw {
     }
   }
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <sl-button 
         size="small" 
         pill 
-        @click="${(_e: MouseEvent) => this._handleClick()}"
+        @click="${(_e: MouseEvent) => this.selectItem()}"
       >
         <slot>
       </sl-button>

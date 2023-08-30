@@ -14,14 +14,14 @@ export class LayerInfoCard extends LitElementWw {
   @property()
   layer: CLayer
 
-  // eventhough we do not directly need the data set in this component, we need
+  // even though we do not directly need the data set in this component, we need
   // to subscribe to data set changes in order to rerender this component
   // (because layer description can change on data set changes)
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
+  static styles: CSSResult = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

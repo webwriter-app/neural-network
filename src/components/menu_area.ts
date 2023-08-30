@@ -52,9 +52,9 @@ export class MenuArea extends LitElementWw {
   @consume({ context: panelContext, subscribe: true })
   panel: string
 
-  /* STYLES */
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    ...globalStyles,
+    globalStyles,
     css`
       #rightMenu {
         width: 100%;
@@ -87,6 +87,7 @@ export class MenuArea extends LitElementWw {
     `,
   ]
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <div id="rightMenu" class="${!this.panel ? 'collapsed' : ''}">

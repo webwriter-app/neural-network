@@ -11,7 +11,17 @@ export class SettingsController implements ReactiveController {
     host.addController(this)
   }
 
+  // HOST LIFECYCLE  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   hostConnected() {
+    // add event listeners for settings related events on host
+    this.host.renderRoot.addEventListener(
+      'set-settings',
+      (e: CustomEvent<Settings>) => this.setSettings(e.detail)
+    )
+
+    // add event listeners for settings related events on window (because these
+    // events may also be fired by elements that are not in the DOM anymore when
+    // firing)
     window.addEventListener(
       'set-setting',
       (
@@ -21,14 +31,10 @@ export class SettingsController implements ReactiveController {
         }>
       ) => this.setSetting(e.detail.name, e.detail.value)
     )
-    this.host.renderRoot.addEventListener(
-      'set-settings',
-      (e: CustomEvent<Settings>) => this.setSettings(e.detail)
-    )
   }
 
-  hostDisconnected() {}
-
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // sets the value of a setting
   setSetting(name: string, value: boolean) {
     if (Object.hasOwn(this.host.settings, name)) {
       this.host.settings[name] = value
@@ -38,6 +44,7 @@ export class SettingsController implements ReactiveController {
     }
   }
 
+  // overwrites the whole settings
   setSettings(settings: Settings) {
     this.host.settings = { ...settings }
   }

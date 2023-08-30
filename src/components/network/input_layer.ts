@@ -1,7 +1,5 @@
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-
-import { globalStyles } from '@/global_styles'
 
 import type { DataSet } from '@/types/data_set'
 import type { InputLayerConf } from '@/types/input_layer_conf'
@@ -15,10 +13,9 @@ import { AlertUtils } from '@/utils/alert_utils'
 import * as tf from '@tensorflow/tfjs'
 
 // an input layer is a special type of a neuron layer. We do not allow
-// activation functions and provide methods to assign input data from the
+// activation functions and provide methods to assign features from the
 // dataSet to this input layer. We do not allow manual editing of the neurons
-// and other layers can not connect to an input layer. Neurons in the input
-// layer are marked with the name of the associated input
+// and other layers can not connect to an input layer.
 @customElement('input-layer')
 export class InputLayer extends CLayer {
   @property()
@@ -29,7 +26,7 @@ export class InputLayer extends CLayer {
     super.updated(changedProperties)
     if (changedProperties.has('conf')) {
       // check the updated data set keys
-      if (!this.conf.dataSetKeys.length) {
+      if (!this.conf.featureKeys.length) {
         // if no key was assigned, notify the network that this layer wants to
         // be deleted
         this.delete()
@@ -45,7 +42,9 @@ export class InputLayer extends CLayer {
       changedProperties.get('dataSet') &&
       (<DataSet>changedProperties.get('dataSet')).name != this.dataSet.name
     ) {
-      this.conf.dataSetKeys = this.dataSet.inputs.map((input) => input.key)
+      this.conf.featureKeys = this.dataSet.featureDescs.map(
+        (featureDesc) => featureDesc.key
+      )
       this.dispatchEvent(
         new Event('update-layer-confs', {
           bubbles: true,
@@ -72,11 +71,11 @@ export class InputLayer extends CLayer {
   // creates a new input layer with the optionally specified properties
   static create({
     activation = NetworkUtils.actNone,
-    dataSetKeys = undefined,
+    featureKeys = undefined,
     pos = undefined,
   }: {
     activation?: Activation
-    dataSetKeys?: string[]
+    featureKeys?: string[]
     pos?: Position
   } = {}): InputLayerConf {
     // create a new dense layer configuration with the specified properties
@@ -89,7 +88,7 @@ export class InputLayer extends CLayer {
       firstSpawn: true,
       // layer id and data set keys will be added by the layer
       layerId: undefined,
-      dataSetKeys: dataSetKeys,
+      featureKeys: featureKeys,
     }
 
     // emit an layer-conf-created event - the network listens to them, so it can
@@ -112,7 +111,7 @@ export class InputLayer extends CLayer {
       this.canvas.getHeight(this.getCyId()) + this.canvas.LAYER_DISTANCE
     InputLayer.create({
       activation: this.conf.activation,
-      dataSetKeys: this.conf.dataSetKeys,
+      featureKeys: this.conf.featureKeys,
       pos: newPos,
     })
   }
@@ -120,7 +119,7 @@ export class InputLayer extends CLayer {
   // -> DATASET  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // assigning inputs
   getAssignedInputs(): string[] {
-    return Array.from(this._neurons).map((neuron) => neuron.label)
+    return Array.from(this._neurons).map((neuron) => neuron.key)
   }
 
   // -> BUILD  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -128,22 +127,19 @@ export class InputLayer extends CLayer {
     <[]>inputs
     //  create our input tensor
     const tensor = tf.input({
-      shape: [this.conf.dataSetKeys.length],
+      shape: [this.conf.featureKeys.length],
       name: this.getTensorName(),
     })
     tensor['layer_id'] = this.conf.layerId
     return tensor
   }
 
-  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
-
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       ${super.render()}
       ${this.conf.pos
-        ? html`${this.conf.dataSetKeys.map(
+        ? html`${this.conf.featureKeys.map(
             (dataSetKey, i) => html`
               <c-neuron
                 .layer="${this}"
@@ -153,13 +149,13 @@ export class InputLayer extends CLayer {
                     this.conf.pos.x +
                     i *
                       (this.canvas.NEURON_SIZE + this.canvas.NEURON_DISTANCE) -
-                    ((this.conf.dataSetKeys.length - 1) *
+                    ((this.conf.featureKeys.length - 1) *
                       (this.canvas.NEURON_SIZE + this.canvas.NEURON_DISTANCE)) /
                       2,
                   y: this.conf.pos.y,
                 }}"
-                label="${dataSetKey}"
-                labelPos="bottom"
+                key="${dataSetKey}"
+                keyPos="bottom"
               ></c-neuron>
             `
           )}`

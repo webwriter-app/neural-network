@@ -5,8 +5,8 @@ import { customElement, property } from 'lit/decorators.js'
 import { globalStyles } from '@/global_styles'
 
 import type { DataSet } from '@/types/data_set'
-import type { DataSetInput } from '@/types/data_set_input'
-import type { DataSetLabel } from '@/types/data_set_label'
+import type { FeatureDesc } from '@/types/feature_desc'
+import type { LabelDesc } from '@/types/label_desc'
 
 @customElement('c-data-info')
 export class CDataInfo extends LitElementWw {
@@ -14,33 +14,37 @@ export class CDataInfo extends LitElementWw {
   type: 'feature' | 'label'
 
   @property()
-  dataProperty: DataSetInput | DataSetLabel
+  dataDesc: FeatureDesc | LabelDesc
 
   @property()
   dataSet: DataSet
 
-  static styles: CSSResult[] = globalStyles
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  static styles: CSSResult = globalStyles
 
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   getTooltipContent(): TemplateResult<1> {
     switch (this.type) {
       case 'feature':
-        return html` <p>${this.dataProperty.description}</p> `
+        return html` <p>${this.dataDesc.description}</p> `
       case 'label':
         switch (this.dataSet.type) {
           case 'regression':
             return html`
-              <p>${this.dataProperty.description}</p>
+              <p>${this.dataDesc.description}</p>
               <p>Type: regression</p>
             `
           case 'classification':
             return html`
-              <p>${this.dataProperty.description}</p>
+              <p>${this.dataDesc.description}</p>
               <p>Type: classification</p>
-              ${'classes' in this.dataProperty
+              ${'classes' in this.dataDesc
                 ? html`
-                    ${this.dataProperty.classes.map(
+                    ${this.dataDesc.classes.map(
                       (clazz) =>
-                        html` <p>${clazz.key}: ${clazz.description}</p> `
+                        html`
+                          <p>${clazz.id.toString()}: ${clazz.description}</p>
+                        `
                     )}
                   `
                 : html``}
@@ -59,7 +63,7 @@ export class CDataInfo extends LitElementWw {
     return html`
       <sl-tooltip>
         <div slot="content">${this.getTooltipContent()}</div>
-        <sl-tag pill> ${this.dataProperty.key} </sl-tag>
+        <sl-tag pill> ${this.dataDesc.key} </sl-tag>
       </sl-tooltip>
     `
   }

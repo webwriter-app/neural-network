@@ -1,5 +1,5 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
@@ -17,8 +17,8 @@ export class HelpKeyboardShortcutsCard extends LitElementWw {
   @consume({ context: settingsContext, subscribe: true })
   settings: Settings
 
-  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  static styles = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
@@ -30,13 +30,13 @@ export class HelpKeyboardShortcutsCard extends LitElementWw {
           ${this.editable || this.settings.mayAddAndRemoveLayers
             ? html`<div class="tag-group">
                 <sl-tag pill variant="primary">CTRL + SHIFT + BACKSPACE</sl-tag
-                >Delete the currently selected layer
+                >Deletes the currently selected layer
               </div>`
             : html``}
           ${this.editable || this.settings.mayAddAndRemoveLayers
             ? html`<div class="tag-group">
                 <sl-tag pill variant="primary">CTRL + SHIFT + K</sl-tag
-                >Duplicate the currently selected layer
+                >Duplicates the currently selected layer
               </div>`
             : html``}
           <div class="tag-group">

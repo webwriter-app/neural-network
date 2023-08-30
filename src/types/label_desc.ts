@@ -1,9 +1,9 @@
-export interface DataSetLabel {
+export interface LabelDesc {
   key: string
   description: string
   // classes only for label in classification dataset
   classes?: Array<{
-    key: string
+    id: number
     description: string
   }>
 }

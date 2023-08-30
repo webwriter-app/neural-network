@@ -13,8 +13,9 @@ export class NetworkController implements ReactiveController {
     host.addController(this)
   }
 
+  // HOST LIFECYCLE  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   hostConnected() {
-    // -> CUSTOM EVENTS
+    // add event listeners for network related events on host
     this.host.renderRoot.addEventListener('clear-network', (_e: Event) =>
       this.clearNetwork()
     )
@@ -31,8 +32,9 @@ export class NetworkController implements ReactiveController {
       (e: CustomEvent<{ source: number; target: number }>) =>
         this.addLayerConnection(e.detail.source, e.detail.target)
     )
-    this.host.renderRoot.addEventListener('update-layer-confs', (_e: Event) =>
-      this.updateLayerConfs()
+    this.host.renderRoot.addEventListener(
+      'update-layer-confs',
+      (_e: Event) => (this.host.layerConfs = [...this.host.layerConfs])
     )
     this.host.renderRoot.addEventListener(
       'remove-layer-connection',
@@ -40,7 +42,7 @@ export class NetworkController implements ReactiveController {
         this.removeLayerConnection(e.detail.source, e.detail.target)
     )
 
-    // -> KEYBOARD SHORCUT EVENTS
+    // add event listeners for network related keyboard events
     window.addEventListener('keyup', (e: KeyboardEvent) => {
       this.removeLayerListener(e)
       this.duplicateLayerListener(e)
@@ -58,8 +60,7 @@ export class NetworkController implements ReactiveController {
     }
   }
 
-  hostDisconnected() {}
-
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // reset the network by resetting the network conf
   clearNetwork() {
     // TODO replace with event?
@@ -71,25 +72,25 @@ export class NetworkController implements ReactiveController {
     this.host.layerConfs = []
   }
 
+  // adds a layer to the layer configuration
   addLayer(layerConf: CLayerConf): void {
     this.host.layerConfs.push(layerConf)
-    this.updateLayerConfs()
-  }
-
-  updateLayerConfs() {
     this.host.layerConfs = [...this.host.layerConfs]
   }
 
+  // removes a layer from the layer configuration by its id
   removeLayer(layerId: number): void {
     const index = this.host.layerConfs.findIndex((layerConf) => {
       return layerConf.layerId == layerId
     })
     if (index > -1) {
       this.host.layerConfs.splice(index, 1)
-      this.updateLayerConfs()
+      this.host.layerConfs = [...this.host.layerConfs]
     }
   }
 
+  // adds a layer connection from the layer connections configuration by the ids
+  // of the source and target layers
   addLayerConnection(source: number, target: number): void {
     const layerConnectionConf: CLayerConnectionConf = {
       sourceLayerId: source,
@@ -99,6 +100,8 @@ export class NetworkController implements ReactiveController {
     this.host.layerConnectionConfs = [...this.host.layerConnectionConfs]
   }
 
+  // removes a layer connection from the layer connections configuration by the
+  // ids of the source and target layers
   removeLayerConnection(source: number, target: number): void {
     const index = this.host.layerConnectionConfs.findIndex(
       (layerConnectionConf) => {
@@ -114,6 +117,8 @@ export class NetworkController implements ReactiveController {
     }
   }
 
+  // checks on keyboard event whether the keyboard shortcut for removing a layer
+  // was pressed and then handles the removal
   removeLayerListener(e: KeyboardEvent) {
     // 'remove layer' event
     if (e.ctrlKey && e.shiftKey && e.code == 'Backspace') {
@@ -142,6 +147,8 @@ export class NetworkController implements ReactiveController {
     }
   }
 
+  // checks on keyboard event whether the keyboard shortcut for duplicating a
+  // layer was pressed and then handles the duplication
   duplicateLayerListener(e: KeyboardEvent) {
     // 'duplicate layer' event
     if (e.ctrlKey && e.code == 'KeyK') {
@@ -151,6 +158,8 @@ export class NetworkController implements ReactiveController {
     }
   }
 
+  // checks on keyboard event whether the keyboard shortcut for moving a layer
+  // was pressed and then handles the moving
   moveLayerListener(e: KeyboardEvent) {
     if (
       this.host.selected.layer &&

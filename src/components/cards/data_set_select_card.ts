@@ -3,8 +3,6 @@ import { CSSResult, TemplateResult, html, nothing } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
-import { globalStyles } from '@/global_styles'
-
 import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
@@ -58,9 +56,6 @@ export class DataSetSelectCard extends LitElementWw {
   async openManageDataSetsDialog() {
     await this._manageDataSetsDialog.show()
   }
-
-  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

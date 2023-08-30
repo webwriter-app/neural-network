@@ -1,9 +1,7 @@
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { map } from 'lit/directives/map.js'
 import { range } from 'lit/directives/range.js'
-
-import { globalStyles } from '@/global_styles'
 
 import type { Position } from '@/types/position'
 import type { Activation } from '@/types/activation'
@@ -125,9 +123,6 @@ export class DenseLayer extends CLayer {
     dropout['layer_id'] = this.conf.layerId
     return dropout
   }
-
-  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

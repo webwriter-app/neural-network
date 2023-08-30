@@ -1,5 +1,6 @@
 import type { Settings } from '@/types/settings'
 
+// The SettingsUtils class provides the static default app settings.
 export class SettingsUtils {
   static defaultSettings: Settings = {
     mayImport: true,

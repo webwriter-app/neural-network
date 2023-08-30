@@ -1,7 +1,5 @@
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-
-import { globalStyles } from '@/global_styles'
 
 import type { Position } from '@/types/position'
 import type { Activation } from '@/types/activation'
@@ -28,7 +26,7 @@ export class OutputLayer extends CLayer {
     super.updated(changedProperties)
     if (changedProperties.has('conf')) {
       // check the updated data set keys
-      if (!this.conf.dataSetLabel) {
+      if (!this.conf.labelDesc) {
         // if no label was assigned (should in theory not happen), notify the
         // network that this layer wants to be deleted
         this.dispatchEvent(
@@ -50,7 +48,8 @@ export class OutputLayer extends CLayer {
       changedProperties.get('dataSet') &&
       (<DataSet>changedProperties.get('dataSet')).name != this.dataSet.name
     ) {
-      this.conf.dataSetLabel = this.dataSet.label
+      this.conf.labelDesc = this.dataSet.labelDesc
+      console.log('UPDATED LABEL DESC')
       this.dispatchEvent(
         new Event('update-layer-confs', {
           bubbles: true,
@@ -79,7 +78,7 @@ export class OutputLayer extends CLayer {
       firstSpawn: true,
       // layer id and data set label will be added by the network
       layerId: undefined,
-      dataSetLabel: undefined,
+      labelDesc: undefined,
     }
 
     // emit an layer-conf-created event - the network listens to them, so it can
@@ -108,7 +107,7 @@ export class OutputLayer extends CLayer {
   // -> INFO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // overwrite getName for the outputKey
   getName(): string {
-    return `${this.conf.dataSetLabel.key} ${this.conf.LAYER_NAME} ${
+    return `${this.conf.labelDesc.key} ${this.conf.LAYER_NAME} ${
       this.conf.activation != NetworkUtils.actNone
         ? `(${this.conf.activation.name})`
         : ``
@@ -153,9 +152,6 @@ export class OutputLayer extends CLayer {
     return tensor
   }
 
-  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
-
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
@@ -165,13 +161,13 @@ export class OutputLayer extends CLayer {
             .layer="${this}"
             neuronId="1"
             .pos="${this.conf.pos}"
-            label="${this.conf.dataSetLabel.key}"
-            labelPos="top"
+            key="${this.conf.labelDesc.key}"
+            keyPos="top"
             bias="${this.bias ? this.bias[0] : null}"
           ></c-neuron>`
         : html``}
-      ${this.dataSet.type == 'classification' && this.conf.dataSetLabel.classes
-        ? html`${this.conf.dataSetLabel.classes.map(
+      ${this.dataSet.type == 'classification' && this.conf.labelDesc.classes
+        ? html`${this.conf.labelDesc.classes.map(
             (clazz, i) => html`
               <c-neuron
                 .layer="${this}"
@@ -181,13 +177,13 @@ export class OutputLayer extends CLayer {
                     this.conf.pos.x +
                     i *
                       (this.canvas.NEURON_SIZE + this.canvas.NEURON_DISTANCE) -
-                    ((this.conf.dataSetLabel.classes.length - 1) *
+                    ((this.conf.labelDesc.classes.length - 1) *
                       (this.canvas.NEURON_SIZE + this.canvas.NEURON_DISTANCE)) /
                       2,
                   y: this.conf.pos.y,
                 }}"
-                label="${clazz.key}"
-                labelPos="top"
+                key="${clazz.id.toString()}"
+                keyPos="top"
                 bias="${this.bias ? this.bias[i] : null}"
               ></c-neuron>
             `

@@ -1,4 +1,4 @@
-export type DataSetInput = {
+export type FeatureDesc = {
   key: string
   description: string
 }

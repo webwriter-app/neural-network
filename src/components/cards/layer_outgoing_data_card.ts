@@ -1,9 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
-
-import { globalStyles } from '@/global_styles'
 
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
@@ -17,9 +15,6 @@ export class LayerOutgoingDataCard extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
 
-  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
-
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
@@ -30,7 +25,7 @@ export class LayerOutgoingDataCard extends LitElementWw {
             ? html`
                 <c-data-info
                   type="label"
-                  .dataProperty="${this.layer.conf.dataSetLabel}"
+                  .dataDesc="${this.layer.conf.dataSetLabel}"
                   .dataSet="${this.dataSet}"
                 ></c-data-info>
               `

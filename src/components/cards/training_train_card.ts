@@ -47,7 +47,7 @@ export class TrainingTrainCard extends LitElementWw {
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult[] = globalStyles
+  static styles: CSSResult = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
@@ -56,7 +56,8 @@ export class TrainingTrainCard extends LitElementWw {
         <div slot="title">Train</div>
         <div slot="content">
           ${!this.modelConf.isTraining
-            ? html` ${this.modelConf.model
+            ? html`
+                ${this.modelConf.model
                   ? html`
                       <sl-progress-bar value="100"></sl-progress-bar>
                       <p>✅ Training completed!</p>
@@ -78,19 +79,18 @@ export class TrainingTrainCard extends LitElementWw {
                   @sl-change="${(_e: SlChangeEvent) =>
                     this.handleChangeNumberOfEpochs()}"
                 ></sl-range>
-                <div class="button-group">
-                  <sl-button
-                    variant="primary"
-                    size="large"
-                    @click="${(_e: MouseEvent) =>
-                      this.handleTrain(this.numberOfEpochs)}"
-                  >
-                    <sl-icon name="play" label="Run"></sl-icon>
-                    ${this.numberOfEpochs == 1
-                      ? html`Train for 1 epoch`
-                      : html` Train for ${this.numberOfEpochs} epochs`}
-                  </sl-button>
-                </div>`
+                <sl-button
+                  variant="primary"
+                  size="large"
+                  @click="${(_e: MouseEvent) =>
+                    this.handleTrain(this.numberOfEpochs)}"
+                >
+                  <sl-icon name="play" label="Run"></sl-icon>
+                  ${this.numberOfEpochs == 1
+                    ? html`Train for 1 epoch`
+                    : html` Train for ${this.numberOfEpochs} epochs`}
+                </sl-button>
+              `
             : html``}
           ${this.modelConf.isTraining
             ? html`

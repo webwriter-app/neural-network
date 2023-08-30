@@ -4,5 +4,5 @@ export interface InputLayerConf extends CLayerConf {
   HTML_TAG: 'input-layer'
   LAYER_TYPE: 'Input'
   LAYER_NAME: 'Input layer'
-  dataSetKeys: string[]
+  featureKeys: string[]
 }

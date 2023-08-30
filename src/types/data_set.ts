@@ -1,5 +1,5 @@
-import type { DataSetInput } from '@/types/data_set_input'
-import type { DataSetLabel } from '@/types/data_set_label'
+import type { FeatureDesc } from '@/types/feature_desc'
+import type { LabelDesc } from '@/types/label_desc'
 
 export interface DataSet {
   // information about the dataSet
@@ -7,13 +7,13 @@ export interface DataSet {
   description: string
   type: 'regression' | 'classification'
 
-  // formal description of input and labels, not the data
-  inputs: DataSetInput[]
-  label: DataSetLabel
+  // formal description of features and labels
+  featureDescs: FeatureDesc[]
+  labelDesc: LabelDesc
 
-  // data
+  // data (features and labels)
   data: Array<{
-    inputs: number[]
+    features: number[]
     label: number
   }>
 }

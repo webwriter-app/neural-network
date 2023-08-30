@@ -21,13 +21,13 @@ export class CreateDataSetDialog extends LitElementWw {
     name: '',
     description: '',
     type: 'regression',
-    inputs: [{ key: '', description: '' }],
-    label: {
+    featureDescs: [{ key: '', description: '' }],
+    labelDesc: {
       key: '',
       description: '',
       classes: [
-        { key: '', description: '' },
-        { key: '', description: '' },
+        { id: 0, description: '' },
+        { id: 1, description: '' },
       ],
     },
     data: [],
@@ -77,30 +77,30 @@ export class CreateDataSetDialog extends LitElementWw {
     }
   }
 
-  // step 3 (configuring the inputs and outputs (names/descriptions))
-  addInput() {
-    this.config.inputs.push({ key: '', description: '' })
+  // step 3 (configuring the features (keys/descriptions))
+  addFeature() {
+    this.config.featureDescs.push({ key: '', description: '' })
     this.config = { ...this.config }
   }
 
-  removeInput() {
-    this.config.inputs.pop()
+  removeFeature() {
+    this.config.featureDescs.pop()
     this.config = { ...this.config }
   }
 
-  // step 4 (configuring the inputs and outputs (names/descriptions))
-
-  addClazz() {
-    this.config.label.classes.push({ key: '', description: '' })
+  // step 4 (configuring the label (key/description) and its classes
+  // (keys/descriptions))
+  addLabelClass() {
+    this.config.labelDesc.classes.push({ id: undefined, description: '' })
     this.config = { ...this.config }
   }
 
-  removeClazz() {
-    this.config.label.classes.pop()
+  removeLabelClass() {
+    this.config.labelDesc.classes.pop()
     this.config = { ...this.config }
   }
 
-  // step 5 (pastte data set form)
+  // step 5 (paste data set form)
   async validateAndCreate() {
     // get data
     const data: string = <string>serialize(this._dialogForm).data
@@ -118,7 +118,7 @@ export class CreateDataSetDialog extends LitElementWw {
 
     // additional validation
     const pattern = new RegExp(
-      `^(\\s*(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))(?:\\s*,\\s*(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))){${this.config.inputs.length}}\\s*)+$`
+      `^(\\s*(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))(?:\\s*,\\s*(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))){${this.config.featureDescs.length}}\\s*)+$`
     )
     const result = pattern.test(data)
     if (!result) {
@@ -138,19 +138,19 @@ export class CreateDataSetDialog extends LitElementWw {
       const values: string[] = line.trim().split(',')
       console.log(values)
 
-      // parse input and output data (config.inputs.length * input values and
-      // one output/label)
-      const inputs: number[] = []
+      // parse feature and label data (config.featureDescs.length * features and
+      // one label)
+      const features: number[] = []
       let index = 0
-      for (const _input of this.config.inputs) {
-        inputs.push(parseInt(values[index].trim()))
+      for (const _feature of this.config.featureDescs) {
+        features.push(parseInt(values[index].trim()))
         index += 1
       }
       const label: number = parseInt(values[index])
 
       // add parsed data from this line to the data array
       this.config.data.push({
-        inputs,
+        features,
         label,
       })
     }
@@ -186,7 +186,7 @@ export class CreateDataSetDialog extends LitElementWw {
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
-    ...globalStyles,
+    globalStyles,
     css`
       sl-dialog::part(body) {
         text-align: center;
@@ -307,8 +307,8 @@ export class CreateDataSetDialog extends LitElementWw {
                   </p>
                   <p>
                     Choose 'classification' if you want information about the
-                    affiliation of the input(s) to a class (e.g. what animal can
-                    be seen in this image? A dog, cat or horse?
+                    affiliation of the feature(s) to a class (e.g. what animal
+                    can be seen in this image? A dog, cat or horse?
                   </p>
                 </div>
                 <p>Choose a type <sl-icon name="question-circle"></sl-icon></p>
@@ -331,19 +331,18 @@ export class CreateDataSetDialog extends LitElementWw {
               </sl-radio-group>
             </div>
             <div class="${this.step != 3 ? 'hidden' : ''}">
-              <h1>Input data</h1>
+              <h1>Features</h1>
               <p>
                 Which data will be put into the neural network? Create arbitrary
-                many inputs!
+                many features!
               </p>
-              ${this.config.inputs.map(
-                (input, index) =>
+              ${this.config.featureDescs.map(
+                (featureDesc, index) =>
                   html`
                     <c-card>
                       <div slot="content">
                         <sl-input
-                          name="input-key-${index}"
-                          value=${input.key}
+                          value=${featureDesc.key}
                           label="Key"
                           placeholder="DIS"
                           help-text="1-6 capital letters"
@@ -351,22 +350,21 @@ export class CreateDataSetDialog extends LitElementWw {
                           maxlength=${this.step == 3 ? 6 : nothing}
                           pattern=${this.step == 3 ? '[A-Z]+' : nothing}
                           @sl-change=${(e: SlChangeEvent) => {
-                            this.config.inputs[index].key = (<HTMLInputElement>(
-                              e.target
-                            )).value
+                            this.config.featureDescs[index].key = (<
+                              HTMLInputElement
+                            >e.target).value
                             this.config = { ...this.config }
                           }}
                         ></sl-input>
                         <sl-textarea
                           rows="2"
-                          name="input-description-${index}"
-                          value=${input.description}
+                          value=${featureDesc.description}
                           label="Description"
                           placeholder="Weighted distances to five Boston employment centers"
                           ?required=${this.step == 3}
                           minlength=${this.step == 3 ? 1 : nothing}
                           @sl-change=${(e: SlChangeEvent) => {
-                            this.config.inputs[index].description = (<
+                            this.config.featureDescs[index].description = (<
                               HTMLInputElement
                             >e.target).value
                             this.config = { ...this.config }
@@ -376,24 +374,23 @@ export class CreateDataSetDialog extends LitElementWw {
                     </c-card>
                   `
               )}
-              ${this.config.inputs.length >= 2
+              ${this.config.featureDescs.length >= 2
                 ? html`
                     <sl-button
-                      @click="${(_e: MouseEvent) => this.removeInput()}"
-                      >Remove input</sl-button
+                      @click="${(_e: MouseEvent) => this.removeFeature()}"
+                      >Remove feature</sl-button
                     >
                   `
                 : html``}
-              <sl-button @click="${(_e: MouseEvent) => this.addInput()}"
-                >Add input</sl-button
+              <sl-button @click="${(_e: MouseEvent) => this.addFeature()}"
+                >Add feature</sl-button
               >
             </div>
             <div class="${this.step != 4 ? 'hidden' : ''}">
-              <h1>Label data</h1>
+              <h1>Label</h1>
               <p>What shall be the output of the network?</p>
               <sl-input
-                name="label-key"
-                value=${this.config.label.key}
+                value=${this.config.labelDesc.key}
                 label="Key"
                 placeholder="MEDV"
                 help-text="1-6 capital letters"
@@ -401,20 +398,19 @@ export class CreateDataSetDialog extends LitElementWw {
                 maxlength=${this.step == 4 ? 6 : nothing}
                 pattern=${this.step == 4 ? '[A-Z]+' : nothing}
                 @sl-change=${(e: SlChangeEvent) => {
-                  this.config.label.key = (<HTMLInputElement>e.target).value
+                  this.config.labelDesc.key = (<HTMLInputElement>e.target).value
                   this.config = { ...this.config }
                 }}
               ></sl-input>
               <sl-textarea
                 rows="2"
-                name="label-description"
-                value=${this.config.label.description}
+                value=${this.config.labelDesc.description}
                 label="Description"
                 placeholder="Median value of owner-occupied homes in $1000s"
                 ?required=${this.step == 4}
                 minlength=${this.step == 4 ? 1 : nothing}
                 @sl-change=${(e: SlChangeEvent) => {
-                  this.config.label.description = (<HTMLInputElement>(
+                  this.config.labelDesc.description = (<HTMLInputElement>(
                     e.target
                   )).value
                   this.config = { ...this.config }
@@ -423,38 +419,39 @@ export class CreateDataSetDialog extends LitElementWw {
               ${this.config.type == 'classification'
                 ? html`
                     <h3>Classes</h3>
-                    ${this.config.label.classes?.map(
+                    ${this.config.labelDesc.classes?.map(
                       (clazz, index) =>
                         html`
                           <c-card>
                             <div slot="content">
                               <sl-input
-                                name="input-key-${index}"
-                                value=${clazz.key}
+                                type="number"
+                                value=${clazz.id}
                                 label="Key"
-                                placeholder="HRS"
-                                help-text="1-6 capital letters"
+                                placeholder="0"
+                                help-text="an integer"
                                 ?required=${this.step == 4}
                                 maxlength=${this.step == 4 ? 6 : nothing}
                                 pattern=${this.step == 4 ? '[A-Z]+' : nothing}
                                 @sl-change=${(e: SlChangeEvent) => {
-                                  this.config.label.classes[index].key = (<
-                                    HTMLInputElement
-                                  >e.target).value
+                                  this.config.labelDesc.classes[index].id =
+                                    parseInt((<HTMLInputElement>e.target).value)
                                   this.config = { ...this.config }
                                 }}
                               ></sl-input>
                               <sl-textarea
                                 rows="2"
-                                name="input-description-${index}"
                                 value=${clazz.description}
                                 label="Description"
                                 placeholder="Animal was detected as a horse"
                                 ?required=${this.step == 4}
                                 minlength=${this.step == 4 ? 1 : nothing}
                                 @sl-change=${(e: SlChangeEvent) => {
-                                  this.config.label.classes[index].description =
-                                    (<HTMLInputElement>e.target).value
+                                  this.config.labelDesc.classes[
+                                    index
+                                  ].description = (<HTMLInputElement>(
+                                    e.target
+                                  )).value
                                   this.config = { ...this.config }
                                 }}
                               ></sl-textarea>
@@ -462,15 +459,17 @@ export class CreateDataSetDialog extends LitElementWw {
                           </c-card>
                         `
                     )}
-                    ${this.config.label.classes.length >= 3
+                    ${this.config.labelDesc.classes.length >= 3
                       ? html`
                           <sl-button
-                            @click="${(_e: MouseEvent) => this.removeClazz()}"
+                            @click="${(_e: MouseEvent) =>
+                              this.removeLabelClass()}"
                             >Remove class</sl-button
                           >
                         `
                       : html``}
-                    <sl-button @click="${(_e: MouseEvent) => this.addClazz()}"
+                    <sl-button
+                      @click="${(_e: MouseEvent) => this.addLabelClass()}"
                       >Add class</sl-button
                     >
                   `
@@ -483,11 +482,11 @@ export class CreateDataSetDialog extends LitElementWw {
                 class="tag-group"
                 style="justify-content: center !important;"
               >
-                ${this.config.inputs.map(
-                  (input) => html`
+                ${this.config.featureDescs.map(
+                  (featureDesc) => html`
                     <c-data-info
                       type="feature"
-                      .dataProperty="${input}"
+                      .dataDesc="${featureDesc}"
                       .dataSet="${this.config}"
                       class="clickable"
                     ></c-data-info
@@ -496,7 +495,7 @@ export class CreateDataSetDialog extends LitElementWw {
                 )}
                 <c-data-info
                   type="label"
-                  .dataProperty="${this.config.label}"
+                  .dataDesc="${this.config.labelDesc}"
                   .dataSet="${this.config}"
                   class="clickable"
                 ></c-data-info>
@@ -505,7 +504,7 @@ export class CreateDataSetDialog extends LitElementWw {
                 id="dataTextarea"
                 rows="10"
                 name="data"
-                help-text="*Each row needs to represent one set containing inputs and one label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the inputs. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments."
+                help-text="*Each row needs to represent one set containing the features and the label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the features. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments."
                 ?required=${this.step == 5}
               ></sl-textarea>
             </div>

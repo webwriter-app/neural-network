@@ -1,15 +1,15 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
-import { globalStyles } from '@/global_styles'
-
 import { editableContext } from '@/contexts/editable_context'
-import { settingsContext, Settings } from '@/contexts/settings_context'
+import type { Settings } from '@/types/settings'
+import { settingsContext } from '@/contexts/settings_context'
+import type { CLayerConf } from '@/types/c_layer_conf'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
-import { CLayerConf } from '@/types/c_layer_conf'
-import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
+import type { ModelConf } from '@/types/model_conf'
+import { modelConfContext } from '@/contexts/model_conf_context'
 
 import '@/components/cards/core_model_features_unavailable_card'
 import '@/components/cards/network_info_card'
@@ -30,8 +30,7 @@ export class NetworkPanel extends LitElementWw {
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf
 
-  static styles: CSSResult[] = globalStyles
-
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
       <c-panel name="network">

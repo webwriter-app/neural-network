@@ -12,7 +12,9 @@ export class DataSetController implements ReactiveController {
     host.addController(this)
   }
 
+  // HOST LIFECYCLE  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   hostConnected() {
+    // add event listeners for data set related events on host
     this.host.renderRoot.addEventListener(
       'select-data-set',
       (e: CustomEvent<DataSet>) => this.selectDataSet(e.detail)
@@ -27,13 +29,14 @@ export class DataSetController implements ReactiveController {
     )
   }
 
-  hostDisconnected() {}
-
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // selects a new data set
   selectDataSet(dataSet: DataSet) {
     this.host.dataSet = dataSet
-    this.host.modelController.discardModel()
   }
 
+  // adds a new data set to the list of available data sets if no data set with
+  // this name already exists, else spawns an alert
   addDataSet(dataSetArg: DataSet) {
     if (
       this.host.availableDataSets.find(
@@ -51,6 +54,7 @@ export class DataSetController implements ReactiveController {
     }
   }
 
+  // deletes a data set from the list of available data sets
   deleteDataSet(name: string) {
     const dataSet = this.host.availableDataSets.find(
       (dataSet) => dataSet.name == name
@@ -65,13 +69,21 @@ export class DataSetController implements ReactiveController {
       const index = this.host.availableDataSets.findIndex(
         (dataSet) => dataSet.name == name
       )
-      this.host.availableDataSets.splice(index, 1)
-      this.host.availableDataSets = [...this.host.availableDataSets]
-      AlertUtils.spawn({
-        message: `The data set '${name}' was successfully deleted`,
-        variant: 'warning',
-        icon: 'check-circle',
-      })
+      if (index != -1) {
+        this.host.availableDataSets.splice(index, 1)
+        this.host.availableDataSets = [...this.host.availableDataSets]
+        AlertUtils.spawn({
+          message: `The data set '${name}' was successfully deleted`,
+          variant: 'warning',
+          icon: 'check-circle',
+        })
+      } else {
+        AlertUtils.spawn({
+          message: `Error: Requested deletion of a data set that does not exist`,
+          variant: 'danger',
+          icon: 'x-circle',
+        })
+      }
     }
   }
 }

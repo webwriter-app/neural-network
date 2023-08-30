@@ -1,25 +1,21 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
-
-import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
-import { networkContext } from '@/contexts/network_context'
-import { ModelConf, modelConfContext } from '@/contexts/model_conf_context'
-import {
-  SelectedEle,
-  selectedEleContext,
-} from '@/contexts/selected_ele_context'
-
 import type { Network } from '@/components/network/network'
 import { CLayer } from '@/components/network/c_layer'
 import { InputLayer } from '@/components/network/input_layer'
 import { DenseLayer } from '@/components/network/dense_layer'
 import { OutputLayer } from '@/components/network/output_layer'
+import { networkContext } from '@/contexts/network_context'
+import type { ModelConf } from '@/types/model_conf'
+import { modelConfContext } from '@/contexts/model_conf_context'
+import type { SelectedEle } from '@/types/selected_ele'
+import { selectedEleContext } from '@/contexts/selected_ele_context'
 
 import '@/components/cards/core_model_features_unavailable_card'
 import '@/components/cards/layer_info_card'
@@ -48,8 +44,7 @@ export class LayerPanel extends LitElementWw {
   @consume({ context: selectedEleContext, subscribe: true })
   selectedEle: SelectedEle
 
-  static styles: CSSResult[] = globalStyles
-
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     if (this.selectedEle && this.selectedEle instanceof CLayer) {
       const layer: CLayer = this.selectedEle

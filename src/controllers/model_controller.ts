@@ -16,7 +16,9 @@ export class ModelController implements ReactiveController {
     host.addController(this)
   }
 
+  // HOST LIFECYCLE  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   hostConnected() {
+    // add event listeners for model related events on host
     this.host.renderRoot.addEventListener(
       'set-train-option',
       (
@@ -42,12 +44,15 @@ export class ModelController implements ReactiveController {
     )
   }
 
-  hostDisconnected() {}
-
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // the container where the metrics are rendered into informs the host about
+  // itself when connected. Then, here, a reference to this container is stored
+  // to render the metrics into it.
   setTrainMetricsContainer(container: HTMLDivElement) {
     this.host.trainMetricsContainer = container
   }
 
+  // changes a (hyper-)parameter for the training
   setTrainOption(option: string, value: string) {
     this.host.trainOptions[option] = value
     this.host.trainOptions = {
@@ -55,6 +60,9 @@ export class ModelController implements ReactiveController {
     }
   }
 
+  // discards the current model by deleting the model, deleting the metrics and
+  // informing the network so it can also respond to it (remove model
+  // references)
   discardModel(): void {
     this.host.modelConf = <ModelConf>(
       JSON.parse(JSON.stringify(ModelUtils.defaultModelConf))
@@ -71,6 +79,8 @@ export class ModelController implements ReactiveController {
     }
   }
 
+  // tells the network to build a model and compiles it - usually this method is
+  // called when training is started and there is no model yet.
   buildModel(): void {
     this.discardModel()
     const model = this.host.network.buildModel()
@@ -80,8 +90,6 @@ export class ModelController implements ReactiveController {
       } else if (this.host.dataSet.type == 'classification') {
         this.host.modelConf.loss = 'categoricalCrossentropy'
         this.host.modelConf.metrics.push('acc')
-      } else {
-        return
       }
       this.host.modelConf = { ...this.host.modelConf }
       const optimizer = tf.train.sgd(
@@ -102,10 +110,11 @@ export class ModelController implements ReactiveController {
     }
   }
 
+  // trains the model for a specific number of epochs by performing the training
+  // itself but also handing training data to the network during the training to
+  // visualize it and update the metrics
   trainModel(epochs: number): void {
-    // first build the model if it does not exist (since we allow additional
-    // training steps after it has been started, we do not want to rebuild each
-    // time)
+    // first build the model if it does not exist
     if (!this.host.modelConf.model) {
       this.buildModel()
     }
@@ -126,9 +135,9 @@ export class ModelController implements ReactiveController {
       for (const inputLayer of this.host.network.getInputLayers()) {
         const inputData: number[][] = []
         inputData.push(
-          ...DataSetUtils.getInputDataByKeys(
+          ...DataSetUtils.getFeatureDataByKeys(
             this.host.dataSet,
-            inputLayer.conf.dataSetKeys
+            inputLayer.conf.featureKeys
           )
         )
         inputs.push(tf.tensor(inputData))
@@ -141,11 +150,11 @@ export class ModelController implements ReactiveController {
         labels = tf.tensor(labelData)
       } else if (
         this.host.dataSet.type == 'classification' &&
-        this.host.dataSet.label.classes
+        this.host.dataSet.labelDesc.classes
       ) {
         labels = tf.oneHot(
           tf.tensor(labelData, undefined, 'int32'),
-          this.host.dataSet.label.classes.length
+          this.host.dataSet.labelDesc.classes.length
         )
       } else {
         return
@@ -214,13 +223,14 @@ export class ModelController implements ReactiveController {
     }
   }
 
+  // predict a label based on a input object
   predictModel(inputObject: Record<string, number>): void {
     // inputs
     const inputs: tf.Tensor[] = []
     for (const inputLayer of this.host.network.getInputLayers()) {
       const inputData: number[] = []
       Object.keys(inputObject).forEach((inputKey) => {
-        if (inputLayer.conf.dataSetKeys.includes(inputKey)) {
+        if (inputLayer.conf.featureKeys.includes(inputKey)) {
           inputData.push(inputObject[inputKey])
         }
       })
@@ -237,6 +247,8 @@ export class ModelController implements ReactiveController {
     console.log(this.host.modelConf.predictedValue)
   }
 
+  // deletes the current prediction - this is used to be able to make a new
+  // prediction request
   deletePrediction(): void {
     this.host.modelConf.predictedValue = undefined
     this.host.modelConf = { ...this.host.modelConf }
