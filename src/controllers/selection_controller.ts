@@ -1,7 +1,7 @@
 import type { ReactiveController } from 'lit'
 import type { WwDeepLearning } from '@/app'
 import type { CLayer } from '@/components/network/c_layer'
-import type { Neuron } from '@/components/network/neuron'
+import type { CNeuron } from '@/components/network/neuron'
 import type { CEdge } from '@/components/network/c_edge'
 import type { Selected } from '@/types/selected'
 import type { SelectedEle } from '@/types/selected_ele'
@@ -34,7 +34,7 @@ export class SelectionController implements ReactiveController {
     )
     this.host.renderRoot.addEventListener(
       'selected-ele-rendered',
-      (e: CustomEvent<CLayer | Neuron | CEdge>) =>
+      (e: CustomEvent<CLayer | CNeuron | CEdge>) =>
         this.selectedEleRendered(e.detail)
     )
   }

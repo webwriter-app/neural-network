@@ -1,11 +1,9 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html } from 'lit'
+import { TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
-import type { Network } from '@/components/network/network'
 import { CEdge } from '@/components/network/c_edge'
-import { networkContext } from '@/contexts/network_context'
 import type { SelectedEle } from '@/types/selected_ele'
 import { selectedEleContext } from '@/contexts/selected_ele_context'
 
@@ -14,9 +12,6 @@ import '@/components/cards/edge_weight_card'
 
 @customElement('edge-panel')
 export class EdgePanel extends LitElementWw {
-  @consume({ context: networkContext, subscribe: true })
-  network: Network
-
   @consume({ context: selectedEleContext, subscribe: true })
   selectedEle: SelectedEle
 

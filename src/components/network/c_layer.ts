@@ -1,6 +1,6 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
-import { customElement, property, queryAll, state } from 'lit/decorators.js'
+import { property, queryAll, state } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
 import type { CCanvas } from '@/components/canvas'
@@ -9,7 +9,7 @@ import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import type { CLayerConf } from '@/types/c_layer_conf'
 import type { Activation } from '@/types/activation'
-import type { Neuron } from '@/components/network/neuron'
+import type { CNeuron } from '@/components/network/neuron'
 import { NetworkUtils } from '@/utils/network_utils'
 import type { TrainOptions } from '@/types/train_options'
 import { trainOptionsContext } from '@/contexts/train_options_context'
@@ -20,7 +20,6 @@ import * as tf from '@tensorflow/tfjs'
 
 import { AlertUtils } from '@/utils/alert_utils'
 
-@customElement('c-layer')
 export abstract class CLayer extends LitElementWw {
   @consume({ context: canvasContext, subscribe: true })
   canvas: CCanvas
@@ -61,7 +60,7 @@ export abstract class CLayer extends LitElementWw {
   positionListenerActive: boolean = false
 
   @queryAll('c-neuron')
-  _neurons: NodeListOf<Neuron>
+  _neurons: NodeListOf<CNeuron>
 
   // a type and description that is displayed as an info for the layer
   static LAYER_TYPE: string
@@ -73,7 +72,7 @@ export abstract class CLayer extends LitElementWw {
     this.doNotRender = false
     if (this.conf.firstSpawn) {
       AlertUtils.spawn({
-        message: `'${this.getName()}' was created!`,
+        message: `'${this.getName()}' has been created!`,
         variant: 'success',
         icon: 'check-circle',
       })
@@ -116,12 +115,13 @@ export abstract class CLayer extends LitElementWw {
   // afterwards, so eventhough we filter by rendered neurons eventually, after
   // the last neuron has been drawn, all neurons are rendered and thus this
   // method will return all neurons
-  getNeurons(): Neuron[] {
+  getNeurons(): CNeuron[] {
     return Array.from(this._neurons).filter((neuron) => neuron.rendered)
   }
 
   // get a readable name for this layer that is displayed in the UI. do not use
-  // the name for referencing purposes
+  // the name for referencing purposes (can be overwritten by the
+  // implementations)
   getName(): string {
     return `${this.conf.layerId} - ${this.conf.LAYER_NAME} ${
       this.conf.activation != NetworkUtils.actNone
@@ -131,8 +131,10 @@ export abstract class CLayer extends LitElementWw {
   }
 
   // get a description of the layer that may contain the type and purpose of the
-  // layer
-  abstract getDescription(): string
+  // layer (to be overwritten by the implementations)
+  getDescription(): string {
+    return ''
+  }
 
   // -> ACTIONS  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // set the activation function

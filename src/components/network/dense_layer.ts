@@ -13,10 +13,6 @@ import * as tf from '@tensorflow/tfjs'
 
 @customElement('dense-layer')
 export class DenseLayer extends CLayer {
-  // a type and description that is displayed as an info for the layer
-  static LAYER_TYPE = 'Dense'
-  static LAYER_NAME = 'Dense layer'
-
   @property()
   conf: DenseLayerConf
 
@@ -121,6 +117,7 @@ export class DenseLayer extends CLayer {
 
     // set this tensor to the dropout tensor and add the layer id
     dropout['layer_id'] = this.conf.layerId
+    this.tensor = dropout
     return dropout
   }
 

@@ -131,6 +131,7 @@ export class InputLayer extends CLayer {
       name: this.getTensorName(),
     })
     tensor['layer_id'] = this.conf.layerId
+    this.tensor = tensor
     return tensor
   }
 

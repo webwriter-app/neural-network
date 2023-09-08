@@ -308,7 +308,7 @@ export class CreateDataSetDialog extends LitElementWw {
                   <p>
                     Choose 'classification' if you want information about the
                     affiliation of the feature(s) to a class (e.g. what animal
-                    can be seen in this image? A dog, cat or horse?
+                    can be seen in this image? A dog, cat or horse?)
                   </p>
                 </div>
                 <p>Choose a type <sl-icon name="question-circle"></sl-icon></p>

@@ -75,7 +75,8 @@ export class ModelController implements ReactiveController {
 
     // remove model references (like tensor and weights) in the network
     if (this.host.network) {
-      this.host.network.handlediscardModel()
+      this.host.network.tensorConfs = new Map()
+      this.host.networkController.updateLayerConfs()
     }
   }
 
@@ -83,7 +84,7 @@ export class ModelController implements ReactiveController {
   // called when training is started and there is no model yet.
   buildModel(): void {
     this.discardModel()
-    const model = this.host.network.buildModel()
+    const model = this.host.networkController.buildModel()
     if (model && this.host.dataSet) {
       if (this.host.dataSet.type == 'regression') {
         this.host.modelConf.loss = 'meanSquaredError'
@@ -172,7 +173,7 @@ export class ModelController implements ReactiveController {
                 // update the act batch var (for displaying purposes)
                 this.host.modelConf.actBatch = batch + 1
                 // update the weights to be displayed in the neurons
-                this.host.network.updateWeights(
+                this.host.networkController.updateWeights(
                   this.host.modelConf.model.getWeights()
                 )
                 // update the model to reflect all changes
@@ -229,9 +230,9 @@ export class ModelController implements ReactiveController {
     const inputs: tf.Tensor[] = []
     for (const inputLayer of this.host.network.getInputLayers()) {
       const inputData: number[] = []
-      Object.keys(inputObject).forEach((inputKey) => {
-        if (inputLayer.conf.featureKeys.includes(inputKey)) {
-          inputData.push(inputObject[inputKey])
+      Object.keys(inputObject).forEach((featureKey) => {
+        if (inputLayer.conf.featureKeys.includes(featureKey)) {
+          inputData.push(inputObject[featureKey])
         }
       })
       inputs.push(tf.tensor([inputData]))

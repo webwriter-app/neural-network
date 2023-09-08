@@ -40,31 +40,29 @@ export class DataSetInfoCard extends LitElementWw {
       <c-card>
         <div slot="title">${this.dataSet.name}</div>
         <div slot="content">
-          <div>
-            <p>${this.dataSet.description}</p>
-            <h2>Features</h2>
-            <div class="tag-group">
-              ${this.dataSet.featureDescs.map(
-                (featureDesc) => html`
-                  <c-data-info
-                    type="feature"
-                    .dataDesc="${featureDesc}"
-                    .dataSet="${this.dataSet}"
-                    class="clickable"
-                    @click="${(_e: MouseEvent) =>
-                      this.handleSelectDataDesc(featureDesc)}"
-                  ></c-data-info>
-                `
-              )}
-            </div>
-            <h2>Label</h2>
-            <div class="data-pills">
-              <c-data-info
-                type="label"
-                .dataDesc="${this.dataSet.labelDesc}"
-                .dataSet="${this.dataSet}"
-              ></c-data-info>
-            </div>
+          <p>${this.dataSet.description}</p>
+          <h2>Features</h2>
+          <div class="tag-group">
+            ${this.dataSet.featureDescs.map(
+              (featureDesc) => html`
+                <c-data-info
+                  type="feature"
+                  .dataDesc="${featureDesc}"
+                  .dataSet="${this.dataSet}"
+                  class="clickable"
+                  @click="${(_e: MouseEvent) =>
+                    this.handleSelectDataDesc(featureDesc)}"
+                ></c-data-info>
+              `
+            )}
+          </div>
+          <h2>Label</h2>
+          <div class="data-pills">
+            <c-data-info
+              type="label"
+              .dataDesc="${this.dataSet.labelDesc}"
+              .dataSet="${this.dataSet}"
+            ></c-data-info>
           </div>
           <sl-details summary="View raw data">
             <div style="max-height: 200px; overflow-y: auto;">

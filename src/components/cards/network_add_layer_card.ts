@@ -46,7 +46,7 @@ export class NetworkAddLayerCard extends LitElementWw {
       <c-card>
         <div slot="title">Add layer</div>
         <div slot="content">
-          Drag a layer anywhere to place it on the canvas
+          <p>Drag a layer anywhere to place it on the canvas</p>
           <div class="tag-group">
             <sl-tag
               size="large"

@@ -3,6 +3,8 @@ import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
 
+import { globalStyles } from '@/global_styles'
+
 import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
@@ -85,13 +87,16 @@ export class GetStartedCard extends LitElementWw {
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult = css`
-    #getStartedGrid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 10px;
-    }
-  `
+  static styles: CSSResult[] = [
+    globalStyles,
+    css`
+      #getStartedGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 10px;
+      }
+    `,
+  ]
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
@@ -110,18 +115,7 @@ export class GetStartedCard extends LitElementWw {
           ${this.editable || this.settings.showDefaultConfs
             ? html` <div id="getStartedGrid">
                 <c-card>
-                  <div slot="title">Simple title</div>
-                  <div slot="content">
-                    <div class="tag-group">
-                      <sl-tag variant="success">Beginner</sl-tag>
-                      <sl-tag variant="neutral">Regression</sl-tag>
-                      <sl-tag variant="neutral">Feed Forward</sl-tag>
-                    </div>
-                    <sl-button>Create</sl-button>
-                  </div>
-                </c-card>
-                <c-card>
-                  <div slot="title">Pima Indians FF</div>
+                  <div slot="title">Pima Indians</div>
                   <div slot="content">
                     <div class="tag-group">
                       <sl-tag variant="warning">Intermediate</sl-tag>
@@ -132,10 +126,10 @@ export class GetStartedCard extends LitElementWw {
                   </div>
                 </c-card>
                 <c-card>
-                  <div slot="title">Boston House Pricing FF</div>
+                  <div slot="title">Boston House Pricing</div>
                   <div slot="content">
                     <div class="tag-group">
-                      <sl-tag variant="danger">Expert</sl-tag>
+                      <sl-tag variant="warning">Intermediate</sl-tag>
                       <sl-tag variant="neutral">Regression</sl-tag>
                       <sl-tag variant="neutral">Feed Forward</sl-tag>
                     </div>
@@ -143,6 +137,12 @@ export class GetStartedCard extends LitElementWw {
                   </div>
                 </c-card>
               </div>`
+            : html``}
+          ${this.editable || this.settings.mayAddAndRemoveLayers
+            ? html`<p>
+                You can create a custom configuration by using the options in
+                the corresponding right panels.
+              </p>`
             : html``}
         </div>
       </c-card>

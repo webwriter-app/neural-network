@@ -4,15 +4,15 @@ import { customElement, property } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
-import type { Neuron } from '@/components/network/neuron'
+import type { CNeuron } from '@/components/network/neuron'
 
 @customElement('edge-info-card')
 export class EdgeInfoCard extends LitElementWw {
   @property({ attribute: false })
-  source: Neuron
+  source: CNeuron
 
   @property({ attribute: false })
-  target: Neuron
+  target: CNeuron
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = globalStyles

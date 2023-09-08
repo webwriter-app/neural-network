@@ -8,14 +8,14 @@ import { globalStyles } from '@/global_styles'
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { DataSetUtils } from '@/utils/data_set_utils'
-import type { Neuron } from '@/components/network/neuron'
+import type { CNeuron } from '@/components/network/neuron'
 import { OutputLayer } from '@/components/network/output_layer'
 import { InputLayer } from '@/components/network/input_layer'
 
 @customElement('neuron-info-card')
 export class NeuronInfoCard extends LitElementWw {
   @property({ attribute: false })
-  neuron: Neuron
+  neuron: CNeuron
 
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
@@ -40,30 +40,28 @@ export class NeuronInfoCard extends LitElementWw {
       <c-card>
         <div slot="title">Neuron</div>
         <div slot="content">
-          <div>
-            <p>
-              Name:
-              <c-network-link .target=${this.neuron}
-                >${this.neuron.getName()}</c-network-link
-              >
-            </p>
-            <p>
-              Corresponding layer:
-              <c-network-link .target=${this.neuron.layer}
-                >${this.neuron.layer.getName()}</c-network-link
-              >
-            </p>
-            ${dataDesc
-              ? html`
-                  <h2>Assigned data</h2>
-                  <c-data-info
-                    .type=${type}
-                    .dataDesc=${dataDesc}
-                    .dataSet=${this.dataSet}
-                  ></c-data-info>
-                `
-              : html``}
-          </div>
+          <p>
+            Name:
+            <c-network-link .target=${this.neuron}
+              >${this.neuron.getName()}</c-network-link
+            >
+          </p>
+          <p>
+            Corresponding layer:
+            <c-network-link .target=${this.neuron.layer}
+              >${this.neuron.layer.getName()}</c-network-link
+            >
+          </p>
+          ${dataDesc
+            ? html`
+                <h2>Assigned data</h2>
+                <c-data-info
+                  .type=${type}
+                  .dataDesc=${dataDesc}
+                  .dataSet=${this.dataSet}
+                ></c-data-info>
+              `
+            : html``}
         </div>
       </c-card>
     `

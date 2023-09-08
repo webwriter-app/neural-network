@@ -29,7 +29,7 @@ import { canvasContext } from '@/contexts/canvas_context'
 
 import type { CLayerConf } from '@/types/c_layer_conf'
 import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
-import type { Network } from '@/components/network/network'
+import type { CNetwork } from '@/components/network/network'
 import { networkContext } from '@/contexts/network_context'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
@@ -72,7 +72,7 @@ import '@/components/canvas_area'
 import '@/components/menu_area'
 import '@/components/theme_switch'
 
-@customElement('ww-deeplearning')
+@customElement('ww-deep-learning')
 export class WwDeepLearning extends LitElementWw {
   // DATA PROVIDERS AND THEIR CORRESPONDING CONTROLLERS  - - - - - - - - - - - -
   // -> SETUP STATUS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -111,7 +111,7 @@ export class WwDeepLearning extends LitElementWw {
   // -> NETWORK  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: networkContext })
   @property({ attribute: false })
-  network: Network
+  network: CNetwork
 
   @provide({ context: layerConfsContext })
   @property({ attribute: true, type: Array, reflect: true })

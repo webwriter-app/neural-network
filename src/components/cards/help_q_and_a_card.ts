@@ -1,7 +1,9 @@
 import { LitElementWw } from '@webwriter/lit'
-import { TemplateResult, html } from 'lit'
+import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import { consume } from '@lit-labs/context'
+
+import { globalStyles } from '@/global_styles'
 
 import { editableContext } from '@/contexts/editable_context'
 import type { QAndAEntry } from '@/types/q_and_a_entry'
@@ -60,6 +62,9 @@ export class HelpQAndACard extends LitElementWw {
       })
     )
   }
+
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  static styles: CSSResult = globalStyles
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

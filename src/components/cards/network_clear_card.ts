@@ -22,16 +22,14 @@ export class NetworkClearCard extends LitElementWw {
       <c-card>
         <div slot="title">Clear</div>
         <div slot="content">
-          <div class="button-group">
-            <sl-button
-              @click="${(_e: MouseEvent) => {
-                void this.handleClear()
-              }}"
-            >
-              <sl-icon slot="prefix" name="trash"></sl-icon>
-              Clear network
-            </sl-button>
-          </div>
+          <sl-button
+            @click="${(_e: MouseEvent) => {
+              void this.handleClear()
+            }}"
+          >
+            <sl-icon slot="prefix" name="trash"></sl-icon>
+            Clear network
+          </sl-button>
           <p>This will remove every layer from the network.</p>
         </div>
       </c-card>

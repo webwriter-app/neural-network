@@ -4,7 +4,7 @@ import { consume } from '@lit-labs/context'
 
 import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
-import type { Neuron } from '@/components/network/neuron'
+import type { CNeuron } from '@/components/network/neuron'
 import type { Selected } from '@/types/selected'
 import { selectedContext } from '@/contexts/selected_context'
 
@@ -17,10 +17,10 @@ export class CEdge extends LitElementWw {
   selected: Selected
 
   @property()
-  source: Neuron
+  source: CNeuron
 
   @property()
-  target: Neuron
+  target: CNeuron
 
   @property()
   sourceLayerId: number

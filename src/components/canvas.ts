@@ -5,12 +5,10 @@ import { consume } from '@lit-labs/context'
 
 import * as cytoscape from 'cytoscape'
 
-import type { Network } from '@/components/network/network'
 import type { Position } from '@/types/position'
 import { InputLayer } from '@/components/network/input_layer'
 import { DenseLayer } from '@/components/network/dense_layer'
 import { OutputLayer } from '@/components/network/output_layer'
-import { networkContext } from '@/contexts/network_context'
 import type { Theme } from '@/types/theme'
 import { themeContext } from '@/contexts/theme_context'
 
@@ -26,9 +24,6 @@ export class CCanvas extends LitElementWw {
 
   @query('#canvasElm', true)
   _canvasElm: HTMLDivElement
-
-  @consume({ context: networkContext, subscribe: true })
-  network: Network
 
   @consume({ context: themeContext, subscribe: true })
   @property({ attribute: false })
@@ -62,7 +57,7 @@ export class CCanvas extends LitElementWw {
       })
     )
 
-    // notify the root element that the canvas was created
+    // notify the root element that the setup for the canvas is completed
     this.dispatchEvent(
       new CustomEvent<string>('setup-completed', {
         detail: 'canvas',
@@ -90,7 +85,7 @@ export class CCanvas extends LitElementWw {
       }
     })
 
-    // Add event listener for selection of layers or nodes
+    // Add event listener for selection of layers, neurons or edges
     this.cy.on('click', 'node, edge', (e: cytoscape.EventObject) => {
       const evtTarget = <cytoscape.SingularData>e.target
 
@@ -145,22 +140,22 @@ export class CCanvas extends LitElementWw {
   // -> STYLING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   getStylesheetForCy(): cytoscape.Stylesheet[] {
     const MAIN_COLOR: string = colorsea(
-      getComputedStyle(this).getPropertyValue('--sl-color-primary-50')
+      getComputedStyle(this).getPropertyValue('--sl-color-primary-200')
     ).hex()
     const TEXT_COLOR: string = colorsea(
-      getComputedStyle(this).getPropertyValue('--sl-color-primary-950')
+      getComputedStyle(this).getPropertyValue('--sl-color-primary-900')
     ).hex()
     const ACCENT_COLOR: string = colorsea(
       getComputedStyle(this).getPropertyValue('--sl-color-primary-500')
     ).hex()
     const SELECTED_COLOR: string = colorsea(
-      getComputedStyle(this).getPropertyValue('--sl-color-primary-950')
+      getComputedStyle(this).getPropertyValue('--sl-color-primary-900')
     ).hex()
     const POSITIVE_COLOR: string = colorsea(
-      getComputedStyle(this).getPropertyValue('--sl-color-success-200')
+      getComputedStyle(this).getPropertyValue('--sl-color-success-500')
     ).hex()
     const NEGATIVE_COLOR: string = colorsea(
-      getComputedStyle(this).getPropertyValue('--sl-color-danger-200')
+      getComputedStyle(this).getPropertyValue('--sl-color-danger-500')
     ).hex()
 
     return [

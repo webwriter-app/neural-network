@@ -10,7 +10,7 @@ import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
 import type { CLayerConf } from '@/types/c_layer_conf'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
-import type { Network } from '@/components/network/network'
+import type { CNetwork } from '@/components/network/network'
 import { networkContext } from '@/contexts/network_context'
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
@@ -27,7 +27,7 @@ export class NetworkInfoCard extends LitElementWw {
   layerConfs: CLayerConf[]
 
   @consume({ context: networkContext, subscribe: true })
-  network: Network
+  network: CNetwork
 
   @consume({ context: modelConfContext, subscribe: true })
   modelConf: ModelConf

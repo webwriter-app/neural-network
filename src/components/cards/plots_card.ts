@@ -56,7 +56,7 @@ export class PlotsCard extends LitElementWw {
       return html`${parentContainer}`
     } else {
       return html`Click on an feature pill above to see the relation between
-      this input and the output in a plot`
+      this feature and the label in a plot`
     }
   }
 

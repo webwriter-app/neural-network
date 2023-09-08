@@ -6,7 +6,7 @@ import { consume } from '@lit-labs/context'
 import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
 import { CLayer } from '@/components/network/c_layer'
-import { Neuron } from '@/components/network/neuron'
+import { CNeuron } from '@/components/network/neuron'
 
 @customElement('c-network-link')
 export class CNetworkLink extends LitElementWw {
@@ -14,7 +14,7 @@ export class CNetworkLink extends LitElementWw {
   disabled: boolean
 
   @property({ type: String })
-  target: CLayer | Neuron
+  target: CLayer | CNeuron
 
   @consume({ context: canvasContext, subscribe: true })
   canvas: CCanvas
@@ -29,7 +29,7 @@ export class CNetworkLink extends LitElementWw {
           composed: true,
         })
       )
-    } else if (this.target instanceof Neuron) {
+    } else if (this.target instanceof CNeuron) {
       this.dispatchEvent(
         new CustomEvent<string>('select-neuron', {
           detail: this.target.getCyId(),

@@ -7,8 +7,8 @@ import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
 import type { CLayerConf } from '@/types/c_layer_conf'
 import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
-import type { Network } from '@/components/network/network'
-import type { Neuron } from '@/components/network/neuron'
+import type { CNetwork } from '@/components/network/network'
+import type { CNeuron } from '@/components/network/neuron'
 import type { CEdge } from '@/components/network/c_edge'
 import { networkContext } from '@/contexts/network_context'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
@@ -24,7 +24,7 @@ export class CLayerConnection extends LitElementWw {
   layerConfs: CLayerConf[]
 
   @consume({ context: networkContext, subscribe: true })
-  network: Network
+  network: CNetwork
 
   @property()
   conf: CLayerConnectionConf
@@ -67,8 +67,8 @@ export class CLayerConnection extends LitElementWw {
         this.canvas.cy.getElementById(targetLayer.getCyId()).length
       ) {
         // get the cytoscape ids of all the neurons to connect from and to
-        const sources: Neuron[] = sourceLayer.getNeurons()
-        const targets: Neuron[] = targetLayer.getNeurons()
+        const sources: CNeuron[] = sourceLayer.getNeurons()
+        const targets: CNeuron[] = targetLayer.getNeurons()
 
         // manually request an update of the edges in case their properties do
         // not change (else they would just disappear e.g. on change of the

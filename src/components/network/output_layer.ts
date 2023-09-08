@@ -15,9 +15,6 @@ import * as tf from '@tensorflow/tfjs'
 
 @customElement('output-layer')
 export class OutputLayer extends CLayer {
-  static LAYER_TYPE = 'Output'
-  static LAYER_NAME = 'Output layer'
-
   @property()
   conf: OutputLayerConf
 
@@ -126,21 +123,17 @@ export class OutputLayer extends CLayer {
 
   // -> BUILD  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   build(inputs: tf.SymbolicTensor[]): tf.SymbolicTensor {
-    // check if we have multiple inputs.
+    // check if we have multiple inputs and concatenate them if necessary
     let input: tf.SymbolicTensor | tf.SymbolicTensor[] | tf.Tensor | tf.Tensor[]
     if (inputs.length > 1) {
-      // if there are multiple inputs we concatenate them into one
       input = tf.layers
         .concatenate({ axis: 1, name: `concatinputs-${this.getTensorName()}` })
         .apply(inputs)
     } else {
-      // we know that we must have one input since this method has to have been
-      // called from somewhere, so we set the input to the tensor of the first
-      // (and single) input of our inputFrom array
       input = inputs[0]
     }
 
-    // lets now create the main tensor
+    // create the layer's tensor
     const tensor = <tf.SymbolicTensor>tf.layers
       .dense({
         units: Array.from(this._neurons).length,
@@ -149,6 +142,7 @@ export class OutputLayer extends CLayer {
       })
       .apply(input)
     tensor['layer_id'] = this.conf.layerId
+    this.tensor = tensor
     return tensor
   }
 

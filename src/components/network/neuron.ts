@@ -14,7 +14,7 @@ import type { Position } from '@/types/position'
 import { ModelUtils } from '@/utils/model_utils'
 
 @customElement('c-neuron')
-export class Neuron extends LitElementWw {
+export class CNeuron extends LitElementWw {
   @consume({ context: canvasContext, subscribe: true })
   canvas: CCanvas
 
@@ -171,7 +171,7 @@ export class Neuron extends LitElementWw {
       // selecting the element in cytoscape)
       if (this.selected?.neuron == this.getCyId()) {
         this.dispatchEvent(
-          new CustomEvent<Neuron>('selected-ele-rendered', {
+          new CustomEvent<CNeuron>('selected-ele-rendered', {
             detail: this,
             bubbles: true,
             composed: true,

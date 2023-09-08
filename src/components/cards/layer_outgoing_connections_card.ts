@@ -5,7 +5,7 @@ import { consume } from '@lit-labs/context'
 
 import type { CLayerConf } from '@/types/c_layer_conf'
 import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
-import type { Network } from '@/components/network/network'
+import type { CNetwork } from '@/components/network/network'
 import type { CLayer } from '@/components/network/c_layer'
 import { networkContext } from '@/contexts/network_context'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
@@ -25,7 +25,7 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
   layerConnectionConfs: CLayerConnectionConf[]
 
   @consume({ context: networkContext, subscribe: true })
-  network: Network
+  network: CNetwork
 
   @query('#connectionSelect')
   _connectionSelect: SlSelect

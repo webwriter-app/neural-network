@@ -42,12 +42,12 @@ export class HelpAboutCard extends LitElementWw {
             ></iframe>
           </sl-details>
           <sl-details summary="License">
-            <object style="width: 100%;" data="/assets/LICENSE"></object>
+            <object style="width: 100%;" data="/assets/LICENSE.txt"></object>
           </sl-details>
           <sl-details summary="Third-party licenses">
             <object
               style="width: 100%;"
-              data="/assets/THIRDPARTYLICENSES"
+              data="/assets/THIRDPARTYLICENSES.txt"
             ></object>
           </sl-details>
           <sl-details summary="Third-party data sets">

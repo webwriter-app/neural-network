@@ -4,7 +4,9 @@ import { customElement, query } from 'lit/decorators.js'
 import { choose } from 'lit/directives/choose.js'
 import { consume } from '@lit-labs/context'
 
-import type { Network } from '@/components/network/network'
+import { globalStyles } from '@/global_styles'
+
+import type { CNetwork } from '@/components/network/network'
 import { networkContext } from '@/contexts/network_context'
 
 import type { DataSet } from '@/types/data_set'
@@ -20,7 +22,7 @@ import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
 @customElement('predict-card')
 export class PredictCard extends LitElementWw {
   @consume({ context: networkContext, subscribe: true })
-  network: Network
+  network: CNetwork
 
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
@@ -68,20 +70,23 @@ export class PredictCard extends LitElementWw {
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  static styles: CSSResult = css`
-    :host {
-      position: relative;
-      width: 100%;
-    }
+  static styles: CSSResult[] = [
+    globalStyles,
+    css`
+      :host {
+        position: relative;
+        width: 100%;
+      }
 
-    .inputs-grid {
-      width: 100%;
-      display: grid;
-      gap: 10px;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-      overflow: hidden;
-    }
-  `
+      .inputs-grid {
+        width: 100%;
+        display: grid;
+        gap: 10px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+        overflow: hidden;
+      }
+    `,
+  ]
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
@@ -140,8 +145,9 @@ export class PredictCard extends LitElementWw {
                               ...(<number[]>this.modelConf.predictedValue)
                             )
                           )
-                          return html`${this.dataSet.labelDesc.classes[index]
-                            .key}
+                          return html`${this.dataSet.labelDesc.classes[
+                            index
+                          ].id.toString()}
                           with a probability of
                           ${ModelUtils.formatWeight(
                             (<number[]>this.modelConf.predictedValue)[index]

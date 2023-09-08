@@ -27,9 +27,9 @@ import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path'
 setBasePath('/shoelace')
 
 // my own reusable components (mostly based on shoelace)
-import './components/reusables/c-card'
-import './components/reusables/c-data-info'
-import './components/reusables/c-network-link'
-import './components/reusables/c-panel'
-import './components/reusables/c-setting'
-import './components/reusables/c-tab'
+import '@/components/reusables/c-card'
+import '@/components/reusables/c-data-info'
+import '@/components/reusables/c-network-link'
+import '@/components/reusables/c-panel'
+import '@/components/reusables/c-setting'
+import '@/components/reusables/c-tab'
