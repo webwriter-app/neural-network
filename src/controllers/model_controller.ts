@@ -86,14 +86,18 @@ export class ModelController implements ReactiveController {
     this.discardModel()
     const model = this.host.networkController.buildModel()
     if (model && this.host.dataSet) {
+      this.host.modelConf.plottedMetrics.push('loss')
+      this.host.modelConf.plottedMetrics.push('val_loss')
       if (this.host.dataSet.type == 'regression') {
         this.host.modelConf.loss = 'meanSquaredError'
       } else if (this.host.dataSet.type == 'classification') {
         this.host.modelConf.loss = 'categoricalCrossentropy'
         this.host.modelConf.metrics.push('acc')
+        this.host.modelConf.plottedMetrics.push('acc')
+        this.host.modelConf.plottedMetrics.push('val_acc')
       }
       this.host.modelConf = { ...this.host.modelConf }
-      const optimizer = tf.train.sgd(
+      const optimizer = tf.train.adam(
         parseFloat(this.host.trainOptions.learningRate)
       )
       model.compile({
@@ -161,12 +165,31 @@ export class ModelController implements ReactiveController {
         return
       }
 
+      void tfvis.show.history(
+        this.host.trainMetricsContainer,
+        this.host.modelConf.history,
+        ['loss', 'val_loss', 'val_acc', ...this.host.modelConf.metrics],
+        {
+          height: 100,
+          xLabel: 'Epoch',
+        }
+      )
+
+      /* void inputs[0].data().then((data) => {
+        console.log(input[0].shape)
+        console.log(data)
+      })
+      void labels.data().then((data) => {
+        console.log()
+        console.log(data)
+      }) */
+
       // start the training itself
       void this.host.modelConf.model
         .fit(inputs, labels, {
           epochs: this.host.modelConf.totalEpochs,
           batchSize: parseInt(this.host.trainOptions.batchSize),
-
+          validationSplit: 0.1,
           callbacks: [
             {
               onBatchEnd: (batch: number, _logs: tf.Logs) => {
@@ -187,23 +210,20 @@ export class ModelController implements ReactiveController {
                 this.host.modelConf = {
                   ...this.host.modelConf,
                 }
-                console.log(this.host.modelConf.history)
-                tfvis.show
-                  .history(
-                    this.host.trainMetricsContainer,
-                    this.host.modelConf.history,
-                    ['loss', ...this.host.modelConf.metrics],
-                    {
-                      height: 100,
-                      xLabel: 'Epoch',
-                    }
-                  )
-                  .then(() => {
-                    this.host.modelConf = {
-                      ...this.host.modelConf,
-                    }
-                  })
-                  .catch((err) => console.error(err))
+                void tfvis.show.history(
+                  this.host.trainMetricsContainer,
+                  this.host.modelConf.history,
+                  [
+                    'loss',
+                    'val_loss',
+                    'val_acc',
+                    ...this.host.modelConf.metrics,
+                  ],
+                  {
+                    height: 100,
+                    xLabel: 'Epoch',
+                  }
+                )
               },
             },
           ],

@@ -74,7 +74,11 @@ export class PlotsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Plots</div>
+        <div slot="title">
+          ${this.featureKey
+            ? `${this.featureKey} plotted against ${this.dataSet.labelDesc.key}`
+            : 'Plots'}
+        </div>
         <div slot="content">${this.buildPlots()}</div>
       </c-card>
     `

@@ -66,8 +66,7 @@ export class SettingsCard extends LitElementWw {
           </c-setting>
 
           <h2>Network</h2>
-          Restrict layer types (this will only apply to the widget user's
-          configuration options; you may add any layer)
+          Restrict layer types
           <c-setting name="allowDenseLayers" description="Allow dense layers">
           </c-setting>
           Editing

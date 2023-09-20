@@ -8,11 +8,15 @@ import { globalStyles } from '@/global_styles'
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import type { CNeuron } from '@/components/network/neuron'
+import { FeatureDesc } from '@/types/feature_desc'
 
-@customElement('neuron-info-card')
-export class NeuronInfoCard extends LitElementWw {
+@customElement('neuron-feature-card')
+export class NeuronFeatureCard extends LitElementWw {
   @property({ attribute: false })
   neuron: CNeuron
+
+  @property({ attribute: false })
+  featureDesc: FeatureDesc
 
   @consume({ context: dataSetContext, subscribe: true })
   dataSet: DataSet
@@ -24,20 +28,13 @@ export class NeuronInfoCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Neuron</div>
+        <div slot="title">Assigned feature (input)</div>
         <div slot="content">
-          <p>
-            Name:
-            <c-network-link .target=${this.neuron}
-              >${this.neuron.getName()}</c-network-link
-            >
-          </p>
-          <p>
-            Corresponding layer:
-            <c-network-link .target=${this.neuron.layer}
-              >${this.neuron.layer.getName()}</c-network-link
-            >
-          </p>
+          <c-data-info
+            type="feature"
+            .dataDesc=${this.featureDesc}
+            .dataSet=${this.dataSet}
+          ></c-data-info>
         </div>
       </c-card>
     `

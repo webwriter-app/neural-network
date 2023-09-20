@@ -37,8 +37,9 @@ export class TrainingHyperparametersCard extends LitElementWw {
   @query('#batchSizeRadioGroup')
   _batchSizeRadioGroup: SlRadioGroup
 
-  @query('#learningRateRange')
-  _learningRateRange: SlRange
+  private learningRateOptions: number[] = [0.0001, 0.001, 0.01, 0.1, 1]
+  @query('#learningRateRadioGroup')
+  _learningRateRadioGroup: SlRadioGroup
 
   @query('#dropoutRateRange')
   _dropoutRateRange: SlRange
@@ -68,7 +69,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
       }>('set-train-option', {
         detail: {
           option: 'learningRate',
-          value: this._learningRateRange.value.toString(),
+          value: this._learningRateRadioGroup.value,
         },
         bubbles: true,
         composed: true,
@@ -128,21 +129,27 @@ export class TrainingHyperparametersCard extends LitElementWw {
           <label for="learningRateRange"
             >Learning rate: ${this.trainOptions.learningRate}</label
           >
-          <sl-range
-            id="learningRateRange"
-            class="${this.modelConf.model ||
+          <div
+            class="hscroll-container ${this.modelConf.model ||
             (!this.editable && !this.settings.mayEditLearningRate)
               ? 'hidden'
               : ``}"
-            help-text="Adjust the speed at which the network learns"
-            min="0"
-            max="0.1"
-            step="0.001"
-            value="${this.trainOptions.learningRate}"
-            @sl-change="${(_e: SlChangeEvent) =>
-              this.handleChangeLearningRate()}"
           >
-          </sl-range>
+            <sl-radio-group
+              id="learningRateRadioGroup"
+              value="${this.trainOptions.learningRate}"
+              @sl-change="${(_e: SlChangeEvent) =>
+                this.handleChangeLearningRate()}"
+            >
+              ${this.learningRateOptions.map((learningRate) => {
+                return html`
+                  <sl-radio-button size="small" value="${learningRate}"
+                    >${learningRate}</sl-radio-button
+                  >
+                `
+              })}
+            </sl-radio-group>
+          </div>
           <label for="dropoutRateRange"
             >Dropout rate: ${this.trainOptions.dropoutRate}</label
           >

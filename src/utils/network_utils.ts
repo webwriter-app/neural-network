@@ -11,6 +11,7 @@ export class NetworkUtils {
   }
   static actReLu: Activation = {
     name: 'ReLu',
+    fullName: 'Rectified linear unit',
     tfName: 'relu',
     description: 'Negative values are rounded up to zero.',
     img: '/assets/actReLu.svg',
@@ -24,6 +25,15 @@ export class NetworkUtils {
     img: '/assets/actSigmoid.svg',
     range: '(0,1)',
   }
+  static actTanh: Activation = {
+    name: 'Tanh',
+    fullName: 'Hyperbolic tangent',
+    tfName: 'tanh',
+    description:
+      'Largely negative values are mapped to values close to minus one while largely positive values will be mapped to values close to one (see the graphic).',
+    img: '/assets/actTanh.svg',
+    range: '(-1,1)',
+  }
   static actSoftmax: Activation = {
     name: 'Softmax',
     tfName: 'softmax',
@@ -35,6 +45,7 @@ export class NetworkUtils {
     this.actNone,
     this.actReLu,
     this.actSigmoid,
+    this.actTanh,
     this.actSoftmax,
   ]
 }

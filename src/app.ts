@@ -7,6 +7,8 @@ import '@/imports'
 
 import { globalStyles } from '@/global_styles'
 
+import { ConfigurationController } from '@/controllers/configuration_controller'
+
 import type { SetupStatus } from '@/types/setup_status'
 import { setupStatusContext } from '@/contexts/setup_status_context'
 import { SetupController } from '@/controllers/setup_controller'
@@ -57,15 +59,13 @@ import { SelectionController } from '@/controllers/selection_controller'
 import { panelContext } from '@/contexts/panels_context'
 import { PanelController } from '@/controllers/panel_controller'
 
-/* import { AlertController } from '@/controllers/alert_controller' */
-import { AlertUtils } from '@/utils/alert_utils'
+/* import { AlertController } from '@/controllers/alert_controller'
+import { AlertUtils } from '@/utils/alert_utils'*/
 
 import type { Theme } from '@/types/theme'
 import { themeContext } from '@/contexts/theme_context'
 import { ThemeController } from '@/controllers/theme_controller'
 import { ThemeUtils } from '@/utils/theme_utils'
-
-import type { FileConfigV1 } from '@/types/file_config_v1'
 
 import '@/components/network/network'
 import '@/components/canvas_area'
@@ -74,7 +74,9 @@ import '@/components/theme_switch'
 
 @customElement('ww-deep-learning')
 export class WwDeepLearning extends LitElementWw {
-  // DATA PROVIDERS AND THEIR CORRESPONDING CONTROLLERS  - - - - - - - - - - - -
+  // DATA PROVIDERS AND CONTROLLERS  - - - - - - - - - - - - - - - - - - - - - -
+  configurationController = new ConfigurationController(this)
+
   // -> SETUP STATUS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: setupStatusContext })
   @property({ attribute: false })
@@ -183,48 +185,6 @@ export class WwDeepLearning extends LitElementWw {
   theme: Theme = ThemeUtils.lightTheme
 
   themeController = new ThemeController(this)
-
-  // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  connectedCallback() {
-    super.connectedCallback()
-
-    // ADD EVENT LISTENERS
-    this.renderRoot.addEventListener(
-      'import-config',
-      (e: CustomEvent<FileConfigV1>) => this.importConfig(e.detail)
-    )
-  }
-
-  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // -> IMPORTING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  importConfig(config: FileConfigV1): void {
-    // only overwrite settings and help when in editable mode, else ignore the
-    // imported ones
-    if (this.editable) {
-      this.settings = { ...config.settings }
-      this.qAndA = [...config.qAndA]
-    }
-
-    this.dataSet = config.dataSet
-    this.availableDataSets = config.availableDataSets
-    this.layerConfs = config.layerConfs
-    this.layerConnectionConfs = config.layerConnectionConfs
-    this.trainOptions = config.trainOptions
-    this.modelController.discardModel()
-    this.panel = 'network'
-    this.selected = {}
-
-    AlertUtils.spawn({
-      message: `The imported config was successfully loaded!`,
-      variant: 'success',
-      icon: 'check-circle',
-    })
-
-    // TODO this is not really nice and unreliable, but how to fix it?
-    setTimeout(() => {
-      this.canvas.fit()
-    }, 1000)
-  }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [

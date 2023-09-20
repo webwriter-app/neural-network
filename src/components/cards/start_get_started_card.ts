@@ -9,9 +9,7 @@ import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
 
-import type { FileConfig } from '@/types/file_config'
-import type { FileConfigV1 } from '@/types/file_config_v1'
-import { AlertUtils } from '@/utils/alert_utils'
+import { FileConfig } from '@/types/file_config'
 
 @customElement('start-get-started-card')
 export class GetStartedCard extends LitElementWw {
@@ -22,68 +20,35 @@ export class GetStartedCard extends LitElementWw {
   settings: Settings
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  async handleImport() {
-    const [handle] = await window.showOpenFilePicker({
-      types: [
-        {
-          description: 'JSON',
-          accept: { 'application/json': ['.json'] },
-        },
-      ],
-    })
-    const file = await handle.getFile()
-    try {
-      const text = await file.text()
-      let fileConfig: FileConfig = await JSON.parse(text)
-
-      switch (fileConfig.version) {
-        case 1: {
-          if (
-            !(
-              Object.hasOwn(fileConfig, 'settings') &&
-              Object.hasOwn(fileConfig, 'help') &&
-              Object.hasOwn(fileConfig, 'availableDataSets') &&
-              Object.hasOwn(fileConfig, 'dataSet') &&
-              Object.hasOwn(fileConfig, 'layerConfs') &&
-              Object.hasOwn(fileConfig, 'layerConnectionConfs') &&
-              Object.hasOwn(fileConfig, 'trainOptions')
-            )
-          ) {
-            throw new Error('The config you imported seems to be broken :(')
-          }
-          const config: FileConfigV1 = {
-            version: 1,
-            settings: fileConfig.settings,
-            qAndA: fileConfig.qAndA,
-            availableDataSets: fileConfig.availableDataSets,
-            dataSet: fileConfig.dataSet,
-            layerConfs: fileConfig.layerConfs,
-            layerConnectionConfs: fileConfig.layerConnectionConfs,
-            trainOptions: fileConfig.trainOptions,
-          }
-          this.dispatchEvent(
-            new CustomEvent<FileConfigV1>('import-config', {
-              detail: config,
-              bubbles: true,
-              composed: true,
-            })
-          )
-          break
-        }
-        default: {
-          throw new Error(
-            'The version of the config file is not compatible with the widget version you currently use!'
-          )
-        }
-      }
-    } catch (err: unknown) {
-      const error = err as Error
-      AlertUtils.spawn({
-        message: error.message,
-        variant: 'danger',
-        icon: 'x-circle',
+  handleCustomImport() {
+    this.dispatchEvent(
+      new Event('initiate-import', {
+        bubbles: true,
+        composed: true,
       })
+    )
+  }
+
+  async handleDefaultImport(url: string) {
+    let configJSON: Response
+    try {
+      configJSON = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
+      })
+    } catch (err) {
+      console.error(err)
     }
+    const config = <FileConfig>await configJSON.json()
+    this.dispatchEvent(
+      new CustomEvent('import-config', {
+        detail: config,
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -106,7 +71,7 @@ export class GetStartedCard extends LitElementWw {
         <div slot="content">
           <sl-button
             @click="${(_e: MouseEvent) => {
-              void this.handleImport()
+              void this.handleCustomImport()
             }}"
           >
             <sl-icon slot="prefix" name="file-earmark-arrow-up"></sl-icon>
@@ -122,7 +87,13 @@ export class GetStartedCard extends LitElementWw {
                       <sl-tag variant="neutral">Classification</sl-tag>
                       <sl-tag variant="neutral">Feed Forward</sl-tag>
                     </div>
-                    <sl-button>Create</sl-button>
+                    <sl-button
+                      @click=${(_e: MouseEvent) =>
+                        this.handleDefaultImport(
+                          '/assets/pimaIndiansConfig.json'
+                        )}
+                      >Create</sl-button
+                    >
                   </div>
                 </c-card>
                 <c-card>
@@ -133,7 +104,11 @@ export class GetStartedCard extends LitElementWw {
                       <sl-tag variant="neutral">Regression</sl-tag>
                       <sl-tag variant="neutral">Feed Forward</sl-tag>
                     </div>
-                    <sl-button>Create</sl-button>
+                    <sl-button
+                      @click=${(_e: MouseEvent) =>
+                        this.handleDefaultImport('/assets/bostonConfig.json')}
+                      >Create</sl-button
+                    >
                   </div>
                 </c-card>
               </div>`

@@ -4,6 +4,7 @@ export interface ModelConf {
   model: tf.LayersModel
   loss: string
   metrics: string[]
+  plottedMetrics: string[]
   isTraining: boolean
   totalEpochs: number
   actEpoch: number

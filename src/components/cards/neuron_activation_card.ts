@@ -1,21 +1,15 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
 
 import { globalStyles } from '@/global_styles'
 
-import type { DataSet } from '@/types/data_set'
-import { dataSetContext } from '@/contexts/data_set_context'
 import type { CNeuron } from '@/components/network/neuron'
 
-@customElement('neuron-info-card')
-export class NeuronInfoCard extends LitElementWw {
+@customElement('neuron-activation-card')
+export class NeuronActivationCard extends LitElementWw {
   @property({ attribute: false })
   neuron: CNeuron
-
-  @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = globalStyles
@@ -24,19 +18,20 @@ export class NeuronInfoCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Neuron</div>
+        <div slot="title">Activation function</div>
         <div slot="content">
+          <p>Activation: ${this.neuron.layer.conf.activation.name}</p>
+          ${Object.hasOwn(this.neuron.layer.conf.activation, 'img')
+            ? html`<img src=${this.neuron.layer.conf.activation.img} />`
+            : html``}
           <p>
-            Name:
-            <c-network-link .target=${this.neuron}
-              >${this.neuron.getName()}</c-network-link
-            >
+            After calculating a neuron's value by adding up its weighted input
+            values and its bias:
+            ${this.neuron.layer.conf.activation.description}
           </p>
           <p>
-            Corresponding layer:
-            <c-network-link .target=${this.neuron.layer}
-              >${this.neuron.layer.getName()}</c-network-link
-            >
+            Range of possible output values:
+            ${this.neuron.layer.conf.activation.range}
           </p>
         </div>
       </c-card>

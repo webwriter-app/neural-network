@@ -8,7 +8,7 @@ export class ModelUtils {
   static defaultTrainOptions: TrainOptions = {
     learningRate: '0.001',
     dropoutRate: '0',
-    batchSize: '32',
+    batchSize: '16',
     lossFunction: 'meanSquaredError',
     optimizer: 'sgd',
   }
@@ -17,6 +17,7 @@ export class ModelUtils {
     model: null,
     loss: null,
     metrics: [],
+    plottedMetrics: [],
     isTraining: false,
     totalEpochs: 0,
     actEpoch: 0,

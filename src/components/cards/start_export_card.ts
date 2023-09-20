@@ -19,9 +19,6 @@ import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 import type { TrainOptions } from '@/types/train_options'
 import { trainOptionsContext } from '@/contexts/train_options_context'
 
-import type { FileConfigV1 } from '@/types/file_config_v1'
-import { AlertUtils } from '@/utils/alert_utils'
-
 @customElement('start-export-card')
 export class StartExportCard extends LitElementWw {
   @consume({ context: settingsContext, subscribe: true })
@@ -46,35 +43,13 @@ export class StartExportCard extends LitElementWw {
   trainOptions: TrainOptions
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  async handleExport() {
-    const config: FileConfigV1 = {
-      version: 1,
-      settings: this.settings,
-      qAndA: this.qAndA,
-      availableDataSets: this.availableDataSets,
-      dataSet: this.dataSet,
-      layerConfs: this.layerConfs,
-      layerConnectionConfs: this.layerConnectionConfs,
-      trainOptions: this.trainOptions,
-    }
-    const configJSON = JSON.stringify(config)
-    const handle = await window.showSaveFilePicker({
-      suggestedName: 'export.json',
-      types: [
-        {
-          description: 'JSON',
-          accept: { 'application/json': ['.json'] },
-        },
-      ],
-    })
-    const writer = await handle.createWritable()
-    await writer.write(configJSON)
-    await writer.close()
-    AlertUtils.spawn({
-      message: `The current configuration was successfully exported!`,
-      variant: 'success',
-      icon: 'check-circle',
-    })
+  handleExport() {
+    this.dispatchEvent(
+      new Event('export-config', {
+        bubbles: true,
+        composed: true,
+      })
+    )
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

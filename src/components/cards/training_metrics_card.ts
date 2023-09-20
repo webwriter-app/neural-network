@@ -61,6 +61,17 @@ export class TrainingMetricsCard extends LitElementWw {
             () => html`<h1>Error</h1>`
           )}
           <div id="trainMetricsContainer"></div>
+          <sl-details
+            summary="What is the difference between the two lines in a graph?"
+          >
+            <p>
+              For val_..., the metric is calculated on the validation data set
+              while for the data without val as a prefix the metric is
+              calculated on the training data set. The metrics for the
+              validation data set can be seen as more meaningful since this is
+              the data the network does not 'know'.
+            </p>
+          </sl-details>
         </div>
       </c-card>
     `
