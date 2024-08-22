@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -16,22 +16,21 @@ import { modelConfContext } from '@/contexts/model_conf_context'
 
 import type { SlSelect, SlChangeEvent } from '@shoelace-style/shoelace'
 
-@customElement('layer-activation-card')
-export class LayerActivationCard extends LitElementWw {
+export @customElement('layer-activation-card') class LayerActivationCard extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
-  editable: boolean
+  accessor editable: boolean
 
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   @consume({ context: modelConfContext, subscribe: true })
-  modelConf: ModelConf
+  accessor modelConf: ModelConf
 
   @property({ attribute: false })
-  layer: CLayer
+  accessor layer: CLayer
 
   @query('sl-select')
-  _selectActivationFormElm: SlSelect
+  accessor _selectActivationFormElm: SlSelect
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleChangeActivation(): void {

@@ -2,7 +2,7 @@ import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import { choose } from 'lit/directives/choose.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -11,16 +11,15 @@ import { dataSetContext } from '@/contexts/data_set_context'
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
 
-@customElement('training-metrics-card')
-export class TrainingMetricsCard extends LitElementWw {
+export @customElement('training-metrics-card') class TrainingMetricsCard extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   @consume({ context: modelConfContext, subscribe: true })
-  modelConf: ModelConf
+  accessor modelConf: ModelConf
 
   @query('#trainMetricsContainer')
-  _trainMetricsContainer: HTMLDivElement
+  accessor _trainMetricsContainer: HTMLDivElement
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   firstUpdated(): void {

@@ -11,10 +11,9 @@ import { NetworkUtils } from '@/utils/network_utils'
 
 import * as tf from '@tensorflow/tfjs'
 
-@customElement('dense-layer')
-export class DenseLayer extends CLayer {
+export @customElement('dense-layer') class DenseLayer extends CLayer {
   @property()
-  conf: DenseLayerConf
+  accessor conf: DenseLayerConf
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   updated(changedProperties: Map<string, unknown>) {
@@ -109,16 +108,16 @@ export class DenseLayer extends CLayer {
       .apply(input)
 
     // finally apply dropout
-    const dropout: tf.SymbolicTensor = <tf.SymbolicTensor>(
+/*     const dropout: tf.SymbolicTensor = <tf.SymbolicTensor>(
       tf.layers
         .dropout({ rate: parseFloat(this.trainOptions.dropoutRate) })
         .apply(dense)
-    )
+    ) */
 
     // set this tensor to the dropout tensor and add the layer id
-    dropout['layer_id'] = this.conf.layerId
-    this.tensor = dropout
-    return dropout
+    dense['layer_id'] = this.conf.layerId
+    this.tensor = dense
+    return dense
   }
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

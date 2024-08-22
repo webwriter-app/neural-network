@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -13,19 +13,18 @@ import { canvasContext } from '@/contexts/canvas_context'
 import type { CLayerConf } from '../../types/c_layer_conf'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 
-@customElement('network-add-layer-card')
-export class NetworkAddLayerCard extends LitElementWw {
+export @customElement('network-add-layer-card') class NetworkAddLayerCard extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
-  editable: boolean
+  accessor editable: boolean
 
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   @consume({ context: canvasContext, subscribe: true })
-  canvas: CCanvas
+  accessor canvas: CCanvas
 
   @consume({ context: layerConfsContext, subscribe: true })
-  layerConfs: CLayerConf[]
+  accessor layerConfs: CLayerConf[]
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [

@@ -1,4 +1,4 @@
-import { createContext } from '@lit-labs/context'
+import { createContext } from '@lit/context'
 import type { DataSet } from '@/types/data_set'
 
 export const availableDataSetsContext = createContext<DataSet[]>(

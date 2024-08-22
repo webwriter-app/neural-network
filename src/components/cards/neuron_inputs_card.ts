@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -11,16 +11,15 @@ import { networkContext } from '@/contexts/network_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 import type { CNeuron } from '@/components/network/neuron'
 
-@customElement('neuron-inputs-card')
-export class NeuronInputsCard extends LitElementWw {
+export @customElement('neuron-inputs-card') class NeuronInputsCard extends LitElementWw {
   @property({ attribute: false })
-  neuron: CNeuron
+  accessor neuron: CNeuron
 
   @consume({ context: layerConnectionConfsContext, subscribe: true })
-  layerConnectionConfs: CLayerConnectionConf[]
+  accessor layerConnectionConfs: CLayerConnectionConf[]
 
   @consume({ context: networkContext, subscribe: true })
-  network: CNetwork
+  accessor network: CNetwork
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = globalStyles

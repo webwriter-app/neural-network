@@ -1,17 +1,16 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
 
-@customElement('core-model-features-unavailable-card')
-export class CoreModelFeaturesUnavailableCard extends LitElementWw {
+export @customElement('core-model-features-unavailable-card') class CoreModelFeaturesUnavailableCard extends LitElementWw {
   @consume({ context: modelConfContext, subscribe: true })
-  modelConf: ModelConf
+  accessor modelConf: ModelConf
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleDiscardModel(): void {

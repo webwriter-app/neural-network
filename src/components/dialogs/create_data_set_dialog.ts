@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html, nothing } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -12,10 +12,9 @@ import type { SlChangeEvent, SlDialog } from '@shoelace-style/shoelace'
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
 import { AlertUtils } from '@/utils/alert_utils'
 
-@customElement('create-data-set-dialog')
-export class CreateDataSetDialog extends LitElementWw {
+export @customElement('create-data-set-dialog') class CreateDataSetDialog extends LitElementWw {
   @consume({ context: availableDataSetsContext, subscribe: true })
-  availableDataSets: DataSet[]
+  accessor availableDataSets: DataSet[]
 
   private emptyConfig: DataSet = {
     name: '',
@@ -33,16 +32,16 @@ export class CreateDataSetDialog extends LitElementWw {
     data: [],
   }
   @property()
-  config: DataSet = <DataSet>JSON.parse(JSON.stringify(this.emptyConfig))
+  accessor config: DataSet = <DataSet>JSON.parse(JSON.stringify(this.emptyConfig))
 
   @state()
-  step: number = 1
+  accessor step: number = 1
 
   @query('sl-dialog')
-  _dialog: SlDialog
+  accessor _dialog: SlDialog
 
   @query('.dialog-form')
-  _dialogForm: HTMLFormElement
+  accessor _dialogForm: HTMLFormElement
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   async connectedCallback(): Promise<void> {

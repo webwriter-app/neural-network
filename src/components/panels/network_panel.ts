@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
@@ -16,19 +16,18 @@ import '@/components/cards/network_info_card'
 import '@/components/cards/network_clear_card'
 import '@/components/cards/network_add_layer_card'
 
-@customElement('network-panel')
-export class NetworkPanel extends LitElementWw {
+export @customElement('network-panel') class NetworkPanel extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
-  editable: boolean
+  accessor editable: boolean
 
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   @consume({ context: layerConfsContext, subscribe: true })
-  layerConfs: CLayerConf[]
+  accessor layerConfs: CLayerConf[]
 
   @consume({ context: modelConfContext, subscribe: true })
-  modelConf: ModelConf
+  accessor modelConf: ModelConf
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

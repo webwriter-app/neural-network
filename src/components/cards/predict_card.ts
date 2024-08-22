@@ -2,7 +2,7 @@ import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
 import { choose } from 'lit/directives/choose.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -19,19 +19,18 @@ import { ModelUtils } from '@/utils/model_utils'
 
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
 
-@customElement('predict-card')
-export class PredictCard extends LitElementWw {
+export @customElement('predict-card') class PredictCard extends LitElementWw {
   @consume({ context: networkContext, subscribe: true })
-  network: CNetwork
+  accessor network: CNetwork
 
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   @consume({ context: modelConfContext, subscribe: true })
-  modelConf: ModelConf
+  accessor modelConf: ModelConf
 
   @query('#predictForm')
-  _predictForm: HTMLFormElement
+  accessor _predictForm: HTMLFormElement
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   async connectedCallback() {

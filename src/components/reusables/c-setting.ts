@@ -6,7 +6,7 @@ import {
   query,
   queryAssignedElements,
 } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -15,22 +15,21 @@ import { settingsContext } from '@/contexts/settings_context'
 
 import type { SlChangeEvent, SlSwitch } from '@shoelace-style/shoelace'
 
-@customElement('c-setting')
-export class CSetting extends LitElementWw {
+export @customElement('c-setting') class CSetting extends LitElementWw {
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   @property()
-  name: string
+  accessor name: string
 
   @property()
-  description: string
+  accessor description: string
 
   @query('sl-switch')
-  _settingSwitch: SlSwitch
+  accessor _settingSwitch: SlSwitch
 
   @queryAssignedElements({ selector: 'c-setting' })
-  _nestedSettings!: CSetting[]
+  accessor _nestedSettings!: CSetting[]
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleChange(): void {

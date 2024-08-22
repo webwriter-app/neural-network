@@ -8,16 +8,15 @@ import type { DataSet } from '@/types/data_set'
 import type { FeatureDesc } from '@/types/feature_desc'
 import type { LabelDesc } from '@/types/label_desc'
 
-@customElement('c-data-info')
-export class CDataInfo extends LitElementWw {
+export @customElement('c-data-info') class CDataInfo extends LitElementWw {
   @property()
-  type: 'feature' | 'label'
+  accessor type: 'feature' | 'label'
 
   @property()
-  dataDesc: FeatureDesc | LabelDesc
+  accessor dataDesc: FeatureDesc | LabelDesc
 
   @property()
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = globalStyles

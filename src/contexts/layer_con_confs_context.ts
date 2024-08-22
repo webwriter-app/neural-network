@@ -1,4 +1,4 @@
-import { createContext } from '@lit-labs/context'
+import { createContext } from '@lit/context'
 import { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
 
 export const layerConnectionConfsContext = createContext<

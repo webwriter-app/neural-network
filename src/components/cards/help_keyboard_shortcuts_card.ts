@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -9,13 +9,12 @@ import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
 
-@customElement('help-keyboard-shortcuts-card')
-export class HelpKeyboardShortcutsCard extends LitElementWw {
+export @customElement('help-keyboard-shortcuts-card') class HelpKeyboardShortcutsCard extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
-  editable: boolean
+  accessor editable: boolean
 
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles = globalStyles

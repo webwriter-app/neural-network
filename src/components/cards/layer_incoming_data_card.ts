@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
@@ -9,16 +9,15 @@ import type { InputLayer } from '@/components/network/input_layer'
 
 import type { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
 
-@customElement('layer-incoming-data-card')
-export class LayerIncomingDataCard extends LitElementWw {
+export @customElement('layer-incoming-data-card') class LayerIncomingDataCard extends LitElementWw {
   @property()
-  layer: InputLayer
+  accessor layer: InputLayer
 
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   @query('#featuresSelect')
-  _featuresSelect: SlSelect
+  accessor _featuresSelect: SlSelect
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleChangeFeatures(): void {

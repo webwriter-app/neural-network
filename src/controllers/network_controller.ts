@@ -368,7 +368,8 @@ export class NetworkController implements ReactiveController {
     const output: tf.SymbolicTensor = this.host.network.getOutputLayer().tensor
     const tfModel = tf.model({ inputs, outputs: output })
 
-    console.log(tfModel)
+    console.log("tfModel", tfModel)
+    console.log(tfModel.summary())
     return tfModel
   }
 

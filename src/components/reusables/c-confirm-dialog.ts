@@ -2,10 +2,9 @@ import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
-@customElement('c-confirm-dialog')
-export class CConfirmDialog extends LitElementWw {
+export @customElement('c-confirm-dialog') class CConfirmDialog extends LitElementWw {
   @property({ type: String })
-  label: string = 'Please confirm this action!'
+  accessor label: string = 'Please confirm this action!'
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   confirm() {}

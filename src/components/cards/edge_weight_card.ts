@@ -6,10 +6,9 @@ import { globalStyles } from '@/global_styles'
 
 import { ModelUtils } from '@/utils/model_utils'
 
-@customElement('edge-weight-card')
-export class EdgeWeightCard extends LitElementWw {
+export @customElement('edge-weight-card') class EdgeWeightCard extends LitElementWw {
   @property({ attribute: false })
-  weight: number
+  accessor weight: number
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = globalStyles

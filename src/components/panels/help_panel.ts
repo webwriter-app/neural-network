@@ -6,8 +6,7 @@ import '@/components/cards/help_q_and_a_card'
 import '@/components/cards/help_keyboard_shortcuts_card'
 import '@/components/cards/help_about_card'
 
-@customElement('help-panel')
-export class HelpPanel extends LitElementWw {
+export @customElement('help-panel') class HelpPanel extends LitElementWw {
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`

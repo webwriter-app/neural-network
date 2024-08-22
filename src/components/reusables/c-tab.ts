@@ -1,20 +1,19 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { panelContext } from '@/contexts/panels_context'
 
-@customElement('c-tab')
-export class CTab extends LitElementWw {
+export @customElement('c-tab') class CTab extends LitElementWw {
   @property({ type: String })
-  name: string
+  accessor name: string
 
   @property({ type: Boolean })
-  colored: boolean
+  accessor colored: boolean
 
   @consume({ context: panelContext, subscribe: true })
-  panel: string
+  accessor panel: string
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = css`

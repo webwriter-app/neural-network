@@ -4,8 +4,7 @@ import { customElement } from 'lit/decorators.js'
 
 import '@/components/cards/predict_card'
 
-@customElement('predict-panel')
-export class PredictPanel extends LitElementWw {
+export @customElement('predict-panel') class PredictPanel extends LitElementWw {
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`

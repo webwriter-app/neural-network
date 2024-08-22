@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import type { CLayerConf } from '@/types/c_layer_conf'
 import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
@@ -13,22 +13,21 @@ import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 
 import type { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
 
-@customElement('layer-incoming-connections-card')
-export class LayerIncomingConnectionsCard extends LitElementWw {
+export @customElement('layer-incoming-connections-card') class LayerIncomingConnectionsCard extends LitElementWw {
   @property()
-  layer: CLayer
+  accessor layer: CLayer
 
   @consume({ context: layerConfsContext, subscribe: true })
-  layerConfs: CLayerConf[]
+  accessor layerConfs: CLayerConf[]
 
   @consume({ context: layerConnectionConfsContext, subscribe: true })
-  layerConnectionConfs: CLayerConnectionConf[]
+  accessor layerConnectionConfs: CLayerConnectionConf[]
 
   @consume({ context: networkContext, subscribe: true })
-  network: CNetwork
+  accessor network: CNetwork
 
   @query('#connectionSelect')
-  _connectionSelect: SlSelect
+  accessor _connectionSelect: SlSelect
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleChangeConnections(): void {

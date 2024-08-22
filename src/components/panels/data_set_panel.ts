@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
@@ -16,22 +16,21 @@ import '@/components/cards/data_set_info_card'
 import '@/components/cards/plots_card'
 import '@/components/cards/data_set_select_card'
 
-@customElement('data-set-panel')
-export class DataSetPanel extends LitElementWw {
+export @customElement('data-set-panel') class DataSetPanel extends LitElementWw {
   @property({ attribute: true, reflect: true })
-  selectedFeatureKey: string | null
+  accessor selectedFeatureKey: string | null
 
   @consume({ context: editableContext, subscribe: true })
-  editable: boolean
+  accessor editable: boolean
 
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   @consume({ context: modelConfContext, subscribe: true })
-  modelConf: ModelConf
+  accessor modelConf: ModelConf
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   updated(changedProperties: Map<string, unknown>) {

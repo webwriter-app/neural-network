@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -9,13 +9,12 @@ import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import type { CNeuron } from '@/components/network/neuron'
 
-@customElement('neuron-info-card')
-export class NeuronInfoCard extends LitElementWw {
+export @customElement('neuron-info-card') class NeuronInfoCard extends LitElementWw {
   @property({ attribute: false })
-  neuron: CNeuron
+  accessor neuron: CNeuron
 
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = globalStyles

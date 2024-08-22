@@ -6,13 +6,12 @@ import { globalStyles } from '@/global_styles'
 
 import type { CNeuron } from '@/components/network/neuron'
 
-@customElement('edge-info-card')
-export class EdgeInfoCard extends LitElementWw {
+export @customElement('edge-info-card') class EdgeInfoCard extends LitElementWw {
   @property({ attribute: false })
-  source: CNeuron
+  accessor source: CNeuron
 
   @property({ attribute: false })
-  target: CNeuron
+  accessor target: CNeuron
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = globalStyles

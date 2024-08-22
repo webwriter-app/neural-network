@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, state } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
@@ -15,25 +15,24 @@ import { panelContext } from '@/contexts/panels_context'
 import '@/components/canvas'
 import '@/components/cards/start_get_started_card'
 
-@customElement('canvas-area')
-export class CCanvasArea extends LitElementWw {
+export @customElement('canvas-area') class CCanvasArea extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
-  editable: boolean
+  accessor editable: boolean
 
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   @consume({ context: layerConfsContext, subscribe: true })
-  layerConfs: CLayerConf[]
+  accessor layerConfs: CLayerConf[]
 
   @consume({ context: canvasContext, subscribe: true })
-  canvas: CCanvas
+  accessor canvas: CCanvas
 
   @consume({ context: panelContext, subscribe: true })
-  panel: string
+  accessor panel: string
 
   @state()
-  isDragging: boolean = false
+  accessor isDragging: boolean = false
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   zoomInCanvas() {

@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
@@ -13,16 +13,15 @@ import '@/components/cards/core_model_features_unavailable_card'
 import '@/components/cards/start_export_card'
 import '@/components/cards/start_get_started_card'
 
-@customElement('start-panel')
-export class StartPanel extends LitElementWw {
+export @customElement('start-panel') class StartPanel extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
-  editable: boolean
+  accessor editable: boolean
 
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   @consume({ context: modelConfContext, subscribe: true })
-  modelConf: ModelConf
+  accessor modelConf: ModelConf
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

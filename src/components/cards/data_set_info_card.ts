@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -10,10 +10,9 @@ import type { FeatureDesc } from '@/types/feature_desc'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { DataSetUtils } from '@/utils/data_set_utils'
 
-@customElement('data-set-info-card')
-export class DataSetInfoCard extends LitElementWw {
+export @customElement('data-set-info-card') class DataSetInfoCard extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleSelectDataDesc(featureDesc: FeatureDesc): void {

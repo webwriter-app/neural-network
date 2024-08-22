@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
@@ -9,19 +9,18 @@ import { availableDataSetsContext } from '@/contexts/available_data_sets_context
 
 import type { SlDialog } from '@shoelace-style/shoelace'
 
-@customElement('manage-data-sets-dialog')
-export class ManageDataSetsDialog extends LitElementWw {
+export @customElement('manage-data-sets-dialog') class ManageDataSetsDialog extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   @consume({ context: availableDataSetsContext, subscribe: true })
-  availableDataSets: DataSet[]
+  accessor availableDataSets: DataSet[]
 
   @query('sl-dialog')
-  _dialog: SlDialog
+  accessor _dialog: SlDialog
 
   @query('create-data-set-dialog')
-  _createDataSetDialog: SlDialog
+  accessor _createDataSetDialog: SlDialog
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   async show() {

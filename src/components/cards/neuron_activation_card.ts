@@ -6,10 +6,9 @@ import { globalStyles } from '@/global_styles'
 
 import type { CNeuron } from '@/components/network/neuron'
 
-@customElement('neuron-activation-card')
-export class NeuronActivationCard extends LitElementWw {
+export @customElement('neuron-activation-card') class NeuronActivationCard extends LitElementWw {
   @property({ attribute: false })
-  neuron: CNeuron
+  accessor neuron: CNeuron
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = globalStyles

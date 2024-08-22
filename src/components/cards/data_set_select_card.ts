@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html, nothing } from 'lit'
+import { TemplateResult, html, nothing } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
@@ -19,25 +19,24 @@ import type {
 import '@/components/dialogs/manage_data_sets_dialog'
 import '@/components/dialogs/create_data_set_dialog'
 
-@customElement('data-set-select-card')
-export class DataSetSelectCard extends LitElementWw {
+export @customElement('data-set-select-card') class DataSetSelectCard extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
-  editable: boolean
+  accessor editable: boolean
 
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   @consume({ context: availableDataSetsContext, subscribe: true })
-  availableDataSets: DataSet[]
+  accessor availableDataSets: DataSet[]
 
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   @query('#dataSetSelect')
-  _dataSetSelect: SlSelect
+  accessor _dataSetSelect: SlSelect
 
   @query('manage-data-sets-dialog')
-  _manageDataSetsDialog: SlDialog
+  accessor _manageDataSetsDialog: SlDialog
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleChangeDataSet(): void {

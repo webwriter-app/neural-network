@@ -1,6 +1,6 @@
 import { LitElementWw } from '@webwriter/lit'
 import { customElement, property, state } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
@@ -8,31 +8,30 @@ import type { CNeuron } from '@/components/network/neuron'
 import type { Selected } from '@/types/selected'
 import { selectedContext } from '@/contexts/selected_context'
 
-@customElement('c-edge')
-export class CEdge extends LitElementWw {
+export @customElement('c-edge') class CEdge extends LitElementWw {
   @consume({ context: canvasContext, subscribe: true })
-  canvas: CCanvas
+  accessor canvas: CCanvas
 
   @consume({ context: selectedContext, subscribe: true })
-  selected: Selected
+  accessor selected: Selected
 
   @property()
-  source: CNeuron
+  accessor source: CNeuron
 
   @property()
-  target: CNeuron
+  accessor target: CNeuron
 
   @property()
-  sourceLayerId: number
+  accessor sourceLayerId: number
 
   @property()
-  targetLayerId: number
+  accessor targetLayerId: number
 
   @property()
-  weight: number
+  accessor weight: number
 
   @state()
-  doNotRender = false
+  accessor doNotRender = false
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   connectedCallback(): void {

@@ -16,10 +16,9 @@ import * as tf from '@tensorflow/tfjs'
 // activation functions and provide methods to assign features from the
 // dataSet to this input layer. We do not allow manual editing of the neurons
 // and other layers can not connect to an input layer.
-@customElement('input-layer')
-export class InputLayer extends CLayer {
+export @customElement('input-layer') class InputLayer extends CLayer {
   @property()
-  conf: InputLayerConf
+  accessor conf: InputLayerConf
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   updated(changedProperties: Map<string, unknown>) {

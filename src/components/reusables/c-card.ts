@@ -1,17 +1,16 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
 import { themeContext } from '@/contexts/theme_context'
 import type { Theme } from '@/types/theme'
 
-@customElement('c-card')
-export class CCard extends LitElementWw {
+export @customElement('c-card') class CCard extends LitElementWw {
   @consume({ context: themeContext, subscribe: true })
-  theme: Theme
+  accessor theme: Theme
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [

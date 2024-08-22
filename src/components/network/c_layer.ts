@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { property, queryAll, state } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
@@ -22,31 +22,31 @@ import { AlertUtils } from '@/utils/alert_utils'
 
 export abstract class CLayer extends LitElementWw {
   @consume({ context: canvasContext, subscribe: true })
-  canvas: CCanvas
+  accessor canvas: CCanvas
 
   // the data set is stored as a property for the layer to realize changes in
   // the data set in lifecycle hooks and respond to them
   @consume({ context: dataSetContext, subscribe: true })
   @property({ attribute: false })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   @consume({ context: selectedContext, subscribe: true })
-  selected: Selected
+  accessor selected: Selected
 
   @consume({ context: trainOptionsContext, subscribe: true })
-  trainOptions: TrainOptions
+  accessor trainOptions: TrainOptions
 
   @property({ attribute: false })
-  conf: CLayerConf
+  accessor conf: CLayerConf
 
   @property({ attribute: false })
-  tensor: tf.SymbolicTensor
+  accessor tensor: tf.SymbolicTensor
 
   @property({ attribute: false })
-  weights: Float32Array
+  accessor weights: Float32Array
 
   @property({ attribute: false })
-  bias: Float32Array
+  accessor bias: Float32Array
 
   // sometimes lit lifecycle hooks are really frustrating since it may happen
   // that render() is executed even after disconnectedCallback(). If we would
@@ -54,13 +54,13 @@ export abstract class CLayer extends LitElementWw {
   // that, but as we add something to cytoscape, this is permanent. So we
   // prevent from rendering to cytoscape after disconnectedCallback was called
   @state()
-  doNotRender = false
+  accessor doNotRender = false
 
   @state()
-  positionListenerActive: boolean = false
+  accessor positionListenerActive: boolean = false
 
   @queryAll('c-neuron')
-  _neurons: NodeListOf<CNeuron>
+  accessor _neurons: NodeListOf<CNeuron>
 
   // a type and description that is displayed as an info for the layer
   static LAYER_TYPE: string

@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -9,10 +9,9 @@ import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
 import { SettingsUtils } from '@/utils/settings_utils'
 
-@customElement('settings-card')
-export class SettingsCard extends LitElementWw {
+export @customElement('settings-card') class SettingsCard extends LitElementWw {
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   resetSettings() {

@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
@@ -13,48 +13,47 @@ import type { CLayer } from '@/components/network/c_layer'
 import type { Position } from '@/types/position'
 import { ModelUtils } from '@/utils/model_utils'
 
-@customElement('c-neuron')
-export class CNeuron extends LitElementWw {
+export @customElement('c-neuron') class CNeuron extends LitElementWw {
   @consume({ context: canvasContext, subscribe: true })
-  canvas: CCanvas
+  accessor canvas: CCanvas
 
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   @consume({ context: selectedContext, subscribe: true })
-  selected: Selected
+  accessor selected: Selected
 
   // reference to the layer
   @property()
-  layer: CLayer
+  accessor layer: CLayer
 
   // position
   @property()
-  pos: Position
+  accessor pos: Position
 
   // the id of the neuron in this layer. first neuron added gets id 1; not to be
   // confused with the id of the corresponding node in the cytoscape canvas
   // (CyId), which can be requested using a method
   @property()
-  neuronId: number
+  accessor neuronId: number
 
   // key of the corresponding dataSet input or label
   @property()
-  key: string
+  accessor key: string
   @property()
-  keyPos: 'bottom' | 'top'
+  accessor keyPos: 'bottom' | 'top'
 
   // bias of the neuron that is to be trained
   @property()
-  bias: number
+  accessor bias: number
 
   // if the neuron has been rendered for the first time
   @state()
-  rendered = false
+  accessor rendered = false
 
   // same as in c_layer, explanation see there
   @state()
-  doNotRender = false
+  accessor doNotRender = false
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   connectedCallback(): void {

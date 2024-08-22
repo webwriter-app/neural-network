@@ -1,16 +1,15 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { Theme } from '@/types/theme'
 import { themeContext } from '@/contexts/theme_context'
 import { ThemeUtils } from '@/utils/theme_utils'
 
-@customElement('theme-switch')
-export class ThemeSwitch extends LitElementWw {
+export @customElement('theme-switch') class ThemeSwitch extends LitElementWw {
   @consume({ context: themeContext, subscribe: true })
-  theme: Theme
+  accessor theme: Theme
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   setTheme(name: string) {

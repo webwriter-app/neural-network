@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, state, query, property } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import * as cytoscape from 'cytoscape'
 
@@ -14,8 +14,7 @@ import { themeContext } from '@/contexts/theme_context'
 
 import colorsea from 'colorsea'
 
-@customElement('c-canvas')
-export class CCanvas extends LitElementWw {
+export @customElement('c-canvas') class CCanvas extends LitElementWw {
   LAYER_WIDTH = 300
   LAYER_PADDING = 20
   LAYER_DISTANCE = 150
@@ -23,14 +22,14 @@ export class CCanvas extends LitElementWw {
   NEURON_DISTANCE = 40
 
   @query('#canvasElm', true)
-  _canvasElm: HTMLDivElement
+  accessor _canvasElm: HTMLDivElement
 
   @consume({ context: themeContext, subscribe: true })
   @property({ attribute: false })
-  theme: Theme
+  accessor theme: Theme
 
   @state()
-  cy: cytoscape.Core
+  accessor cy: cytoscape.Core
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   async connectedCallback() {

@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -11,16 +11,15 @@ import { qAndAContext } from '@/contexts/q_and_a_context'
 
 import type { SlInput } from '@shoelace-style/shoelace'
 
-@customElement('help-q-and-a-card')
-export class HelpQAndACard extends LitElementWw {
+export @customElement('help-q-and-a-card') class HelpQAndACard extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
-  editable: boolean
+  accessor editable: boolean
 
   @consume({ context: qAndAContext, subscribe: true })
-  qAndA: QAndAEntry[]
+  accessor qAndA: QAndAEntry[]
 
   @query('#newEntryTitle')
-  _newEntryTitle: SlInput
+  accessor _newEntryTitle: SlInput
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   addEntry(e: MouseEvent): void {

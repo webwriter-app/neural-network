@@ -1,19 +1,18 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import type { OutputLayer } from '@/components/network/output_layer'
 
-@customElement('layer-outgoing-data-card')
-export class LayerOutgoingDataCard extends LitElementWw {
+export @customElement('layer-outgoing-data-card') class LayerOutgoingDataCard extends LitElementWw {
   @property()
-  layer: OutputLayer
+  accessor layer: OutputLayer
 
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

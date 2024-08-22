@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -19,28 +19,27 @@ import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 import type { TrainOptions } from '@/types/train_options'
 import { trainOptionsContext } from '@/contexts/train_options_context'
 
-@customElement('start-export-card')
-export class StartExportCard extends LitElementWw {
+export @customElement('start-export-card') class StartExportCard extends LitElementWw {
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   @consume({ context: qAndAContext, subscribe: true })
-  qAndA: QAndAEntry[]
+  accessor qAndA: QAndAEntry[]
 
   @consume({ context: availableDataSetsContext, subscribe: true })
-  availableDataSets: DataSet[]
+  accessor availableDataSets: DataSet[]
 
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   @consume({ context: layerConfsContext, subscribe: true })
-  layerConfs: CLayerConf[]
+  accessor layerConfs: CLayerConf[]
 
   @consume({ context: layerConnectionConfsContext, subscribe: true })
-  layerConnectionConfs: CLayerConnectionConf[]
+  accessor layerConnectionConfs: CLayerConnectionConf[]
 
   @consume({ context: trainOptionsContext, subscribe: true })
-  trainOptions: TrainOptions
+  accessor trainOptions: TrainOptions
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleExport() {

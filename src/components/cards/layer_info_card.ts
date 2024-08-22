@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -9,16 +9,15 @@ import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import type { CLayer } from '@/components/network/c_layer'
 
-@customElement('layer-info-card')
-export class LayerInfoCard extends LitElementWw {
+export @customElement('layer-info-card') class LayerInfoCard extends LitElementWw {
   @property()
-  layer: CLayer
+  accessor layer: CLayer
 
   // even though we do not directly need the data set in this component, we need
   // to subscribe to data set changes in order to rerender this component
   // (because layer description can change on data set changes)
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = globalStyles

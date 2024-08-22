@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
@@ -23,19 +23,18 @@ import '@/components/cards/neuron_activation_card'
 import '@/components/cards/neuron_label_card'
 import '@/components/cards/neuron_outputs_card'
 
-@customElement('neuron-panel')
-export class NeuronPanel extends LitElementWw {
+export @customElement('neuron-panel') class NeuronPanel extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
-  editable: boolean
+  accessor editable: boolean
 
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   @consume({ context: selectedEleContext, subscribe: true })
-  selectedEle: SelectedEle
+  accessor selectedEle: SelectedEle
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

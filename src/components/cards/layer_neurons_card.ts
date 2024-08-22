@@ -9,19 +9,18 @@ import type { DenseLayer } from '@/components/network/dense_layer'
 import type { SlSelect } from '@shoelace-style/shoelace'
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
 
-@customElement('layer-neurons-card')
-export class LayerNeuronsCard extends LitElementWw {
+export @customElement('layer-neurons-card') class LayerNeuronsCard extends LitElementWw {
   @property()
-  layer: DenseLayer
+  accessor layer: DenseLayer
 
   @query('#inputSelect')
-  _inputSelect: SlSelect
+  accessor _inputSelect: SlSelect
 
   @query('#outputSelect')
-  _outputSelect: SlSelect
+  accessor _outputSelect: SlSelect
 
   @query('#updateNeuronsForm')
-  _updateNeuronsForm: HTMLFormElement
+  accessor _updateNeuronsForm: HTMLFormElement
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   async connectedCallback() {

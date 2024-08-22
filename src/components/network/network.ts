@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, queryAll, property } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import type { CLayerConf } from '@/types/c_layer_conf'
 import type { TensorConf } from '@/types/tensor_conf'
@@ -19,22 +19,21 @@ import '@/components/network/output_layer'
 import '@/components/network/c_layer'
 import '@/components/network/c_layer_connection'
 
-@customElement('c-network')
-export class CNetwork extends LitElementWw {
+export @customElement('c-network') class CNetwork extends LitElementWw {
   @consume({ context: layerConfsContext, subscribe: true })
-  layerConfs: CLayerConf[]
+  accessor layerConfs: CLayerConf[]
 
   @consume({ context: layerConnectionConfsContext, subscribe: true })
-  layerConnectionConfs: CLayerConnectionConf[]
+  accessor layerConnectionConfs: CLayerConnectionConf[]
 
   @property()
-  tensorConfs: Map<number, TensorConf> = new Map()
+  accessor tensorConfs: Map<number, TensorConf> = new Map()
 
   @queryAll('.layer')
-  _layers: NodeListOf<CLayer>
+  accessor _layers: NodeListOf<CLayer>
 
   @queryAll('c-layer-connection')
-  _layerConnections: NodeListOf<CLayerConnection>
+  accessor _layerConnections: NodeListOf<CLayerConnection>
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // -> GETTING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

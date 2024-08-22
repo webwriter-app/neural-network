@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -10,13 +10,12 @@ import { canvasContext } from '@/contexts/canvas_context'
 import type { CLayer } from '@/components/network/c_layer'
 import { OutputLayer } from '@/components/network/output_layer'
 
-@customElement('layer-actions-card')
-export class LayerActionsCard extends LitElementWw {
+export @customElement('layer-actions-card') class LayerActionsCard extends LitElementWw {
   @property()
-  layer: CLayer
+  accessor layer: CLayer
 
   @consume({ context: canvasContext, subscribe: true })
-  canvas: CCanvas
+  accessor canvas: CCanvas
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleDuplicateLayer(): void {

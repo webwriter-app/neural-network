@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -29,28 +29,27 @@ import '@/components/panels/layer_panel.ts'
 import '@/components/panels/neuron_panel.ts'
 import '@/components/panels/edge_panel.ts'
 
-@customElement('menu-area')
-export class MenuArea extends LitElementWw {
+export @customElement('menu-area') class MenuArea extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
-  editable: boolean
+  accessor editable: boolean
 
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   @consume({ context: qAndAContext, subscribe: true })
-  qAndA: QAndAEntry[]
+  accessor qAndA: QAndAEntry[]
 
   @consume({ context: modelConfContext, subscribe: true })
-  modelConf: ModelConf
+  accessor modelConf: ModelConf
 
   @consume({ context: selectedContext, subscribe: true })
-  selected: Selected
+  accessor selected: Selected
 
   @consume({ context: selectedEleContext, subscribe: true })
-  selectedEle: SelectedEle
+  accessor selectedEle: SelectedEle
 
   @consume({ context: panelContext, subscribe: true })
-  panel: string
+  accessor panel: string
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [

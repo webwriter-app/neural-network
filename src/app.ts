@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, property /* , query */, state } from 'lit/decorators.js'
-import { provide } from '@lit-labs/context'
+import { provide } from '@lit/context'
 
 import '@/imports'
 
@@ -72,7 +72,6 @@ import '@/components/canvas_area'
 import '@/components/menu_area'
 import '@/components/theme_switch'
 
-@customElement('ww-deep-learning')
 export class WwDeepLearning extends LitElementWw {
   // DATA PROVIDERS AND CONTROLLERS  - - - - - - - - - - - - - - - - - - - - - -
   configurationController = new ConfigurationController(this)
@@ -80,19 +79,19 @@ export class WwDeepLearning extends LitElementWw {
   // -> SETUP STATUS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: setupStatusContext })
   @property({ attribute: false })
-  setupStatus: SetupStatus = SetupUtils.defaultSetupStatus
+  accessor setupStatus: SetupStatus = SetupUtils.defaultSetupStatus
 
   setupController = new SetupController(this)
 
   // -> EDITABLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: editableContext })
   @property({ attribute: true, type: Boolean, reflect: true })
-  editable: boolean = false
+  accessor editable: boolean = false
 
   // -> SETTINGS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: settingsContext })
   @property({ attribute: true, type: Object, reflect: true })
-  settings: Settings = <Settings>(
+  accessor settings: Settings = <Settings>(
     JSON.parse(JSON.stringify(SettingsUtils.defaultSettings))
   )
 
@@ -101,55 +100,55 @@ export class WwDeepLearning extends LitElementWw {
   // -> HELP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: qAndAContext })
   @property({ attribute: true, type: Object, reflect: true })
-  qAndA: QAndAEntry[] = [...QAndAUtils.defaultQAndA]
+  accessor qAndA: QAndAEntry[] = [...QAndAUtils.defaultQAndA]
 
   qAndAController = new QAndAController(this)
 
   // -> CANVAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: canvasContext })
   @property({ attribute: false })
-  canvas: CCanvas
+  accessor canvas: CCanvas
 
   // -> NETWORK  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: networkContext })
   @property({ attribute: false })
-  network: CNetwork
+  accessor network: CNetwork
 
   @provide({ context: layerConfsContext })
   @property({ attribute: true, type: Array, reflect: true })
-  layerConfs: CLayerConf[] = []
+  accessor layerConfs: CLayerConf[] = []
 
   @provide({ context: layerConnectionConfsContext })
   @property({ attribute: true, type: Array, reflect: true })
-  layerConnectionConfs: CLayerConnectionConf[] = []
+  accessor layerConnectionConfs: CLayerConnectionConf[] = []
 
   networkController = new NetworkController(this)
 
   // -> DATA SET - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: dataSetContext })
   @property({ attribute: true, type: Object, reflect: true })
-  dataSet: DataSet = DataSetUtils.defaultDataSet
+  accessor dataSet: DataSet = DataSetUtils.defaultDataSet
 
   @provide({ context: availableDataSetsContext })
   @property({ attribute: true, type: Array, reflect: true })
-  availableDataSets: DataSet[] = DataSetUtils.defaultAvailableDataSets
+  accessor availableDataSets: DataSet[] = DataSetUtils.defaultAvailableDataSets
 
   dataSetController = new DataSetController(this)
 
   // -> MODEL  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: trainOptionsContext })
   @property({ attribute: true, type: Object, reflect: true })
-  trainOptions: TrainOptions = <TrainOptions>(
+  accessor trainOptions: TrainOptions = <TrainOptions>(
     JSON.parse(JSON.stringify(ModelUtils.defaultTrainOptions))
   )
 
   // HTML container where metrics like accuracy and loss are plotted into
   @state()
-  trainMetricsContainer: HTMLDivElement
+  accessor trainMetricsContainer: HTMLDivElement
 
   @provide({ context: modelConfContext })
   @property({ attribute: false })
-  modelConf: ModelConf = <ModelConf>(
+  accessor modelConf: ModelConf = <ModelConf>(
     JSON.parse(JSON.stringify(ModelUtils.defaultModelConf))
   )
 
@@ -158,18 +157,18 @@ export class WwDeepLearning extends LitElementWw {
   // -> SELECTED - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: selectedContext })
   @property({ attribute: false })
-  selected: Selected = {}
+  accessor selected: Selected = {}
 
   selectionController = new SelectionController(this)
 
   @provide({ context: selectedEleContext })
   @property({ attribute: false })
-  selectedEle: SelectedEle
+  accessor selectedEle: SelectedEle
 
   // -> PANELS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: panelContext })
   @property({ attribute: false })
-  panel: string
+  accessor panel: string
 
   panelController = new PanelController(this)
 
@@ -182,7 +181,7 @@ export class WwDeepLearning extends LitElementWw {
   // -> THEME  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @provide({ context: themeContext })
   @property({ attribute: false })
-  theme: Theme = ThemeUtils.lightTheme
+  accessor theme: Theme = ThemeUtils.lightTheme
 
   themeController = new ThemeController(this)
 
@@ -288,7 +287,7 @@ export class WwDeepLearning extends LitElementWw {
         <div id="divider" class="${!this.panel ? 'hidden' : ''}"></div>
 
         <menu-area
-          part="action"
+          part="options"
           class="${!this.panel ? 'right-collapsed' : ''}"
           @set-train-metrics-container="${(e: CustomEvent<HTMLDivElement>) =>
             this.modelController.setTrainMetricsContainer(e.detail)}"
@@ -301,3 +300,5 @@ export class WwDeepLearning extends LitElementWw {
     return renderedHTML
   }
 }
+
+customElements.define("ww-deep-learning", WwDeepLearning)

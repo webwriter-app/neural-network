@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { CEdge } from '@/components/network/c_edge'
 import type { SelectedEle } from '@/types/selected_ele'
@@ -10,10 +10,9 @@ import { selectedEleContext } from '@/contexts/selected_ele_context'
 import '@/components/cards/edge_info_card'
 import '@/components/cards/edge_weight_card'
 
-@customElement('edge-panel')
-export class EdgePanel extends LitElementWw {
+export @customElement('edge-panel') class EdgePanel extends LitElementWw {
   @consume({ context: selectedEleContext, subscribe: true })
-  selectedEle: SelectedEle
+  accessor selectedEle: SelectedEle
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {

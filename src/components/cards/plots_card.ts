@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import type { DataSet } from '@/types/data_set'
 import type { FeatureDesc } from '@/types/feature_desc'
@@ -10,13 +10,12 @@ import { dataSetContext } from '@/contexts/data_set_context'
 
 import * as tfvis from '@tensorflow/tfjs-vis'
 
-@customElement('plots-card')
-export class PlotsCard extends LitElementWw {
+export @customElement('plots-card') class PlotsCard extends LitElementWw {
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   @property()
-  featureKey: string | null
+  accessor featureKey: string | null
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   buildPlots(): TemplateResult<1> {

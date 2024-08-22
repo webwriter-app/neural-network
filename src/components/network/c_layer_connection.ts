@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, state, property, queryAll } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
@@ -15,19 +15,18 @@ import { layerConfsContext } from '@/contexts/layer_confs_context'
 
 import '@/components/network/c_edge'
 
-@customElement('c-layer-connection')
-export class CLayerConnection extends LitElementWw {
+export @customElement('c-layer-connection') class CLayerConnection extends LitElementWw {
   @consume({ context: canvasContext, subscribe: true })
-  canvas: CCanvas
+  accessor canvas: CCanvas
 
   @consume({ context: layerConfsContext, subscribe: true })
-  layerConfs: CLayerConf[]
+  accessor layerConfs: CLayerConf[]
 
   @consume({ context: networkContext, subscribe: true })
-  network: CNetwork
+  accessor network: CNetwork
 
   @property()
-  conf: CLayerConnectionConf
+  accessor conf: CLayerConnectionConf
 
   // sometimes lit lifecycle hooks are really frustrating since it may happen
   // that render() is executed even after disconnectedCallback(). If we would
@@ -35,10 +34,10 @@ export class CLayerConnection extends LitElementWw {
   // that, but as we add something to cytoscape, this is permanent. So we
   // prevent from rendering to cytoscape after disconnectedCallback was called
   @state()
-  doNotRender = false
+  accessor doNotRender = false
 
   @queryAll('c-edge')
-  _edges: NodeListOf<CEdge>
+  accessor _edges: NodeListOf<CEdge>
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   connectedCallback(): void {

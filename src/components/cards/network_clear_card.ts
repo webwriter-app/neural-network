@@ -4,8 +4,7 @@ import { customElement } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
-@customElement('network-clear-card')
-export class NetworkClearCard extends LitElementWw {
+export @customElement('network-clear-card') class NetworkClearCard extends LitElementWw {
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleClear() {
     this.dispatchEvent(

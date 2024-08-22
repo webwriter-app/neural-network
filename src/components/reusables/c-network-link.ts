@@ -1,23 +1,22 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
 import { CLayer } from '@/components/network/c_layer'
 import { CNeuron } from '@/components/network/neuron'
 
-@customElement('c-network-link')
-export class CNetworkLink extends LitElementWw {
+export @customElement('c-network-link') class CNetworkLink extends LitElementWw {
   @property({ type: Boolean })
-  disabled: boolean
+  accessor disabled: boolean
 
   @property({ type: String })
-  target: CLayer | CNeuron
+  accessor target: CLayer | CNeuron
 
   @consume({ context: canvasContext, subscribe: true })
-  canvas: CCanvas
+  accessor canvas: CCanvas
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   selectItem() {

@@ -13,10 +13,9 @@ import { AlertUtils } from '@/utils/alert_utils'
 
 import * as tf from '@tensorflow/tfjs'
 
-@customElement('output-layer')
-export class OutputLayer extends CLayer {
+export @customElement('output-layer') class OutputLayer extends CLayer {
   @property()
-  conf: OutputLayerConf
+  accessor conf: OutputLayerConf
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   updated(changedProperties: Map<string, unknown>) {

@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query, state } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -14,22 +14,21 @@ import { modelConfContext } from '@/contexts/model_conf_context'
 
 import type { SlChangeEvent, SlRange } from '@shoelace-style/shoelace'
 
-@customElement('training-train-card')
-export class TrainingTrainCard extends LitElementWw {
+export @customElement('training-train-card') class TrainingTrainCard extends LitElementWw {
   @consume({ context: modelConfContext, subscribe: true })
-  modelConf: ModelConf
+  accessor modelConf: ModelConf
 
   @consume({ context: trainOptionsContext, subscribe: true })
-  trainOptions: TrainOptions
+  accessor trainOptions: TrainOptions
 
   @consume({ context: dataSetContext, subscribe: true })
-  dataSet: DataSet
+  accessor dataSet: DataSet
 
   @query('#numberOfEpochsRange')
-  _numberOfEpochsRange: SlRange
+  accessor _numberOfEpochsRange: SlRange
 
   @state()
-  numberOfEpochs: number = 3
+  accessor numberOfEpochs: number = 3
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleChangeNumberOfEpochs(): void {

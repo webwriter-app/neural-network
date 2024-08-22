@@ -4,8 +4,7 @@ import { customElement } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
 
-@customElement('help-about-card')
-export class HelpAboutCard extends LitElementWw {
+export @customElement('help-about-card') class HelpAboutCard extends LitElementWw {
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
     globalStyles,

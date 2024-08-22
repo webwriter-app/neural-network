@@ -1,7 +1,7 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
-import { consume } from '@lit-labs/context'
+import { consume } from '@lit/context'
 
 import { globalStyles } from '@/global_styles'
 
@@ -19,30 +19,29 @@ import type {
   SlRange,
 } from '@shoelace-style/shoelace'
 
-@customElement('training-hyperparameters-card')
-export class TrainingHyperparametersCard extends LitElementWw {
+export @customElement('training-hyperparameters-card') class TrainingHyperparametersCard extends LitElementWw {
   @consume({ context: editableContext, subscribe: true })
-  editable: boolean
+  accessor editable: boolean
 
   @consume({ context: settingsContext, subscribe: true })
-  settings: Settings
+  accessor settings: Settings
 
   @consume({ context: trainOptionsContext, subscribe: true })
-  trainOptions: TrainOptions
+  accessor trainOptions: TrainOptions
 
   @consume({ context: modelConfContext, subscribe: true })
-  modelConf: ModelConf
+  accessor modelConf: ModelConf
 
   private batchSizeOptions: number[] = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512]
   @query('#batchSizeRadioGroup')
-  _batchSizeRadioGroup: SlRadioGroup
+  accessor _batchSizeRadioGroup: SlRadioGroup
 
   private learningRateOptions: number[] = [0.0001, 0.001, 0.01, 0.1, 1]
   @query('#learningRateRadioGroup')
-  _learningRateRadioGroup: SlRadioGroup
+  accessor _learningRateRadioGroup: SlRadioGroup
 
   @query('#dropoutRateRange')
-  _dropoutRateRange: SlRange
+  accessor _dropoutRateRange: SlRange
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleChangeBatchSize(): void {
