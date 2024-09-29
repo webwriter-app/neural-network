@@ -1,6 +1,3 @@
-[!WARNING]  
-This widget is still in early development. Some features are not yet available. You may encounter bugs! See the list of not yet implemented features and bugs at the end of this README!
-
 # Deep learning simulation for WebWriter
 
 This widget adds a deep learning simulation to WebWriter. As a teacher, you can:
@@ -25,7 +22,6 @@ This widget adds a deep learning simulation to WebWriter. As a teacher, you can:
 ### Crucial features not yet implemented
 
 - show weights (on edges)
-- importing and exporting on non-chromium browsers
 
 ### Planned features
 
