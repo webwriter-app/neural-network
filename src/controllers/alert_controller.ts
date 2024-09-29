@@ -1,14 +1,14 @@
 import type { ReactiveController } from 'lit'
-import type { WwDeepLearning } from '@/app'
+import type { NeuralNetwork } from '@/app'
 import type { SlAlert } from '@shoelace-style/shoelace'
 
 // This component is work in progress and currently does not work and is not
 // used!
 export class AlertController implements ReactiveController {
-  host: WwDeepLearning
+  host: NeuralNetwork
   alertsStack: HTMLDivElement
 
-  constructor(host: WwDeepLearning) {
+  constructor(host: NeuralNetwork) {
     this.host = host
     host.addController(this)
     host.addController(this)
@@ -36,7 +36,7 @@ export class AlertController implements ReactiveController {
         this.show()
       })
 
-      this.addEventListener(
+      this.host.addEventListener(
         'sl-after-hide',
         () => {
           toastStack.removeChild(this)

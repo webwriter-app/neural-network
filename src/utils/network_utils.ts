@@ -1,12 +1,22 @@
 import type { Activation } from '@/types/activation'
 
+import IconActNone from "@/assets/actNone.svg"
+import IconActReLu from "@/assets/actReLu.svg"
+import IconActSigmoid from "@/assets/actSigmoid.svg"
+import IconActTanh from "@/assets/actTanh.svg"
+
 // The NetworkUtils class provides static preconfigured instances of activations
 export class NetworkUtils {
+
+  static getActivation(name: "none" | "ReLu" | "Sigmoid" | "Tanh" | "Softmax") {
+    return this.activationOptions.find(a => a.name === name)
+  }
+
   static actNone: Activation = {
     name: 'None',
     tfName: null,
     description: 'No additional function is applied.',
-    img: '/assets/actNone.svg',
+    img: IconActNone,
     range: '(-∞,∞)',
   }
   static actReLu: Activation = {
@@ -14,7 +24,7 @@ export class NetworkUtils {
     fullName: 'Rectified linear unit',
     tfName: 'relu',
     description: 'Negative values are rounded up to zero.',
-    img: '/assets/actReLu.svg',
+    img: IconActReLu,
     range: '[0,∞)',
   }
   static actSigmoid: Activation = {
@@ -22,16 +32,16 @@ export class NetworkUtils {
     tfName: 'sigmoid',
     description:
       'Largely negative values are mapped to values close to zero while largely positive values will be mapped to values close to one (see the graphic).',
-    img: '/assets/actSigmoid.svg',
+    img: IconActSigmoid,
     range: '(0,1)',
   }
   static actTanh: Activation = {
     name: 'Tanh',
     fullName: 'Hyperbolic tangent',
-    tfName: 'tanh',
+    tfName: "tanh",
     description:
       'Largely negative values are mapped to values close to minus one while largely positive values will be mapped to values close to one (see the graphic).',
-    img: '/assets/actTanh.svg',
+    img: IconActTanh,
     range: '(-1,1)',
   }
   static actSoftmax: Activation = {

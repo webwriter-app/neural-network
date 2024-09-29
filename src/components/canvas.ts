@@ -3,7 +3,7 @@ import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, state, query, property } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
-import * as cytoscape from 'cytoscape'
+import cytoscape from 'cytoscape'
 
 import type { Position } from '@/types/position'
 import { InputLayer } from '@/components/network/input_layer'
@@ -14,7 +14,7 @@ import { themeContext } from '@/contexts/theme_context'
 
 import colorsea from 'colorsea'
 
-export @customElement('c-canvas') class CCanvas extends LitElementWw {
+export class CCanvas extends LitElementWw {
   LAYER_WIDTH = 300
   LAYER_PADDING = 20
   LAYER_DISTANCE = 150
@@ -41,7 +41,7 @@ export @customElement('c-canvas') class CCanvas extends LitElementWw {
         container: this._canvasElm,
         elements: [],
         style: this.getStylesheetForCy(),
-        wheelSensitivity: 0.2,
+        // wheelSensitivity: 0.2,
         boxSelectionEnabled: false,
         selectionType: 'single',
       })

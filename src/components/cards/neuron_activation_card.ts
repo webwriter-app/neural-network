@@ -5,8 +5,14 @@ import { customElement, property } from 'lit/decorators.js'
 import { globalStyles } from '@/global_styles'
 
 import type { CNeuron } from '@/components/network/neuron'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('neuron-activation-card') class NeuronActivationCard extends LitElementWw {
+export class NeuronActivationCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard
+  }
+  
   @property({ attribute: false })
   accessor neuron: CNeuron
 

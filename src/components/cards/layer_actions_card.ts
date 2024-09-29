@@ -9,8 +9,21 @@ import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
 import type { CLayer } from '@/components/network/c_layer'
 import { OutputLayer } from '@/components/network/output_layer'
+import { CCard } from '../reusables/c-card'
+import SlIcon from "@shoelace-style/shoelace/dist/components/icon/icon.component.js"
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
 
-export @customElement('layer-actions-card') class LayerActionsCard extends LitElementWw {
+import IconFiles from "bootstrap-icons/icons/files.svg"
+import IconTrash from "bootstrap-icons/icons/trash.svg"
+
+export class LayerActionsCard extends LitElementWw {
+  
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-button": SlButton,
+    "sl-icon": SlIcon,
+  }
+  
   @property()
   accessor layer: CLayer
 
@@ -40,12 +53,12 @@ export @customElement('layer-actions-card') class LayerActionsCard extends LitEl
               ? html` <sl-button
                   @click="${(_e: MouseEvent) => this.handleDuplicateLayer()}"
                 >
-                  <sl-icon slot="prefix" name="files"></sl-icon>
+                  <sl-icon slot="prefix" src=${IconFiles}></sl-icon>
                   Duplicate
                 </sl-button>`
               : html``}
             <sl-button @click="${(_e: MouseEvent) => this.handleDeleteLayer()}">
-              <sl-icon slot="prefix" name="trash"></sl-icon>
+              <sl-icon slot="prefix" src=${IconTrash}></sl-icon>
               Delete
             </sl-button>
           </div>

@@ -11,11 +11,20 @@ import { settingsContext } from '@/contexts/settings_context'
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
 
-import '@/components/cards/training_train_card.js'
-import '@/components/cards/training_metrics_card'
-import '@/components/cards/training_hyperparameters_card.js'
+import { CPanel } from '../reusables/c-panel'
+import { TrainingTrainCard } from '@/components/cards/training_train_card.js'
+import { TrainingMetricsCard } from '@/components/cards/training_metrics_card'
+import { TrainingHyperparametersCard } from '@/components/cards/training_hyperparameters_card.js'
 
-export @customElement('train-panel') class TrainPanel extends LitElementWw {
+export class TrainPanel extends LitElementWw {
+
+  static scopedElements = {
+    "c-panel": CPanel,
+    "training-train-card": TrainingTrainCard,
+    "training-metrics-card": TrainingMetricsCard,
+    "training-hyperparameters-card": TrainingHyperparametersCard
+  }
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 

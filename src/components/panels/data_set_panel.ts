@@ -1,6 +1,6 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
 import { editableContext } from '@/contexts/editable_context'
@@ -11,12 +11,22 @@ import { dataSetContext } from '@/contexts/data_set_context'
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
 
-import '@/components/cards/core_model_features_unavailable_card'
-import '@/components/cards/data_set_info_card'
-import '@/components/cards/plots_card'
-import '@/components/cards/data_set_select_card'
+import { CoreModelFeaturesUnavailableCard } from '@/components/cards/core_model_features_unavailable_card'
+import { DataSetInfoCard } from '@/components/cards/data_set_info_card'
+import { PlotsCard } from '@/components/cards/plots_card'
+import { DataSetSelectCard } from '@/components/cards/data_set_select_card'
+import { CPanel } from '../reusables/c-panel'
 
-export @customElement('data-set-panel') class DataSetPanel extends LitElementWw {
+export class DataSetPanel extends LitElementWw {
+
+  static scopedElements = {
+    "c-panel": CPanel,
+    "core-model-features-unavailable-card": CoreModelFeaturesUnavailableCard,
+    "data-set-info-card": DataSetInfoCard,
+    "plots-card": PlotsCard,
+    "data-set-select-card": DataSetSelectCard
+  }
+
   @property({ attribute: true, reflect: true })
   accessor selectedFeatureKey: string | null
 

@@ -10,8 +10,14 @@ import type { CNetwork } from '@/components/network/network'
 import { networkContext } from '@/contexts/network_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 import type { CNeuron } from '@/components/network/neuron'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('neuron-outputs-card') class NeuronOutputsCard extends LitElementWw {
+export class NeuronOutputsCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard
+  }
+  
   @property({ attribute: false })
   accessor neuron: CNeuron
 

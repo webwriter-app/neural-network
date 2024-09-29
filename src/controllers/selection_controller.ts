@@ -1,5 +1,5 @@
 import type { ReactiveController } from 'lit'
-import type { WwDeepLearning } from '@/app'
+import type { NeuralNetwork } from '@/app'
 import type { CLayer } from '@/components/network/c_layer'
 import type { CNeuron } from '@/components/network/neuron'
 import type { CEdge } from '@/components/network/c_edge'
@@ -7,9 +7,9 @@ import type { Selected } from '@/types/selected'
 import type { SelectedEle } from '@/types/selected_ele'
 
 export class SelectionController implements ReactiveController {
-  host: WwDeepLearning
+  host: NeuralNetwork
 
-  constructor(host: WwDeepLearning) {
+  constructor(host: NeuralNetwork) {
     this.host = host
     host.addController(this)
   }

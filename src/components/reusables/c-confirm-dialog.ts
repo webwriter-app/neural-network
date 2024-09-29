@@ -2,7 +2,16 @@ import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
-export @customElement('c-confirm-dialog') class CConfirmDialog extends LitElementWw {
+import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js"
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+
+export class CConfirmDialog extends LitElementWw {
+  
+  static scopedElements = {
+    "sl-dialog": SlDialog,
+    "sl-button": SlButton
+  }
+  
   @property({ type: String })
   accessor label: string = 'Please confirm this action!'
 

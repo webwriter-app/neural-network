@@ -1,5 +1,5 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, css, html, nothing } from 'lit'
+import { CSSResult, TemplateResult, css, html } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
@@ -12,7 +12,12 @@ import type { SlChangeEvent, SlDialog } from '@shoelace-style/shoelace'
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
 import { AlertUtils } from '@/utils/alert_utils'
 
-export @customElement('create-data-set-dialog') class CreateDataSetDialog extends LitElementWw {
+import IconQuestionCircle from "bootstrap-icons/icons/question-circle.svg"
+import IconArrowLeftCircle from "bootstrap-icons/icons/arrow-left-circle.svg"
+import IconArrowRightCircle from "bootstrap-icons/icons/arrow-right-circle.svg"
+
+export class CreateDataSetDialog extends LitElementWw {
+  
   @consume({ context: availableDataSetsContext, subscribe: true })
   accessor availableDataSets: DataSet[]
 
@@ -280,7 +285,7 @@ export @customElement('create-data-set-dialog') class CreateDataSetDialog extend
                 label="Name"
                 placeholder="Boston House Pricing"
                 ?required=${this.step == 2}
-                minlength=${this.step == 2 ? 1 : nothing}
+                minlength=${this.step == 2 ? 1 : undefined}
                 @sl-change=${(e: SlChangeEvent) => {
                   this.config.name = (<HTMLInputElement>e.target).value
                   this.config = { ...this.config }
@@ -292,7 +297,7 @@ export @customElement('create-data-set-dialog') class CreateDataSetDialog extend
                 label="Description"
                 placeholder="The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood."
                 ?required=${this.step == 2}
-                minlength=${this.step == 2 ? 1 : nothing}
+                minlength=${this.step == 2 ? 1 : undefined}
                 @sl-change=${(e: SlChangeEvent) => {
                   this.config.description = (<HTMLInputElement>e.target).value
                   this.config = { ...this.config }
@@ -310,7 +315,7 @@ export @customElement('create-data-set-dialog') class CreateDataSetDialog extend
                     can be seen in this image? A dog, cat or horse?)
                   </p>
                 </div>
-                <p>Choose a type <sl-icon name="question-circle"></sl-icon></p>
+                <p>Choose a type <sl-icon src=${IconQuestionCircle}></sl-icon></p>
               </sl-tooltip>
               <sl-radio-group
                 value="${this.config.type}"
@@ -346,12 +351,10 @@ export @customElement('create-data-set-dialog') class CreateDataSetDialog extend
                           placeholder="DIS"
                           help-text="1-6 capital letters"
                           ?required=${this.step == 3}
-                          maxlength=${this.step == 3 ? 6 : nothing}
-                          pattern=${this.step == 3 ? '[A-Z]+' : nothing}
+                          maxlength=${this.step == 3 ? 6 : undefined}
+                          pattern=${this.step == 3 ? '[A-Z]+' : undefined}
                           @sl-change=${(e: SlChangeEvent) => {
-                            this.config.featureDescs[index].key = (<
-                              HTMLInputElement
-                            >e.target).value
+                            this.config.featureDescs[index].key = (e.target as HTMLInputElement).value
                             this.config = { ...this.config }
                           }}
                         ></sl-input>
@@ -361,11 +364,9 @@ export @customElement('create-data-set-dialog') class CreateDataSetDialog extend
                           label="Description"
                           placeholder="Weighted distances to five Boston employment centers"
                           ?required=${this.step == 3}
-                          minlength=${this.step == 3 ? 1 : nothing}
+                          minlength=${this.step == 3 ? 1 : undefined}
                           @sl-change=${(e: SlChangeEvent) => {
-                            this.config.featureDescs[index].description = (<
-                              HTMLInputElement
-                            >e.target).value
+                            this.config.featureDescs[index].description = (e.target as HTMLInputElement).value
                             this.config = { ...this.config }
                           }}
                         ></sl-textarea>
@@ -394,8 +395,8 @@ export @customElement('create-data-set-dialog') class CreateDataSetDialog extend
                 placeholder="MEDV"
                 help-text="1-6 capital letters"
                 ?required=${this.step == 4}
-                maxlength=${this.step == 4 ? 6 : nothing}
-                pattern=${this.step == 4 ? '[A-Z]+' : nothing}
+                maxlength=${this.step == 4 ? 6 : undefined}
+                pattern=${this.step == 4 ? '[A-Z]+' : undefined}
                 @sl-change=${(e: SlChangeEvent) => {
                   this.config.labelDesc.key = (<HTMLInputElement>e.target).value
                   this.config = { ...this.config }
@@ -407,7 +408,7 @@ export @customElement('create-data-set-dialog') class CreateDataSetDialog extend
                 label="Description"
                 placeholder="Median value of owner-occupied homes in $1000s"
                 ?required=${this.step == 4}
-                minlength=${this.step == 4 ? 1 : nothing}
+                minlength=${this.step == 4 ? 1 : undefined}
                 @sl-change=${(e: SlChangeEvent) => {
                   this.config.labelDesc.description = (<HTMLInputElement>(
                     e.target
@@ -430,11 +431,11 @@ export @customElement('create-data-set-dialog') class CreateDataSetDialog extend
                                 placeholder="0"
                                 help-text="an integer"
                                 ?required=${this.step == 4}
-                                maxlength=${this.step == 4 ? 6 : nothing}
-                                pattern=${this.step == 4 ? '[A-Z]+' : nothing}
+                                maxlength=${this.step == 4 ? 6 : undefined}
+                                pattern=${this.step == 4 ? '[A-Z]+' : undefined}
                                 @sl-change=${(e: SlChangeEvent) => {
                                   this.config.labelDesc.classes[index].id =
-                                    parseInt((<HTMLInputElement>e.target).value)
+                                    parseInt((e.target as HTMLInputElement).value)
                                   this.config = { ...this.config }
                                 }}
                               ></sl-input>
@@ -444,7 +445,7 @@ export @customElement('create-data-set-dialog') class CreateDataSetDialog extend
                                 label="Description"
                                 placeholder="Animal was detected as a horse"
                                 ?required=${this.step == 4}
-                                minlength=${this.step == 4 ? 1 : nothing}
+                                minlength=${this.step == 4 ? 1 : undefined}
                                 @sl-change=${(e: SlChangeEvent) => {
                                   this.config.labelDesc.classes[
                                     index
@@ -515,7 +516,7 @@ export @customElement('create-data-set-dialog') class CreateDataSetDialog extend
                     id="abortButton"
                     @click="${(_e: MouseEvent) => this.step--}"
                   >
-                    <sl-icon slot="prefix" name="arrow-left-circle"></sl-icon>
+                    <sl-icon slot="prefix" src=${IconArrowLeftCircle}></sl-icon>
                     Previous
                   </sl-button>
                 `
@@ -524,11 +525,11 @@ export @customElement('create-data-set-dialog') class CreateDataSetDialog extend
               ${this.step < 5
                 ? html`
                     Next
-                    <sl-icon slot="suffix" name="arrow-right-circle"></sl-icon>
+                    <sl-icon slot="suffix" src=${IconArrowRightCircle}></sl-icon>
                   `
                 : html`
                     Validate and create
-                    <sl-icon slot="suffix" name="arrow-right-circle"></sl-icon>
+                    <sl-icon slot="suffix" src=${IconArrowRightCircle}></sl-icon>
                   `}
             </sl-button>
           </div>

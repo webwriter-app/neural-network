@@ -9,13 +9,16 @@ import type { CLayerConf } from '@/types/c_layer_conf'
 import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
 import type { CNetwork } from '@/components/network/network'
 import type { CNeuron } from '@/components/network/neuron'
-import type { CEdge } from '@/components/network/c_edge'
+import { CEdge } from '@/components/network/c_edge'
 import { networkContext } from '@/contexts/network_context'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 
-import '@/components/network/c_edge'
+export class CLayerConnection extends LitElementWw {
 
-export @customElement('c-layer-connection') class CLayerConnection extends LitElementWw {
+  static scopedElements = {
+    "c-edge": CEdge
+  }
+
   @consume({ context: canvasContext, subscribe: true })
   accessor canvas: CCanvas
 

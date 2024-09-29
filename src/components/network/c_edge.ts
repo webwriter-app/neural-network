@@ -8,7 +8,7 @@ import type { CNeuron } from '@/components/network/neuron'
 import type { Selected } from '@/types/selected'
 import { selectedContext } from '@/contexts/selected_context'
 
-export @customElement('c-edge') class CEdge extends LitElementWw {
+export class CEdge extends LitElementWw {
   @consume({ context: canvasContext, subscribe: true })
   accessor canvas: CCanvas
 

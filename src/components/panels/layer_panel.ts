@@ -15,17 +15,32 @@ import { modelConfContext } from '@/contexts/model_conf_context'
 import type { SelectedEle } from '@/types/selected_ele'
 import { selectedEleContext } from '@/contexts/selected_ele_context'
 
-import '@/components/cards/core_model_features_unavailable_card'
-import '@/components/cards/layer_info_card'
-import '@/components/cards/layer_actions_card'
-import '@/components/cards/layer_activation_card'
-import '@/components/cards/layer_neurons_card'
-import '@/components/cards/layer_incoming_connections_card'
-import '@/components/cards/layer_incoming_data_card'
-import '@/components/cards/layer_outgoing_connections_card'
-import '@/components/cards/layer_outgoing_data_card'
+import { CoreModelFeaturesUnavailableCard } from '@/components/cards/core_model_features_unavailable_card'
+import { LayerInfoCard } from '@/components/cards/layer_info_card'
+import { LayerActionsCard } from '@/components/cards/layer_actions_card'
+import { LayerActivationCard } from '@/components/cards/layer_activation_card'
+import { LayerNeuronsCard } from '@/components/cards/layer_neurons_card'
+import { LayerIncomingConnectionsCard } from '@/components/cards/layer_incoming_connections_card'
+import { LayerIncomingDataCard } from '@/components/cards/layer_incoming_data_card'
+import { LayerOutgoingConnectionsCard } from '@/components/cards/layer_outgoing_connections_card'
+import { LayerOutgoingDataCard } from '@/components/cards/layer_outgoing_data_card'
+import { CPanel } from '../reusables/c-panel'
 
-export @customElement('layer-panel') class LayerPanel extends LitElementWw {
+export class LayerPanel extends LitElementWw {
+
+  static scopedElements = {
+    "c-panel": CPanel,
+    'core-model-features-unavailable-card': CoreModelFeaturesUnavailableCard,
+    'layer-info-card': LayerInfoCard,
+    'layer-actions-card': LayerActionsCard,
+    'layer-activation-card': LayerActivationCard,
+    'layer-neurons-card': LayerNeuronsCard,
+    'layer-incoming-connections-card': LayerIncomingConnectionsCard,
+    'layer-incoming-data-card': LayerIncomingDataCard,
+    'layer-outgoing-connections-card': LayerOutgoingConnectionsCard,
+    'layer-outgoing-data-card': LayerOutgoingDataCard,
+  }
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 

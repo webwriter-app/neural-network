@@ -1,13 +1,13 @@
 import type { ReactiveController } from 'lit'
-import type { WwDeepLearning } from '@/app'
+import type { NeuralNetwork } from '@/app'
 import type { QAndAEntry } from '@/types/q_and_a_entry'
 
 import { AlertUtils } from '@/utils/alert_utils'
 
 export class QAndAController implements ReactiveController {
-  host: WwDeepLearning
+  host: NeuralNetwork
 
-  constructor(host: WwDeepLearning) {
+  constructor(host: NeuralNetwork) {
     this.host = host
     host.addController(this)
   }

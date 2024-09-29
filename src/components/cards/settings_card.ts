@@ -8,8 +8,22 @@ import { globalStyles } from '@/global_styles'
 import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
 import { SettingsUtils } from '@/utils/settings_utils'
+import { CCard } from '../reusables/c-card'
+import { CSetting } from '../reusables/c-setting'
 
-export @customElement('settings-card') class SettingsCard extends LitElementWw {
+import SlIcon from "@shoelace-style/shoelace/dist/components/icon/icon.component.js"
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+import IconArrowCounterclockwise from "bootstrap-icons/icons/arrow-counterclockwise.svg"
+
+export class SettingsCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "c-setting": CSetting,
+    "sl-button": SlButton,
+    "sl-icon": SlIcon
+  }
+  
   @consume({ context: settingsContext, subscribe: true })
   accessor settings: Settings
 
@@ -42,7 +56,7 @@ export @customElement('settings-card') class SettingsCard extends LitElementWw {
 
           <div class="button-group">
             <sl-button @click="${(_e: MouseEvent) => this.resetSettings()}">
-              <sl-icon name="arrow-counterclockwise" label="Reset"></sl-icon>
+              <sl-icon src=${IconArrowCounterclockwise} label="Reset"></sl-icon>
               Set to default
             </sl-button>
           </div>

@@ -3,12 +3,19 @@ import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+
 import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
 import { CLayer } from '@/components/network/c_layer'
 import { CNeuron } from '@/components/network/neuron'
 
-export @customElement('c-network-link') class CNetworkLink extends LitElementWw {
+export class CNetworkLink extends LitElementWw {
+
+  static scopedElements = {
+    "sl-button": SlButton
+  }
+
   @property({ type: Boolean })
   accessor disabled: boolean
 

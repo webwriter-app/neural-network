@@ -7,7 +7,8 @@ import { globalStyles } from '@/global_styles'
 
 import { panelContext } from '@/contexts/panels_context'
 
-export @customElement('c-panel') class CPanel extends LitElementWw {
+export class CPanel extends LitElementWw {
+  
   @property({ type: String })
   accessor name: string
 

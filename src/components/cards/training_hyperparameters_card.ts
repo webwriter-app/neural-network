@@ -13,13 +13,22 @@ import { trainOptionsContext } from '@/contexts/train_options_context'
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
 
-import type {
-  SlChangeEvent,
-  SlRadioGroup,
-  SlRange,
-} from '@shoelace-style/shoelace'
+import type { SlChangeEvent } from '@shoelace-style/shoelace'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('training-hyperparameters-card') class TrainingHyperparametersCard extends LitElementWw {
+import SlRadioGroup from "@shoelace-style/shoelace/dist/components/radio-group/radio-group.component.js"
+import SlRadioButton from "@shoelace-style/shoelace/dist/components/radio-button/radio-button.component.js"
+import SlRange from "@shoelace-style/shoelace/dist/components/range/range.component.js"
+
+export class TrainingHyperparametersCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-radio-group": SlRadioGroup,
+    "sl-radio-button": SlRadioButton,
+    "sl-range": SlRange
+  }
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 

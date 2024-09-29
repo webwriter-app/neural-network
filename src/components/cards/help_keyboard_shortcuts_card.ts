@@ -8,8 +8,17 @@ import { globalStyles } from '@/global_styles'
 import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('help-keyboard-shortcuts-card') class HelpKeyboardShortcutsCard extends LitElementWw {
+import SlTag from "@shoelace-style/shoelace/dist/components/tag/tag.component.js"
+
+export class HelpKeyboardShortcutsCard extends LitElementWw {
+  
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-tag": SlTag
+  }
+  
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 

@@ -5,8 +5,14 @@ import { customElement, property } from 'lit/decorators.js'
 import { globalStyles } from '@/global_styles'
 
 import { ModelUtils } from '@/utils/model_utils'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('edge-weight-card') class EdgeWeightCard extends LitElementWw {
+export class EdgeWeightCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard
+  }
+
   @property({ attribute: false })
   accessor weight: number
 

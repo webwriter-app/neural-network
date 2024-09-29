@@ -1,5 +1,5 @@
 import type { ReactiveController } from 'lit'
-import type { WwDeepLearning } from '@/app'
+import type { NeuralNetwork } from '@/app'
 import type { CLayerConf } from '@/types/c_layer_conf'
 import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
 import { CLayer } from '@/components/network/c_layer'
@@ -10,9 +10,9 @@ import { OutputLayerConf } from '@/types/output_layer_conf'
 import * as tf from '@tensorflow/tfjs'
 
 export class NetworkController implements ReactiveController {
-  host: WwDeepLearning
+  host: NeuralNetwork
 
-  constructor(host: WwDeepLearning) {
+  constructor(host: NeuralNetwork) {
     this.host = host
     host.addController(this)
   }

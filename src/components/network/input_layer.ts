@@ -11,13 +11,19 @@ import { NetworkUtils } from '@/utils/network_utils'
 import { AlertUtils } from '@/utils/alert_utils'
 
 import * as tf from '@tensorflow/tfjs'
+import { CNeuron } from './neuron'
 
 // an input layer is a special type of a neuron layer. We do not allow
 // activation functions and provide methods to assign features from the
 // dataSet to this input layer. We do not allow manual editing of the neurons
 // and other layers can not connect to an input layer.
-export @customElement('input-layer') class InputLayer extends CLayer {
-  @property()
+export class InputLayer extends CLayer {
+
+  static scopedElements = {
+    "c-neuron": CNeuron
+  }
+
+  @property() // @ts-ignore
   accessor conf: InputLayerConf
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

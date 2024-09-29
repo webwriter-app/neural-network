@@ -7,7 +7,16 @@ import { Theme } from '@/types/theme'
 import { themeContext } from '@/contexts/theme_context'
 import { ThemeUtils } from '@/utils/theme_utils'
 
-export @customElement('theme-switch') class ThemeSwitch extends LitElementWw {
+import SlRadioGroup from "@shoelace-style/shoelace/dist/components/radio-group/radio-group.component.js"
+import SlRadioButton from "@shoelace-style/shoelace/dist/components/radio-button/radio-button.component.js"
+
+export class ThemeSwitch extends LitElementWw {
+
+  static scopedElements = {
+    "sl-radio-group": SlRadioGroup,
+    "sl-radio-button": SlRadioButton
+  }
+
   @consume({ context: themeContext, subscribe: true })
   accessor theme: Theme
 
@@ -35,7 +44,7 @@ export @customElement('theme-switch') class ThemeSwitch extends LitElementWw {
               value=${theme.name}
               @click=${(_e: MouseEvent) => this.setTheme(theme.name)}
             >
-              <sl-icon name=${theme.slIcon}></sl-icon>
+              <sl-icon src=${theme.slIcon}></sl-icon>
             </sl-radio-button>
           `
         )}

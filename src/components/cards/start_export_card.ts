@@ -18,8 +18,17 @@ import { layerConfsContext } from '@/contexts/layer_confs_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 import type { TrainOptions } from '@/types/train_options'
 import { trainOptionsContext } from '@/contexts/train_options_context'
+import { CCard } from '../reusables/c-card'
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+import IconFileEarmarkArrowDown from "bootstrap-icons/icons/file-earmark-arrow-down.svg"
 
-export @customElement('start-export-card') class StartExportCard extends LitElementWw {
+export class StartExportCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-button": SlButton
+  }
+
   @consume({ context: settingsContext, subscribe: true })
   accessor settings: Settings
 
@@ -62,18 +71,14 @@ export @customElement('start-export-card') class StartExportCard extends LitElem
         <div slot="content">
           <p>
             Export the current configuration to your local file system as a JSON
-            file. It contains the set settings, the current and all other
-            available data sets, the whole network configuration and the set
-            training settings. Storing trained models is currently not yet
-            supported. NOTE: this feature is currently not available in Safari
-            and Firefox.
+            file. Storing trained models is not supported.
           </p>
           <sl-button
             @click="${(_e: MouseEvent) => {
               void this.handleExport()
             }}"
           >
-            <sl-icon slot="prefix" name="file-earmark-arrow-down"></sl-icon>
+            <sl-icon slot="prefix" src=${IconFileEarmarkArrowDown}></sl-icon>
             Export
           </sl-button>
         </div>

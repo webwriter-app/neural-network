@@ -10,8 +10,17 @@ import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('training-metrics-card') class TrainingMetricsCard extends LitElementWw {
+import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.component.js"
+
+export class TrainingMetricsCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-details": SlDetails
+  }
+  
   @consume({ context: dataSetContext, subscribe: true })
   accessor dataSet: DataSet
 

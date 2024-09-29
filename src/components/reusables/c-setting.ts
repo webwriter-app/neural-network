@@ -8,14 +8,21 @@ import {
 } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
+import SlSwitch from "@shoelace-style/shoelace/dist/components/switch/switch.component.js"
+
+
+
 import { globalStyles } from '@/global_styles'
 
 import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
 
-import type { SlChangeEvent, SlSwitch } from '@shoelace-style/shoelace'
+export class CSetting extends LitElementWw {
 
-export @customElement('c-setting') class CSetting extends LitElementWw {
+  static scopedElements = {
+    "sl-switch": SlSwitch
+  }
+
   @consume({ context: settingsContext, subscribe: true })
   accessor settings: Settings
 
@@ -81,7 +88,7 @@ export @customElement('c-setting') class CSetting extends LitElementWw {
       ${Object.hasOwn(this.settings, this.name)
         ? html` <sl-switch
             ?checked="${this.settings[this.name]}"
-            @sl-change="${(_e: SlChangeEvent) => this.handleChange()}"
+            @sl-change="${() => this.handleChange()}"
           >
             <p>${this.description}</p>
 

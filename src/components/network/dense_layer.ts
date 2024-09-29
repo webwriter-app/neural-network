@@ -10,9 +10,15 @@ import { CLayer } from '@/components/network/c_layer'
 import { NetworkUtils } from '@/utils/network_utils'
 
 import * as tf from '@tensorflow/tfjs'
+import { CNeuron } from './neuron'
 
-export @customElement('dense-layer') class DenseLayer extends CLayer {
-  @property()
+export class DenseLayer extends CLayer {
+
+  static scopedElements = {
+    "c-neuron": CNeuron
+  }
+
+  @property() // @ts-ignore
   accessor conf: DenseLayerConf
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

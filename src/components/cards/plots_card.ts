@@ -9,8 +9,14 @@ import type { LabelDesc } from '@/types/label_desc'
 import { dataSetContext } from '@/contexts/data_set_context'
 
 import * as tfvis from '@tensorflow/tfjs-vis'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('plots-card') class PlotsCard extends LitElementWw {
+export class PlotsCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard
+  }
+  
   @consume({ context: dataSetContext, subscribe: true })
   accessor dataSet: DataSet
 

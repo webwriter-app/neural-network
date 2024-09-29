@@ -1,5 +1,5 @@
 import type { ReactiveController } from 'lit'
-import type { WwDeepLearning } from '@/app'
+import type { NeuralNetwork } from '@/app'
 import type { ModelConf } from '@/types/model_conf'
 
 import { ModelUtils } from '@/utils/model_utils'
@@ -9,9 +9,9 @@ import * as tf from '@tensorflow/tfjs'
 import * as tfvis from '@tensorflow/tfjs-vis'
 
 export class ModelController implements ReactiveController {
-  host: WwDeepLearning
+  host: NeuralNetwork
 
-  constructor(host: WwDeepLearning) {
+  constructor(host: NeuralNetwork) {
     this.host = host
     host.addController(this)
   }

@@ -5,8 +5,16 @@ import { customElement, property } from 'lit/decorators.js'
 import { globalStyles } from '@/global_styles'
 
 import type { CNeuron } from '@/components/network/neuron'
+import { CCard } from '../reusables/c-card'
+import { CNetworkLink } from '../reusables/c-network-link'
 
-export @customElement('edge-info-card') class EdgeInfoCard extends LitElementWw {
+export class EdgeInfoCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "c-network-link": CNetworkLink
+  }
+
   @property({ attribute: false })
   accessor source: CNeuron
 

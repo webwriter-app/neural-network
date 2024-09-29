@@ -18,18 +18,34 @@ import { selectedContext } from '@/contexts/selected_context'
 import { selectedEleContext } from '@/contexts/selected_ele_context'
 import { panelContext } from '@/contexts/panels_context'
 
-import '@/components/panels/settings_panel.ts'
-import '@/components/panels/start_panel.ts'
-import '@/components/panels/help_panel.ts'
-import '@/components/panels/network_panel.ts'
-import '@/components/panels/data_set_panel.ts'
-import '@/components/panels/train_panel.ts'
-import '@/components/panels/predict_panel.ts'
-import '@/components/panels/layer_panel.ts'
-import '@/components/panels/neuron_panel.ts'
-import '@/components/panels/edge_panel.ts'
+import { SettingsPanel } from '@/components/panels/settings_panel'
+import { StartPanel } from '@/components/panels/start_panel'
+import { HelpPanel } from './panels/help_panel'
+import { NetworkPanel } from './panels/network_panel'
+import { DataSetPanel } from './panels/data_set_panel'
+import { TrainPanel } from './panels/train_panel'
+import { PredictPanel } from './panels/predict_panel'
+import { LayerPanel } from './panels/layer_panel'
+import { NeuronPanel } from './panels/neuron_panel'
+import { EdgePanel } from './panels/edge_panel'
+import { CTab } from './reusables/c-tab'
 
-export @customElement('menu-area') class MenuArea extends LitElementWw {
+export class MenuArea extends LitElementWw {
+
+  static scopedElements = {
+    "c-tab": CTab,
+    "settings-panel": SettingsPanel,
+    "start-panel": StartPanel,
+    "help-panel": HelpPanel,
+    "network-panel": NetworkPanel,
+    "data-set-panel": DataSetPanel,
+    "train-panel": TrainPanel,
+    "predict-panel": PredictPanel,
+    "layer-panel": LayerPanel,
+    "neuron-panel": NeuronPanel,
+    "edge-panel": EdgePanel
+  }
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 
@@ -99,9 +115,6 @@ export @customElement('menu-area') class MenuArea extends LitElementWw {
           ${this.editable || this.settings.mayExport || this.settings.mayImport
             ? html` <c-tab name="start">Start</c-tab>`
             : html``}
-          ${this.editable || this.qAndA.length
-            ? html`<c-tab name="help">Help</c-tab>`
-            : html``}
           <c-tab name="network">Network</c-tab>
           <c-tab name="dataSet">Data set</c-tab>
           <c-tab name="train">Train</c-tab>
@@ -121,9 +134,6 @@ export @customElement('menu-area') class MenuArea extends LitElementWw {
         <div id="rightMenuPanel" class="${!this.panel ? 'collapsed' : ''}">
           ${this.editable ? html`<settings-panel></settings-panel>` : html``}
           <start-panel></start-panel>
-          ${this.editable || this.qAndA.length
-            ? html`<help-panel></help-panel>`
-            : html``}
           <network-panel></network-panel>
           <data-set-panel></data-set-panel>
           <train-panel></train-panel>

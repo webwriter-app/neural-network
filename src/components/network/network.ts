@@ -12,14 +12,27 @@ import { CLayer } from '@/components/network/c_layer'
 import { InputLayer } from '@/components/network/input_layer'
 import { OutputLayer } from '@/components/network/output_layer'
 import { CLayerConnection } from '@/components/network/c_layer_connection'
+import { DenseLayer } from '@/components/network/dense_layer'
 
 import '@/components/network/input_layer'
 import '@/components/network/dense_layer'
 import '@/components/network/output_layer'
 import '@/components/network/c_layer'
 import '@/components/network/c_layer_connection'
+import { CEdge } from './c_edge'
+import { CNeuron } from './neuron'
 
-export @customElement('c-network') class CNetwork extends LitElementWw {
+export class CNetwork extends LitElementWw {
+
+  static scopedElements = {
+    "c-edge": CEdge,
+    "c-layer-connection": CLayerConnection,
+    "dense-layer": DenseLayer,
+    "input-layer": InputLayer,
+    "output-layer": OutputLayer,
+    "c-neuron": CNeuron
+  }
+
   @consume({ context: layerConfsContext, subscribe: true })
   accessor layerConfs: CLayerConf[]
 
@@ -91,7 +104,7 @@ export @customElement('c-network') class CNetwork extends LitElementWw {
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   getHTMLForLayerConf(layerConf: CLayerConf) {
-    const layer = <CLayer>document.createElement(layerConf.HTML_TAG)
+    const layer = (this.shadowRoot as any).createElement(layerConf.HTML_TAG)
     layer.conf = layerConf
     const tensorConf = this.tensorConfs?.get(layerConf.layerId)
     layer.tensor = tensorConf?.tensor
@@ -103,7 +116,7 @@ export @customElement('c-network') class CNetwork extends LitElementWw {
 
   getHTMLForLayerConnectionConf(layerConnectionConf: CLayerConnectionConf) {
     const layerConnection = <CLayerConnection>(
-      document.createElement('c-layer-connection')
+      (this.shadowRoot as any).createElement('c-layer-connection')
     )
     layerConnection.conf = layerConnectionConf
     return layerConnection

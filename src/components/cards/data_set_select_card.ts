@@ -13,13 +13,27 @@ import { availableDataSetsContext } from '@/contexts/available_data_sets_context
 import type {
   SlChangeEvent,
   SlDialog,
-  SlSelect,
 } from '@shoelace-style/shoelace'
 
-import '@/components/dialogs/manage_data_sets_dialog'
-import '@/components/dialogs/create_data_set_dialog'
+import { ManageDataSetsDialog } from '@/components/dialogs/manage_data_sets_dialog'
+import { CCard } from '../reusables/c-card'
+import { CreateDataSetDialog } from '@/components/dialogs/create_data_set_dialog'
 
-export @customElement('data-set-select-card') class DataSetSelectCard extends LitElementWw {
+import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js"
+import SlOption from "@shoelace-style/shoelace/dist/components/option/option.component.js"
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+
+export class DataSetSelectCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "manage-data-sets-dialog": ManageDataSetsDialog,
+    "create-data-set-dialog": CreateDataSetDialog,
+    "sl-select": SlSelect,
+    "sl-option": SlOption,
+    "sl-button": SlButton 
+  }
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 

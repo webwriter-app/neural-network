@@ -7,9 +7,17 @@ import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import type { InputLayer } from '@/components/network/input_layer'
 
-import type { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
+import type { SlChangeEvent } from '@shoelace-style/shoelace'
+import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js"
+import { CCard } from '../reusables/c-card'
 
-export @customElement('layer-incoming-data-card') class LayerIncomingDataCard extends LitElementWw {
+export class LayerIncomingDataCard extends LitElementWw {
+  
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-select": SlSelect
+  }
+  
   @property()
   accessor layer: InputLayer
 

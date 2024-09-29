@@ -9,9 +9,22 @@ import { editableContext } from '@/contexts/editable_context'
 import type { QAndAEntry } from '@/types/q_and_a_entry'
 import { qAndAContext } from '@/contexts/q_and_a_context'
 
-import type { SlInput } from '@shoelace-style/shoelace'
+import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.component.js"
+import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js"
+import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea.component.js"
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+import { CCard } from '../reusables/c-card'
 
-export @customElement('help-q-and-a-card') class HelpQAndACard extends LitElementWw {
+export class HelpQAndACard extends LitElementWw {
+  
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-details": SlDetails,
+    "sl-input": SlInput,
+    "sl-textarea": SlTextarea,
+    "sl-button": SlButton
+  }
+  
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 

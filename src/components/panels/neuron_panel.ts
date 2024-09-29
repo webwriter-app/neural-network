@@ -15,15 +15,28 @@ import { DataSetUtils } from '@/utils/data_set_utils'
 import type { SelectedEle } from '@/types/selected_ele'
 import { selectedEleContext } from '@/contexts/selected_ele_context'
 
-import '@/components/cards/neuron_info_card'
-import '@/components/cards/neuron_feature_card'
-import '@/components/cards/plots_card'
-import '@/components/cards/neuron_inputs_card'
-import '@/components/cards/neuron_activation_card'
-import '@/components/cards/neuron_label_card'
-import '@/components/cards/neuron_outputs_card'
+import { NeuronInfoCard } from '../cards/neuron_info_card'
+import { NeuronFeatureCard } from '../cards/neuron_feature_card'
+import { PlotsCard } from '../cards/plots_card'
+import { NeuronInputsCard } from '../cards/neuron_inputs_card'
+import { NeuronActivationCard } from '../cards/neuron_activation_card'
+import { NeuronLabelCard } from '../cards/neuron_label_card'
+import { NeuronOutputsCard } from '../cards/neuron_outputs_card'
+import { CPanel } from '../reusables/c-panel'
 
-export @customElement('neuron-panel') class NeuronPanel extends LitElementWw {
+export class NeuronPanel extends LitElementWw {
+
+  static scopedElements = {
+    'c-panel': CPanel,
+    'neuron-info-card': NeuronInfoCard,
+    'neuron-feature-card': NeuronFeatureCard,
+    'plots-card': PlotsCard,
+    'neuron-inputs-card': NeuronInputsCard,
+    'neuron-activation-card': NeuronActivationCard,
+    'neuron-label-card': NeuronLabelCard,
+    'neuron-outputs-card': NeuronOutputsCard
+  }
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 

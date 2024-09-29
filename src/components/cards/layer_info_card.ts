@@ -8,8 +8,15 @@ import { globalStyles } from '@/global_styles'
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import type { CLayer } from '@/components/network/c_layer'
+import { CCard } from '../reusables/c-card'
+import { CNetworkLink } from '../reusables/c-network-link'
 
-export @customElement('layer-info-card') class LayerInfoCard extends LitElementWw {
+export class LayerInfoCard extends LitElementWw {
+  
+  static scopedElements = {
+    "c-card": CCard,
+    "c-network-link": CNetworkLink
+  }
   @property()
   accessor layer: CLayer
 

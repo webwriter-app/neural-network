@@ -1,14 +1,14 @@
 import type { ReactiveController } from 'lit'
-import type { WwDeepLearning } from '@/app'
+import type { NeuralNetwork } from '@/app'
 import type { FileConfig } from '@/types/file_config'
 import type { FileConfigV1 } from '@/types/file_config_v1'
 
 import { AlertUtils } from '@/utils/alert_utils'
 
 export class ConfigurationController implements ReactiveController {
-  host: WwDeepLearning
+  host: NeuralNetwork
 
-  constructor(host: WwDeepLearning) {
+  constructor(host: NeuralNetwork) {
     this.host = host
     host.addController(this)
   }

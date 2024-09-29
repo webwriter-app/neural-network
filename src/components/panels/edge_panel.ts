@@ -7,10 +7,18 @@ import { CEdge } from '@/components/network/c_edge'
 import type { SelectedEle } from '@/types/selected_ele'
 import { selectedEleContext } from '@/contexts/selected_ele_context'
 
-import '@/components/cards/edge_info_card'
-import '@/components/cards/edge_weight_card'
+import { CPanel } from '../reusables/c-panel'
+import { EdgeInfoCard } from '@/components/cards/edge_info_card'
+import { EdgeWeightCard } from '@/components/cards/edge_weight_card'
 
-export @customElement('edge-panel') class EdgePanel extends LitElementWw {
+export class EdgePanel extends LitElementWw {
+
+  static scopedElements = {
+    "c-panel": CPanel,
+    "edge-info-card": EdgeInfoCard,
+    "edge-weight-card": EdgeWeightCard
+  }
+
   @consume({ context: selectedEleContext, subscribe: true })
   accessor selectedEle: SelectedEle
 

@@ -14,8 +14,14 @@ import type { CNetwork } from '@/components/network/network'
 import { networkContext } from '@/contexts/network_context'
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('network-info-card') class NetworkInfoCard extends LitElementWw {
+export class NetworkInfoCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard
+  }
+  
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 

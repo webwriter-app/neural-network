@@ -6,8 +6,16 @@ import { consume } from '@lit/context'
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import type { OutputLayer } from '@/components/network/output_layer'
+import { CCard } from '../reusables/c-card'
+import { CDataInfo } from '../reusables/c-data-info'
 
-export @customElement('layer-outgoing-data-card') class LayerOutgoingDataCard extends LitElementWw {
+export class LayerOutgoingDataCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "c-data-info": CDataInfo
+  }
+
   @property()
   accessor layer: OutputLayer
 

@@ -11,12 +11,22 @@ import { layerConfsContext } from '@/contexts/layer_confs_context'
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
 
-import '@/components/cards/core_model_features_unavailable_card'
-import '@/components/cards/network_info_card'
-import '@/components/cards/network_clear_card'
-import '@/components/cards/network_add_layer_card'
+import { CPanel } from '../reusables/c-panel'
+import { CoreModelFeaturesUnavailableCard } from '@/components/cards/core_model_features_unavailable_card'
+import { NetworkAddLayerCard } from '@/components/cards/network_add_layer_card'
+import { NetworkClearCard } from '@/components/cards/network_clear_card'
+import { NetworkInfoCard } from '@/components/cards/network_info_card'
 
-export @customElement('network-panel') class NetworkPanel extends LitElementWw {
+export class NetworkPanel extends LitElementWw {
+
+  static scopedElements = {
+    "c-panel": CPanel,
+    "core-model-features-unavailable-card": CoreModelFeaturesUnavailableCard,
+    "network-add-layer-card": NetworkAddLayerCard,
+    "network-clear-card": NetworkClearCard,
+    "network-info-card": NetworkInfoCard
+  }
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 

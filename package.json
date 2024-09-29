@@ -1,11 +1,16 @@
 {
-  "name": "@christiankoch/ww-deeplearning",
-  "version": "0.2.1",
+  "name": "@webwriter/neural-network",
+  "version": "0.1.4",
   "author": "Christian Koch",
   "license": "MIT",
   "type": "module",
-  "description": "Deep learning visualizer for WebWriter",
-  "main": "/src/app.ts",
+  "description": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
+  "exports": {
+    "./widgets/webwriter-neural-network.*": {
+      "source": "./src/app.ts",
+      "default": "./dist/webwriter-neural-network.*"
+    }
+  },
   "files": [
     "dist",
     "src"
@@ -14,9 +19,8 @@
     "webwriter-widget"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "prepublishOnly": "npx @webwriter/build",
+    "dev": ""
   },
   "dependencies": {
     "@lit/context": "^1.1.2",
@@ -26,6 +30,7 @@
     "@types/cytoscape": "^3.21.6",
     "@webwriter/create-widget": "^0.4.2",
     "@webwriter/lit": "^2.0.0",
+    "bootstrap-icons": "^1.11.3",
     "colorsea": "^1.2.2",
     "cytoscape": "^3.30.2",
     "lit": "^3.2.0"

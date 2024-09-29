@@ -6,16 +6,30 @@ import { consume } from '@lit/context'
 import { editableContext } from '@/contexts/editable_context'
 import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
-import type { CCanvas } from '@/components/canvas'
+import { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
 import type { CLayerConf } from '@/types/c_layer_conf'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 import { panelContext } from '@/contexts/panels_context'
 
-import '@/components/canvas'
-import '@/components/cards/start_get_started_card'
+import { GetStartedCard } from '@/components/cards/start_get_started_card'
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+import SlTooltip from "@shoelace-style/shoelace/dist/components/tooltip/tooltip.component.js"
+import SlIcon from "@shoelace-style/shoelace/dist/components/icon/icon.component.js"
+import IconZoomIn from "bootstrap-icons/icons/zoom-in.svg"
+import IconZoomOut from "bootstrap-icons/icons/zoom-out.svg"
+import IconArrowsCollapse from "bootstrap-icons/icons/arrows-collapse.svg"
 
-export @customElement('canvas-area') class CCanvasArea extends LitElementWw {
+export class CCanvasArea extends LitElementWw {
+
+  static scopedElements = {
+    "c-canvas": CCanvas,
+    "sl-button": SlButton,
+    "sl-tooltip": SlTooltip,
+    "sl-icon": SlIcon,
+    "start-get-started-card": GetStartedCard
+  }
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 
@@ -23,7 +37,7 @@ export @customElement('canvas-area') class CCanvasArea extends LitElementWw {
   accessor settings: Settings
 
   @consume({ context: layerConfsContext, subscribe: true })
-  accessor layerConfs: CLayerConf[]
+  accessor layerConfs: CLayerConf[] = []
 
   @consume({ context: canvasContext, subscribe: true })
   accessor canvas: CCanvas
@@ -78,6 +92,10 @@ export @customElement('canvas-area') class CCanvasArea extends LitElementWw {
       display: grid;
       gap: 10px;
     }
+
+    sl-button::part(label) {
+      margin: auto;
+    }
   `
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -102,12 +120,12 @@ export @customElement('canvas-area') class CCanvasArea extends LitElementWw {
       <div id="canvasActions">
         <sl-tooltip content="Zoom in">
           <sl-button @click="${(_e: MouseEvent) => this.zoomInCanvas()}" circle>
-            <sl-icon name="zoom-in"></sl-icon>
+            <sl-icon src=${IconZoomIn}></sl-icon>
           </sl-button>
         </sl-tooltip>
         <sl-tooltip content="Zoom to network">
           <sl-button @click="${(_e: MouseEvent) => this.centerCanvas()}" circle>
-            <sl-icon name="arrows-collapse"></sl-icon>
+            <sl-icon src=${IconArrowsCollapse}></sl-icon>
           </sl-button>
         </sl-tooltip>
         <sl-tooltip content="Zoom out">
@@ -115,7 +133,7 @@ export @customElement('canvas-area') class CCanvasArea extends LitElementWw {
             @click="${(_e: MouseEvent) => this.zoomOutCanvas()}"
             circle
           >
-            <sl-icon name="zoom-out"></sl-icon>
+            <sl-icon src=${IconZoomOut}></sl-icon>
           </sl-button>
         </sl-tooltip>
       </div>

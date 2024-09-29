@@ -14,9 +14,19 @@ import { NetworkUtils } from '@/utils/network_utils'
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
 
-import type { SlSelect, SlChangeEvent } from '@shoelace-style/shoelace'
+import type { SlChangeEvent } from '@shoelace-style/shoelace'
+import { CCard } from '../reusables/c-card'
+import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js"
+import SlOption from "@shoelace-style/shoelace/dist/components/option/option.component.js"
 
-export @customElement('layer-activation-card') class LayerActivationCard extends LitElementWw {
+export class LayerActivationCard extends LitElementWw {
+  
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-select": SlSelect,
+    "sl-option": SlOption
+  }
+  
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 
@@ -35,9 +45,7 @@ export @customElement('layer-activation-card') class LayerActivationCard extends
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleChangeActivation(): void {
     const activationName = this._selectActivationFormElm.value
-    const activation: Activation = NetworkUtils.activationOptions.find(
-      (activation) => activation.name == activationName
-    )
+    const activation: Activation = NetworkUtils.getActivation(activationName as any)
     this.layer.setActivation(activation)
     this.dispatchEvent(
       new Event('update-layer-confs', {
@@ -56,6 +64,7 @@ export @customElement('layer-activation-card') class LayerActivationCard extends
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
+    const activation = NetworkUtils.getActivation(this.layer.conf.activation.name as any)
     return html`
       <c-card>
         <div slot="title">Activation function</div>
@@ -77,7 +86,7 @@ export @customElement('layer-activation-card') class LayerActivationCard extends
             )}
           </sl-select>
           ${Object.hasOwn(this.layer.conf.activation, 'img')
-            ? html`<img src=${this.layer.conf.activation.img} />`
+            ? html`<img src=${activation.img} />`
             : html``}
           <p>
             After calculating a neuron's value by adding up its weighted input

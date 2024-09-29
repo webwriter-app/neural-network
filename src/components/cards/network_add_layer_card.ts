@@ -12,8 +12,21 @@ import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
 import type { CLayerConf } from '../../types/c_layer_conf'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('network-add-layer-card') class NetworkAddLayerCard extends LitElementWw {
+import SlTag from "@shoelace-style/shoelace/dist/components/tag/tag.component.js"
+import SlIcon from "@shoelace-style/shoelace/dist/components/icon/icon.component.js"
+
+import IconPlusLg from "bootstrap-icons/icons/plus-lg.svg"
+
+export class NetworkAddLayerCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-tag": SlTag,
+    "sl-icon": SlIcon
+  }
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 
@@ -54,7 +67,7 @@ export @customElement('network-add-layer-card') class NetworkAddLayerCard extend
               @dragstart="${(e: DragEvent) =>
                 e.dataTransfer.setData('LAYER_TYPE', 'Input')}"
             >
-              <sl-icon slot="prefix" name="plus-lg"></sl-icon>
+              <sl-icon slot="prefix" src=${IconPlusLg}></sl-icon>
               Input
             </sl-tag>
             ${this.editable || this.settings.allowDenseLayers
@@ -64,7 +77,7 @@ export @customElement('network-add-layer-card') class NetworkAddLayerCard extend
                   @dragstart="${(e: DragEvent) =>
                     e.dataTransfer.setData('LAYER_TYPE', 'Dense')}"
                 >
-                  <sl-icon slot="prefix" name="plus-lg"></sl-icon>
+                  <sl-icon slot="prefix" src=${IconPlusLg}></sl-icon>
                   Dense
                 </sl-tag>`
               : html``}
@@ -77,7 +90,7 @@ export @customElement('network-add-layer-card') class NetworkAddLayerCard extend
                   @dragstart="${(e: DragEvent) =>
                     e.dataTransfer.setData('LAYER_TYPE', 'Output')}"
                 >
-                  <sl-icon slot="prefix" name="plus-lg"></sl-icon>
+                  <sl-icon slot="prefix" src=${IconPlusLg}></sl-icon>
                   Output
                 </sl-tag>`
               : html``}

@@ -2,6 +2,8 @@ import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit/context'
+import boston from "@/assets/bostonConfig.json"
+import pima from "@/assets/pimaIndiansConfig.json"
 
 import { globalStyles } from '@/global_styles'
 
@@ -10,8 +12,20 @@ import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
 
 import { FileConfig } from '@/types/file_config'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('start-get-started-card')class GetStartedCard extends LitElementWw {
+import SlTag from "@shoelace-style/shoelace/dist/components/tag/tag.component.js"
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+import IconFileEarmarkArrowUp from "bootstrap-icons/icons/file-earmark-arrow-up.svg"
+
+export class GetStartedCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-button": SlButton,
+    "sl-tag": SlTag
+  }
+  
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 
@@ -28,19 +42,14 @@ export @customElement('start-get-started-card')class GetStartedCard extends LitE
     )
   }
 
-  async handleDefaultImport(url: string) {
-    let configJSON: Response
-    try {
-      configJSON = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-        },
-      })
-    } catch (err) {
-      console.error(err)
+  async handleDefaultImport(key: string) {
+    let config: any
+    if(key === "boston") {
+      config = boston
     }
-    const config = <FileConfig>await configJSON.json()
+    else if(key === "pima") {
+      config = pima
+    }
     this.dispatchEvent(
       new CustomEvent('import-config', {
         detail: config,
@@ -73,7 +82,7 @@ export @customElement('start-get-started-card')class GetStartedCard extends LitE
               void this.handleCustomImport()
             }}"
           >
-            <sl-icon slot="prefix" name="file-earmark-arrow-up"></sl-icon>
+            <sl-icon slot="prefix" src=${IconFileEarmarkArrowUp}></sl-icon>
             Import
           </sl-button>
           ${this.editable || this.settings.showDefaultConfs
@@ -88,9 +97,7 @@ export @customElement('start-get-started-card')class GetStartedCard extends LitE
                     </div>
                     <sl-button
                       @click=${(_e: MouseEvent) =>
-                        this.handleDefaultImport(
-                          '/assets/pimaIndiansConfig.json'
-                        )}
+                        this.handleDefaultImport('pima')}
                       >Create</sl-button
                     >
                   </div>
@@ -105,7 +112,7 @@ export @customElement('start-get-started-card')class GetStartedCard extends LitE
                     </div>
                     <sl-button
                       @click=${(_e: MouseEvent) =>
-                        this.handleDefaultImport('/assets/bostonConfig.json')}
+                        this.handleDefaultImport('boston')}
                       >Create</sl-button
                     >
                   </div>

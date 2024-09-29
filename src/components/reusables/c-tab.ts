@@ -3,9 +3,16 @@ import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+
 import { panelContext } from '@/contexts/panels_context'
 
-export @customElement('c-tab') class CTab extends LitElementWw {
+export class CTab extends LitElementWw {
+  
+  static scopedElements = {
+    "sl-button": SlButton
+  }
+
   @property({ type: String })
   accessor name: string
 

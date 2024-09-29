@@ -11,9 +11,19 @@ import { networkContext } from '@/contexts/network_context'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 
-import { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
+import type { SlChangeEvent } from '@shoelace-style/shoelace'
+import { CCard } from '../reusables/c-card'
+import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js"
+import SlOption from "@shoelace-style/shoelace/dist/components/option/option.component.js"
 
-export @customElement('layer-outgoing-connections-card') class LayerOutgoingConnectionsCard extends LitElementWw {
+export class LayerOutgoingConnectionsCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-select": SlSelect,
+    "sl-option": SlOption
+  }
+  
   @property()
   accessor layer: CLayer
 

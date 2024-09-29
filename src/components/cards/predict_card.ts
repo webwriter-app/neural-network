@@ -18,8 +18,24 @@ import { modelConfContext } from '@/contexts/model_conf_context'
 import { ModelUtils } from '@/utils/model_utils'
 
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
+import { CCard } from '../reusables/c-card'
+import { CDataInfo } from '../reusables/c-data-info'
 
-export @customElement('predict-card') class PredictCard extends LitElementWw {
+import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js"
+import SlIcon from "@shoelace-style/shoelace/dist/components/icon/icon.component.js"
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+import IconSend from "bootstrap-icons/icons/send.svg"
+
+export class PredictCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "c-data-info": CDataInfo,
+    "sl-input": SlInput,
+    "sl-button": SlButton,
+    "sl-icon": SlIcon
+  }
+  
   @consume({ context: networkContext, subscribe: true })
   accessor network: CNetwork
 
@@ -171,7 +187,7 @@ export @customElement('predict-card') class PredictCard extends LitElementWw {
                 </sl-button>`
             : html`<sl-button variant="primary" type="submit">
                 Predict
-                <sl-icon slot="suffix" name="send"></sl-icon>
+                <sl-icon slot="suffix" src=${IconSend}></sl-icon>
               </sl-button>`}
         </form>
       </c-card>

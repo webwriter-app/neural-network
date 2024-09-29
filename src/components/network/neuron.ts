@@ -13,7 +13,7 @@ import type { CLayer } from '@/components/network/c_layer'
 import type { Position } from '@/types/position'
 import { ModelUtils } from '@/utils/model_utils'
 
-export @customElement('c-neuron') class CNeuron extends LitElementWw {
+export class CNeuron extends LitElementWw {
   @consume({ context: canvasContext, subscribe: true })
   accessor canvas: CCanvas
 

@@ -3,8 +3,17 @@ import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('network-clear-card') class NetworkClearCard extends LitElementWw {
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+import IconTrash from "bootstrap-icons/icons/trash.svg"
+
+export class NetworkClearCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-button": SlButton
+  }
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleClear() {
     this.dispatchEvent(
@@ -26,7 +35,7 @@ export @customElement('network-clear-card') class NetworkClearCard extends LitEl
               void this.handleClear()
             }}"
           >
-            <sl-icon slot="prefix" name="trash"></sl-icon>
+            <sl-icon slot="prefix" src=${IconTrash}></sl-icon>
             Clear network
           </sl-button>
           <p>This will remove every layer from the network.</p>

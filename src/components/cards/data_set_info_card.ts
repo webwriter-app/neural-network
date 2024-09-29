@@ -9,8 +9,18 @@ import type { DataSet } from '@/types/data_set'
 import type { FeatureDesc } from '@/types/feature_desc'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { DataSetUtils } from '@/utils/data_set_utils'
+import { CCard } from '../reusables/c-card'
+import { CDataInfo } from '../reusables/c-data-info'
+import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.component.js"
 
-export @customElement('data-set-info-card') class DataSetInfoCard extends LitElementWw {
+export class DataSetInfoCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "c-data-info": CDataInfo,
+    "sl-details": SlDetails
+  }
+  
   @consume({ context: dataSetContext, subscribe: true })
   accessor dataSet: DataSet
 

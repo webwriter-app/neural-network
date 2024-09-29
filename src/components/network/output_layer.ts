@@ -12,9 +12,15 @@ import type { DataSet } from '@/types/data_set'
 import { AlertUtils } from '@/utils/alert_utils'
 
 import * as tf from '@tensorflow/tfjs'
+import { CNeuron } from './neuron'
 
-export @customElement('output-layer') class OutputLayer extends CLayer {
-  @property()
+export class OutputLayer extends CLayer {
+
+  static scopedElements = {
+    "c-neuron": CNeuron
+  }
+
+  @property({attribute: false}) // @ts-ignore
   accessor conf: OutputLayerConf
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

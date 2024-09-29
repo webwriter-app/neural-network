@@ -3,8 +3,17 @@ import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
 import { globalStyles } from '@/global_styles'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('help-about-card') class HelpAboutCard extends LitElementWw {
+import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.component.js"
+
+export class HelpAboutCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-details": SlDetails
+  }
+
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
     globalStyles,

@@ -9,11 +9,22 @@ import { settingsContext } from '@/contexts/settings_context'
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
 
-import '@/components/cards/core_model_features_unavailable_card'
-import '@/components/cards/start_export_card'
-import '@/components/cards/start_get_started_card'
+import { CPanel } from '../reusables/c-panel'
+import { CoreModelFeaturesUnavailableCard } from '@/components/cards/core_model_features_unavailable_card'
+import { StartExportCard } from '@/components/cards/start_export_card'
+import { GetStartedCard } from '@/components/cards/start_get_started_card'
+import { HelpKeyboardShortcutsCard } from '../cards/help_keyboard_shortcuts_card'
 
-export @customElement('start-panel') class StartPanel extends LitElementWw {
+export class StartPanel extends LitElementWw {
+
+  static scopedElements = {
+    "c-panel": CPanel,
+    "core-model-features-unavailable-card": CoreModelFeaturesUnavailableCard,
+    "start-export-card": StartExportCard,
+    "start-get-started-card": GetStartedCard,
+    "help-keyboard-shortcuts-card": HelpKeyboardShortcutsCard
+  }
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 
@@ -36,6 +47,7 @@ export @customElement('start-panel') class StartPanel extends LitElementWw {
         ${this.editable || this.settings.mayExport
           ? html` <start-export-card></start-export-card> `
           : html``}
+        <help-keyboard-shortcuts-card></help-keyboard-shortcuts-card>
       </c-panel>
     `
   }

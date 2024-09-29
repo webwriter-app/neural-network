@@ -9,8 +9,16 @@ import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import type { CNeuron } from '@/components/network/neuron'
 import { LabelDesc } from '@/types/label_desc'
+import { CCard } from '../reusables/c-card'
+import { CDataInfo } from '../reusables/c-data-info'
 
-export @customElement('neuron-label-card') class NeuronLabelCard extends LitElementWw {
+export class NeuronLabelCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "c-card-info": CDataInfo
+  }
+  
   @property({ attribute: false })
   accessor neuron: CNeuron
 

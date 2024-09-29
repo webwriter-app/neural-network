@@ -12,9 +12,23 @@ import { trainOptionsContext } from '@/contexts/train_options_context'
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
 
-import type { SlChangeEvent, SlRange } from '@shoelace-style/shoelace'
+import type { SlChangeEvent } from '@shoelace-style/shoelace'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('training-train-card') class TrainingTrainCard extends LitElementWw {
+import SlProgressBar from "@shoelace-style/shoelace/dist/components/progress-bar/progress-bar.component.js"
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+import SlRange from "@shoelace-style/shoelace/dist/components/range/range.component.js"
+import IconPlay from "bootstrap-icons/icons/play.svg"
+
+export class TrainingTrainCard extends LitElementWw {
+  
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-progress-bar": SlProgressBar,
+    "sl-button": SlButton,
+    "sl-range": SlRange
+  }
+
   @consume({ context: modelConfContext, subscribe: true })
   accessor modelConf: ModelConf
 
@@ -84,7 +98,7 @@ export @customElement('training-train-card') class TrainingTrainCard extends Lit
                   @click="${(_e: MouseEvent) =>
                     this.handleTrain(this.numberOfEpochs)}"
                 >
-                  <sl-icon name="play" label="Run"></sl-icon>
+                  <sl-icon src=${IconPlay} label="Run"></sl-icon>
                   ${this.numberOfEpochs == 1
                     ? html`Train for 1 epoch`
                     : html` Train for ${this.numberOfEpochs} epochs`}

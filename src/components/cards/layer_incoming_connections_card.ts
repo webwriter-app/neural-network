@@ -11,9 +11,17 @@ import { networkContext } from '@/contexts/network_context'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 
-import type { SlChangeEvent, SlSelect } from '@shoelace-style/shoelace'
+import type { SlChangeEvent } from '@shoelace-style/shoelace'
+import { CCard } from '../reusables/c-card'
+import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js"
 
-export @customElement('layer-incoming-connections-card') class LayerIncomingConnectionsCard extends LitElementWw {
+export class LayerIncomingConnectionsCard extends LitElementWw {
+  
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-select": SlSelect
+  }
+  
   @property()
   accessor layer: CLayer
 

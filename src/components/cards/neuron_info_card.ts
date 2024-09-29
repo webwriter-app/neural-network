@@ -8,8 +8,16 @@ import { globalStyles } from '@/global_styles'
 import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import type { CNeuron } from '@/components/network/neuron'
+import { CCard } from '../reusables/c-card'
+import { CNetworkLink } from '../reusables/c-network-link'
 
-export @customElement('neuron-info-card') class NeuronInfoCard extends LitElementWw {
+export class NeuronInfoCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "c-network-link": CNetworkLink
+  }
+  
   @property({ attribute: false })
   accessor neuron: CNeuron
 

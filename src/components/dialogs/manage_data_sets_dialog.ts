@@ -7,9 +7,20 @@ import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
 
-import type { SlDialog } from '@shoelace-style/shoelace'
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js"
+import SlTag from "@shoelace-style/shoelace/dist/components/tag/tag.component.js"
+import { CCard } from '../reusables/c-card'
 
-export @customElement('manage-data-sets-dialog') class ManageDataSetsDialog extends LitElementWw {
+export class ManageDataSetsDialog extends LitElementWw {
+
+  static scopedElements = {
+    "sl-dialog": SlDialog,
+    "sl-button": SlButton,
+    "sl-tag": SlTag,
+    "c-card": CCard
+  }
+
   @consume({ context: dataSetContext, subscribe: true })
   accessor dataSet: DataSet
 
@@ -35,7 +46,7 @@ export @customElement('manage-data-sets-dialog') class ManageDataSetsDialog exte
   handleDeleteDataSet(e: MouseEvent) {
     this.dispatchEvent(
       new CustomEvent<string>('delete-data-set', {
-        detail: <string>e.target.name,
+        detail: (e.target as any).name,
         bubbles: true,
         composed: true,
       })

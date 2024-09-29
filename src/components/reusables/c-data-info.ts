@@ -8,7 +8,16 @@ import type { DataSet } from '@/types/data_set'
 import type { FeatureDesc } from '@/types/feature_desc'
 import type { LabelDesc } from '@/types/label_desc'
 
-export @customElement('c-data-info') class CDataInfo extends LitElementWw {
+import SlTooltip from "@shoelace-style/shoelace/dist/components/tooltip/tooltip.component.js"
+import SlTag from "@shoelace-style/shoelace/dist/components/tag/tag.component.js"
+
+export class CDataInfo extends LitElementWw {
+  
+  static scopedElements = {
+    "sl-tooltip": SlTooltip,
+    "sl-tag": SlTag
+  }
+
   @property()
   accessor type: 'feature' | 'label'
 

@@ -7,8 +7,23 @@ import { globalStyles } from '@/global_styles'
 
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
+import { CCard } from '../reusables/c-card'
 
-export @customElement('core-model-features-unavailable-card') class CoreModelFeaturesUnavailableCard extends LitElementWw {
+import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+import SlIcon from "@shoelace-style/shoelace/dist/components/icon/icon.component.js"
+import SlTooltip from "@shoelace-style/shoelace/dist/components/tooltip/tooltip.component.js"
+
+import IconLabelCounterclockwise from "bootstrap-icons/icons/arrow-counterclockwise.svg"
+
+export class CoreModelFeaturesUnavailableCard extends LitElementWw {
+
+  static scopedElements = {
+    "c-card": CCard,
+    "sl-tooltip": SlTooltip,
+    "sl-icon": SlIcon,
+    "sl-button": SlButton 
+  }
+
   @consume({ context: modelConfContext, subscribe: true })
   accessor modelConf: ModelConf
 
@@ -50,7 +65,7 @@ export @customElement('core-model-features-unavailable-card') class CoreModelFea
                     @click="${(_e: MouseEvent) => this.handleDiscardModel()}"
                   >
                     <sl-icon
-                      name="arrow-counterclockwise"
+                      src=${IconLabelCounterclockwise}
                       label="Discard"
                     ></sl-icon>
                     Discard model

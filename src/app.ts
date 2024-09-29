@@ -1,9 +1,10 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html, css } from 'lit'
+import { CSSResult, TemplateResult, html, css, PropertyDeclarations } from 'lit'
 import { customElement, property /* , query */, state } from 'lit/decorators.js'
-import { provide } from '@lit/context'
+import { ContextRoot, provide } from '@lit/context'
 
-import '@/imports'
+import '@shoelace-style/shoelace/dist/themes/light.css'
+import '@shoelace-style/shoelace/dist/themes/dark.css'
 
 import { globalStyles } from '@/global_styles'
 
@@ -31,7 +32,7 @@ import { canvasContext } from '@/contexts/canvas_context'
 
 import type { CLayerConf } from '@/types/c_layer_conf'
 import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
-import type { CNetwork } from '@/components/network/network'
+import { CNetwork } from '@/components/network/network'
 import { networkContext } from '@/contexts/network_context'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
@@ -67,122 +68,226 @@ import { themeContext } from '@/contexts/theme_context'
 import { ThemeController } from '@/controllers/theme_controller'
 import { ThemeUtils } from '@/utils/theme_utils'
 
-import '@/components/network/network'
-import '@/components/canvas_area'
-import '@/components/menu_area'
-import '@/components/theme_switch'
+import { CCanvasArea } from '@/components/canvas_area'
+import { MenuArea } from '@/components/menu_area'
+import { ThemeSwitch } from './components/theme_switch'
+import { ContextProvider } from '@lit/context'
 
-export class WwDeepLearning extends LitElementWw {
+export class NeuralNetwork extends LitElementWw {
+
+  static properties: PropertyDeclarations = {
+    setupStatus: { attribute: false },
+    editable: { attribute: true, type: Boolean, reflect: true },
+    settings: { attribute: true, type: Object, reflect: true },
+    qAndA: { attribute: true, type: Object, reflect: true },
+    canvas: {attribute: false},
+    network: {attribute: false},
+    layerConfs: { attribute: true, type: Array, reflect: true },
+    layerConnectionConfs: { attribute: true, type: Array, reflect: true },
+    dataSet: { attribute: true, type: Object, reflect: true },
+    availableDataSets: { attribute: true, type: Array, reflect: true },
+    trainOptions: { attribute: true, type: Object, reflect: true },
+    modelConf: { attribute: false },
+    selected: { attribute: false },
+    selectedEle: { attribute: false },
+    panel: { attribute: false },
+    theme: { attribute: false }
+  }
+
+  constructor() {
+    super()
+    this.setupStatusProvider = new ContextProvider(this, {context: setupStatusContext, initialValue: SetupUtils.defaultSetupStatus})
+    this.editableProvider = new ContextProvider(this, {context: editableContext, initialValue: false})
+    this.settingsProvider = new ContextProvider(this, {context: settingsContext, initialValue: JSON.parse(JSON.stringify(SettingsUtils.defaultSettings))})
+    this.qAndAProvider = new ContextProvider(this, {context: qAndAContext, initialValue: [...QAndAUtils.defaultQAndA]})
+    this.canvasProvider = new ContextProvider(this, {context: canvasContext})
+    this.networkProvider = new ContextProvider(this, {context: networkContext})
+    this.layerConfsProvider = new ContextProvider(this, {context: layerConfsContext, initialValue: []})
+    this.layerConnectionConfsProvider = new ContextProvider(this, {context: layerConnectionConfsContext, initialValue: []})
+    this.dataSetProvider = new ContextProvider(this, {context: dataSetContext, initialValue: DataSetUtils.defaultDataSet})
+    this.availableDataSetsProvider = new ContextProvider(this, {context: availableDataSetsContext, initialValue: DataSetUtils.defaultAvailableDataSets})
+    this.trainOptionsProvider = new ContextProvider(this, {context: trainOptionsContext, initialValue: <TrainOptions>(JSON.parse(JSON.stringify(ModelUtils.defaultTrainOptions)))})
+    this.modelConfProvider = new ContextProvider(this, {context: modelConfContext, initialValue: <ModelConf>(JSON.parse(JSON.stringify(ModelUtils.defaultModelConf)))})
+    this.selectedProvider = new ContextProvider(this, {context: selectedContext, initialValue: {}})
+    this.selectedEleProvider = new ContextProvider(this, {context: selectedEleContext})
+    this.panelProvider = new ContextProvider(this, {context: panelContext})
+    this.themeProvider = new ContextProvider(this, {context: themeContext, initialValue: ThemeUtils.lightTheme})
+  }
+
+  setupStatusProvider: ContextProvider<any, NeuralNetwork>
+  editableProvider: ContextProvider<any, NeuralNetwork>
+  settingsProvider: ContextProvider<any, NeuralNetwork>
+  qAndAProvider: ContextProvider<any, NeuralNetwork>
+  canvasProvider: ContextProvider<any, NeuralNetwork>
+  networkProvider: ContextProvider<any, NeuralNetwork>
+  layerConfsProvider: ContextProvider<any, NeuralNetwork>
+  layerConnectionConfsProvider: ContextProvider<any, NeuralNetwork>
+  dataSetProvider: ContextProvider<any, NeuralNetwork>
+  availableDataSetsProvider: ContextProvider<any, NeuralNetwork>
+  trainOptionsProvider: ContextProvider<any, NeuralNetwork>
+  modelConfProvider: ContextProvider<any, NeuralNetwork>
+  selectedProvider: ContextProvider<any, NeuralNetwork>
+  selectedEleProvider: ContextProvider<any, NeuralNetwork>
+  panelProvider: ContextProvider<any, NeuralNetwork>
+  themeProvider: ContextProvider<any, NeuralNetwork>
+
+  connectedCallback(): void {
+    super.connectedCallback()
+    const root = new ContextRoot();
+    root.attach(document.body);
+  }
+
+  static scopedElements = {
+    "canvas-area": CCanvasArea,
+    "menu-area": MenuArea,
+    "c-network": CNetwork,
+    "theme-switch": ThemeSwitch
+  }
   // DATA PROVIDERS AND CONTROLLERS  - - - - - - - - - - - - - - - - - - - - - -
   configurationController = new ConfigurationController(this)
 
   // -> SETUP STATUS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @provide({ context: setupStatusContext })
-  @property({ attribute: false })
-  accessor setupStatus: SetupStatus = SetupUtils.defaultSetupStatus
-
+  get setupStatus() {
+    return this.setupStatusProvider.value
+  }
+  set setupStatus(value) {
+    this.setupStatusProvider.setValue(value)
+    this.requestUpdate("setupStatus")
+  }
   setupController = new SetupController(this)
 
   // -> EDITABLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @provide({ context: editableContext })
-  @property({ attribute: true, type: Boolean, reflect: true })
-  accessor editable: boolean = false
+  get editable() {
+    return this.editableProvider.value
+  }
+  set editable(value) {
+    this.editableProvider.setValue(value)
+    this.requestUpdate("editable")
+  }
 
   // -> SETTINGS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @provide({ context: settingsContext })
-  @property({ attribute: true, type: Object, reflect: true })
-  accessor settings: Settings = <Settings>(
-    JSON.parse(JSON.stringify(SettingsUtils.defaultSettings))
-  )
-
+  get settings() {
+    return this.settingsProvider.value
+  }
+  set settings(value) {
+    this.settingsProvider.setValue(value)
+    this.requestUpdate("settings")
+  }
   settingsController = new SettingsController(this)
 
   // -> HELP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @provide({ context: qAndAContext })
-  @property({ attribute: true, type: Object, reflect: true })
-  accessor qAndA: QAndAEntry[] = [...QAndAUtils.defaultQAndA]
-
+  get qAndA() {
+    return this.qAndAProvider.value
+  }
+  set qAndA(value) {
+    this.qAndAProvider.setValue(value)
+    this.requestUpdate("qAndA")
+  }
   qAndAController = new QAndAController(this)
 
   // -> CANVAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @provide({ context: canvasContext })
-  @property({ attribute: false })
-  accessor canvas: CCanvas
+  get canvas() {
+    return this.canvasProvider.value
+  }
+  set canvas(value) {
+    this.canvasProvider.setValue(value)
+    this.requestUpdate("canvas")
+  }
 
   // -> NETWORK  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @provide({ context: networkContext })
-  @property({ attribute: false })
-  accessor network: CNetwork
-
-  @provide({ context: layerConfsContext })
-  @property({ attribute: true, type: Array, reflect: true })
-  accessor layerConfs: CLayerConf[] = []
-
-  @provide({ context: layerConnectionConfsContext })
-  @property({ attribute: true, type: Array, reflect: true })
-  accessor layerConnectionConfs: CLayerConnectionConf[] = []
-
+  get network() {
+    return this.networkProvider.value
+  }
+  set network(value) {
+    this.networkProvider.setValue(value)
+    this.requestUpdate("network")
+  }
+  get layerConfs() {
+    return this.layerConfsProvider.value
+  }
+  set layerConfs(value) {
+    this.layerConfsProvider.setValue(value)
+    this.requestUpdate("layerConfs")
+  }
+  get layerConnectionConfs() {
+    return this.layerConnectionConfsProvider.value
+  }
+  set layerConnectionConfs(value) {
+    this.layerConnectionConfsProvider.setValue(value)
+    this.requestUpdate("layerConnectionConfs")
+  }
   networkController = new NetworkController(this)
 
   // -> DATA SET - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @provide({ context: dataSetContext })
-  @property({ attribute: true, type: Object, reflect: true })
-  accessor dataSet: DataSet = DataSetUtils.defaultDataSet
-
-  @provide({ context: availableDataSetsContext })
-  @property({ attribute: true, type: Array, reflect: true })
-  accessor availableDataSets: DataSet[] = DataSetUtils.defaultAvailableDataSets
-
+  get dataSet() {
+    return this.dataSetProvider.value
+  }
+  set dataSet(value) {
+    this.dataSetProvider.setValue(value)
+    this.requestUpdate("dataSet")
+  }
+  get availableDataSets() {
+    return this.availableDataSetsProvider.value
+  }
+  set availableDataSets(value) {
+    this.availableDataSetsProvider.setValue(value)
+    this.requestUpdate("availableDataSets")
+  }
   dataSetController = new DataSetController(this)
 
   // -> MODEL  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @provide({ context: trainOptionsContext })
-  @property({ attribute: true, type: Object, reflect: true })
-  accessor trainOptions: TrainOptions = <TrainOptions>(
-    JSON.parse(JSON.stringify(ModelUtils.defaultTrainOptions))
-  )
-
-  // HTML container where metrics like accuracy and loss are plotted into
-  @state()
-  accessor trainMetricsContainer: HTMLDivElement
-
-  @provide({ context: modelConfContext })
-  @property({ attribute: false })
-  accessor modelConf: ModelConf = <ModelConf>(
-    JSON.parse(JSON.stringify(ModelUtils.defaultModelConf))
-  )
-
+  get trainOptions() {
+    return this.trainOptionsProvider.value
+  }
+  set trainOptions(value) {
+    this.trainOptionsProvider.setValue(value)
+    this.requestUpdate("trainOptions")
+  }
+  get modelConf() {
+    return this.modelConfProvider.value
+  }
+  set modelConf(value) {
+    this.modelConfProvider.setValue(value)
+    this.requestUpdate("modelConf")
+  }
+  trainMetricsContainer: HTMLDivElement
   modelController = new ModelController(this)
 
   // -> SELECTED - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @provide({ context: selectedContext })
-  @property({ attribute: false })
-  accessor selected: Selected = {}
-
+  get selected() {
+    return this.selectedProvider.value
+  }
+  set selected(value) {
+    this.selectedProvider.setValue(value)
+    this.requestUpdate("selected")
+  }
+  get selectedEle() {
+    return this.selectedEleProvider.value
+  }
+  set selectedEle(value) {
+    this.selectedEleProvider.setValue(value)
+    this.requestUpdate("selectedEle")
+  }
   selectionController = new SelectionController(this)
 
-  @provide({ context: selectedEleContext })
-  @property({ attribute: false })
-  accessor selectedEle: SelectedEle
-
   // -> PANELS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @provide({ context: panelContext })
-  @property({ attribute: false })
-  accessor panel: string
-
+  get panel() {
+    return this.panelProvider.value
+  }
+  set panel(value) {
+    this.panelProvider.setValue(value)
+    this.requestUpdate("panel")
+  }
   panelController = new PanelController(this)
 
-  // -> ALERTS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  /* @query('.sl-toast-stack')
-  _alertStack
-
-  alertController = new AlertController(this) */
-
   // -> THEME  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @provide({ context: themeContext })
-  @property({ attribute: false })
-  accessor theme: Theme = ThemeUtils.lightTheme
-
+  get theme() {
+    return this.themeProvider.value
+  }
+  set theme(value) {
+    this.themeProvider.setValue(value)
+    this.requestUpdate("theme")
+  }
   themeController = new ThemeController(this)
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -190,7 +295,8 @@ export class WwDeepLearning extends LitElementWw {
     globalStyles,
     css`
       :host {
-        height: 100vh;
+        min-height: 400px;
+        height: 100%;
         display: flex;
         flex-direction: row;
         overflow: hidden;
@@ -263,7 +369,7 @@ export class WwDeepLearning extends LitElementWw {
 
     renderedHTML.push(
       html`<style>
-        ${this.theme.styles}
+        ${(this.theme as any).styles}
       </style>`
     )
     renderedHTML.push(html` <canvas-area
@@ -273,7 +379,7 @@ export class WwDeepLearning extends LitElementWw {
       }}"
     >
     </canvas-area>`)
-    if (this.setupStatus.loading) {
+    if ((this.setupStatus as any).loading) {
       renderedHTML.push(html`
         <div id="loadingPage">
           <div id="loadingDiv">
@@ -296,9 +402,9 @@ export class WwDeepLearning extends LitElementWw {
         <c-network></c-network>
       `)
     }
-    renderedHTML.push(html`<theme-switch></theme-switch>`)
+    // renderedHTML.push(html`<theme-switch></theme-switch>`)
     return renderedHTML
   }
 }
 
-customElements.define("ww-deep-learning", WwDeepLearning)
+customElements.define("webwriter-neural-network", NeuralNetwork)
