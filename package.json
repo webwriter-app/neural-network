@@ -1,6 +1,6 @@
 {
   "name": "@webwriter/neural-network",
-  "version": "0.1.4",
+  "version": "1.0.0",
   "author": "Christian Koch",
   "license": "MIT",
   "type": "module",
@@ -19,8 +19,7 @@
     "webwriter-widget"
   ],
   "scripts": {
-    "prepublishOnly": "npx @webwriter/build",
-    "dev": ""
+    "prepublishOnly": "npx @webwriter/build"
   },
   "dependencies": {
     "@lit/context": "^1.1.2",
