@@ -19,13 +19,10 @@ This widget adds a deep learning simulation to WebWriter. As a teacher, you can:
 - validation for creating data sets is missing at some parts
 - when clicking on quick setup options, nothing happens
 
-### Crucial features not yet implemented
+## Usage
 
-- show weights (on edges)
+### Publishing outside of WebWriter
 
-### Planned features
-
-- explain the loss function
-- allow choosing the number of training epochs
-- allow seeing raw data
-- allow hiding plots and raw data
+The project can be built for different platforms by using the premade vite build config. For this, run `vite build --config vite.config.js`. When using npm, the command can be executed with `npm run
+create`. You can test the result either by using `npm run start` or by using a different tool for serving locally. Note that an index html file needs to be placed inside the dist folder for the project to
+work properly in a browser. In general, make sure that you specify the correct paths to access the custom assets.

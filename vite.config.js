@@ -18,6 +18,10 @@ export default defineConfig({
           src: '../node_modules/@shoelace-style/shoelace/dist/assets',
           dest: 'shoelace',
         },
+        { 
+          src: './assets',
+          dest: ''
+        }
       ],
     }),
   ],
@@ -40,5 +44,8 @@ export default defineConfig({
   esbuild: {
     target: "es2022",
     exclude: [],
+  },
+  define: {
+    'process.env': {}
   }
 })

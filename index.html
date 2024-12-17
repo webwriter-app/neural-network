@@ -2,8 +2,8 @@
 <html encoding="utf8">
   <head>
     <title>WebWriter Deep Learning</title>
-    <script src="./dist/webwriter-neural-network.js" type="module"></script>
-    <link rel="stylesheet" href="./dist/webwriter-neural-network.css" type="text/css"></script>
+    <script src="app.js" type="module"></script>
+    <link rel="stylesheet" href="style.css" type="text/css"></script>
     <style>
       html,
       body {
@@ -22,7 +22,7 @@
       <input
         type="checkbox"
         id="editableInput"
-        onchange="document.querySelector('webwriter-neural-network').toggleAttribute('editable')"
+        onchange="document.querySelector('webwriter-neural-network').toggleAttribute('contenteditable')"
       />
       <label for="editableInput">editable</label>
     </form>

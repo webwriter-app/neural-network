@@ -73,6 +73,8 @@ import { MenuArea } from '@/components/menu_area'
 import { ThemeSwitch } from './components/theme_switch'
 import { ContextProvider } from '@lit/context'
 
+import '@webcomponents/scoped-custom-element-registry';
+
 export class NeuralNetwork extends LitElementWw {
 
   static properties: PropertyDeclarations = {
@@ -325,7 +327,7 @@ export class NeuralNetwork extends LitElementWw {
 
       canvas-area {
         width: calc(100% - 450px);
-        height: 100%;
+        height: 100vh;
       }
 
       canvas-area.right-collapsed {
@@ -393,7 +395,6 @@ export class NeuralNetwork extends LitElementWw {
         <div id="divider" class="${!this.panel ? 'hidden' : ''}"></div>
 
         <menu-area
-          part="options"
           class="${!this.panel ? 'right-collapsed' : ''}"
           @set-train-metrics-container="${(e: CustomEvent<HTMLDivElement>) =>
             this.modelController.setTrainMetricsContainer(e.detail)}"

@@ -19,6 +19,8 @@
     "webwriter-widget"
   ],
   "scripts": {
+    "start": "vite preview",
+    "create": "vite build --config vite.config.js",
     "prepublishOnly": "npx @webwriter/build"
   },
   "dependencies": {
@@ -27,6 +29,7 @@
     "@tensorflow/tfjs": "^4.2.0",
     "@tensorflow/tfjs-vis": "^1.5.1",
     "@types/cytoscape": "^3.21.6",
+    "@webcomponents/scoped-custom-element-registry": "^0.0.9",
     "@webwriter/create-widget": "^0.4.2",
     "@webwriter/lit": "^2.0.0",
     "bootstrap-icons": "^1.11.3",
@@ -47,5 +50,8 @@
     "typescript": "^5.5.4",
     "vite": "^5.4.2",
     "vite-plugin-static-copy": "^1.0.6"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-win32-x64-msvc": "4.20.0"
   }
 }
