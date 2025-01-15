@@ -1,6 +1,6 @@
 {
   "name": "@webwriter/neural-network",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": "Christian Koch",
   "license": "MIT",
   "type": "module",
@@ -20,7 +20,7 @@
   ],
   "scripts": {
     "start": "vite preview",
-    "create": "vite build --config vite.config.js",
+    "create": "vite build --config vite.config.js && copyfiles index.html ./dist",
     "prepublishOnly": "npx @webwriter/build"
   },
   "dependencies": {
@@ -43,6 +43,7 @@
     "@typescript-eslint/eslint-plugin": "^8.2.0",
     "@typescript-eslint/parser": "^8.2.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "copyfiles": "^2.4.1",
     "eslint": "^9.9.0",
     "eslint-plugin-lit": "^1.14.0",
     "eslint-plugin-wc": "^2.1.1",

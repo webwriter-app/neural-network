@@ -57,6 +57,7 @@ export class PlotsCard extends LitElementWw {
           height: 240,
         }
       )
+      container.style.pointerEvents = "none"
 
       return html`${parentContainer}`
     } else {

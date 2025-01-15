@@ -81,19 +81,26 @@ export class MenuArea extends LitElementWw {
       }
 
       #rightMenuTabs {
-        position: absolute;
-        top: 10px;
-        right: 460px;
-        width: 90px;
-        display: grid;
-        gap: 10px;
+        margin-top: 10px;
+        margin-left: 10px;
+        position: relative;
+        display: flex;
+        column-gap: 15px;
+        row-gap: 5px;
+        flex-wrap: wrap
       }
 
       #rightMenuPanel {
-        width: 100%;
-        height: 100%;
+        width: 350px;
+        height: calc(100% - 100px);
         overflow: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
         padding: 10px;
+      }
+
+      #rightMenuPanel::-webkit-scrollbar {
+        display: none;
       }
 
       #rightMenuPanel.collapsed {

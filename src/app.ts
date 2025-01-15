@@ -1,5 +1,5 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html, css, PropertyDeclarations } from 'lit'
+import { CSSResult, TemplateResult, html, css, PropertyDeclarations, PropertyValues } from 'lit'
 import { customElement, property /* , query */, state } from 'lit/decorators.js'
 import { ContextRoot, provide } from '@lit/context'
 
@@ -77,6 +77,7 @@ import '@webcomponents/scoped-custom-element-registry';
 
 export class NeuralNetwork extends LitElementWw {
 
+
   static properties: PropertyDeclarations = {
     setupStatus: { attribute: false },
     editable: { attribute: true, type: Boolean, reflect: true },
@@ -137,6 +138,23 @@ export class NeuralNetwork extends LitElementWw {
     super.connectedCallback()
     const root = new ContextRoot();
     root.attach(document.body);
+  }
+
+  protected firstUpdated(_changedProperties: PropertyValues): void {
+      super.firstUpdated(_changedProperties)
+      this.editable = this.hasAttribute("contenteditable")
+
+    try {
+      if(this.parentElement.parentElement.id.includes("ww-")){
+        this.style.width = "800px"
+        this.style.height = "600px"
+      }else{
+        this.style.width = "100vw"
+        this.style.height = "100vh"
+      }
+    } catch (error) {
+      console.log("fehler", error)   
+    }
   }
 
   static scopedElements = {
@@ -297,9 +315,16 @@ export class NeuralNetwork extends LitElementWw {
     globalStyles,
     css`
       :host {
+        display: flex!important;
+        flex-direction: row;
+        overflow: hidden;
+        background-color: var(--sl-color-neutral-0);
+      }
+
+      :host.embedded {
         min-height: 400px;
         height: 100%;
-        display: flex;
+        display: flex!important;
         flex-direction: row;
         overflow: hidden;
         background-color: var(--sl-color-neutral-0);
@@ -326,8 +351,8 @@ export class NeuralNetwork extends LitElementWw {
       }
 
       canvas-area {
-        width: calc(100% - 450px);
-        height: 100vh;
+        width: calc(100% - 350px);
+        height: 100%;
       }
 
       canvas-area.right-collapsed {
@@ -335,7 +360,7 @@ export class NeuralNetwork extends LitElementWw {
       }
 
       menu-area {
-        width: 450px;
+        width: 100%;
       }
 
       menu-area.right-collapsed {
@@ -344,7 +369,7 @@ export class NeuralNetwork extends LitElementWw {
 
       #divider {
         position: absolute;
-        right: 449px;
+        right: 350px;
         width: 2px;
         top: 10px;
         bottom: 10px;

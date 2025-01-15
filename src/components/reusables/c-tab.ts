@@ -25,7 +25,7 @@ export class CTab extends LitElementWw {
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = css`
     sl-button {
-      width: 100%;
+      width: 100px;
     }
 
     :host([colored]) sl-button::part(base) {
