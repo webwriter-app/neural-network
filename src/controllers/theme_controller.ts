@@ -21,14 +21,17 @@ export class ThemeController implements ReactiveController {
 
     // set the default theme based on the user's preffered color scheme (if
     // supported)
-    if (
-      window.matchMedia &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-    ) {
-      this.setTheme(ThemeUtils.darkTheme)
-    } else {
-      this.setTheme(ThemeUtils.lightTheme)
-    }
+    // if (
+    //   window.matchMedia &&
+    //   window.matchMedia('(prefers-color-scheme: dark)').matches
+    // ) {
+    //   this.setTheme(ThemeUtils.darkTheme)
+    // } else {
+    //   this.setTheme(ThemeUtils.lightTheme)
+    // }
+
+    // set light theme regardless of color scheme to math webwriter aesthetic
+    this.setTheme(ThemeUtils.lightTheme)
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

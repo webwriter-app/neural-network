@@ -153,7 +153,7 @@ export class NeuralNetwork extends LitElementWw {
         this.style.height = "100vh"
       }
     } catch (error) {
-      console.log("fehler", error)   
+      console.log("Fehler: ", error)   
     }
   }
 
