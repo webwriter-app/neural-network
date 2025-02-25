@@ -1,6 +1,6 @@
 {
   "name": "@webwriter/neural-network",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Christian Koch",
   "license": "MIT",
   "type": "module",
@@ -9,7 +9,8 @@
     "./widgets/webwriter-neural-network.*": {
       "source": "./src/app.ts",
       "default": "./dist/webwriter-neural-network.*"
-    }
+    },
+    "./icon": "./icon.svg"
   },
   "files": [
     "dist",
