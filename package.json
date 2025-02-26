@@ -1,23 +1,15 @@
 {
   "name": "@webwriter/neural-network",
-  "version": "1.0.4",
-  "author": "Christian Koch",
-  "license": "MIT",
-  "type": "module",
+  "version": "1.0.5",
   "description": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
-  "exports": {
-    "./widgets/webwriter-neural-network.*": {
-      "source": "./src/app.ts",
-      "default": "./dist/webwriter-neural-network.*"
-    },
-    "./icon": "./icon.svg"
-  },
+  "keywords": [
+    "webwriter-widget"
+  ],
+  "license": "MIT",
+  "author": "Christian Koch",
   "files": [
     "dist",
     "src"
-  ],
-  "keywords": [
-    "webwriter-widget"
   ],
   "scripts": {
     "start": "vite preview",
@@ -55,5 +47,15 @@
   },
   "optionalDependencies": {
     "@rollup/rollup-win32-x64-msvc": "4.20.0"
+  },
+  "type": "module",
+  "exports": {
+    "./widgets/webwriter-neural-network.*": {
+      "source": "./src/app.ts",
+      "default": "./dist/webwriter-neural-network.*"
+    },
+    "./snippets/Pima-Indians-Diabetes.html": "./snippets/Pima-Indians-Diabetes.html",
+    "./snippets/Boston-House-Pricing.html": "./snippets/Boston-House-Pricing.html",
+    "./icon": "./icon.svg"
   }
 }

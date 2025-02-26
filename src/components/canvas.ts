@@ -1,5 +1,5 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html, css } from 'lit'
+import { CSSResult, TemplateResult, html, css, PropertyValues } from 'lit'
 import { customElement, state, query, property } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
@@ -125,6 +125,14 @@ export class CCanvas extends LitElementWw {
         )
       }
     })
+  }
+
+  protected firstUpdated(_changedProperties: PropertyValues): void {
+      super.firstUpdated(_changedProperties)
+      cytoscape.warnings(false)
+      setTimeout(()=>{
+        this.fit()
+      }, 100)
   }
 
   updated(changedProperties: Map<string, unknown>): void {
