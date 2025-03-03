@@ -1,6 +1,6 @@
 {
     "name": "@webwriter/neural-network",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
     "keywords": [
         "webwriter-widget"
@@ -54,8 +54,8 @@
             "source": "./src/app.ts",
             "default": "./dist/webwriter-neural-network.*"
         },
-        "./snippets/Pima-Indians-Diabetes.html": "./snippets/Pima-Indians-Diabetes.html",
-        "./snippets/Boston-House-Pricing.html": "./snippets/Boston-House-Pricing.html",
+        "./snippets/pima-indians-diabetes.html": "./snippets/pima-indians-diabetes.html",
+        "./snippets/boston-house-pricing.html": "./snippets/boston-house-pricing.html",
         "./icon": "./icon.svg"
     }
 }
