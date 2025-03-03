@@ -1,16 +1,12 @@
 {
     "name": "@webwriter/neural-network",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
     "keywords": [
         "webwriter-widget"
     ],
     "license": "MIT",
     "author": "Christian Koch",
-    "files": [
-        "dist",
-        "src"
-    ],
     "scripts": {
         "start": "vite preview",
         "create": "vite build --config vite.config.js && copyfiles index.html ./dist",
