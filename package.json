@@ -1,61 +1,61 @@
 {
-  "name": "@webwriter/neural-network",
-  "version": "1.0.5",
-  "description": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
-  "keywords": [
-    "webwriter-widget"
-  ],
-  "license": "MIT",
-  "author": "Christian Koch",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "scripts": {
-    "start": "vite preview",
-    "create": "vite build --config vite.config.js && copyfiles index.html ./dist",
-    "prepublishOnly": "npx @webwriter/build"
-  },
-  "dependencies": {
-    "@lit/context": "^1.1.2",
-    "@shoelace-style/shoelace": "^2.6.0",
-    "@tensorflow/tfjs": "^4.2.0",
-    "@tensorflow/tfjs-vis": "^1.5.1",
-    "@types/cytoscape": "^3.21.6",
-    "@webcomponents/scoped-custom-element-registry": "^0.0.9",
-    "@webwriter/create-widget": "^0.4.2",
-    "@webwriter/lit": "^2.0.0",
-    "bootstrap-icons": "^1.11.3",
-    "colorsea": "^1.2.2",
-    "cytoscape": "^3.30.2",
-    "lit": "^3.2.0"
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.24.7",
-    "@types/wicg-file-system-access": "^2023.10.5",
-    "@typescript-eslint/eslint-plugin": "^8.2.0",
-    "@typescript-eslint/parser": "^8.2.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "copyfiles": "^2.4.1",
-    "eslint": "^9.9.0",
-    "eslint-plugin-lit": "^1.14.0",
-    "eslint-plugin-wc": "^2.1.1",
-    "prettier": "^3.3.3",
-    "typescript": "^5.5.4",
-    "vite": "^5.4.2",
-    "vite-plugin-static-copy": "^1.0.6"
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-win32-x64-msvc": "4.20.0"
-  },
-  "type": "module",
-  "exports": {
-    "./widgets/webwriter-neural-network.*": {
-      "source": "./src/app.ts",
-      "default": "./dist/webwriter-neural-network.*"
+    "name": "@webwriter/neural-network",
+    "version": "1.0.6",
+    "description": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
+    "keywords": [
+        "webwriter-widget"
+    ],
+    "license": "MIT",
+    "author": "Christian Koch",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "scripts": {
+        "start": "vite preview",
+        "create": "vite build --config vite.config.js && copyfiles index.html ./dist",
+        "prepublishOnly": "npx @webwriter/build"
     },
-    "./snippets/Pima-Indians-Diabetes.html": "./snippets/Pima-Indians-Diabetes.html",
-    "./snippets/Boston-House-Pricing.html": "./snippets/Boston-House-Pricing.html",
-    "./icon": "./icon.svg"
-  }
+    "dependencies": {
+        "@lit/context": "^1.1.2",
+        "@shoelace-style/shoelace": "^2.6.0",
+        "@tensorflow/tfjs": "^4.2.0",
+        "@tensorflow/tfjs-vis": "^1.5.1",
+        "@types/cytoscape": "^3.21.6",
+        "@webcomponents/scoped-custom-element-registry": "^0.0.9",
+        "@webwriter/create-widget": "^0.4.2",
+        "@webwriter/lit": "^2.0.0",
+        "bootstrap-icons": "^1.11.3",
+        "colorsea": "^1.2.2",
+        "cytoscape": "^3.30.2",
+        "lit": "^3.2.0"
+    },
+    "devDependencies": {
+        "@babel/plugin-proposal-decorators": "^7.24.7",
+        "@types/wicg-file-system-access": "^2023.10.5",
+        "@typescript-eslint/eslint-plugin": "^8.2.0",
+        "@typescript-eslint/parser": "^8.2.0",
+        "@vitejs/plugin-react": "^4.3.1",
+        "copyfiles": "^2.4.1",
+        "eslint": "^9.9.0",
+        "eslint-plugin-lit": "^1.14.0",
+        "eslint-plugin-wc": "^2.1.1",
+        "prettier": "^3.3.3",
+        "typescript": "^5.5.4",
+        "vite": "^5.4.2",
+        "vite-plugin-static-copy": "^1.0.6"
+    },
+    "optionalDependencies": {
+        "@rollup/rollup-win32-x64-msvc": "4.20.0"
+    },
+    "type": "module",
+    "exports": {
+        "./widgets/webwriter-neural-network.*": {
+            "source": "./src/app.ts",
+            "default": "./dist/webwriter-neural-network.*"
+        },
+        "./snippets/Pima-Indians-Diabetes.html": "./snippets/Pima-Indians-Diabetes.html",
+        "./snippets/Boston-House-Pricing.html": "./snippets/Boston-House-Pricing.html",
+        "./icon": "./icon.svg"
+    }
 }
