@@ -397,6 +397,12 @@ export class NeuralNetwork extends LitElementWw {
     renderedHTML.push(
       html`<style>
         ${(this.theme as any).styles}
+        :host{
+          border-width: 2px;
+          border-style: solid;
+          border-radius: 5px;
+          border-color: #6a6a6a;
+        }
       </style>`
     )
     renderedHTML.push(html` <canvas-area

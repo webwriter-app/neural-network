@@ -1,6 +1,6 @@
 {
     "name": "@webwriter/neural-network",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
     "keywords": [
         "webwriter-widget"
@@ -20,7 +20,7 @@
         "@types/cytoscape": "^3.21.6",
         "@webcomponents/scoped-custom-element-registry": "^0.0.9",
         "@webwriter/create-widget": "^0.4.2",
-        "@webwriter/lit": "^2.0.0",
+        "@webwriter/lit": "^2.1.6",
         "bootstrap-icons": "^1.11.3",
         "colorsea": "^1.2.2",
         "cytoscape": "^3.30.2",
