@@ -3,7 +3,18 @@
     "version": "1.0.9",
     "description": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
     "keywords": [
-        "webwriter-widget"
+        "webwriter-widget",
+        "widget-lang-en",
+        "iscedf2013-06",
+        "isced2011-2",
+        "isced2011-3",
+        "isced2011-4",
+        "isced2011-5",
+        "isced2011-6",
+        "neural network",
+        "neurons",
+        "training",
+        "predicting"
     ],
     "license": "MIT",
     "author": "Christian Koch",
