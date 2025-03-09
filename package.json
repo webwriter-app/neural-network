@@ -1,6 +1,6 @@
 {
     "name": "@webwriter/neural-network",
-    "version": "1.0.9",
+    "version": "1.1.0",
     "description": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
     "keywords": [
         "webwriter-widget",
@@ -24,32 +24,32 @@
         "prepublishOnly": "npx @webwriter/build"
     },
     "dependencies": {
-        "@lit/context": "^1.1.2",
-        "@shoelace-style/shoelace": "^2.6.0",
-        "@tensorflow/tfjs": "^4.2.0",
+        "@lit/context": "^1.1.4",
+        "@shoelace-style/shoelace": "^2.20.0",
+        "@tensorflow/tfjs": "^4.22.0",
         "@tensorflow/tfjs-vis": "^1.5.1",
-        "@types/cytoscape": "^3.21.6",
+        "@types/cytoscape": "^3.21.9",
         "@webcomponents/scoped-custom-element-registry": "^0.0.9",
         "@webwriter/create-widget": "^0.4.2",
         "@webwriter/lit": "^2.1.6",
         "bootstrap-icons": "^1.11.3",
         "colorsea": "^1.2.2",
-        "cytoscape": "^3.30.2",
-        "lit": "^3.2.0"
+        "cytoscape": "^3.31.1",
+        "lit": "^3.2.1"
     },
     "devDependencies": {
-        "@babel/plugin-proposal-decorators": "^7.24.7",
+        "@babel/plugin-proposal-decorators": "^7.25.9",
         "@types/wicg-file-system-access": "^2023.10.5",
-        "@typescript-eslint/eslint-plugin": "^8.2.0",
-        "@typescript-eslint/parser": "^8.2.0",
-        "@vitejs/plugin-react": "^4.3.1",
+        "@typescript-eslint/eslint-plugin": "^8.26.0",
+        "@typescript-eslint/parser": "^8.26.0",
+        "@vitejs/plugin-react": "^4.3.4",
         "copyfiles": "^2.4.1",
-        "eslint": "^9.9.0",
-        "eslint-plugin-lit": "^1.14.0",
-        "eslint-plugin-wc": "^2.1.1",
-        "prettier": "^3.3.3",
-        "typescript": "^5.5.4",
-        "vite": "^5.4.2",
+        "eslint": "^9.22.0",
+        "eslint-plugin-lit": "^1.15.0",
+        "eslint-plugin-wc": "^2.2.1",
+        "prettier": "^3.5.3",
+        "typescript": "^5.8.2",
+        "vite": "^5.4.14",
         "vite-plugin-static-copy": "^1.0.6"
     },
     "optionalDependencies": {
@@ -64,5 +64,12 @@
         "./snippets/pima-indians-diabetes.html": "./snippets/pima-indians-diabetes.html",
         "./snippets/boston-house-pricing.html": "./snippets/boston-house-pricing.html",
         "./icon": "./icon.svg"
+    },
+    "editingConfig": {
+        ".": {
+            "description": {
+                "de": "Visualisierung von Deep Learning für Feed-Forward-Netzwerke mit benutzerdefinierten Datensätzen, Training und Vorhersage." 
+            }
+        }
     }
 }

@@ -142,19 +142,11 @@ export class NeuralNetwork extends LitElementWw {
 
   protected firstUpdated(_changedProperties: PropertyValues): void {
       super.firstUpdated(_changedProperties)
-      this.editable = this.hasAttribute("contenteditable")
-
-    try {
-      if(this.parentElement.parentElement.id.includes("ww-")){
-        this.style.width = "800px"
-        this.style.height = "600px"
-      }else{
-        this.style.width = "100vw"
-        this.style.height = "100vh"
-      }
-    } catch (error) {
-      console.log("Fehler: ", error)   
-    }
+      setTimeout(() => {
+        const dim: DOMRect = this.getBoundingClientRect()
+        this.style.height = dim.height+"px"
+        this.style.width = dim.width+"px"
+      });
   }
 
   static scopedElements = {
@@ -322,8 +314,8 @@ export class NeuralNetwork extends LitElementWw {
       }
 
       :host.embedded {
-        min-height: 400px;
-        height: 100%;
+        /* min-height: 400px;
+        height: 100%; */
         display: flex!important;
         flex-direction: row;
         overflow: hidden;

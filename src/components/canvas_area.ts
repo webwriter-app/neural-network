@@ -17,6 +17,7 @@ import SlButton from "@shoelace-style/shoelace/dist/components/button/button.com
 import SlTooltip from "@shoelace-style/shoelace/dist/components/tooltip/tooltip.component.js"
 import SlIcon from "@shoelace-style/shoelace/dist/components/icon/icon.component.js"
 import IconZoomIn from "bootstrap-icons/icons/zoom-in.svg"
+import IconList from "bootstrap-icons/icons/list.svg"
 import IconZoomOut from "bootstrap-icons/icons/zoom-out.svg"
 import IconArrowsCollapse from "bootstrap-icons/icons/arrows-collapse.svg"
 
@@ -59,6 +60,25 @@ export class CCanvasArea extends LitElementWw {
 
   zoomOutCanvas() {
     this.canvas.zoomOut()
+  }
+
+  handleSideMenu() {
+    if(this.className === ""){
+      this.dispatchEvent(
+        new Event('close-all-panels', {
+          bubbles: true,
+          composed: true,
+        })
+      )
+    }else if(this.className === "right-collapsed"){
+      this.dispatchEvent(
+        new CustomEvent<string>('open-panel', {
+          detail: 'start',
+          bubbles: true,
+          composed: true,
+        })
+      )
+    }
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -118,6 +138,11 @@ export class CCanvasArea extends LitElementWw {
           `
         : html``}
       <div id="canvasActions">
+      <sl-tooltip content="Toggle Menu">
+          <sl-button @click="${(_e: MouseEvent) => this.handleSideMenu()}" circle>
+            <sl-icon src=${IconList}></sl-icon>
+          </sl-button>
+        </sl-tooltip>
         <sl-tooltip content="Zoom in">
           <sl-button @click="${(_e: MouseEvent) => this.zoomInCanvas()}" circle>
             <sl-icon src=${IconZoomIn}></sl-icon>
