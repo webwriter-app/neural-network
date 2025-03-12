@@ -1,9 +1,11 @@
 {
     "name": "@webwriter/neural-network",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
     "keywords": [
         "webwriter-widget",
+        "widget-simulational",
+        "widget-conceptual",
         "widget-lang-en",
         "iscedf2013-06",
         "isced2011-2",
@@ -11,6 +13,8 @@
         "isced2011-4",
         "isced2011-5",
         "isced2011-6",
+        "isced2011-7",
+        "isced2011-8",
         "neural network",
         "neurons",
         "training",
@@ -68,7 +72,7 @@
     "editingConfig": {
         ".": {
             "description": {
-                "de": "Visualisierung von Deep Learning für Feed-Forward-Netzwerke mit benutzerdefinierten Datensätzen, Training und Vorhersage." 
+                "de": "Visualisierung von Deep Learning für Feed-Forward-Netzwerke mit benutzerdefinierten Datensätzen, Training und Vorhersage."
             }
         }
     }
