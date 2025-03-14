@@ -99,6 +99,7 @@ export class CCanvasArea extends LitElementWw {
       position: absolute;
       left: 50%;
       top: 50%;
+      width: 70%;
       transform: translate(-50%, -50%);
       max-height: 100%;
       padding: 10px;

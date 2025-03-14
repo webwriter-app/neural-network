@@ -144,8 +144,8 @@ export class NeuralNetwork extends LitElementWw {
       super.firstUpdated(_changedProperties)
       setTimeout(() => {
         const dim: DOMRect = this.getBoundingClientRect()
-        this.style.height = dim.height+"px"
-        this.style.width = dim.width+"px"
+        this.style.height = dim.height - 4 +"px"
+        this.style.width = dim.width - 4 +"px"
       });
   }
 
@@ -311,6 +311,7 @@ export class NeuralNetwork extends LitElementWw {
         flex-direction: row;
         overflow: hidden;
         background-color: var(--sl-color-neutral-0);
+        height: 100%;
       }
 
       :host.embedded {
@@ -320,6 +321,7 @@ export class NeuralNetwork extends LitElementWw {
         flex-direction: row;
         overflow: hidden;
         background-color: var(--sl-color-neutral-0);
+      
       }
 
       #loadingPage {
