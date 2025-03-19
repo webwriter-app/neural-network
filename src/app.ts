@@ -401,6 +401,7 @@ export class NeuralNetwork extends LitElementWw {
     )
     renderedHTML.push(html` <canvas-area
       class="${!this.panel ? 'right-collapsed' : ''}"
+      @click=${()=>{this.dispatchEvent(new Event("focus"))}}
       @canvas-created="${(e: CustomEvent<CCanvas>) => {
         this.canvas = e.detail
       }}"
