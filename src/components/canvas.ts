@@ -133,6 +133,18 @@ export class CCanvas extends LitElementWw {
       setTimeout(()=>{
         this.fit()
       }, 100)
+      window.addEventListener('scroll', this.onScroll);
+  }
+  
+  disconnectedCallback() {
+      super.disconnectedCallback();
+      window.removeEventListener('scroll', this.onScroll);
+  }
+  
+  private onScroll = () => {
+      // Cytoscape caches container bounds which become outdated after scrolling.
+      // Calling resize() forces Cytoscape to update its internal bounds and correctly map mouse input.
+      this.cy.resize()
   }
 
   updated(changedProperties: Map<string, unknown>): void {
