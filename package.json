@@ -65,8 +65,8 @@
             "source": "./src/app.ts",
             "default": "./dist/webwriter-neural-network.*"
         },
-        "./snippets/pima-indians-diabetes.html": "./snippets/pima-indians-diabetes.html",
-        "./snippets/boston-house-pricing.html": "./snippets/boston-house-pricing.html",
+        "./snippets/Pima-Indians-Diabetes.html": "./snippets/Pima-Indians-Diabetes.html",
+        "./snippets/Boston-House-Pricing.html": "./snippets/Boston-House-Pricing.html",
         "./icon": "./icon.svg"
     },
     "editingConfig": {
