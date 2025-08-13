@@ -1,6 +1,6 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
-import { customElement, state } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
 import { editableContext } from '@/contexts/editable_context'
@@ -20,6 +20,8 @@ import IconZoomIn from "bootstrap-icons/icons/zoom-in.svg"
 import IconList from "bootstrap-icons/icons/list.svg"
 import IconZoomOut from "bootstrap-icons/icons/zoom-out.svg"
 import IconArrowsCollapse from "bootstrap-icons/icons/arrows-collapse.svg"
+import IconFullscreenMaximize from "bootstrap-icons/icons/fullscreen.svg";
+import IconFullscreenMinimize from "bootstrap-icons/icons/fullscreen-exit.svg";
 
 export class CCanvasArea extends LitElementWw {
 
@@ -45,6 +47,9 @@ export class CCanvasArea extends LitElementWw {
 
   @consume({ context: panelContext, subscribe: true })
   accessor panel: string
+
+  @property({ type: Boolean })
+  accessor fullscreen = false;
 
   @state()
   accessor isDragging: boolean = false
@@ -79,6 +84,16 @@ export class CCanvasArea extends LitElementWw {
         })
       )
     }
+  }
+
+  /**
+ * Forwards the fullscreen toggle event.
+ * @private
+ */
+  private async handleFullscreenToggle() {
+      this.dispatchEvent(
+        new Event('toggle-fullscreen', {})
+      )
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -139,7 +154,7 @@ export class CCanvasArea extends LitElementWw {
           `
         : html``}
       <div id="canvasActions">
-      <sl-tooltip content="Toggle Menu">
+        <sl-tooltip content="Toggle Menu">
           <sl-button @click="${(_e: MouseEvent) => this.handleSideMenu()}" circle>
             <sl-icon src=${IconList}></sl-icon>
           </sl-button>
@@ -160,6 +175,11 @@ export class CCanvasArea extends LitElementWw {
             circle
           >
             <sl-icon src=${IconZoomOut}></sl-icon>
+          </sl-button>
+        </sl-tooltip>
+        <sl-tooltip content=${this.fullscreen ? "Exit Fullscreen" : "Fullscreen"}>
+          <sl-button @click="${(_e: MouseEvent) => this.handleFullscreenToggle()}" circle>
+            <sl-icon src=${this.fullscreen ? IconFullscreenMinimize : IconFullscreenMaximize}></sl-icon>
           </sl-button>
         </sl-tooltip>
       </div>

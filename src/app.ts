@@ -74,6 +74,7 @@ import { ThemeSwitch } from './components/theme_switch'
 import { ContextProvider } from '@lit/context'
 
 import '@webcomponents/scoped-custom-element-registry';
+import { styleMap } from 'lit/directives/style-map.js'
 
 export class NeuralNetwork extends LitElementWw {
 
@@ -138,6 +139,32 @@ export class NeuralNetwork extends LitElementWw {
     super.connectedCallback()
     const root = new ContextRoot();
     root.attach(document.body);
+  }
+
+  /**
+ * Whether the editor is in fullscreen mode.
+ * @private
+ */
+  private get isFullscreen(): boolean {
+      return this.ownerDocument.fullscreenElement === this;
+  }
+
+  /**
+ * Handles the fullscreen toggle event.
+ * @private
+ */
+  private async _onFullscreenToggle() {
+    if (this.isFullscreen) {
+      await this.ownerDocument.exitFullscreen();
+      this.requestUpdate()
+    } else {
+      try {
+          await this.requestFullscreen();
+          this.requestUpdate()
+      } catch (error) {
+          console.error("Failed to enter fullscreen mode.");
+      }
+    }
   }
 
   protected firstUpdated(_changedProperties: PropertyValues): void {
@@ -405,6 +432,8 @@ export class NeuralNetwork extends LitElementWw {
       @canvas-created="${(e: CustomEvent<CCanvas>) => {
         this.canvas = e.detail
       }}"
+      .fullscreen=${this.isFullscreen}
+      @toggle-fullscreen="${this._onFullscreenToggle}"
     >
     </canvas-area>`)
     if ((this.setupStatus as any).loading) {
