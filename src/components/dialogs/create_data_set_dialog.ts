@@ -85,15 +85,6 @@ export class CreateDataSetDialog extends LitElementWw {
     const form: any = e.target
     if(!form.checkValidity()) {
       form.reportValidity()
-      Array.from(form.elements).forEach(field => {
-        if (field instanceof HTMLInputElement || 
-            field instanceof HTMLSelectElement || 
-            field instanceof HTMLTextAreaElement) {
-          if (!field.checkValidity()) {
-            console.log('Invalid field:', field.name || field.id, field.validationMessage);
-          }
-        }
-      });
       return;
     }
 
