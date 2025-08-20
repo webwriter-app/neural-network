@@ -367,7 +367,7 @@ export class CCanvas extends LitElementWw {
     const LAYER_TYPE: string = e.dataTransfer.getData('LAYER_TYPE')
     if (LAYER_TYPE && ['Input', 'Dense', 'Output'].includes(LAYER_TYPE)) {
       const renderedPos = {
-        x: e.clientX,
+        x: e.clientX - 450, // Subtract width of side menu
         y: e.clientY,
       }
       const pos = this.toModelPosition(renderedPos)
