@@ -34,6 +34,10 @@ import IconHome from "bootstrap-icons/icons/house-door-fill.svg"
 import IconOne from "bootstrap-icons/icons/1-circle.svg"
 import IconTwo from "bootstrap-icons/icons/2-circle.svg"
 import IconThree from "bootstrap-icons/icons/3-circle.svg"
+import IconSend from "bootstrap-icons/icons/send.svg"
+import IconLayers from "bootstrap-icons/icons/layers.svg";
+import IconCpu from "bootstrap-icons/icons/cpu.svg";
+import IconArrows from "bootstrap-icons/icons/arrows-angle-expand.svg";
 import { SlIcon } from '@shoelace-style/shoelace'
 
 export class MenuArea extends LitElementWw {
@@ -133,16 +137,16 @@ export class MenuArea extends LitElementWw {
           <c-tab name="dataSet"><sl-icon slot="prefix" src=${IconTwo}></sl-icon>Data set</c-tab>
           <c-tab name="train"><sl-icon slot="prefix" src=${IconThree}></sl-icon>Train</c-tab>
           ${this.modelConf.model
-            ? html` <c-tab name="predict">Predict</c-tab> `
+            ? html` <c-tab name="predict"><sl-icon slot="prefix" src=${IconSend}></sl-icon>Predict</c-tab> `
             : html``}
           ${this.selected.layer && this.selectedEle
-            ? html` <c-tab name="layer" colored>Layer</c-tab> `
+            ? html` <c-tab name="layer" colored><sl-icon slot="prefix" src=${IconLayers}></sl-icon>Layer</c-tab> `
             : html``}
           ${this.selected.neuron && this.selectedEle
-            ? html` <c-tab name="neuron" colored>Neuron</c-tab> `
+            ? html` <c-tab name="neuron" colored><sl-icon slot="prefix" src=${IconCpu}></sl-icon>Neuron</c-tab> `
             : html``}
           ${this.selected.edge && this.selectedEle
-            ? html` <c-tab name="edge" colored>Edge</c-tab> `
+            ? html` <c-tab name="edge" colored><sl-icon slot="prefix" src=${IconArrows}></sl-icon>Edge</c-tab> `
             : html``}
         </div>
         <div id="rightMenuPanel" class="${!this.panel ? 'collapsed' : ''}">
