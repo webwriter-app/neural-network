@@ -83,7 +83,7 @@ export class GetStartedCard extends LitElementWw {
             }}"
           >
             <sl-icon slot="prefix" src=${IconFileEarmarkArrowUp}></sl-icon>
-            Import
+            Import JSON configuration
           </sl-button>
           ${this.editable || this.settings.showDefaultConfs
             ? html` <div id="getStartedGrid">

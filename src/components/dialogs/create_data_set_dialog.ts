@@ -1,5 +1,5 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, css, html } from 'lit'
+import { CSSResult, TemplateResult, css, html, nothing } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
@@ -8,15 +8,27 @@ import { globalStyles } from '@/global_styles'
 import type { DataSet } from '@/types/data_set'
 import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
 
-import type { SlChangeEvent, SlDialog } from '@shoelace-style/shoelace'
+import { SlChangeEvent, SlDialog, SlButton, SlInput, SlTextarea, SlTooltip, SlRadioGroup, SlRadioButton } from '@shoelace-style/shoelace'
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
 import { AlertUtils } from '@/utils/alert_utils'
 
 import IconQuestionCircle from "bootstrap-icons/icons/question-circle.svg"
 import IconArrowLeftCircle from "bootstrap-icons/icons/arrow-left-circle.svg"
 import IconArrowRightCircle from "bootstrap-icons/icons/arrow-right-circle.svg"
+import { CCard } from '../reusables/c-card'
 
 export class CreateDataSetDialog extends LitElementWw {
+
+  static scopedElements = {
+    "sl-dialog": SlDialog,
+    "sl-textarea": SlTextarea,
+    "sl-tooltip": SlTooltip,
+    "sl-input": SlInput,
+    "c-card": CCard,
+    "sl-button": SlButton,
+    "sl-radio-group": SlRadioGroup,
+    "sl-radio-button": SlRadioButton,
+  }
   
   @consume({ context: availableDataSetsContext, subscribe: true })
   accessor availableDataSets: DataSet[]
@@ -52,9 +64,6 @@ export class CreateDataSetDialog extends LitElementWw {
   async connectedCallback(): Promise<void> {
     super.connectedCallback()
     await this.updateComplete
-    this._dialogForm.addEventListener('submit', (e: MouseEvent) =>
-      this.nextStep(e)
-    )
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -73,12 +82,28 @@ export class CreateDataSetDialog extends LitElementWw {
   }
 
   nextStep(e: MouseEvent) {
-    e.preventDefault()
+    const form: any = e.target
+    if(!form.checkValidity()) {
+      form.reportValidity()
+      Array.from(form.elements).forEach(field => {
+        if (field instanceof HTMLInputElement || 
+            field instanceof HTMLSelectElement || 
+            field instanceof HTMLTextAreaElement) {
+          if (!field.checkValidity()) {
+            console.log('Invalid field:', field.name || field.id, field.validationMessage);
+          }
+        }
+      });
+      return;
+    }
+
     if (this.step == 5) {
       void this.validateAndCreate()
     } else {
       this.step++
     }
+
+    e.preventDefault()
   }
 
   // step 3 (configuring the features (keys/descriptions))
@@ -264,9 +289,9 @@ export class CreateDataSetDialog extends LitElementWw {
             5
           </sl-button>
         </div>
-        <form class="dialog-form">
+        <form class="dialog-form" @submit=${(e) => {this.nextStep(e)}}>
           <div class="form-main">
-            <div class="${this.step != 1 ? 'hidden' : ''}">
+            <div ?hidden=${this.step !== 1} ?inert=${this.step !== 1}>
               <h1>Welcome</h1>
               <p>
                 This tour will guide you through creating your own data set in a
@@ -274,7 +299,7 @@ export class CreateDataSetDialog extends LitElementWw {
                 close this modal at any time and resume.
               </p>
             </div>
-            <div class="${this.step != 2 ? 'hidden' : ''}">
+            <div ?hidden=${this.step !== 2} ?inert=${this.step !== 2}>
               <h1>General info about the data set</h1>
               <p>
                 Choose a short but meaningful name for your data set and write a
@@ -285,7 +310,7 @@ export class CreateDataSetDialog extends LitElementWw {
                 label="Name"
                 placeholder="Boston House Pricing"
                 ?required=${this.step == 2}
-                minlength=${this.step == 2 ? 1 : undefined}
+                minlength=${this.step == 2 ? 1 : nothing}
                 @sl-change=${(e: SlChangeEvent) => {
                   this.config.name = (<HTMLInputElement>e.target).value
                   this.config = { ...this.config }
@@ -297,7 +322,7 @@ export class CreateDataSetDialog extends LitElementWw {
                 label="Description"
                 placeholder="The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood."
                 ?required=${this.step == 2}
-                minlength=${this.step == 2 ? 1 : undefined}
+                minlength=${this.step == 2 ? 1 : nothing}
                 @sl-change=${(e: SlChangeEvent) => {
                   this.config.description = (<HTMLInputElement>e.target).value
                   this.config = { ...this.config }
@@ -334,7 +359,7 @@ export class CreateDataSetDialog extends LitElementWw {
                 >
               </sl-radio-group>
             </div>
-            <div class="${this.step != 3 ? 'hidden' : ''}">
+            <div ?hidden=${this.step !== 3} ?inert=${this.step !== 3}>
               <h1>Features</h1>
               <p>
                 Which data will be put into the neural network? Create arbitrary
@@ -351,8 +376,8 @@ export class CreateDataSetDialog extends LitElementWw {
                           placeholder="DIS"
                           help-text="1-6 capital letters"
                           ?required=${this.step == 3}
-                          maxlength=${this.step == 3 ? 6 : undefined}
-                          pattern=${this.step == 3 ? '[A-Z]+' : undefined}
+                          maxlength=${this.step == 3 ? 6 : nothing}
+                          pattern=${this.step == 3 ? '[A-Z]+' : nothing}
                           @sl-change=${(e: SlChangeEvent) => {
                             this.config.featureDescs[index].key = (e.target as HTMLInputElement).value
                             this.config = { ...this.config }
@@ -364,7 +389,7 @@ export class CreateDataSetDialog extends LitElementWw {
                           label="Description"
                           placeholder="Weighted distances to five Boston employment centers"
                           ?required=${this.step == 3}
-                          minlength=${this.step == 3 ? 1 : undefined}
+                          minlength=${this.step == 3 ? 1 : nothing}
                           @sl-change=${(e: SlChangeEvent) => {
                             this.config.featureDescs[index].description = (e.target as HTMLInputElement).value
                             this.config = { ...this.config }
@@ -386,7 +411,7 @@ export class CreateDataSetDialog extends LitElementWw {
                 >Add feature</sl-button
               >
             </div>
-            <div class="${this.step != 4 ? 'hidden' : ''}">
+            <div ?hidden=${this.step !== 4} ?inert=${this.step !== 4}>
               <h1>Label</h1>
               <p>What shall be the output of the network?</p>
               <sl-input
@@ -395,8 +420,8 @@ export class CreateDataSetDialog extends LitElementWw {
                 placeholder="MEDV"
                 help-text="1-6 capital letters"
                 ?required=${this.step == 4}
-                maxlength=${this.step == 4 ? 6 : undefined}
-                pattern=${this.step == 4 ? '[A-Z]+' : undefined}
+                maxlength=${this.step == 4 ? 6 : nothing}
+                pattern=${this.step == 4 ? '[A-Z]+' : nothing}
                 @sl-change=${(e: SlChangeEvent) => {
                   this.config.labelDesc.key = (<HTMLInputElement>e.target).value
                   this.config = { ...this.config }
@@ -408,7 +433,7 @@ export class CreateDataSetDialog extends LitElementWw {
                 label="Description"
                 placeholder="Median value of owner-occupied homes in $1000s"
                 ?required=${this.step == 4}
-                minlength=${this.step == 4 ? 1 : undefined}
+                minlength=${this.step == 4 ? 1 : nothing}
                 @sl-change=${(e: SlChangeEvent) => {
                   this.config.labelDesc.description = (<HTMLInputElement>(
                     e.target
@@ -431,8 +456,8 @@ export class CreateDataSetDialog extends LitElementWw {
                                 placeholder="0"
                                 help-text="an integer"
                                 ?required=${this.step == 4}
-                                maxlength=${this.step == 4 ? 6 : undefined}
-                                pattern=${this.step == 4 ? '[A-Z]+' : undefined}
+                                maxlength=${this.step == 4 ? 6 : nothing}
+                                pattern=${this.step == 4 ? '[A-Z]+' : nothing}
                                 @sl-change=${(e: SlChangeEvent) => {
                                   this.config.labelDesc.classes[index].id =
                                     parseInt((e.target as HTMLInputElement).value)
@@ -445,7 +470,7 @@ export class CreateDataSetDialog extends LitElementWw {
                                 label="Description"
                                 placeholder="Animal was detected as a horse"
                                 ?required=${this.step == 4}
-                                minlength=${this.step == 4 ? 1 : undefined}
+                                minlength=${this.step == 4 ? 1 : nothing}
                                 @sl-change=${(e: SlChangeEvent) => {
                                   this.config.labelDesc.classes[
                                     index
@@ -475,7 +500,7 @@ export class CreateDataSetDialog extends LitElementWw {
                   `
                 : html``}
             </div>
-            <div class="${this.step != 5 ? 'hidden' : ''}">
+            <div ?hidden=${this.step !== 5} ?inert=${this.step !== 5}>
               <h1>You are nearly done</h1>
               <p>Now add your data in the following format*:</p>
               <div

@@ -11,6 +11,7 @@ import SlButton from "@shoelace-style/shoelace/dist/components/button/button.com
 import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js"
 import SlTag from "@shoelace-style/shoelace/dist/components/tag/tag.component.js"
 import { CCard } from '../reusables/c-card'
+import { CreateDataSetDialog } from './create_data_set_dialog'
 
 export class ManageDataSetsDialog extends LitElementWw {
 
@@ -18,7 +19,8 @@ export class ManageDataSetsDialog extends LitElementWw {
     "sl-dialog": SlDialog,
     "sl-button": SlButton,
     "sl-tag": SlTag,
-    "c-card": CCard
+    "c-card": CCard,
+    "create-data-set-dialog": CreateDataSetDialog,
   }
 
   @consume({ context: dataSetContext, subscribe: true })
@@ -39,6 +41,7 @@ export class ManageDataSetsDialog extends LitElementWw {
   }
 
   async openCreateDataSetDialog() {
+    console.log(this._createDataSetDialog)
     await this._createDataSetDialog.show()
     await this._dialog.hide()
   }
