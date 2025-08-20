@@ -372,7 +372,7 @@ export class NeuralNetwork extends LitElementWw {
       }
 
       canvas-area {
-        width: calc(100% - 350px);
+        width: calc(100% - 435px);
         height: 100%;
       }
 
@@ -390,7 +390,7 @@ export class NeuralNetwork extends LitElementWw {
 
       #divider {
         position: absolute;
-        right: 350px;
+        right: 435px;
         width: 2px;
         top: 10px;
         bottom: 10px;
@@ -428,7 +428,6 @@ export class NeuralNetwork extends LitElementWw {
     )
     renderedHTML.push(html` <canvas-area
       class="${!this.panel ? 'right-collapsed' : ''}"
-      style=${styleMap({ height: this.isFullscreen ? "100%" : "500px" })}
       @click=${()=>{this.dispatchEvent(new Event("focus"))}}
       @canvas-created="${(e: CustomEvent<CCanvas>) => {
         this.canvas = e.detail

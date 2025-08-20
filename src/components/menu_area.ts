@@ -30,6 +30,12 @@ import { NeuronPanel } from './panels/neuron_panel'
 import { EdgePanel } from './panels/edge_panel'
 import { CTab } from './reusables/c-tab'
 
+import IconHome from "bootstrap-icons/icons/house-door-fill.svg"
+import IconOne from "bootstrap-icons/icons/1-circle.svg"
+import IconTwo from "bootstrap-icons/icons/2-circle.svg"
+import IconThree from "bootstrap-icons/icons/3-circle.svg"
+import { SlIcon } from '@shoelace-style/shoelace'
+
 export class MenuArea extends LitElementWw {
 
   static scopedElements = {
@@ -43,7 +49,8 @@ export class MenuArea extends LitElementWw {
     "predict-panel": PredictPanel,
     "layer-panel": LayerPanel,
     "neuron-panel": NeuronPanel,
-    "edge-panel": EdgePanel
+    "edge-panel": EdgePanel,
+    "sl-icon": SlIcon,
   }
 
   @consume({ context: editableContext, subscribe: true })
@@ -85,13 +92,13 @@ export class MenuArea extends LitElementWw {
         margin-left: 10px;
         position: relative;
         display: flex;
-        column-gap: 15px;
+        column-gap: 5px;
         row-gap: 5px;
         flex-wrap: wrap
       }
 
       #rightMenuPanel {
-        width: 350px;
+        width: 435px;
         height: calc(100% - 100px);
         overflow: auto;
         -ms-overflow-style: none;
@@ -120,11 +127,11 @@ export class MenuArea extends LitElementWw {
               >`
             : html``}
           ${this.editable || this.settings.mayExport || this.settings.mayImport
-            ? html` <c-tab name="start">Start</c-tab>`
+            ? html` <c-tab name="start"><sl-icon slot="prefix" src=${IconHome}></sl-icon> Start</c-tab>`
             : html``}
-          <c-tab name="network">Network</c-tab>
-          <c-tab name="dataSet">Data set</c-tab>
-          <c-tab name="train">Train</c-tab>
+          <c-tab name="network"><sl-icon slot="prefix" src=${IconOne}></sl-icon>Network</c-tab>
+          <c-tab name="dataSet"><sl-icon slot="prefix" src=${IconTwo}></sl-icon>Data set</c-tab>
+          <c-tab name="train"><sl-icon slot="prefix" src=${IconThree}></sl-icon>Train</c-tab>
           ${this.modelConf.model
             ? html` <c-tab name="predict">Predict</c-tab> `
             : html``}

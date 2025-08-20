@@ -16,6 +16,9 @@ export class CTab extends LitElementWw {
   @property({ type: String })
   accessor name: string
 
+  @property({ type: String })
+  accessor prefix: string
+
   @property({ type: Boolean })
   accessor colored: boolean
 
@@ -43,7 +46,7 @@ export class CTab extends LitElementWw {
     return html`
       <div class="c-tab">
         <sl-button 
-          class="${this.panel == this.name ? 'active' : ''}" 
+          class="${this.panel == this.name ? 'active' : ''}"
           @click="${(_e: MouseEvent) =>
             this.dispatchEvent(
               new CustomEvent<string>('open-panel', {
@@ -53,6 +56,7 @@ export class CTab extends LitElementWw {
               })
             )}"
         >
+          <slot name="prefix" slot="prefix"></slot>
           <slot>
         </sl-button>
       </div>
