@@ -33,7 +33,11 @@ export class ModelController implements ReactiveController {
     )
     this.host.renderRoot.addEventListener(
       'train-model',
-      (e: CustomEvent<number>) => this.trainModel(e.detail)
+      (e: CustomEvent<number>) => {
+        setTimeout(() => {
+          this.trainModel(e.detail)
+        }, 0)
+      }
     )
     this.host.renderRoot.addEventListener(
       'predict-model',
