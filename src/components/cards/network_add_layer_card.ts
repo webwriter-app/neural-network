@@ -14,17 +14,19 @@ import type { CLayerConf } from '../../types/c_layer_conf'
 import { layerConfsContext } from '@/contexts/layer_confs_context'
 import { CCard } from '../reusables/c-card'
 
-import SlTag from "@shoelace-style/shoelace/dist/components/tag/tag.component.js"
-import SlIcon from "@shoelace-style/shoelace/dist/components/icon/icon.component.js"
+import { SlButton, SlIcon } from '@shoelace-style/shoelace'
 
 import IconPlusLg from "bootstrap-icons/icons/plus-lg.svg"
+import IconBoxArrowInRight from "bootstrap-icons/icons/box-arrow-in-right.svg"; // Input
+import IconLayers from "bootstrap-icons/icons/layers.svg"; // Dense
+import IconBoxArrowRight from "bootstrap-icons/icons/box-arrow-right.svg"; // Output
 
 export class NetworkAddLayerCard extends LitElementWw {
 
   static scopedElements = {
     "c-card": CCard,
-    "sl-tag": SlTag,
-    "sl-icon": SlIcon
+    "sl-icon": SlIcon,
+    "sl-button": SlButton
   }
 
   @consume({ context: editableContext, subscribe: true })
@@ -49,6 +51,10 @@ export class NetworkAddLayerCard extends LitElementWw {
         border-radius: 5px;
         border-style: dashed;
       }
+      .draggable-tag {
+        cursor: grab;
+        user-select: none;
+      }
     `,
   ]
 
@@ -60,37 +66,37 @@ export class NetworkAddLayerCard extends LitElementWw {
         <div slot="content">
           <p>Drag a layer anywhere to place it on the canvas</p>
           <div class="tag-group">
-            <sl-tag
-              size="large"
+            <sl-button
+              class="draggable-tag"
               draggable="true"
               ?disabled=${this.editable}
               @dragstart="${(e: DragEvent) =>
                 e.dataTransfer.setData('LAYER_TYPE', 'Input')}"
             >
-              <sl-icon slot="prefix" src=${IconPlusLg}></sl-icon>
+              <sl-icon slot="prefix" src=${IconBoxArrowInRight}></sl-icon>
               Input
-            </sl-tag>
+            </sl-button>
             ${this.editable || this.settings.allowDenseLayers
-              ? html`<sl-tag
-                  size="large"
+              ? html`<sl-button
+                class="draggable-tag"
                   draggable="true"
                   @dragstart="${(e: DragEvent) =>
                     e.dataTransfer.setData('LAYER_TYPE', 'Dense')}"
                 >
-                  <sl-icon slot="prefix" src=${IconPlusLg}></sl-icon>
+                  <sl-icon slot="prefix" src=${IconLayers}></sl-icon>
                   Dense
                 </sl-tag>`
               : html``}
             ${this.layerConfs.every(
               (layerConf) => layerConf.LAYER_TYPE != 'Output'
             )
-              ? html` <sl-tag
-                  size="large"
+              ? html`<sl-button
+                  class="draggable-tag"
                   draggable="true"
                   @dragstart="${(e: DragEvent) =>
                     e.dataTransfer.setData('LAYER_TYPE', 'Output')}"
                 >
-                  <sl-icon slot="prefix" src=${IconPlusLg}></sl-icon>
+                  <sl-icon slot="prefix" src=${IconBoxArrowRight}></sl-icon>
                   Output
                 </sl-tag>`
               : html``}
