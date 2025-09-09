@@ -10,6 +10,7 @@ import type { InputLayer } from '@/components/network/input_layer'
 import type { SlChangeEvent } from '@shoelace-style/shoelace'
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js"
 import { CCard } from '../reusables/c-card'
+import { msg } from '@lit/localize'
 
 export class LayerIncomingDataCard extends LitElementWw {
   
@@ -55,14 +56,14 @@ export class LayerIncomingDataCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Features</div>
+        <div slot="title">${msg('Features')}</div>
         <div slot="content">
           <sl-select
             id="featuresSelect"
             value=${this.layer.conf.featureKeys.join(' ')}
             multiple
             max-options-visible="100"
-            help-text="Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description."
+            help-text=${msg('Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description.')}
             @sl-change="${(_e: SlChangeEvent) => {
               this.handleChangeFeatures()
             }}"

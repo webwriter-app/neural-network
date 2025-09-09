@@ -7,20 +7,20 @@ import type { DataSet } from '@/types/data_set'
 import { dataSetContext } from '@/contexts/data_set_context'
 import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
 
-import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
-import SlDialog from "@shoelace-style/shoelace/dist/components/dialog/dialog.component.js"
-import SlTag from "@shoelace-style/shoelace/dist/components/tag/tag.component.js"
+import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
+import SlDialog from '@shoelace-style/shoelace/dist/components/dialog/dialog.component.js'
+import SlTag from '@shoelace-style/shoelace/dist/components/tag/tag.component.js'
 import { CCard } from '../reusables/c-card'
 import { CreateDataSetDialog } from './create_data_set_dialog'
+import { msg } from '@lit/localize'
 
 export class ManageDataSetsDialog extends LitElementWw {
-
   static scopedElements = {
-    "sl-dialog": SlDialog,
-    "sl-button": SlButton,
-    "sl-tag": SlTag,
-    "c-card": CCard,
-    "create-data-set-dialog": CreateDataSetDialog,
+    'sl-dialog': SlDialog,
+    'sl-button': SlButton,
+    'sl-tag': SlTag,
+    'c-card': CCard,
+    'create-data-set-dialog': CreateDataSetDialog,
   }
 
   @consume({ context: dataSetContext, subscribe: true })
@@ -52,7 +52,7 @@ export class ManageDataSetsDialog extends LitElementWw {
         detail: (e.target as any).name,
         bubbles: true,
         composed: true,
-      })
+      }),
     )
   }
 
@@ -68,11 +68,11 @@ export class ManageDataSetsDialog extends LitElementWw {
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
-      <sl-dialog label="Manage data sets">
+      <sl-dialog label=${msg('Manage data sets')}>
         <sl-button
           variant="primary"
           @click="${(_e: MouseEvent) => this.openCreateDataSetDialog()}"
-          >Create a new data set</sl-button
+          >${msg('Create a new data set')}</sl-button
         >
         ${this.availableDataSets.map(
           (dataSet) => html`
@@ -81,17 +81,19 @@ export class ManageDataSetsDialog extends LitElementWw {
               <div slot="content">
                 <p>${dataSet.description}</p>
                 ${this.dataSet.name == dataSet.name
-                  ? html`<sl-tag variant="success">Currently selected</sl-tag>`
+                  ? html`<sl-tag variant="success"
+                      >${msg('Currently selected')}</sl-tag
+                    >`
                   : html`<sl-button
                       variant="danger"
                       name=${dataSet.name}
                       @click=${(e: MouseEvent) => this.handleDeleteDataSet(e)}
                     >
-                      Permanently delete data set
+                      ${msg('Permanently delete data set')}
                     </sl-button>`}
               </div>
             </c-card>
-          `
+          `,
         )}
       </sl-dialog>
       <create-data-set-dialog> </create-data-set-dialog>

@@ -10,14 +10,14 @@ import { dataSetContext } from '@/contexts/data_set_context'
 import type { CNeuron } from '@/components/network/neuron'
 import { CCard } from '../reusables/c-card'
 import { CNetworkLink } from '../reusables/c-network-link'
+import { msg } from '@lit/localize'
 
 export class NeuronInfoCard extends LitElementWw {
-
   static scopedElements = {
-    "c-card": CCard,
-    "c-network-link": CNetworkLink
+    'c-card': CCard,
+    'c-network-link': CNetworkLink,
   }
-  
+
   @property({ attribute: false })
   accessor neuron: CNeuron
 
@@ -31,7 +31,7 @@ export class NeuronInfoCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Neuron</div>
+        <div slot="title">${msg('Neuron')}</div>
         <div slot="content">
           <p>
             Name:
@@ -40,7 +40,7 @@ export class NeuronInfoCard extends LitElementWw {
             >
           </p>
           <p>
-            Corresponding layer:
+            ${msg('Corresponding layer:')}
             <c-network-link .target=${this.neuron.layer}
               >${this.neuron.layer.getName()}</c-network-link
             >

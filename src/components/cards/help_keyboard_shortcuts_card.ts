@@ -10,15 +10,15 @@ import type { Settings } from '@/types/settings'
 import { settingsContext } from '@/contexts/settings_context'
 import { CCard } from '../reusables/c-card'
 
-import SlTag from "@shoelace-style/shoelace/dist/components/tag/tag.component.js"
+import SlTag from '@shoelace-style/shoelace/dist/components/tag/tag.component.js'
+import { msg } from '@lit/localize'
 
 export class HelpKeyboardShortcutsCard extends LitElementWw {
-  
   static scopedElements = {
-    "c-card": CCard,
-    "sl-tag": SlTag
+    'c-card': CCard,
+    'sl-tag': SlTag,
   }
-  
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 
@@ -32,24 +32,26 @@ export class HelpKeyboardShortcutsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Keyboard shortcuts</div>
+        <div slot="title">${msg('Keyboard shortcuts')}</div>
         <div slot="content">
-          <h2>Layer</h2>
+          <h2>${msg('Layer')}</h2>
           ${this.editable || this.settings.mayAddAndRemoveLayers
             ? html`<div class="tag-group">
                 <sl-tag pill variant="primary">CTRL + SHIFT + BACKSPACE</sl-tag
-                >Deletes the currently selected layer
+                >${msg('Deletes the currently selected layer')}
               </div>`
             : html``}
           ${this.editable || this.settings.mayAddAndRemoveLayers
             ? html`<div class="tag-group">
-                <sl-tag pill variant="primary">CTRL + SHIFT + K</sl-tag
-                >Duplicates the currently selected layer
+                <sl-tag pill variant="primary">CTRL + SHIFT + K</sl-tag>${msg(
+                  'Duplicates the currently selected layer',
+                )}
               </div>`
             : html``}
           <div class="tag-group">
-            <sl-tag pill variant="primary">CTRL + SHIFT + ARROW</sl-tag>Moves
-            the currently selected layer
+            <sl-tag pill variant="primary">CTRL + SHIFT + ARROW</sl-tag>${msg(
+              'Moves the currently selected layer',
+            )}
           </div>
         </div>
       </c-card>

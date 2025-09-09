@@ -1,70 +1,77 @@
 import type { DataSet } from '@/types/data_set'
+import { msg } from '@lit/localize'
 
 export const bostonHousePricing: DataSet = {
-  name: 'Boston House Pricing',
-  description:
+  name: msg('Boston House Pricing'),
+  description: msg(
     'The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.',
+  ),
   type: 'regression',
   featureDescs: [
     {
       key: 'CRIM',
-      description: 'Per capita crime rate by town',
+      description: msg('Per capita crime rate by town'),
     },
     {
       key: 'ZN',
-      description:
+      description: msg(
         'Proportion of residential land zoned for lots over 25,000 sq.ft.',
+      ),
     },
     {
       key: 'INDUS',
-      description: 'Proportion of nonretail business acres per town',
+      description: msg('Proportion of nonretail business acres per town'),
     },
     {
       key: 'CHAS',
-      description:
+      description: msg(
         'Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)',
+      ),
     },
     {
       key: 'NOX',
-      description: 'Nitric oxides concentration (parts per 10 million)',
+      description: msg('Nitric oxides concentration (parts per 10 million)'),
     },
     {
       key: 'RM',
-      description: 'Average number of rooms per dwelling',
+      description: msg('Average number of rooms per dwelling'),
     },
     {
       key: 'AGE',
-      description: 'Proportion of owner-occupied units built prior to 1940',
+      description: msg(
+        'Proportion of owner-occupied units built prior to 1940',
+      ),
     },
     {
       key: 'DIS',
-      description: 'Weighted distances to five Boston employment centers',
+      description: msg('Weighted distances to five Boston employment centers'),
     },
     {
       key: 'RAD',
-      description: 'Index of accessibility to radial highways',
+      description: msg('Index of accessibility to radial highways'),
     },
     {
       key: 'TAX',
-      description: 'Full-value property-tax rate per $10,000',
+      description: msg('Full-value property-tax rate per $10,000'),
     },
     {
       key: 'PTRATIO',
-      description: 'Pupil-teacher ratio by town',
+      description: msg('Pupil-teacher ratio by town'),
     },
     {
       key: 'B',
-      description:
+      description: msg(
         '1000(Bk – 0.63)^2 where Bk is the proportion of blacks by town',
+      ),
     },
     {
       key: 'LSTAT',
-      description: '% lower status of the population',
+      description: msg('% lower status of the population'),
     },
   ],
   labelDesc: {
     key: 'MEDV',
-    description: 'Median value of owner-occupied homes in $1000s',
+    description: msg('Median value of owner-occupied homes in $1000s'),
   },
   data: [
     {

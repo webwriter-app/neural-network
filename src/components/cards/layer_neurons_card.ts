@@ -17,6 +17,7 @@ import { CCard } from '../reusables/c-card'
 import IconDashSquare from "bootstrap-icons/icons/dash-square.svg"
 import IconPlusSquare from "bootstrap-icons/icons/plus-square.svg"
 import IconArrowClockwise from "bootstrap-icons/icons/arrow-clockwise.svg"
+import { msg } from '@lit/localize'
 
 export class LayerNeuronsCard extends LitElementWw {
 
@@ -96,7 +97,7 @@ export class LayerNeuronsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Neurons</div>
+        <div slot="title">${msg('Neurons')}</div>
         <div slot="content">
           <div>
             <div class="button-group">
@@ -105,11 +106,11 @@ export class LayerNeuronsCard extends LitElementWw {
                 @click="${(_e: MouseEvent) => this.handleRemoveNeuron()}"
               >
                 <sl-icon slot="prefix" src=${IconDashSquare}></sl-icon>
-                Remove
+                ${msg('Remove')}
               </sl-button>
               <sl-button @click="${(_e: MouseEvent) => this.handleAddNeuron()}">
                 <sl-icon slot="prefix" src=${IconPlusSquare}></sl-icon>
-                Add
+                ${msg('Add')}
               </sl-button>
             </div>
           </div>
@@ -117,14 +118,14 @@ export class LayerNeuronsCard extends LitElementWw {
             <div class="button-group">
               <sl-input
                 name="units"
-                placeholder="neurons"
+                placeholder=${msg('neurons')}
                 type="number"
                 required
                 min="1"
               ></sl-input>
               <sl-button type="submit">
                 <sl-icon slot="prefix" src=${IconArrowClockwise}></sl-icon>
-                Update
+                ${msg('Update')}
               </sl-button>
             </div>
           </form>

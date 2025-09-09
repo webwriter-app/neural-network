@@ -76,8 +76,12 @@ import { ContextProvider } from '@lit/context'
 import '@webcomponents/scoped-custom-element-registry';
 import { styleMap } from 'lit/directives/style-map.js'
 
-export class NeuralNetwork extends LitElementWw {
+import { localized, msg } from '@lit/localize'
+import LOCALIZE from "../localization/generated";
 
+@localized()
+export class NeuralNetwork extends LitElementWw {
+  public localize = LOCALIZE;
 
   static properties: PropertyDeclarations = {
     setupStatus: { attribute: false },
@@ -162,7 +166,7 @@ export class NeuralNetwork extends LitElementWw {
           await this.requestFullscreen();
           this.requestUpdate()
       } catch (error) {
-          console.error("Failed to enter fullscreen mode.");
+          console.error(msg("Failed to enter fullscreen mode."));
       }
     }
   }
@@ -440,7 +444,7 @@ export class NeuralNetwork extends LitElementWw {
       renderedHTML.push(html`
         <div id="loadingPage">
           <div id="loadingDiv">
-            <h1>Loading</h1>
+            <h1>${msg("Loading")}</h1>
             <sl-spinner style="font-size: 3rem;"></sl-spinner>
           </div>
         </div>

@@ -11,6 +11,7 @@ import type { CNeuron } from '@/components/network/neuron'
 import { LabelDesc } from '@/types/label_desc'
 import { CCard } from '../reusables/c-card'
 import { CDataInfo } from '../reusables/c-data-info'
+import { msg } from '@lit/localize'
 
 export class NeuronLabelCard extends LitElementWw {
 
@@ -35,7 +36,7 @@ export class NeuronLabelCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Label (output)</div>
+        <div slot="title">${msg('Label (output)')}</div>
         <div slot="content">
           <c-data-info
             type="label"

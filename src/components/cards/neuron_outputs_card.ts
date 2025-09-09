@@ -11,6 +11,7 @@ import { networkContext } from '@/contexts/network_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 import type { CNeuron } from '@/components/network/neuron'
 import { CCard } from '../reusables/c-card'
+import { msg } from '@lit/localize'
 
 export class NeuronOutputsCard extends LitElementWw {
 
@@ -34,7 +35,7 @@ export class NeuronOutputsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Outputs</div>
+        <div slot="title">${msg('Outputs')}</div>
         <div slot="content">
           ${this.layerConnectionConfs
             .filter(
@@ -45,7 +46,7 @@ export class NeuronOutputsCard extends LitElementWw {
               this.network.getLayerById(layerConnectionConf.targetLayerId)
             )
             .map(
-              (layer) => html`<p>- All neurons from '${layer.getName()}'</p>`
+              (layer) => html`<p>${msg('- All neurons from')} '${layer.getName()}'</p>`
             )}
         </div>
       </c-card>

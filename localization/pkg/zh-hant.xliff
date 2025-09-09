@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.1" srcLang="en" trgLang="zh-hant">
+<file id="." original=".">
+<unit id="description"><segment><source>Deep learning visualization for feed-forward networks with custom datasets, training and prediction.</source><target>具有自訂資料集、訓練和預測功能的前饋網路深度學習可視化。</target></segment></unit>
+</file>
+</xliff>

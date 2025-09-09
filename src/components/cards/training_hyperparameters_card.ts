@@ -19,6 +19,7 @@ import { CCard } from '../reusables/c-card'
 import SlRadioGroup from "@shoelace-style/shoelace/dist/components/radio-group/radio-group.component.js"
 import SlRadioButton from "@shoelace-style/shoelace/dist/components/radio-button/radio-button.component.js"
 import SlRange from "@shoelace-style/shoelace/dist/components/range/range.component.js"
+import { msg } from '@lit/localize'
 
 export class TrainingHyperparametersCard extends LitElementWw {
 
@@ -108,10 +109,10 @@ export class TrainingHyperparametersCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Hyperparameters</div>
+        <div slot="title">${msg('Hyperparameters')}</div>
         <div slot="content">
           <label for="batchSizeRadioGroup"
-            >Batch size: ${this.trainOptions.batchSize}</label
+            >${msg('Batch size')}: ${this.trainOptions.batchSize}</label
           >
           <div
             class="hscroll-container ${this.modelConf.model ||
@@ -135,7 +136,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
             </sl-radio-group>
           </div>
           <label for="learningRateRange"
-            >Learning rate: ${this.trainOptions.learningRate}</label
+            >${msg('Learning rate')}: ${this.trainOptions.learningRate}</label
           >
           <div
             class="hscroll-container ${this.modelConf.model ||
@@ -159,7 +160,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
             </sl-radio-group>
           </div>
           <label for="dropoutRateRange"
-            >Dropout rate: ${this.trainOptions.dropoutRate}</label
+            >${msg('Dropout rate')}: ${this.trainOptions.dropoutRate}</label
           >
           <sl-range
             id="dropoutRateRange"
@@ -167,7 +168,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
             (!this.editable && !this.settings.mayEditDropoutRate)
               ? 'hidden'
               : ``}"
-            help-text="Adjust the probability of neurons being deactivated during training"
+            help-text=${msg('Adjust the probability of neurons being deactivated during training')}
             min="0"
             max="1"
             step="0.01"

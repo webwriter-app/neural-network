@@ -9,22 +9,22 @@ import { editableContext } from '@/contexts/editable_context'
 import type { QAndAEntry } from '@/types/q_and_a_entry'
 import { qAndAContext } from '@/contexts/q_and_a_context'
 
-import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.component.js"
-import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js"
-import SlTextarea from "@shoelace-style/shoelace/dist/components/textarea/textarea.component.js"
-import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
+import SlDetails from '@shoelace-style/shoelace/dist/components/details/details.component.js'
+import SlInput from '@shoelace-style/shoelace/dist/components/input/input.component.js'
+import SlTextarea from '@shoelace-style/shoelace/dist/components/textarea/textarea.component.js'
+import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
 import { CCard } from '../reusables/c-card'
+import { msg } from '@lit/localize'
 
 export class HelpQAndACard extends LitElementWw {
-  
   static scopedElements = {
-    "c-card": CCard,
-    "sl-details": SlDetails,
-    "sl-input": SlInput,
-    "sl-textarea": SlTextarea,
-    "sl-button": SlButton
+    'c-card': CCard,
+    'sl-details': SlDetails,
+    'sl-input': SlInput,
+    'sl-textarea': SlTextarea,
+    'sl-button': SlButton,
   }
-  
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 
@@ -46,7 +46,7 @@ export class HelpQAndACard extends LitElementWw {
         detail: entry,
         bubbles: true,
         composed: true,
-      })
+      }),
     )
     this._newEntryTitle.value = ''
   }
@@ -61,7 +61,7 @@ export class HelpQAndACard extends LitElementWw {
         detail: entry,
         bubbles: true,
         composed: true,
-      })
+      }),
     )
   }
 
@@ -71,7 +71,7 @@ export class HelpQAndACard extends LitElementWw {
         detail: <string>e.target.title,
         bubbles: true,
         composed: true,
-      })
+      }),
     )
   }
 
@@ -82,36 +82,38 @@ export class HelpQAndACard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Q & A</div>
+        <div slot="title">${msg('Q & A')}</div>
         <div slot="content">
           ${!this.qAndA.length && this.editable
-            ? html`There are currently no help entries. If you publish the
-              widget like this, the help section will be hidden.`
+            ? html`${msg(
+                'There are currently no help entries. If you publish the widget like this, the help section will be hidden.',
+              )}`
             : html``}
           ${this.qAndA.map(
-            (entry) => html` <sl-details summary=${entry.title}>
-              ${this.editable
-                ? html` <sl-textarea value=${entry.description}></sl-textarea>
-                    <div class="button-group">
-                      <sl-button
-                        variant="primary"
-                        title=${entry.title}
-                        @click="${(e: MouseEvent) => this.updateEntry(e)}"
-                      >
-                        Update entry
-                      </sl-button>
-                    </div>
-                    <div class="button-group">
-                      <sl-button
-                        variant="danger"
-                        title=${entry.title}
-                        @click="${(e: MouseEvent) => this.removeEntry(e)}"
-                      >
-                        Remove entry
-                      </sl-button>
-                    </div>`
-                : html`${entry.description}`}
-            </sl-details>`
+            (entry) =>
+              html` <sl-details summary=${entry.title}>
+                ${this.editable
+                  ? html` <sl-textarea value=${entry.description}></sl-textarea>
+                      <div class="button-group">
+                        <sl-button
+                          variant="primary"
+                          title=${entry.title}
+                          @click="${(e: MouseEvent) => this.updateEntry(e)}"
+                        >
+                          ${msg('Update entry')}
+                        </sl-button>
+                      </div>
+                      <div class="button-group">
+                        <sl-button
+                          variant="danger"
+                          title=${entry.title}
+                          @click="${(e: MouseEvent) => this.removeEntry(e)}"
+                        >
+                          ${msg('Remove entry')}
+                        </sl-button>
+                      </div>`
+                  : html`${entry.description}`}
+              </sl-details>`,
           )}
           ${this.editable
             ? html` <form
@@ -121,13 +123,13 @@ export class HelpQAndACard extends LitElementWw {
                 <div class="button-group">
                   <sl-input
                     form="test"
-                    placeholder="Title"
+                    placeholder=${msg('Title')}
                     required
                     minlength="5"
                     id="newEntryTitle"
                   ></sl-input>
                   <sl-button variant="primary" type="submit">
-                    Add entry
+                    ${msg('Add entry')}
                   </sl-button>
                 </div>
               </form>`

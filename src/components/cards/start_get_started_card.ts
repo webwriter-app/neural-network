@@ -2,8 +2,8 @@ import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit/context'
-import boston from "@/assets/bostonConfig.json"
-import pima from "@/assets/pimaIndiansConfig.json"
+import boston from '@/assets/bostonConfig.json'
+import pima from '@/assets/pimaIndiansConfig.json'
 
 import { globalStyles } from '@/global_styles'
 
@@ -14,18 +14,18 @@ import { settingsContext } from '@/contexts/settings_context'
 import { FileConfig } from '@/types/file_config'
 import { CCard } from '../reusables/c-card'
 
-import SlTag from "@shoelace-style/shoelace/dist/components/tag/tag.component.js"
-import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
-import IconFileEarmarkArrowUp from "bootstrap-icons/icons/file-earmark-arrow-up.svg"
+import SlTag from '@shoelace-style/shoelace/dist/components/tag/tag.component.js'
+import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
+import IconFileEarmarkArrowUp from 'bootstrap-icons/icons/file-earmark-arrow-up.svg'
+import { msg } from '@lit/localize'
 
 export class GetStartedCard extends LitElementWw {
-
   static scopedElements = {
-    "c-card": CCard,
-    "sl-button": SlButton,
-    "sl-tag": SlTag
+    'c-card': CCard,
+    'sl-button': SlButton,
+    'sl-tag': SlTag,
   }
-  
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 
@@ -38,16 +38,15 @@ export class GetStartedCard extends LitElementWw {
       new Event('initiate-import', {
         bubbles: true,
         composed: true,
-      })
+      }),
     )
   }
 
   async handleDefaultImport(key: string) {
     let config: any
-    if(key === "boston") {
+    if (key === 'boston') {
       config = boston
-    }
-    else if(key === "pima") {
+    } else if (key === 'pima') {
       config = pima
     }
     this.dispatchEvent(
@@ -55,7 +54,7 @@ export class GetStartedCard extends LitElementWw {
         detail: config,
         bubbles: true,
         composed: true,
-      })
+      }),
     )
   }
 
@@ -75,7 +74,7 @@ export class GetStartedCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Get started</div>
+        <div slot="title">${msg('Get started')}</div>
         <div slot="content">
           <sl-button
             @click="${(_e: MouseEvent) => {
@@ -83,7 +82,7 @@ export class GetStartedCard extends LitElementWw {
             }}"
           >
             <sl-icon slot="prefix" src=${IconFileEarmarkArrowUp}></sl-icon>
-            Import JSON configuration
+            ${msg('Import JSON configuration')}
           </sl-button>
           ${this.editable || this.settings.showDefaultConfs
             ? html` <div id="getStartedGrid">
@@ -91,14 +90,16 @@ export class GetStartedCard extends LitElementWw {
                   <div slot="title">Pima Indians</div>
                   <div slot="content">
                     <div class="tag-group">
-                      <sl-tag variant="warning">Intermediate</sl-tag>
-                      <sl-tag variant="neutral">Classification</sl-tag>
-                      <sl-tag variant="neutral">Feed Forward</sl-tag>
+                      <sl-tag variant="warning">${msg('Intermediate')}</sl-tag>
+                      <sl-tag variant="neutral"
+                        >${msg('Classification')}</sl-tag
+                      >
+                      <sl-tag variant="neutral">${msg('Feed Forward')}</sl-tag>
                     </div>
                     <sl-button
                       @click=${(_e: MouseEvent) =>
                         this.handleDefaultImport('pima')}
-                      >Create</sl-button
+                      >${msg('Create')}</sl-button
                     >
                   </div>
                 </c-card>
@@ -106,14 +107,14 @@ export class GetStartedCard extends LitElementWw {
                   <div slot="title">Boston House Pricing</div>
                   <div slot="content">
                     <div class="tag-group">
-                      <sl-tag variant="warning">Intermediate</sl-tag>
-                      <sl-tag variant="neutral">Regression</sl-tag>
-                      <sl-tag variant="neutral">Feed Forward</sl-tag>
+                      <sl-tag variant="warning">${msg('Intermediate')}</sl-tag>
+                      <sl-tag variant="neutral">${msg('Regression')}</sl-tag>
+                      <sl-tag variant="neutral">${msg('Feed Forward')}</sl-tag>
                     </div>
                     <sl-button
                       @click=${(_e: MouseEvent) =>
                         this.handleDefaultImport('boston')}
-                      >Create</sl-button
+                      >${msg('Create')}</sl-button
                     >
                   </div>
                 </c-card>
@@ -121,8 +122,9 @@ export class GetStartedCard extends LitElementWw {
             : html``}
           ${this.editable || this.settings.mayAddAndRemoveLayers
             ? html`<p>
-                You can create a custom configuration by using the options in
-                the corresponding right panels.
+                ${msg(
+                  'You can create a custom configuration by using the options in the corresponding right panels.',
+                )}
               </p>`
             : html``}
         </div>

@@ -16,17 +16,17 @@ import { modelConfContext } from '@/contexts/model_conf_context'
 
 import type { SlChangeEvent } from '@shoelace-style/shoelace'
 import { CCard } from '../reusables/c-card'
-import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js"
-import SlOption from "@shoelace-style/shoelace/dist/components/option/option.component.js"
+import SlSelect from '@shoelace-style/shoelace/dist/components/select/select.component.js'
+import SlOption from '@shoelace-style/shoelace/dist/components/option/option.component.js'
+import { msg } from '@lit/localize'
 
 export class LayerActivationCard extends LitElementWw {
-  
   static scopedElements = {
-    "c-card": CCard,
-    "sl-select": SlSelect,
-    "sl-option": SlOption
+    'c-card': CCard,
+    'sl-select': SlSelect,
+    'sl-option': SlOption,
   }
-  
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 
@@ -45,13 +45,15 @@ export class LayerActivationCard extends LitElementWw {
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleChangeActivation(): void {
     const activationName = this._selectActivationFormElm.value
-    const activation: Activation = NetworkUtils.getActivation(activationName as any)
+    const activation: Activation = NetworkUtils.getActivation(
+      activationName as any,
+    )
     this.layer.setActivation(activation)
     this.dispatchEvent(
       new Event('update-layer-confs', {
         bubbles: true,
         composed: true,
-      })
+      }),
     )
     // we need to request an update, so that when we select another layer with
     // the same activation function as this layers activation function before
@@ -64,16 +66,20 @@ export class LayerActivationCard extends LitElementWw {
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
-    const activation = NetworkUtils.getActivation(this.layer.conf.activation.name as any)
+    const activation = NetworkUtils.getActivation(
+      this.layer.conf.activation.name as any,
+    )
     return html`
       <c-card>
-        <div slot="title">Activation function</div>
+        <div slot="title">${msg('Activation function')}</div>
         <div slot="content">
           <sl-select
             value=${this.layer.conf.activation.name}
             ?disabled=${this.modelConf.model ||
             (!this.editable && !this.settings.mayChangeActivationFunction)}
-            help-text="The selected activation applies to all neurons in this layer."
+            help-text=${msg(
+              'The selected activation applies to all neurons in this layer.',
+            )}
             @sl-change=${(_e: SlChangeEvent) => {
               this.handleChangeActivation()
             }}
@@ -82,18 +88,20 @@ export class LayerActivationCard extends LitElementWw {
               (activation) =>
                 html`<sl-option value="${activation.name}"
                   >${activation.name}</sl-option
-                >`
+                >`,
             )}
           </sl-select>
           ${Object.hasOwn(this.layer.conf.activation, 'img')
             ? html`<img src=${activation.img} />`
             : html``}
           <p>
-            After calculating a neuron's value by adding up its weighted input
-            values and its bias: ${this.layer.conf.activation.description}
+            ${msg(
+              "After calculating a neuron's value by adding up its weighted input values and its bias:",
+            )}${' '}${this.layer.conf.activation.description}
           </p>
           <p>
-            Range of possible output values: ${this.layer.conf.activation.range}
+            ${msg('Range of possible output values:')}${' '}${this.layer.conf
+              .activation.range}
           </p>
         </div>
       </c-card>

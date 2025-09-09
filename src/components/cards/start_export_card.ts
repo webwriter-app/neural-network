@@ -19,14 +19,14 @@ import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 import type { TrainOptions } from '@/types/train_options'
 import { trainOptionsContext } from '@/contexts/train_options_context'
 import { CCard } from '../reusables/c-card'
-import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
-import IconFileEarmarkArrowDown from "bootstrap-icons/icons/file-earmark-arrow-down.svg"
+import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
+import IconFileEarmarkArrowDown from 'bootstrap-icons/icons/file-earmark-arrow-down.svg'
+import { msg } from '@lit/localize'
 
 export class StartExportCard extends LitElementWw {
-
   static scopedElements = {
-    "c-card": CCard,
-    "sl-button": SlButton
+    'c-card': CCard,
+    'sl-button': SlButton,
   }
 
   @consume({ context: settingsContext, subscribe: true })
@@ -56,7 +56,7 @@ export class StartExportCard extends LitElementWw {
       new Event('export-config', {
         bubbles: true,
         composed: true,
-      })
+      }),
     )
   }
 
@@ -67,11 +67,12 @@ export class StartExportCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Export</div>
+        <div slot="title">${msg('Export')}</div>
         <div slot="content">
           <p>
-            Export the current configuration to your local file system as a JSON
-            file. Storing trained models is not supported.
+            ${msg(
+              'Export the current configuration to your local file system as a JSON file. Storing trained models is not supported.',
+            )}
           </p>
           <sl-button
             @click="${(_e: MouseEvent) => {
@@ -79,7 +80,7 @@ export class StartExportCard extends LitElementWw {
             }}"
           >
             <sl-icon slot="prefix" src=${IconFileEarmarkArrowDown}></sl-icon>
-            Export
+            ${msg('Export')}
           </sl-button>
         </div>
       </c-card>

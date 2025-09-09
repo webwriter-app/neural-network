@@ -10,6 +10,7 @@ import { dataSetContext } from '@/contexts/data_set_context'
 import type { CLayer } from '@/components/network/c_layer'
 import { CCard } from '../reusables/c-card'
 import { CNetworkLink } from '../reusables/c-network-link'
+import { msg } from '@lit/localize'
 
 export class LayerInfoCard extends LitElementWw {
   
@@ -33,7 +34,7 @@ export class LayerInfoCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Layer</div>
+        <div slot="title">${msg('Layer')}</div>
         <div slot="content">
           <p>
             Name:

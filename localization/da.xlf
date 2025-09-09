@@ -1,0 +1,830 @@
+<xliff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd" xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="lit-localize-inputs" datatype="plaintext" source-language="en" target-language="da">
+    <body>
+      <trans-unit id="s4c3e975942fc568d">
+        <source>You decided to train a model with the current configuration. As an effect, all options to edit the configuration have been temporarily removed or disabled to make sure the configuration you see is the same configuration the model uses. If you want to make changes to your configuration, you need to discard the current model first. If you discard your model, you can again perform any changes and train a new model based on the new configuration.</source>
+        <target>Du har besluttet at træne en model med den aktuelle konfiguration. Som følge heraf er alle muligheder for at redigere konfigurationen midlertidigt fjernet eller deaktiveret for at sikre, at den konfiguration, du ser, er den samme, som modellen bruger. Hvis du vil foretage ændringer i din konfiguration, skal du først kassere den aktuelle model. Hvis du kasserer din model, kan du igen udføre eventuelle ændringer og træne en ny model baseret på den nye konfiguration.</target>
+      </trans-unit>
+      <trans-unit id="sb4810a60b4ad921e">
+        <source>Discards the model, which gains you back your editing capabilities</source>
+        <target>Kasserer modellen, hvilket giver dig dine redigeringsmuligheder tilbage</target>
+      </trans-unit>
+      <trans-unit id="sc00a88b90cd60661">
+        <source>Discard</source>
+        <target>Kassér</target>
+      </trans-unit>
+      <trans-unit id="s2ed914b45e6f8fb0">
+        <source>Discard model</source>
+        <target>Kassér model</target>
+      </trans-unit>
+      <trans-unit id="s9d167ef77aed79b6">
+        <source>Layer</source>
+        <target>Lag</target>
+      </trans-unit>
+      <trans-unit id="se157debe22915185">
+        <source>was deleted because no data could be assigned to it!</source>
+        <target>blev slettet, fordi der ikke kunne tildeles nogen data til den!</target>
+      </trans-unit>
+      <trans-unit id="s8192fafe6f0cc0bb">
+        <source>An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)</source>
+        <target>Et inputlag er et lag, der bare tager data, der kommer udefra, og sender dem videre til de(t) næste lag.</target>
+      </trans-unit>
+      <trans-unit id="s0e36885f01f95cc8">
+        <source>A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.</source>
+        <target>Et tæt lag, også kaldet fuldt forbundet lag, er et lag, hvis indre neuroner er forbundet med alle neuroner i det foregående lag.</target>
+      </trans-unit>
+      <trans-unit id="s3310986378624a28">
+        <source>The selected layer can not be duplicated! Only a single output layer is currently supported!</source>
+        <target>Det valgte lag kan ikke duplikeres! I øjeblikket understøttes kun et enkelt outputlag!</target>
+      </trans-unit>
+      <trans-unit id="sdc95be9d922008e7">
+        <source>An output layer in this simulation is just a normal dense layer, additionally equipped with the ability to output the incoming data out of the network.</source>
+        <target>Et outputlag i denne simulering er bare et normalt tæt lag, der desuden er udstyret med evnen til at sende de indgående data ud af netværket.</target>
+      </trans-unit>
+      <trans-unit id="sa5982fd2e05ee92d">
+        <source>Since the purpose if this layer is to output a classifiction, we should combine it with a softmax activation function in order to provide a probability distribution.</source>
+        <target>Da formålet med dette lag er at udsende en klassifikation, bør vi kombinere det med en softmax-aktiveringsfunktion for at få en sandsynlighedsfordeling.</target>
+      </trans-unit>
+      <trans-unit id="s93d85c9969bc1e8e">
+        <source>Get started</source>
+        <target>Kom godt i gang</target>
+      </trans-unit>
+      <trans-unit id="s37f8f9ad6c3ca6e8">
+        <source>Import JSON configuration</source>
+        <target>Importer JSON-konfiguration</target>
+      </trans-unit>
+      <trans-unit id="sb39c29728a3aab64">
+        <source>Intermediate</source>
+        <target>Mellemliggende</target>
+      </trans-unit>
+      <trans-unit id="s4aba9979380614e1">
+        <source>Classification</source>
+        <target>Klassificering</target>
+      </trans-unit>
+      <trans-unit id="s7e7ce210415ee02c">
+        <source>Feed Forward</source>
+        <target>Feed Forward</target>
+      </trans-unit>
+      <trans-unit id="s835dc746e771a9d6">
+        <source>Boston House Pricing</source>
+        <target>Priser på Boston House</target>
+      </trans-unit>
+      <trans-unit id="s85f01e331f787810">
+        <source>Regression</source>
+        <target>Regression</target>
+      </trans-unit>
+      <trans-unit id="s382a2aa3984474dd">
+        <source>Create</source>
+        <target>Opret</target>
+      </trans-unit>
+      <trans-unit id="s13bf923e48a38e88">
+        <source>You can create a custom configuration by using the options in the corresponding right panels.</source>
+        <target>Du kan oprette en brugerdefineret konfiguration ved at bruge indstillingerne i de tilsvarende højrepaneler.</target>
+      </trans-unit>
+      <trans-unit id="s9d8b8aa2b404c2c8">
+        <source>Settings</source>
+        <target>Indstillinger</target>
+      </trans-unit>
+      <trans-unit id="s769b92432aa0e57f">
+        <source>Configure which options the users of this widget are allowed to view and edit</source>
+        <target>Konfigurer, hvilke muligheder brugerne af denne widget har lov til at se og redigere</target>
+      </trans-unit>
+      <trans-unit id="s255857544a9d5ec0">
+        <source>Reset</source>
+        <target>Nulstil</target>
+      </trans-unit>
+      <trans-unit id="s295e7ec3fae5aa15">
+        <source>Set to default</source>
+        <target>Indstil til standard</target>
+      </trans-unit>
+      <trans-unit id="s7f76d461768c268c">
+        <source>Allow importing configurations</source>
+        <target>Tillad import af konfigurationer</target>
+      </trans-unit>
+      <trans-unit id="sa219044786efe4f4">
+        <source>Show recommendations</source>
+        <target>Vis anbefalinger</target>
+      </trans-unit>
+      <trans-unit id="sa133a50ad676b757">
+        <source>Allow exporting configurations</source>
+        <target>Tillad eksport af konfigurationer</target>
+      </trans-unit>
+      <trans-unit id="s9feb1a1345ccc3e5">
+        <source>Network</source>
+        <target>Netværk</target>
+      </trans-unit>
+      <trans-unit id="s3de2e4f3353ff071">
+        <source>Restrict layer types</source>
+        <target>Begræns lagtyper</target>
+      </trans-unit>
+      <trans-unit id="scfa788c4d56c9859">
+        <source>Allow dense layers</source>
+        <target>Tillad tætte lag</target>
+      </trans-unit>
+      <trans-unit id="s05c44a5db696fcaf">
+        <source>Editing</source>
+        <target>Redigering</target>
+      </trans-unit>
+      <trans-unit id="secd2b30927c9ada1">
+        <source>Allow adding and removing layers</source>
+        <target>Tillad at tilføje og fjerne lag</target>
+      </trans-unit>
+      <trans-unit id="s1d6d96fee1f77a74">
+        <source>Allow editing layers</source>
+        <target>Tillad redigering af lag</target>
+      </trans-unit>
+      <trans-unit id="sc728fae3603c8b93">
+        <source>Allow selecting the data flowing into input layers</source>
+        <target>Gør det muligt at vælge de data, der strømmer ind i inputlagene</target>
+      </trans-unit>
+      <trans-unit id="s91346ada0f5220bf">
+        <source>Allow editing the number of neurons</source>
+        <target>Tillad redigering af antallet af neuroner</target>
+      </trans-unit>
+      <trans-unit id="sff69314112eb4786">
+        <source>Allow changing the activation function</source>
+        <target>Tillad ændring af aktiveringsfunktionen</target>
+      </trans-unit>
+      <trans-unit id="sb4aaa150117048eb">
+        <source>Allow reconnecting the layers with each other</source>
+        <target>Gør det muligt at forbinde lagene med hinanden igen</target>
+      </trans-unit>
+      <trans-unit id="s505d96c3ca2f3c78">
+        <source>Allow selecting a different data set</source>
+        <target>Tillad at vælge et andet datasæt</target>
+      </trans-unit>
+      <trans-unit id="sa3900af79012fda0">
+        <source>Allow managing (creating new and deleting) data sets</source>
+        <target>Tillad administration (oprettelse af nye og sletning) af datasæt</target>
+      </trans-unit>
+      <trans-unit id="s0605944041e20ba8">
+        <source>Show plots</source>
+        <target>Vis plots</target>
+      </trans-unit>
+      <trans-unit id="se65e4e6f3696e997">
+        <source>Training</source>
+        <target>Træning</target>
+      </trans-unit>
+      <trans-unit id="s7188f983604e2188">
+        <source>Allow editing hyperparameters</source>
+        <target>Tillad redigering af hyperparametre</target>
+      </trans-unit>
+      <trans-unit id="s77d657d2989d8bf6">
+        <source>Allow editing the batch size</source>
+        <target>Tillad redigering af batchstørrelse</target>
+      </trans-unit>
+      <trans-unit id="s14a65ec1c3dc6761">
+        <source>Allow editing the learning rate</source>
+        <target>Tillad redigering af indlæringshastigheden</target>
+      </trans-unit>
+      <trans-unit id="s399ed88a7aa67028">
+        <source>Allow editing the dropout rate</source>
+        <target>Tillad redigering af frafaldsprocenten</target>
+      </trans-unit>
+      <trans-unit id="s991dbe8a07858b6b">
+        <source>Important info</source>
+        <target>Vigtig information</target>
+      </trans-unit>
+      <trans-unit id="s293aa6a6446fb153">
+        <source>Export</source>
+        <target>Eksport</target>
+      </trans-unit>
+      <trans-unit id="sc7aaabd93fb4c486">
+        <source>Export the current configuration to your local file system as a JSON file. Storing trained models is not supported.</source>
+        <target>Eksporter den aktuelle konfiguration til dit lokale filsystem som en JSON-fil. Lagring af trænede modeller understøttes ikke.</target>
+      </trans-unit>
+      <trans-unit id="se3b4c857f91f80d7">
+        <source>Keyboard shortcuts</source>
+        <target>Tastaturgenveje</target>
+      </trans-unit>
+      <trans-unit id="sc25745d3142338ca">
+        <source>Deletes the currently selected layer</source>
+        <target>Sletter det aktuelt valgte lag</target>
+      </trans-unit>
+      <trans-unit id="sa5ed0165e089255e">
+        <source>Duplicates the currently selected layer</source>
+        <target>Duplikerer det aktuelt valgte lag</target>
+      </trans-unit>
+      <trans-unit id="s8ff8cee7c5d100bc">
+        <source>Moves the currently selected layer</source>
+        <target>Flytter det aktuelt valgte lag</target>
+      </trans-unit>
+      <trans-unit id="sa7f495fff0f250d9">
+        <source>Q &amp; A</source>
+        <target>SPØRGSMÅL OG SVAR</target>
+      </trans-unit>
+      <trans-unit id="s14b03351d9f0f4e8">
+        <source>There are currently no help entries. If you publish the widget like this, the help section will be hidden.</source>
+        <target>Der er i øjeblikket ingen hjælpeposter. Hvis du udgiver widgetten på denne måde, vil hjælpesektionen være skjult.</target>
+      </trans-unit>
+      <trans-unit id="se1f4d0fd4b9438d0">
+        <source>Update entry</source>
+        <target>Opdatering af post</target>
+      </trans-unit>
+      <trans-unit id="s3983b0213bfac281">
+        <source>Remove entry</source>
+        <target>Fjern indgang</target>
+      </trans-unit>
+      <trans-unit id="s99f110d27e30b289">
+        <source>Title</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="s6cee92a3b310e650">
+        <source>Add entry</source>
+        <target>Tilføj post</target>
+      </trans-unit>
+      <trans-unit id="sc20cf39aef9b3355">
+        <source>About this app</source>
+        <target>Om denne app</target>
+      </trans-unit>
+      <trans-unit id="s984fb2f8f14ee101">
+        <source>This app was developed by Christian Koch, a student at RWTH Aachen University, with support of Frederic Salmen and the chair i9 at RWTH Aachen University.</source>
+        <target>Denne app er udviklet af Christian Koch, en studerende ved RWTH Aachen University, med støtte fra Frederic Salmen og professoratet i9 ved RWTH Aachen University.</target>
+      </trans-unit>
+      <trans-unit id="sc62667aa0380bc6b">
+        <source>About the developer</source>
+        <target>Om udvikleren</target>
+      </trans-unit>
+      <trans-unit id="s17597a8bb4810524">
+        <source>License</source>
+        <target>Licens</target>
+      </trans-unit>
+      <trans-unit id="s8e7cfd29f14ffad6">
+        <source>All third-party data sets have been published under public domain</source>
+        <target>Alle tredjepartsdatasæt er offentliggjort under offentligt domæne</target>
+      </trans-unit>
+      <trans-unit id="sb546e48af5e5c359">
+        <source>Add layer</source>
+        <target>Tilføj lag</target>
+      </trans-unit>
+      <trans-unit id="saea857a2b4e1f6a7">
+        <source>Drag a layer anywhere to place it on the canvas</source>
+        <target>Træk et lag hvor som helst hen for at placere det på lærredet</target>
+      </trans-unit>
+      <trans-unit id="sfd77270c3f54f664">
+        <source>Output</source>
+        <target>Output</target>
+      </trans-unit>
+      <trans-unit id="sb4f1dffbb6be6302">
+        <source>Clear</source>
+        <target>Klar</target>
+      </trans-unit>
+      <trans-unit id="se6e9902ddea314c4">
+        <source>Clear network</source>
+        <target>Klart netværk</target>
+      </trans-unit>
+      <trans-unit id="s14ad6d4ee3b48ca2">
+        <source>This will remove every layer from the network.</source>
+        <target>Dette vil fjerne alle lag fra netværket.</target>
+      </trans-unit>
+      <trans-unit id="sae901180c48ddefb">
+        <source>Your network currently contains</source>
+        <target>Dit netværk indeholder i øjeblikket</target>
+      </trans-unit>
+      <trans-unit id="s4554e34a747022df">
+        <source>layers</source>
+        <target>lag</target>
+      </trans-unit>
+      <trans-unit id="s4d1b055aa7613557">
+        <source>Your network is currently empty.</source>
+        <target>Dit netværk er i øjeblikket tomt.</target>
+      </trans-unit>
+      <trans-unit id="sd2e79aff2aea724a">
+        <source>You currently do not have an input layer. Drag one onto the canvas!</source>
+        <target>Du har i øjeblikket ikke noget inputlag. Træk et op på lærredet!</target>
+      </trans-unit>
+      <trans-unit id="s37abcf4d745436f7">
+        <source>You currently do not have an output layer. Drag one onto the canvas!</source>
+        <target>Du har i øjeblikket ikke noget outputlag. Træk et op på lærredet!</target>
+      </trans-unit>
+      <trans-unit id="s6a4607c5c4e55a03">
+        <source>Always make sure to connect your layers such that there is a path from your input layer(s) to your output layer! Therefore select a layer in the canvas and select its incoming or outgoing connections</source>
+        <target>Sørg altid for at forbinde dine lag, så der er en vej fra dit/dine inputlag til dit outputlag! Vælg derfor et lag på lærredet, og vælg dets indgående eller udgående forbindelser</target>
+      </trans-unit>
+      <trans-unit id="s6a0bc0ce56a9ae4a">
+        <source>Features</source>
+        <target>Funktioner</target>
+      </trans-unit>
+      <trans-unit id="s5590dbf7e425789d">
+        <source>Label</source>
+        <target>Etiket</target>
+      </trans-unit>
+      <trans-unit id="s07e767f1fe8ad66a">
+        <source>View raw data</source>
+        <target>Se rå data</target>
+      </trans-unit>
+      <trans-unit id="s41ee884e3b2d7413">
+        <source>Click on an feature pill above to see the relation between this feature and the label in a plot</source>
+        <target>Klik på en funktionspille ovenfor for at se forholdet mellem denne funktion og etiketten i et plot</target>
+      </trans-unit>
+      <trans-unit id="scc33c632d6e60d84">
+        <source>plotted against</source>
+        <target>plottet mod</target>
+      </trans-unit>
+      <trans-unit id="s01c091af962d4963">
+        <source>Plots</source>
+        <target>Plots</target>
+      </trans-unit>
+      <trans-unit id="s573de432d7ee9439">
+        <source>The progress you made in creating your own data set was successfully restored!</source>
+        <target>De fremskridt, du gjorde med at skabe dit eget datasæt, blev gendannet med succes!</target>
+      </trans-unit>
+      <trans-unit id="s8e77b85b1ae353e5">
+        <source>A data set with the same name already exists!</source>
+        <target>Der findes allerede et datasæt med samme navn!</target>
+      </trans-unit>
+      <trans-unit id="s669ebaf3b9787562">
+        <source>The provided data does not match the required format! Please check again</source>
+        <target>De angivne data stemmer ikke overens med det krævede format! Tjek venligst igen</target>
+      </trans-unit>
+      <trans-unit id="see988347633ae840">
+        <source>A new data set was successfully created and automatically selected!</source>
+        <target>Et nyt datasæt blev oprettet og automatisk valgt!</target>
+      </trans-unit>
+      <trans-unit id="s18de3f0678131658">
+        <source>Create a new data set</source>
+        <target>Opret et nyt datasæt</target>
+      </trans-unit>
+      <trans-unit id="scdb1bac161852c73">
+        <source>Welcome</source>
+        <target>Velkommen</target>
+      </trans-unit>
+      <trans-unit id="s59163864a74213df">
+        <source>This tour will guide you through creating your own data set in a few simple steps. Everything is stored automatically, so you can close this modal at any time and resume.</source>
+        <target>Denne tur guider dig gennem oprettelsen af dit eget datasæt i et par enkle trin. Alt gemmes automatisk, så du kan til enhver tid lukke denne modal og fortsætte.</target>
+      </trans-unit>
+      <trans-unit id="s420e8fef6d553399">
+        <source>General info about the data set</source>
+        <target>Generel information om datasættet</target>
+      </trans-unit>
+      <trans-unit id="sf82bd0ca92fc7478">
+        <source>Choose a short but meaningful name for your data set and write a description.</source>
+        <target>Vælg et kort, men meningsfuldt navn til dit datasæt, og skriv en beskrivelse.</target>
+      </trans-unit>
+      <trans-unit id="sef49aec68fd1dc66">
+        <source>Name</source>
+        <target>Navn</target>
+      </trans-unit>
+      <trans-unit id="s63d894b1ddb06289">
+        <source>Description</source>
+        <target>Beskrivelse</target>
+      </trans-unit>
+      <trans-unit id="s4c5805b438fae5b7">
+        <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
+        <target>Boston House Price-datasættet indebærer forudsigelse af en huspris i tusindvis af dollars givet detaljer om huset og dets nabolag.</target>
+      </trans-unit>
+      <trans-unit id="sea29890d344759e2">
+        <source>Choose 'regression' if you want to predict continous values like house or gas prices</source>
+        <target>Vælg 'regression', hvis du vil forudsige kontinuerlige værdier som hus- eller gaspriser.</target>
+      </trans-unit>
+      <trans-unit id="sa51b42a0f8bc1196">
+        <source>Choose 'classification' if you want information about the affiliation of the feature(s) to a class (e.g. what animal can be seen in this image? A dog, cat or horse?)</source>
+        <target>Vælg "klassifikation", hvis du vil have oplysninger om funktionens/funktionernes tilhørsforhold til en klasse (f.eks. hvilket dyr kan ses på dette billede? En hund, kat eller hest?).</target>
+      </trans-unit>
+      <trans-unit id="s381b5d0debf831a1">
+        <source>Choose a type</source>
+        <target>Vælg en type</target>
+      </trans-unit>
+      <trans-unit id="s641101718c90c0aa">
+        <source>Which data will be put into the neural network? Create arbitrary many features!</source>
+        <target>Hvilke data vil blive lagt ind i det neurale netværk? Opret vilkårligt mange funktioner!</target>
+      </trans-unit>
+      <trans-unit id="s506b6a19d12f414c">
+        <source>Key</source>
+        <target>Nøgle</target>
+      </trans-unit>
+      <trans-unit id="s0c9543b42518e43e">
+        <source>1-6 capital letters</source>
+        <target>1-6 store bogstaver</target>
+      </trans-unit>
+      <trans-unit id="sb0be465979ef3758">
+        <source>Weighted distances to five Boston employment centers</source>
+        <target>Vægtede afstande til fem beskæftigelsescentre i Boston</target>
+      </trans-unit>
+      <trans-unit id="s9ccab5f6530bd7fb">
+        <source>Remove feature</source>
+        <target>Fjern funktion</target>
+      </trans-unit>
+      <trans-unit id="sb1cdfd5a8a60f3ca">
+        <source>Add feature</source>
+        <target>Tilføj funktion</target>
+      </trans-unit>
+      <trans-unit id="sa7f1260d99ed4dcb">
+        <source>What shall be the output of the network?</source>
+        <target>Hvad skal der komme ud af netværket?</target>
+      </trans-unit>
+      <trans-unit id="s473a26666565450c">
+        <source>Median value of owner-occupied homes in $1000s</source>
+        <target>Medianværdi af ejerboliger i 1000 dollars</target>
+      </trans-unit>
+      <trans-unit id="s2ba861fd720acdec">
+        <source>an integer</source>
+        <target>et heltal</target>
+      </trans-unit>
+      <trans-unit id="s2511ced2063529c4">
+        <source>Animal was detected as a horse</source>
+        <target>Dyret blev opdaget som en hest</target>
+      </trans-unit>
+      <trans-unit id="s81fe4b139dbcd729">
+        <source>Remove class</source>
+        <target>Fjern klassen</target>
+      </trans-unit>
+      <trans-unit id="s3187969905158d04">
+        <source>Add class</source>
+        <target>Tilføj klasse</target>
+      </trans-unit>
+      <trans-unit id="s93aa17486b781f3d">
+        <source>You are nearly done</source>
+        <target>Du er næsten færdig</target>
+      </trans-unit>
+      <trans-unit id="s4770b2377cfb5113">
+        <source>Now add your data in the following format</source>
+        <target>Tilføj nu dine data i følgende format</target>
+      </trans-unit>
+      <trans-unit id="s514bbfe7a6a1385a">
+        <source>Each row needs to represent one set containing the features and the label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the features. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments.</source>
+        <target>Hver række skal repræsentere et sæt, der indeholder funktionerne og etiketten. Adskil elementerne med et komma (mellemrum før og efter kommaet er okay). Det sidste element repræsenterer altid etiketten, mens elementerne før det repræsenterer funktionerne. Sørg for kun at bruge prikker og ingen kommaer til flydende værdier. Hvis du har data i CSV-format, kan du bare indsætte dem her, men sørg for at fjerne eventuelle kommentarer.</target>
+      </trans-unit>
+      <trans-unit id="sf3ff78cc329d3528">
+        <source>Previous</source>
+        <target>Tidligere</target>
+      </trans-unit>
+      <trans-unit id="s0fbf6dc6a1966408">
+        <source>Next</source>
+        <target>Næste</target>
+      </trans-unit>
+      <trans-unit id="s886925e360029fea">
+        <source>Validate and create</source>
+        <target>Valider og opret</target>
+      </trans-unit>
+      <trans-unit id="s688d523f38404f47">
+        <source>Manage data sets</source>
+        <target>Administrer datasæt</target>
+      </trans-unit>
+      <trans-unit id="s114321122eed37a2">
+        <source>Currently selected</source>
+        <target>I øjeblikket valgt</target>
+      </trans-unit>
+      <trans-unit id="s05560220ff65f5eb">
+        <source>Permanently delete data set</source>
+        <target>Slet datasættet permanent</target>
+      </trans-unit>
+      <trans-unit id="s7ad8f95cd252ff9b">
+        <source>Select data set</source>
+        <target>Vælg datasæt</target>
+      </trans-unit>
+      <trans-unit id="s8e0e95cf2d9f0fe0">
+        <source>"Select a data set"</source>
+        <target>"Vælg et datasæt"</target>
+      </trans-unit>
+      <trans-unit id="s9ea77d0d371dc469">
+        <source>Train</source>
+        <target>Tog</target>
+      </trans-unit>
+      <trans-unit id="s69bf683344258f79">
+        <source>Training completed!</source>
+        <target>Træning afsluttet!</target>
+      </trans-unit>
+      <trans-unit id="sedc9092c834a7a37">
+        <source>Feel free to continue training your model for some additional epochs which might get you even better results!</source>
+        <target>Du er velkommen til at fortsætte med at træne din model i nogle ekstra epoker, hvilket kan give dig endnu bedre resultater!</target>
+      </trans-unit>
+      <trans-unit id="s900c980bdb200fcf">
+        <source>Epochs</source>
+        <target>Epoke</target>
+      </trans-unit>
+      <trans-unit id="s7f291599fb79b2a9">
+        <source>Number of iterations over the whole training data set</source>
+        <target>Antal iterationer over hele træningsdatasættet</target>
+      </trans-unit>
+      <trans-unit id="s9fbbc819fe7e66aa">
+        <source>Run</source>
+        <target>Løb</target>
+      </trans-unit>
+      <trans-unit id="s7ae39eeb994f4040">
+        <source>Train for 1 epoch</source>
+        <target>Træn i 1 epoke</target>
+      </trans-unit>
+      <trans-unit id="s415ece5a1e4e50ce">
+        <source>Train for</source>
+        <target>Træn til</target>
+      </trans-unit>
+      <trans-unit id="sa24fcd4e36a13aef">
+        <source>epochs</source>
+        <target>epoker</target>
+      </trans-unit>
+      <trans-unit id="s12db7f32a3851306">
+        <source>Epoch</source>
+        <target>Epoke</target>
+      </trans-unit>
+      <trans-unit id="safda35e3d523b59b">
+        <source>Batch</source>
+        <target>Batch</target>
+      </trans-unit>
+      <trans-unit id="s97aa76056a81bd36">
+        <source>Metrics</source>
+        <target>Metrikker</target>
+      </trans-unit>
+      <trans-unit id="s61e8f3fac73d5e85">
+        <source>Loss: Categorical Crossentropy</source>
+        <target>Tab: Kategorisk krydsentropi</target>
+      </trans-unit>
+      <trans-unit id="s9f262d3debac7e63">
+        <source>Accuracy: In what percentage of the tests was the right class predicted?</source>
+        <target>Nøjagtighed: I hvor mange procent af testene blev den rigtige klasse forudsagt?</target>
+      </trans-unit>
+      <trans-unit id="s04cf457a74a1ca3e">
+        <source>Loss: Mean Squared Error</source>
+        <target>Tab: Gennemsnitlig kvadreret fejl</target>
+      </trans-unit>
+      <trans-unit id="s5f343a43e7ea9f91">
+        <source>Error</source>
+        <target>Fejl</target>
+      </trans-unit>
+      <trans-unit id="s7fd689e3ee842226">
+        <source>What is the difference between the two lines in a graph?</source>
+        <target>Hvad er forskellen mellem de to linjer i en graf?</target>
+      </trans-unit>
+      <trans-unit id="s9cc47ae161b22379">
+        <source>For val_..., the metric is calculated on the validation data set while for the data without val as a prefix the metric is calculated on the training data set. The metrics for the validation data set can be seen as more meaningful since this is the data the network does not 'know'.</source>
+        <target>For val_... beregnes metrikken ud fra valideringsdatasættet, mens metrikken for data uden val som præfiks beregnes ud fra træningsdatasættet. Metrikkerne for valideringsdatasættet kan ses som mere meningsfulde, da det er de data, netværket ikke 'kender'.</target>
+      </trans-unit>
+      <trans-unit id="s5ebe428b72f9d9fd">
+        <source>Hyperparameters</source>
+        <target>Hyperparametre</target>
+      </trans-unit>
+      <trans-unit id="sd674ba4ce23f2290">
+        <source>Batch size</source>
+        <target>Batch-størrelse</target>
+      </trans-unit>
+      <trans-unit id="sa4aa72be4b18da23">
+        <source>Learning rate</source>
+        <target>Indlæringshastighed</target>
+      </trans-unit>
+      <trans-unit id="s29028574383c26b2">
+        <source>Dropout rate</source>
+        <target>Frafaldsprocent</target>
+      </trans-unit>
+      <trans-unit id="s0d783bd504d48897">
+        <source>Adjust the probability of neurons being deactivated during training</source>
+        <target>Juster sandsynligheden for, at neuroner deaktiveres under træning</target>
+      </trans-unit>
+      <trans-unit id="sd8305d1efc816b0a">
+        <source>Predict</source>
+        <target>Forudsigelse</target>
+      </trans-unit>
+      <trans-unit id="sf7aa4a7f6a7a6ae9">
+        <source>Predicted label</source>
+        <target>Forudset etiket</target>
+      </trans-unit>
+      <trans-unit id="s5a27bd37c0a0ad1a">
+        <source>with a probability of</source>
+        <target>med en sandsynlighed på</target>
+      </trans-unit>
+      <trans-unit id="sd0ee89e8e7353561">
+        <source>Make another prediction</source>
+        <target>Lav en ny forudsigelse</target>
+      </trans-unit>
+      <trans-unit id="s8af61807443f32a4">
+        <source>Actions</source>
+        <target>Handlinger</target>
+      </trans-unit>
+      <trans-unit id="sfac15b89e0668996">
+        <source>Duplicate</source>
+        <target>Duplikat</target>
+      </trans-unit>
+      <trans-unit id="sdc673e73b5c13aea">
+        <source>Delete</source>
+        <target>Sletning</target>
+      </trans-unit>
+      <trans-unit id="s22b10e3713c037c7">
+        <source>Activation function</source>
+        <target>Aktiveringsfunktion</target>
+      </trans-unit>
+      <trans-unit id="sa90802aba569f823">
+        <source>The selected activation applies to all neurons in this layer.</source>
+        <target>Den valgte aktivering gælder for alle neuroner i dette lag.</target>
+      </trans-unit>
+      <trans-unit id="s256782b6fa6c81e3">
+        <source>After calculating a neuron's value by adding up its weighted input values and its bias:</source>
+        <target>Efter at have beregnet en neurons værdi ved at lægge dens vægtede inputværdier og dens bias sammen:</target>
+      </trans-unit>
+      <trans-unit id="s514d47a63e3b11c3">
+        <source>Range of possible output values:</source>
+        <target>Område med mulige outputværdier:</target>
+      </trans-unit>
+      <trans-unit id="s801ac62b23cc5f5f">
+        <source>Neurons</source>
+        <target>Neuroner</target>
+      </trans-unit>
+      <trans-unit id="sea4f08110bb8f15d">
+        <source>Remove</source>
+        <target>Fjerne</target>
+      </trans-unit>
+      <trans-unit id="sf9aee319a006c9b4">
+        <source>Add</source>
+        <target>Tilføj</target>
+      </trans-unit>
+      <trans-unit id="s5a95fb6f50ddd6ff">
+        <source>neurons</source>
+        <target>neuroner</target>
+      </trans-unit>
+      <trans-unit id="s8b0432eecbd8b034">
+        <source>Update</source>
+        <target>Opdatering</target>
+      </trans-unit>
+      <trans-unit id="s69a4b7731c4ab258">
+        <source>Incoming connections</source>
+        <target>Indgående forbindelser</target>
+      </trans-unit>
+      <trans-unit id="sfcb8881b108f62ed">
+        <source>Select the layers that connect to this layer</source>
+        <target>Vælg de lag, der er forbundet med dette lag</target>
+      </trans-unit>
+      <trans-unit id="sf35b120256b540b4">
+        <source>Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description.</source>
+        <target>Tildel funktion til dette lag. Hold musen over funktionstasterne i den åbne rullemenu for at få en beskrivelse.</target>
+      </trans-unit>
+      <trans-unit id="s47333467f911302a">
+        <source>Outgoing connections</source>
+        <target>Udgående forbindelser</target>
+      </trans-unit>
+      <trans-unit id="s684e13d4e599ccdd">
+        <source>Select the layers this layer connects to</source>
+        <target>Vælg de lag, som dette lag er forbundet med</target>
+      </trans-unit>
+      <trans-unit id="saf83c9eefbdeee91">
+        <source>Outgoing data</source>
+        <target>Udgående data</target>
+      </trans-unit>
+      <trans-unit id="s690d876ebcfe1dd6">
+        <source>Neuron</source>
+        <target>Neuron</target>
+      </trans-unit>
+      <trans-unit id="s8efe9b047510b849">
+        <source>Corresponding layer:</source>
+        <target>Tilsvarende lag:</target>
+      </trans-unit>
+      <trans-unit id="sd6b4fb36bd73f830">
+        <source>Assigned feature (input)</source>
+        <target>Tildelt funktion (input)</target>
+      </trans-unit>
+      <trans-unit id="s888d98a196a240d8">
+        <source>Inputs</source>
+        <target>Indgange</target>
+      </trans-unit>
+      <trans-unit id="s7aaa83f30a557ce9">
+        <source>- All neurons from</source>
+        <target>- Alle neuroner fra</target>
+      </trans-unit>
+      <trans-unit id="s4a3a9e0c684b763f">
+        <source>Label (output)</source>
+        <target>Etiket (output)</target>
+      </trans-unit>
+      <trans-unit id="s066d70cf9d5e2915">
+        <source>Outputs</source>
+        <target>Udgange</target>
+      </trans-unit>
+      <trans-unit id="s6503256c2de2745c">
+        <source>Edge</source>
+        <target>Kant</target>
+      </trans-unit>
+      <trans-unit id="s517acbf1f96324f9">
+        <source>Weight</source>
+        <target>Vægt</target>
+      </trans-unit>
+      <trans-unit id="s0b29ddb08394f57b">
+        <source>Failed to enter fullscreen mode.</source>
+        <target>Kunne ikke gå ind i fuldskærmstilstand.</target>
+      </trans-unit>
+      <trans-unit id="sb59d68ed12d46377">
+        <source>Loading</source>
+        <target>Indlæsning</target>
+      </trans-unit>
+      <trans-unit id="s92dd08d474f4ba4b">
+        <source>Per capita crime rate by town</source>
+        <target>Kriminalitet pr. indbygger efter by</target>
+      </trans-unit>
+      <trans-unit id="sa2cb02c992247501">
+        <source>Proportion of residential land zoned for lots over 25,000 sq.ft.</source>
+        <target>Andel af boligområder, der er udlagt til grunde over 25.000 sq.ft.</target>
+      </trans-unit>
+      <trans-unit id="s0ba84c8c8dd5dfe5">
+        <source>Proportion of nonretail business acres per town</source>
+        <target>Andel af erhvervsarealer uden detailhandel pr. by</target>
+      </trans-unit>
+      <trans-unit id="sb85fa3ee37f69a87">
+        <source>Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)</source>
+        <target>Charles River dummy-variabel (= 1, hvis området grænser op til floden; 0 ellers)</target>
+      </trans-unit>
+      <trans-unit id="s902fe1322b1d2c62">
+        <source>Nitric oxides concentration (parts per 10 million)</source>
+        <target>Koncentration af nitrogenoxider (dele pr. 10 millioner)</target>
+      </trans-unit>
+      <trans-unit id="sf928898f4043c6ff">
+        <source>Average number of rooms per dwelling</source>
+        <target>Gennemsnitligt antal værelser pr. bolig</target>
+      </trans-unit>
+      <trans-unit id="s95f88e83db13ec5c">
+        <source>Proportion of owner-occupied units built prior to 1940</source>
+        <target>Andel af ejerboliger bygget før 1940</target>
+      </trans-unit>
+      <trans-unit id="sb60c67627b3119cc">
+        <source>Index of accessibility to radial highways</source>
+        <target>Indeks for tilgængelighed til radiale motorveje</target>
+      </trans-unit>
+      <trans-unit id="sc3ba6f6e119cd273">
+        <source>Full-value property-tax rate per $10,000</source>
+        <target>Fuld ejendomsskattesats pr. 10.000 dollars</target>
+      </trans-unit>
+      <trans-unit id="s49d8fc3f40b093ac">
+        <source>Pupil-teacher ratio by town</source>
+        <target>Elev-lærer-ratio efter by</target>
+      </trans-unit>
+      <trans-unit id="s577b270038a8c007">
+        <source>1000(Bk – 0.63)^2 where Bk is the proportion of blacks by town</source>
+        <target>1000(Bk - 0,63)^2 hvor Bk er andelen af sorte i byen</target>
+      </trans-unit>
+      <trans-unit id="s2f41bf569b07a4cc">
+        <source>% lower status of the population</source>
+        <target>% lavere status i befolkningen</target>
+      </trans-unit>
+      <trans-unit id="sb96294312677cad5">
+        <source>Pima Indians Diabetes</source>
+        <target>Pima-indianere med diabetes</target>
+      </trans-unit>
+      <trans-unit id="sc20c7530f6afbb7c">
+        <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
+        <target>Pima Indians Diabetes-datasættet involverer forudsigelse af udbruddet af diabetes inden for 5 år hos Pima-indianere givet medicinske detaljer. Det er et binært (2-klasses) klassifikationsproblem. Antallet af observationer for hver klasse er ikke afbalanceret. Der er 768 observationer med 8 inputvariabler og 1 outputvariabel. Manglende værdier antages at være kodet med nulværdier.</target>
+      </trans-unit>
+      <trans-unit id="s4e77426bf7986294">
+        <source>Number of times pregnant</source>
+        <target>Antal gange gravid</target>
+      </trans-unit>
+      <trans-unit id="s5923001bb6219bb3">
+        <source>Plasma glucose concentration a 2 hours in an oral glucose tolerance test.</source>
+        <target>Plasmaglukosekoncentration efter 2 timer i en oral glukosetolerancetest.</target>
+      </trans-unit>
+      <trans-unit id="sf7cdf4e3adc1b2fa">
+        <source>Diastolic blood pressure (mm Hg)</source>
+        <target>Diastolisk blodtryk (mm Hg)</target>
+      </trans-unit>
+      <trans-unit id="s5659cbd3943227de">
+        <source>Triceps skinfold thickness (mm)</source>
+        <target>Triceps' hudfoldstykkelse (mm)</target>
+      </trans-unit>
+      <trans-unit id="sa17f891acb35efd2">
+        <source>2-Hour serum insulin (mu U/ml)</source>
+        <target>2-timers seruminsulin (mu U/ml)</target>
+      </trans-unit>
+      <trans-unit id="s4a39fd2eb0e136da">
+        <source>Body mass index (weight in kg/(height in m)^2)</source>
+        <target>Kropsmasseindeks (vægt i kg/(højde i m)^2)</target>
+      </trans-unit>
+      <trans-unit id="s66ebf0bd757d5159">
+        <source>Diabetes pedigree function</source>
+        <target>Diabetes stamtavle funktion</target>
+      </trans-unit>
+      <trans-unit id="s5ef9308d320834d1">
+        <source>Age (years)</source>
+        <target>Alder (år)</target>
+      </trans-unit>
+      <trans-unit id="s4e64552852c163c0">
+        <source>Diabetes</source>
+        <target>Diabetes</target>
+      </trans-unit>
+      <trans-unit id="sf27f87a94b05a690">
+        <source>Toggle Menu</source>
+        <target>Skift menu</target>
+      </trans-unit>
+      <trans-unit id="s236ae937cbcd6a39">
+        <source>Zoom in</source>
+        <target>Zoom ind</target>
+      </trans-unit>
+      <trans-unit id="s5b1749c67945a111">
+        <source>Zoom to network</source>
+        <target>Zoom til netværk</target>
+      </trans-unit>
+      <trans-unit id="sc65ea2cf2f21a13a">
+        <source>Zoom out</source>
+        <target>Zoom ud</target>
+      </trans-unit>
+      <trans-unit id="sd03c537f123f42a6">
+        <source>Exit Fullscreen</source>
+        <target>Afslut fuld skærm</target>
+      </trans-unit>
+      <trans-unit id="s4b10acae683d2978">
+        <source>Fullscreen</source>
+        <target>Fuld skærm</target>
+      </trans-unit>
+      <trans-unit id="sae1c7f13b7c0c47f">
+        <source>Start</source>
+        <target>Start</target>
+      </trans-unit>
+      <trans-unit id="s4488dd99533e7f65">
+        <source>Data set</source>
+        <target>Datasæt</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

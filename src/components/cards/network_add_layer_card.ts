@@ -16,17 +16,17 @@ import { CCard } from '../reusables/c-card'
 
 import { SlButton, SlIcon } from '@shoelace-style/shoelace'
 
-import IconPlusLg from "bootstrap-icons/icons/plus-lg.svg"
-import IconBoxArrowInRight from "bootstrap-icons/icons/box-arrow-in-right.svg"; // Input
-import IconLayers from "bootstrap-icons/icons/layers.svg"; // Dense
-import IconBoxArrowRight from "bootstrap-icons/icons/box-arrow-right.svg"; // Output
+import IconPlusLg from 'bootstrap-icons/icons/plus-lg.svg'
+import IconBoxArrowInRight from 'bootstrap-icons/icons/box-arrow-in-right.svg' // Input
+import IconLayers from 'bootstrap-icons/icons/layers.svg' // Dense
+import IconBoxArrowRight from 'bootstrap-icons/icons/box-arrow-right.svg' // Output
+import { msg } from '@lit/localize'
 
 export class NetworkAddLayerCard extends LitElementWw {
-
   static scopedElements = {
-    "c-card": CCard,
-    "sl-icon": SlIcon,
-    "sl-button": SlButton
+    'c-card': CCard,
+    'sl-icon': SlIcon,
+    'sl-button': SlButton,
   }
 
   @consume({ context: editableContext, subscribe: true })
@@ -62,9 +62,9 @@ export class NetworkAddLayerCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Add layer</div>
+        <div slot="title">${msg('Add layer')}</div>
         <div slot="content">
-          <p>Drag a layer anywhere to place it on the canvas</p>
+          <p>${msg('Drag a layer anywhere to place it on the canvas')}</p>
           <div class="tag-group">
             <sl-button
               class="draggable-tag"
@@ -88,7 +88,7 @@ export class NetworkAddLayerCard extends LitElementWw {
                 </sl-tag>`
               : html``}
             ${this.layerConfs.every(
-              (layerConf) => layerConf.LAYER_TYPE != 'Output'
+              (layerConf) => layerConf.LAYER_TYPE != 'Output',
             )
               ? html`<sl-button
                   class="draggable-tag"
@@ -97,7 +97,7 @@ export class NetworkAddLayerCard extends LitElementWw {
                     e.dataTransfer.setData('LAYER_TYPE', 'Output')}"
                 >
                   <sl-icon slot="prefix" src=${IconBoxArrowRight}></sl-icon>
-                  Output
+                  ${msg('Output')}
                 </sl-tag>`
               : html``}
           </div>

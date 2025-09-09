@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:2.0" version="2.1" srcLang="en" trgLang="ko">
+<file id="." original=".">
+<unit id="description"><segment><source>Deep learning visualization for feed-forward networks with custom datasets, training and prediction.</source><target>사용자 지정 데이터 세트, 학습 및 예측이 포함된 피드 포워드 네트워크를 위한 딥 러닝 시각화입니다.</target></segment></unit>
+</file>
+</xliff>

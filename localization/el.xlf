@@ -1,0 +1,830 @@
+<xliff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd" xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="lit-localize-inputs" datatype="plaintext" source-language="en" target-language="el">
+    <body>
+      <trans-unit id="s4c3e975942fc568d">
+        <source>You decided to train a model with the current configuration. As an effect, all options to edit the configuration have been temporarily removed or disabled to make sure the configuration you see is the same configuration the model uses. If you want to make changes to your configuration, you need to discard the current model first. If you discard your model, you can again perform any changes and train a new model based on the new configuration.</source>
+        <target>Αποφασίσατε να εκπαιδεύσετε ένα μοντέλο με την τρέχουσα διαμόρφωση. Ως αποτέλεσμα, όλες οι επιλογές για την επεξεργασία της διαμόρφωσης έχουν προσωρινά αφαιρεθεί ή απενεργοποιηθεί για να βεβαιωθείτε ότι η διαμόρφωση που βλέπετε είναι η ίδια διαμόρφωση που χρησιμοποιεί το μοντέλο. Αν θέλετε να κάνετε αλλαγές στη διαμόρφωση, πρέπει πρώτα να απορρίψετε το τρέχον μοντέλο. Εάν απορρίψετε το μοντέλο σας, μπορείτε να εκτελέσετε ξανά οποιεσδήποτε αλλαγές και να εκπαιδεύσετε ένα νέο μοντέλο με βάση τη νέα διαμόρφωση.</target>
+      </trans-unit>
+      <trans-unit id="sb4810a60b4ad921e">
+        <source>Discards the model, which gains you back your editing capabilities</source>
+        <target>Απορρίπτει το μοντέλο, το οποίο σας δίνει πίσω τις δυνατότητες επεξεργασίας σας</target>
+      </trans-unit>
+      <trans-unit id="sc00a88b90cd60661">
+        <source>Discard</source>
+        <target>Απορρίψτε το</target>
+      </trans-unit>
+      <trans-unit id="s2ed914b45e6f8fb0">
+        <source>Discard model</source>
+        <target>Απορρίψτε το μοντέλο</target>
+      </trans-unit>
+      <trans-unit id="s9d167ef77aed79b6">
+        <source>Layer</source>
+        <target>Στρώμα</target>
+      </trans-unit>
+      <trans-unit id="se157debe22915185">
+        <source>was deleted because no data could be assigned to it!</source>
+        <target>διαγράφηκε επειδή δεν μπορούσαν να του ανατεθούν δεδομένα!</target>
+      </trans-unit>
+      <trans-unit id="s8192fafe6f0cc0bb">
+        <source>An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)</source>
+        <target>Ένα επίπεδο εισόδου είναι ένα επίπεδο που απλώς λαμβάνει δεδομένα που παρέχονται από το εξωτερικό του δικτύου και τα μεταβιβάζει στο επόμενο(α) επίπεδο(α).</target>
+      </trans-unit>
+      <trans-unit id="s0e36885f01f95cc8">
+        <source>A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.</source>
+        <target>Ένα πυκνό στρώμα, που ονομάζεται επίσης πλήρως συνδεδεμένο στρώμα, είναι ένα στρώμα του οποίου οι εσωτερικοί νευρώνες συνδέονται με κάθε νευρώνα στο προηγούμενο στρώμα.</target>
+      </trans-unit>
+      <trans-unit id="s3310986378624a28">
+        <source>The selected layer can not be duplicated! Only a single output layer is currently supported!</source>
+        <target>Η επιλεγμένη στρώση δεν μπορεί να αντιγραφεί! Προς το παρόν υποστηρίζεται μόνο ένα στρώμα εξόδου!</target>
+      </trans-unit>
+      <trans-unit id="sdc95be9d922008e7">
+        <source>An output layer in this simulation is just a normal dense layer, additionally equipped with the ability to output the incoming data out of the network.</source>
+        <target>Ένα στρώμα εξόδου σε αυτή την προσομοίωση είναι απλώς ένα κανονικό πυκνό στρώμα, επιπλέον εξοπλισμένο με την ικανότητα να εξάγει τα εισερχόμενα δεδομένα από το δίκτυο.</target>
+      </trans-unit>
+      <trans-unit id="sa5982fd2e05ee92d">
+        <source>Since the purpose if this layer is to output a classifiction, we should combine it with a softmax activation function in order to provide a probability distribution.</source>
+        <target>Δεδομένου ότι ο σκοπός αυτού του επιπέδου είναι να εξάγει μια ταξινόμηση, θα πρέπει να το συνδυάσουμε με μια συνάρτηση ενεργοποίησης softmax για να δώσουμε μια κατανομή πιθανοτήτων.</target>
+      </trans-unit>
+      <trans-unit id="s93d85c9969bc1e8e">
+        <source>Get started</source>
+        <target>Ξεκινήστε</target>
+      </trans-unit>
+      <trans-unit id="s37f8f9ad6c3ca6e8">
+        <source>Import JSON configuration</source>
+        <target>Εισαγωγή ρυθμίσεων JSON</target>
+      </trans-unit>
+      <trans-unit id="sb39c29728a3aab64">
+        <source>Intermediate</source>
+        <target>Ενδιάμεσο</target>
+      </trans-unit>
+      <trans-unit id="s4aba9979380614e1">
+        <source>Classification</source>
+        <target>Ταξινόμηση</target>
+      </trans-unit>
+      <trans-unit id="s7e7ce210415ee02c">
+        <source>Feed Forward</source>
+        <target>Feed Forward</target>
+      </trans-unit>
+      <trans-unit id="s835dc746e771a9d6">
+        <source>Boston House Pricing</source>
+        <target>Τιμολόγηση Boston House</target>
+      </trans-unit>
+      <trans-unit id="s85f01e331f787810">
+        <source>Regression</source>
+        <target>Παλινδρόμηση</target>
+      </trans-unit>
+      <trans-unit id="s382a2aa3984474dd">
+        <source>Create</source>
+        <target>Δημιουργία</target>
+      </trans-unit>
+      <trans-unit id="s13bf923e48a38e88">
+        <source>You can create a custom configuration by using the options in the corresponding right panels.</source>
+        <target>Μπορείτε να δημιουργήσετε μια προσαρμοσμένη διαμόρφωση χρησιμοποιώντας τις επιλογές στα αντίστοιχα δεξιά πλαίσια.</target>
+      </trans-unit>
+      <trans-unit id="s9d8b8aa2b404c2c8">
+        <source>Settings</source>
+        <target>Ρυθμίσεις</target>
+      </trans-unit>
+      <trans-unit id="s769b92432aa0e57f">
+        <source>Configure which options the users of this widget are allowed to view and edit</source>
+        <target>Ρυθμίστε ποιες επιλογές επιτρέπεται να βλέπουν και να επεξεργάζονται οι χρήστες αυτού του widget.</target>
+      </trans-unit>
+      <trans-unit id="s255857544a9d5ec0">
+        <source>Reset</source>
+        <target>Επαναφορά</target>
+      </trans-unit>
+      <trans-unit id="s295e7ec3fae5aa15">
+        <source>Set to default</source>
+        <target>Ρύθμιση στην προεπιλογή</target>
+      </trans-unit>
+      <trans-unit id="s7f76d461768c268c">
+        <source>Allow importing configurations</source>
+        <target>Επιτρέψτε την εισαγωγή διαμορφώσεων</target>
+      </trans-unit>
+      <trans-unit id="sa219044786efe4f4">
+        <source>Show recommendations</source>
+        <target>Εμφάνιση συστάσεων</target>
+      </trans-unit>
+      <trans-unit id="sa133a50ad676b757">
+        <source>Allow exporting configurations</source>
+        <target>Επιτρέψτε την εξαγωγή διαμορφώσεων</target>
+      </trans-unit>
+      <trans-unit id="s9feb1a1345ccc3e5">
+        <source>Network</source>
+        <target>Δίκτυο</target>
+      </trans-unit>
+      <trans-unit id="s3de2e4f3353ff071">
+        <source>Restrict layer types</source>
+        <target>Περιορισμός τύπων στρώματος</target>
+      </trans-unit>
+      <trans-unit id="scfa788c4d56c9859">
+        <source>Allow dense layers</source>
+        <target>Επιτρέπει πυκνά στρώματα</target>
+      </trans-unit>
+      <trans-unit id="s05c44a5db696fcaf">
+        <source>Editing</source>
+        <target>Επεξεργασία</target>
+      </trans-unit>
+      <trans-unit id="secd2b30927c9ada1">
+        <source>Allow adding and removing layers</source>
+        <target>Επιτρέπει την προσθήκη και αφαίρεση στρωμάτων</target>
+      </trans-unit>
+      <trans-unit id="s1d6d96fee1f77a74">
+        <source>Allow editing layers</source>
+        <target>Επιτρέψτε την επεξεργασία στρωμάτων</target>
+      </trans-unit>
+      <trans-unit id="sc728fae3603c8b93">
+        <source>Allow selecting the data flowing into input layers</source>
+        <target>Επιτρέπει την επιλογή των δεδομένων που εισέρχονται στα στρώματα εισόδου</target>
+      </trans-unit>
+      <trans-unit id="s91346ada0f5220bf">
+        <source>Allow editing the number of neurons</source>
+        <target>Επιτρέπει την επεξεργασία του αριθμού των νευρώνων</target>
+      </trans-unit>
+      <trans-unit id="sff69314112eb4786">
+        <source>Allow changing the activation function</source>
+        <target>Επιτρέπει την αλλαγή της συνάρτησης ενεργοποίησης</target>
+      </trans-unit>
+      <trans-unit id="sb4aaa150117048eb">
+        <source>Allow reconnecting the layers with each other</source>
+        <target>Επιτρέπει την επανασύνδεση των στρωμάτων μεταξύ τους</target>
+      </trans-unit>
+      <trans-unit id="s505d96c3ca2f3c78">
+        <source>Allow selecting a different data set</source>
+        <target>Επιτρέπει την επιλογή διαφορετικού συνόλου δεδομένων</target>
+      </trans-unit>
+      <trans-unit id="sa3900af79012fda0">
+        <source>Allow managing (creating new and deleting) data sets</source>
+        <target>Να επιτρέπει τη διαχείριση (δημιουργία νέων και διαγραφή) συνόλων δεδομένων</target>
+      </trans-unit>
+      <trans-unit id="s0605944041e20ba8">
+        <source>Show plots</source>
+        <target>Εμφάνιση διαγραμμάτων</target>
+      </trans-unit>
+      <trans-unit id="se65e4e6f3696e997">
+        <source>Training</source>
+        <target>Εκπαίδευση</target>
+      </trans-unit>
+      <trans-unit id="s7188f983604e2188">
+        <source>Allow editing hyperparameters</source>
+        <target>Επιτρέπει την επεξεργασία υπερπαραμέτρων</target>
+      </trans-unit>
+      <trans-unit id="s77d657d2989d8bf6">
+        <source>Allow editing the batch size</source>
+        <target>Επιτρέπει την επεξεργασία του μεγέθους της παρτίδας</target>
+      </trans-unit>
+      <trans-unit id="s14a65ec1c3dc6761">
+        <source>Allow editing the learning rate</source>
+        <target>Επιτρέπει την επεξεργασία του ρυθμού εκμάθησης</target>
+      </trans-unit>
+      <trans-unit id="s399ed88a7aa67028">
+        <source>Allow editing the dropout rate</source>
+        <target>Επιτρέπει την επεξεργασία του ποσοστού εγκατάλειψης</target>
+      </trans-unit>
+      <trans-unit id="s991dbe8a07858b6b">
+        <source>Important info</source>
+        <target>Σημαντικές πληροφορίες</target>
+      </trans-unit>
+      <trans-unit id="s293aa6a6446fb153">
+        <source>Export</source>
+        <target>Εξαγωγή</target>
+      </trans-unit>
+      <trans-unit id="sc7aaabd93fb4c486">
+        <source>Export the current configuration to your local file system as a JSON file. Storing trained models is not supported.</source>
+        <target>Εξαγωγή της τρέχουσας διαμόρφωσης στο τοπικό σας σύστημα αρχείων ως αρχείο JSON. Η αποθήκευση εκπαιδευμένων μοντέλων δεν υποστηρίζεται.</target>
+      </trans-unit>
+      <trans-unit id="se3b4c857f91f80d7">
+        <source>Keyboard shortcuts</source>
+        <target>Συντομεύσεις πληκτρολογίου</target>
+      </trans-unit>
+      <trans-unit id="sc25745d3142338ca">
+        <source>Deletes the currently selected layer</source>
+        <target>Διαγράφει το τρέχον επιλεγμένο επίπεδο</target>
+      </trans-unit>
+      <trans-unit id="sa5ed0165e089255e">
+        <source>Duplicates the currently selected layer</source>
+        <target>Διπλασιάζει το τρέχον επιλεγμένο επίπεδο</target>
+      </trans-unit>
+      <trans-unit id="s8ff8cee7c5d100bc">
+        <source>Moves the currently selected layer</source>
+        <target>Μετακινεί το τρέχον επιλεγμένο επίπεδο</target>
+      </trans-unit>
+      <trans-unit id="sa7f495fff0f250d9">
+        <source>Q &amp; A</source>
+        <target>Q &amp; A</target>
+      </trans-unit>
+      <trans-unit id="s14b03351d9f0f4e8">
+        <source>There are currently no help entries. If you publish the widget like this, the help section will be hidden.</source>
+        <target>Προς το παρόν δεν υπάρχουν καταχωρήσεις βοήθειας. Αν δημοσιεύσετε το widget με αυτόν τον τρόπο, η ενότητα βοήθειας θα είναι κρυμμένη.</target>
+      </trans-unit>
+      <trans-unit id="se1f4d0fd4b9438d0">
+        <source>Update entry</source>
+        <target>Καταχώρηση ενημέρωσης</target>
+      </trans-unit>
+      <trans-unit id="s3983b0213bfac281">
+        <source>Remove entry</source>
+        <target>Αφαίρεση καταχώρησης</target>
+      </trans-unit>
+      <trans-unit id="s99f110d27e30b289">
+        <source>Title</source>
+        <target>Τίτλος</target>
+      </trans-unit>
+      <trans-unit id="s6cee92a3b310e650">
+        <source>Add entry</source>
+        <target>Προσθήκη καταχώρησης</target>
+      </trans-unit>
+      <trans-unit id="sc20cf39aef9b3355">
+        <source>About this app</source>
+        <target>Σχετικά με αυτή την εφαρμογή</target>
+      </trans-unit>
+      <trans-unit id="s984fb2f8f14ee101">
+        <source>This app was developed by Christian Koch, a student at RWTH Aachen University, with support of Frederic Salmen and the chair i9 at RWTH Aachen University.</source>
+        <target>Αυτή η εφαρμογή αναπτύχθηκε από τον Christian Koch, φοιτητή στο Πανεπιστήμιο RWTH Aachen, με την υποστήριξη του Frederic Salmen και της έδρας i9 στο Πανεπιστήμιο RWTH Aachen.</target>
+      </trans-unit>
+      <trans-unit id="sc62667aa0380bc6b">
+        <source>About the developer</source>
+        <target>Σχετικά με τον προγραμματιστή</target>
+      </trans-unit>
+      <trans-unit id="s17597a8bb4810524">
+        <source>License</source>
+        <target>Άδεια</target>
+      </trans-unit>
+      <trans-unit id="s8e7cfd29f14ffad6">
+        <source>All third-party data sets have been published under public domain</source>
+        <target>Όλα τα σύνολα δεδομένων τρίτων έχουν δημοσιευθεί υπό καθεστώς δημόσιας ιδιοκτησίας.</target>
+      </trans-unit>
+      <trans-unit id="sb546e48af5e5c359">
+        <source>Add layer</source>
+        <target>Προσθήκη στρώματος</target>
+      </trans-unit>
+      <trans-unit id="saea857a2b4e1f6a7">
+        <source>Drag a layer anywhere to place it on the canvas</source>
+        <target>Σύρετε ένα επίπεδο οπουδήποτε για να το τοποθετήσετε στον καμβά</target>
+      </trans-unit>
+      <trans-unit id="sfd77270c3f54f664">
+        <source>Output</source>
+        <target>Έξοδος</target>
+      </trans-unit>
+      <trans-unit id="sb4f1dffbb6be6302">
+        <source>Clear</source>
+        <target>Σαφής</target>
+      </trans-unit>
+      <trans-unit id="se6e9902ddea314c4">
+        <source>Clear network</source>
+        <target>Καθαρό δίκτυο</target>
+      </trans-unit>
+      <trans-unit id="s14ad6d4ee3b48ca2">
+        <source>This will remove every layer from the network.</source>
+        <target>Αυτό θα αφαιρέσει κάθε επίπεδο από το δίκτυο.</target>
+      </trans-unit>
+      <trans-unit id="sae901180c48ddefb">
+        <source>Your network currently contains</source>
+        <target>Το δίκτυό σας περιέχει επί του παρόντος</target>
+      </trans-unit>
+      <trans-unit id="s4554e34a747022df">
+        <source>layers</source>
+        <target>στρώματα</target>
+      </trans-unit>
+      <trans-unit id="s4d1b055aa7613557">
+        <source>Your network is currently empty.</source>
+        <target>Το δίκτυό σας είναι προς το παρόν άδειο.</target>
+      </trans-unit>
+      <trans-unit id="sd2e79aff2aea724a">
+        <source>You currently do not have an input layer. Drag one onto the canvas!</source>
+        <target>Προς το παρόν δεν έχετε στρώμα εισόδου. Σύρετε ένα στον καμβά!</target>
+      </trans-unit>
+      <trans-unit id="s37abcf4d745436f7">
+        <source>You currently do not have an output layer. Drag one onto the canvas!</source>
+        <target>Προς το παρόν δεν έχετε στρώμα εξόδου. Σύρετε ένα στον καμβά!</target>
+      </trans-unit>
+      <trans-unit id="s6a4607c5c4e55a03">
+        <source>Always make sure to connect your layers such that there is a path from your input layer(s) to your output layer! Therefore select a layer in the canvas and select its incoming or outgoing connections</source>
+        <target>Φροντίζετε πάντα να συνδέετε τα στρώματά σας έτσι ώστε να υπάρχει διαδρομή από το στρώμα εισόδου στο στρώμα εξόδου! Επομένως, επιλέξτε ένα επίπεδο στον καμβά και επιλέξτε τις εισερχόμενες ή εξερχόμενες συνδέσεις του</target>
+      </trans-unit>
+      <trans-unit id="s6a0bc0ce56a9ae4a">
+        <source>Features</source>
+        <target>Χαρακτηριστικά</target>
+      </trans-unit>
+      <trans-unit id="s5590dbf7e425789d">
+        <source>Label</source>
+        <target>Ετικέτα</target>
+      </trans-unit>
+      <trans-unit id="s07e767f1fe8ad66a">
+        <source>View raw data</source>
+        <target>Προβολή ακατέργαστων δεδομένων</target>
+      </trans-unit>
+      <trans-unit id="s41ee884e3b2d7413">
+        <source>Click on an feature pill above to see the relation between this feature and the label in a plot</source>
+        <target>Κάντε κλικ σε ένα χαρακτηριστικό χάπι παραπάνω για να δείτε τη σχέση μεταξύ αυτού του χαρακτηριστικού και της ετικέτας σε ένα γράφημα.</target>
+      </trans-unit>
+      <trans-unit id="scc33c632d6e60d84">
+        <source>plotted against</source>
+        <target>σε συνάρτηση με</target>
+      </trans-unit>
+      <trans-unit id="s01c091af962d4963">
+        <source>Plots</source>
+        <target>Οικόπεδα</target>
+      </trans-unit>
+      <trans-unit id="s573de432d7ee9439">
+        <source>The progress you made in creating your own data set was successfully restored!</source>
+        <target>Η πρόοδος που κάνατε στη δημιουργία του δικού σας συνόλου δεδομένων αποκαταστάθηκε με επιτυχία!</target>
+      </trans-unit>
+      <trans-unit id="s8e77b85b1ae353e5">
+        <source>A data set with the same name already exists!</source>
+        <target>Ένα σύνολο δεδομένων με το ίδιο όνομα υπάρχει ήδη!</target>
+      </trans-unit>
+      <trans-unit id="s669ebaf3b9787562">
+        <source>The provided data does not match the required format! Please check again</source>
+        <target>Τα παρεχόμενα δεδομένα δεν αντιστοιχούν στην απαιτούμενη μορφή! Παρακαλώ ελέγξτε ξανά</target>
+      </trans-unit>
+      <trans-unit id="see988347633ae840">
+        <source>A new data set was successfully created and automatically selected!</source>
+        <target>Ένα νέο σύνολο δεδομένων δημιουργήθηκε με επιτυχία και επιλέχθηκε αυτόματα!</target>
+      </trans-unit>
+      <trans-unit id="s18de3f0678131658">
+        <source>Create a new data set</source>
+        <target>Δημιουργία νέου συνόλου δεδομένων</target>
+      </trans-unit>
+      <trans-unit id="scdb1bac161852c73">
+        <source>Welcome</source>
+        <target>Καλώς ήρθατε</target>
+      </trans-unit>
+      <trans-unit id="s59163864a74213df">
+        <source>This tour will guide you through creating your own data set in a few simple steps. Everything is stored automatically, so you can close this modal at any time and resume.</source>
+        <target>Αυτή η ξενάγηση θα σας καθοδηγήσει στη δημιουργία του δικού σας συνόλου δεδομένων με μερικά απλά βήματα. Τα πάντα αποθηκεύονται αυτόματα, οπότε μπορείτε να κλείσετε αυτό το modal ανά πάσα στιγμή και να συνεχίσετε.</target>
+      </trans-unit>
+      <trans-unit id="s420e8fef6d553399">
+        <source>General info about the data set</source>
+        <target>Γενικές πληροφορίες για το σύνολο δεδομένων</target>
+      </trans-unit>
+      <trans-unit id="sf82bd0ca92fc7478">
+        <source>Choose a short but meaningful name for your data set and write a description.</source>
+        <target>Επιλέξτε ένα σύντομο αλλά ουσιαστικό όνομα για το σύνολο δεδομένων σας και γράψτε μια περιγραφή.</target>
+      </trans-unit>
+      <trans-unit id="sef49aec68fd1dc66">
+        <source>Name</source>
+        <target>Όνομα</target>
+      </trans-unit>
+      <trans-unit id="s63d894b1ddb06289">
+        <source>Description</source>
+        <target>Περιγραφή</target>
+      </trans-unit>
+      <trans-unit id="s4c5805b438fae5b7">
+        <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
+        <target>Το σετ δεδομένων Boston House Price περιλαμβάνει την πρόβλεψη της τιμής ενός σπιτιού σε χιλιάδες δολάρια, δεδομένων των λεπτομερειών του σπιτιού και της γειτονιάς του.</target>
+      </trans-unit>
+      <trans-unit id="sea29890d344759e2">
+        <source>Choose 'regression' if you want to predict continous values like house or gas prices</source>
+        <target>Επιλέξτε 'παλινδρόμηση' αν θέλετε να προβλέψετε συνεχείς τιμές όπως οι τιμές των σπιτιών ή της βενζίνης.</target>
+      </trans-unit>
+      <trans-unit id="sa51b42a0f8bc1196">
+        <source>Choose 'classification' if you want information about the affiliation of the feature(s) to a class (e.g. what animal can be seen in this image? A dog, cat or horse?)</source>
+        <target>Επιλέξτε "ταξινόμηση" αν θέλετε πληροφορίες σχετικά με την υπαγωγή του χαρακτηριστικού (των χαρακτηριστικών) σε μια κατηγορία (π.χ. τι ζώο μπορεί να δει κανείς σε αυτή την εικόνα; Σκύλος, γάτα ή άλογο;)</target>
+      </trans-unit>
+      <trans-unit id="s381b5d0debf831a1">
+        <source>Choose a type</source>
+        <target>Επιλέξτε έναν τύπο</target>
+      </trans-unit>
+      <trans-unit id="s641101718c90c0aa">
+        <source>Which data will be put into the neural network? Create arbitrary many features!</source>
+        <target>Ποια δεδομένα θα εισαχθούν στο νευρωνικό δίκτυο; Δημιουργήστε αυθαίρετα πολλά χαρακτηριστικά!</target>
+      </trans-unit>
+      <trans-unit id="s506b6a19d12f414c">
+        <source>Key</source>
+        <target>Βασικό</target>
+      </trans-unit>
+      <trans-unit id="s0c9543b42518e43e">
+        <source>1-6 capital letters</source>
+        <target>1-6 κεφαλαία γράμματα</target>
+      </trans-unit>
+      <trans-unit id="sb0be465979ef3758">
+        <source>Weighted distances to five Boston employment centers</source>
+        <target>Σταθμισμένες αποστάσεις από πέντε κέντρα απασχόλησης της Βοστώνης</target>
+      </trans-unit>
+      <trans-unit id="s9ccab5f6530bd7fb">
+        <source>Remove feature</source>
+        <target>Αφαίρεση της λειτουργίας</target>
+      </trans-unit>
+      <trans-unit id="sb1cdfd5a8a60f3ca">
+        <source>Add feature</source>
+        <target>Προσθήκη λειτουργίας</target>
+      </trans-unit>
+      <trans-unit id="sa7f1260d99ed4dcb">
+        <source>What shall be the output of the network?</source>
+        <target>Ποια θα είναι η έξοδος του δικτύου;</target>
+      </trans-unit>
+      <trans-unit id="s473a26666565450c">
+        <source>Median value of owner-occupied homes in $1000s</source>
+        <target>Διάμεση αξία των ιδιοκατοικούμενων κατοικιών σε $1000</target>
+      </trans-unit>
+      <trans-unit id="s2ba861fd720acdec">
+        <source>an integer</source>
+        <target>έναν ακέραιο αριθμό</target>
+      </trans-unit>
+      <trans-unit id="s2511ced2063529c4">
+        <source>Animal was detected as a horse</source>
+        <target>Το ζώο εντοπίστηκε ως άλογο</target>
+      </trans-unit>
+      <trans-unit id="s81fe4b139dbcd729">
+        <source>Remove class</source>
+        <target>Αφαίρεση κλάσης</target>
+      </trans-unit>
+      <trans-unit id="s3187969905158d04">
+        <source>Add class</source>
+        <target>Προσθήκη κλάσης</target>
+      </trans-unit>
+      <trans-unit id="s93aa17486b781f3d">
+        <source>You are nearly done</source>
+        <target>Σχεδόν τελειώσατε</target>
+      </trans-unit>
+      <trans-unit id="s4770b2377cfb5113">
+        <source>Now add your data in the following format</source>
+        <target>Τώρα προσθέστε τα δεδομένα σας με την ακόλουθη μορφή</target>
+      </trans-unit>
+      <trans-unit id="s514bbfe7a6a1385a">
+        <source>Each row needs to represent one set containing the features and the label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the features. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments.</source>
+        <target>Κάθε γραμμή πρέπει να αντιπροσωπεύει ένα σύνολο που περιέχει τα χαρακτηριστικά και την ετικέτα. Διαχωρίστε τα στοιχεία με κόμμα (τα κενά πριν και μετά το κόμμα είναι εντάξει). Το τελευταίο στοιχείο αντιπροσωπεύει πάντα την ετικέτα, ενώ τα στοιχεία πριν από αυτό αντιπροσωπεύουν τα χαρακτηριστικά. Βεβαιωθείτε ότι χρησιμοποιείτε μόνο τελείες και όχι κόμματα για τις τιμές κινητής υποδιαστολής. Εάν έχετε δεδομένα σε μορφή CSV, μπορείτε απλώς να τα επικολλήσετε εδώ, αλλά φροντίστε να αφαιρέσετε τυχόν σχόλια.</target>
+      </trans-unit>
+      <trans-unit id="sf3ff78cc329d3528">
+        <source>Previous</source>
+        <target>Προηγούμενο</target>
+      </trans-unit>
+      <trans-unit id="s0fbf6dc6a1966408">
+        <source>Next</source>
+        <target>Επόμενο</target>
+      </trans-unit>
+      <trans-unit id="s886925e360029fea">
+        <source>Validate and create</source>
+        <target>Επικύρωση και δημιουργία</target>
+      </trans-unit>
+      <trans-unit id="s688d523f38404f47">
+        <source>Manage data sets</source>
+        <target>Διαχείριση συνόλων δεδομένων</target>
+      </trans-unit>
+      <trans-unit id="s114321122eed37a2">
+        <source>Currently selected</source>
+        <target>Επί του παρόντος επιλεγμένο</target>
+      </trans-unit>
+      <trans-unit id="s05560220ff65f5eb">
+        <source>Permanently delete data set</source>
+        <target>Μόνιμη διαγραφή συνόλου δεδομένων</target>
+      </trans-unit>
+      <trans-unit id="s7ad8f95cd252ff9b">
+        <source>Select data set</source>
+        <target>Επιλογή συνόλου δεδομένων</target>
+      </trans-unit>
+      <trans-unit id="s8e0e95cf2d9f0fe0">
+        <source>"Select a data set"</source>
+        <target>"Επιλέξτε ένα σύνολο δεδομένων"</target>
+      </trans-unit>
+      <trans-unit id="s9ea77d0d371dc469">
+        <source>Train</source>
+        <target>Τρένο</target>
+      </trans-unit>
+      <trans-unit id="s69bf683344258f79">
+        <source>Training completed!</source>
+        <target>Η εκπαίδευση ολοκληρώθηκε!</target>
+      </trans-unit>
+      <trans-unit id="sedc9092c834a7a37">
+        <source>Feel free to continue training your model for some additional epochs which might get you even better results!</source>
+        <target>Μη διστάσετε να συνεχίσετε την εκπαίδευση του μοντέλου σας για μερικές επιπλέον εποχές, οι οποίες μπορεί να σας δώσουν ακόμα καλύτερα αποτελέσματα!</target>
+      </trans-unit>
+      <trans-unit id="s900c980bdb200fcf">
+        <source>Epochs</source>
+        <target>Εποχές</target>
+      </trans-unit>
+      <trans-unit id="s7f291599fb79b2a9">
+        <source>Number of iterations over the whole training data set</source>
+        <target>Αριθμός επαναλήψεων σε όλο το σύνολο των δεδομένων εκπαίδευσης</target>
+      </trans-unit>
+      <trans-unit id="s9fbbc819fe7e66aa">
+        <source>Run</source>
+        <target>Εκτέλεση</target>
+      </trans-unit>
+      <trans-unit id="s7ae39eeb994f4040">
+        <source>Train for 1 epoch</source>
+        <target>Εκπαίδευση για 1 εποχή</target>
+      </trans-unit>
+      <trans-unit id="s415ece5a1e4e50ce">
+        <source>Train for</source>
+        <target>Εκπαιδευτείτε για</target>
+      </trans-unit>
+      <trans-unit id="sa24fcd4e36a13aef">
+        <source>epochs</source>
+        <target>εποχές</target>
+      </trans-unit>
+      <trans-unit id="s12db7f32a3851306">
+        <source>Epoch</source>
+        <target>Εποχή</target>
+      </trans-unit>
+      <trans-unit id="safda35e3d523b59b">
+        <source>Batch</source>
+        <target>Παρτίδα</target>
+      </trans-unit>
+      <trans-unit id="s97aa76056a81bd36">
+        <source>Metrics</source>
+        <target>Μετρικές</target>
+      </trans-unit>
+      <trans-unit id="s61e8f3fac73d5e85">
+        <source>Loss: Categorical Crossentropy</source>
+        <target>Απώλεια: Κατηγορηματική διασταυρούμενη εντροπία</target>
+      </trans-unit>
+      <trans-unit id="s9f262d3debac7e63">
+        <source>Accuracy: In what percentage of the tests was the right class predicted?</source>
+        <target>Ακρίβεια: Σε ποιο ποσοστό των δοκιμών προβλέφθηκε η σωστή τάξη;</target>
+      </trans-unit>
+      <trans-unit id="s04cf457a74a1ca3e">
+        <source>Loss: Mean Squared Error</source>
+        <target>Απώλεια: Μέσο τετραγωνικό σφάλμα</target>
+      </trans-unit>
+      <trans-unit id="s5f343a43e7ea9f91">
+        <source>Error</source>
+        <target>Σφάλμα</target>
+      </trans-unit>
+      <trans-unit id="s7fd689e3ee842226">
+        <source>What is the difference between the two lines in a graph?</source>
+        <target>Ποια είναι η διαφορά μεταξύ των δύο γραμμών σε ένα γράφημα;</target>
+      </trans-unit>
+      <trans-unit id="s9cc47ae161b22379">
+        <source>For val_..., the metric is calculated on the validation data set while for the data without val as a prefix the metric is calculated on the training data set. The metrics for the validation data set can be seen as more meaningful since this is the data the network does not 'know'.</source>
+        <target>Για val_..., η μετρική υπολογίζεται στο σύνολο δεδομένων επικύρωσης, ενώ για τα δεδομένα χωρίς το πρόθεμα val η μετρική υπολογίζεται στο σύνολο δεδομένων εκπαίδευσης. Οι μετρικές για το σύνολο δεδομένων επικύρωσης μπορούν να θεωρηθούν ως πιο σημαντικές, δεδομένου ότι αυτά είναι τα δεδομένα που το δίκτυο δεν "γνωρίζει".</target>
+      </trans-unit>
+      <trans-unit id="s5ebe428b72f9d9fd">
+        <source>Hyperparameters</source>
+        <target>Υπερπαράμετροι</target>
+      </trans-unit>
+      <trans-unit id="sd674ba4ce23f2290">
+        <source>Batch size</source>
+        <target>Μέγεθος παρτίδας</target>
+      </trans-unit>
+      <trans-unit id="sa4aa72be4b18da23">
+        <source>Learning rate</source>
+        <target>Ποσοστό μάθησης</target>
+      </trans-unit>
+      <trans-unit id="s29028574383c26b2">
+        <source>Dropout rate</source>
+        <target>Ποσοστό εγκατάλειψης</target>
+      </trans-unit>
+      <trans-unit id="s0d783bd504d48897">
+        <source>Adjust the probability of neurons being deactivated during training</source>
+        <target>Ρύθμιση της πιθανότητας απενεργοποίησης των νευρώνων κατά τη διάρκεια της εκπαίδευσης</target>
+      </trans-unit>
+      <trans-unit id="sd8305d1efc816b0a">
+        <source>Predict</source>
+        <target>Πρόβλεψη</target>
+      </trans-unit>
+      <trans-unit id="sf7aa4a7f6a7a6ae9">
+        <source>Predicted label</source>
+        <target>Προβλεπόμενη ετικέτα</target>
+      </trans-unit>
+      <trans-unit id="s5a27bd37c0a0ad1a">
+        <source>with a probability of</source>
+        <target>με πιθανότητα</target>
+      </trans-unit>
+      <trans-unit id="sd0ee89e8e7353561">
+        <source>Make another prediction</source>
+        <target>Κάντε άλλη μια πρόβλεψη</target>
+      </trans-unit>
+      <trans-unit id="s8af61807443f32a4">
+        <source>Actions</source>
+        <target>Δράσεις</target>
+      </trans-unit>
+      <trans-unit id="sfac15b89e0668996">
+        <source>Duplicate</source>
+        <target>Διπλό</target>
+      </trans-unit>
+      <trans-unit id="sdc673e73b5c13aea">
+        <source>Delete</source>
+        <target>Διαγραφή</target>
+      </trans-unit>
+      <trans-unit id="s22b10e3713c037c7">
+        <source>Activation function</source>
+        <target>Λειτουργία ενεργοποίησης</target>
+      </trans-unit>
+      <trans-unit id="sa90802aba569f823">
+        <source>The selected activation applies to all neurons in this layer.</source>
+        <target>Η επιλεγμένη ενεργοποίηση ισχύει για όλους τους νευρώνες σε αυτό το επίπεδο.</target>
+      </trans-unit>
+      <trans-unit id="s256782b6fa6c81e3">
+        <source>After calculating a neuron's value by adding up its weighted input values and its bias:</source>
+        <target>Μετά τον υπολογισμό της τιμής ενός νευρώνα με την πρόσθεση των σταθμισμένων τιμών εισόδου και της προκατάληψής του:</target>
+      </trans-unit>
+      <trans-unit id="s514d47a63e3b11c3">
+        <source>Range of possible output values:</source>
+        <target>Εύρος πιθανών τιμών εξόδου:</target>
+      </trans-unit>
+      <trans-unit id="s801ac62b23cc5f5f">
+        <source>Neurons</source>
+        <target>Νευρώνες</target>
+      </trans-unit>
+      <trans-unit id="sea4f08110bb8f15d">
+        <source>Remove</source>
+        <target>Αφαιρέστε το</target>
+      </trans-unit>
+      <trans-unit id="sf9aee319a006c9b4">
+        <source>Add</source>
+        <target>Προσθέστε</target>
+      </trans-unit>
+      <trans-unit id="s5a95fb6f50ddd6ff">
+        <source>neurons</source>
+        <target>νευρώνες</target>
+      </trans-unit>
+      <trans-unit id="s8b0432eecbd8b034">
+        <source>Update</source>
+        <target>Ενημέρωση</target>
+      </trans-unit>
+      <trans-unit id="s69a4b7731c4ab258">
+        <source>Incoming connections</source>
+        <target>Εισερχόμενες συνδέσεις</target>
+      </trans-unit>
+      <trans-unit id="sfcb8881b108f62ed">
+        <source>Select the layers that connect to this layer</source>
+        <target>Επιλέξτε τα επίπεδα που συνδέονται με αυτό το επίπεδο</target>
+      </trans-unit>
+      <trans-unit id="sf35b120256b540b4">
+        <source>Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description.</source>
+        <target>Αναθέστε το χαρακτηριστικό σε αυτό το επίπεδο. Περάστε με το ποντίκι πάνω από τα πλήκτρα χαρακτηριστικών στο αναπτυσσόμενο μενού που ανοίγει για μια περιγραφή.</target>
+      </trans-unit>
+      <trans-unit id="s47333467f911302a">
+        <source>Outgoing connections</source>
+        <target>Εξερχόμενες συνδέσεις</target>
+      </trans-unit>
+      <trans-unit id="s684e13d4e599ccdd">
+        <source>Select the layers this layer connects to</source>
+        <target>Επιλέξτε τα επίπεδα με τα οποία συνδέεται αυτό το επίπεδο</target>
+      </trans-unit>
+      <trans-unit id="saf83c9eefbdeee91">
+        <source>Outgoing data</source>
+        <target>Εξερχόμενα δεδομένα</target>
+      </trans-unit>
+      <trans-unit id="s690d876ebcfe1dd6">
+        <source>Neuron</source>
+        <target>Νευρώνας</target>
+      </trans-unit>
+      <trans-unit id="s8efe9b047510b849">
+        <source>Corresponding layer:</source>
+        <target>Αντίστοιχο στρώμα:</target>
+      </trans-unit>
+      <trans-unit id="sd6b4fb36bd73f830">
+        <source>Assigned feature (input)</source>
+        <target>Εκχωρημένο χαρακτηριστικό (είσοδος)</target>
+      </trans-unit>
+      <trans-unit id="s888d98a196a240d8">
+        <source>Inputs</source>
+        <target>Είσοδοι</target>
+      </trans-unit>
+      <trans-unit id="s7aaa83f30a557ce9">
+        <source>- All neurons from</source>
+        <target>- Όλοι οι νευρώνες από</target>
+      </trans-unit>
+      <trans-unit id="s4a3a9e0c684b763f">
+        <source>Label (output)</source>
+        <target>Ετικέτα (έξοδος)</target>
+      </trans-unit>
+      <trans-unit id="s066d70cf9d5e2915">
+        <source>Outputs</source>
+        <target>Έξοδοι</target>
+      </trans-unit>
+      <trans-unit id="s6503256c2de2745c">
+        <source>Edge</source>
+        <target>Άκρη</target>
+      </trans-unit>
+      <trans-unit id="s517acbf1f96324f9">
+        <source>Weight</source>
+        <target>Βάρος</target>
+      </trans-unit>
+      <trans-unit id="s0b29ddb08394f57b">
+        <source>Failed to enter fullscreen mode.</source>
+        <target>Απέτυχε να εισέλθει σε λειτουργία πλήρους οθόνης.</target>
+      </trans-unit>
+      <trans-unit id="sb59d68ed12d46377">
+        <source>Loading</source>
+        <target>Φόρτωση</target>
+      </trans-unit>
+      <trans-unit id="s92dd08d474f4ba4b">
+        <source>Per capita crime rate by town</source>
+        <target>Κατά κεφαλήν ποσοστό εγκληματικότητας ανά πόλη</target>
+      </trans-unit>
+      <trans-unit id="sa2cb02c992247501">
+        <source>Proportion of residential land zoned for lots over 25,000 sq.ft.</source>
+        <target>Ποσοστό οικιστικής γης που χωροθετείται για οικόπεδα άνω των 25.000 τ.μ.</target>
+      </trans-unit>
+      <trans-unit id="s0ba84c8c8dd5dfe5">
+        <source>Proportion of nonretail business acres per town</source>
+        <target>Ποσοστό στρεμμάτων μη λιανικών επιχειρήσεων ανά πόλη</target>
+      </trans-unit>
+      <trans-unit id="sb85fa3ee37f69a87">
+        <source>Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)</source>
+        <target>ψευδομεταβλητή Charles River (= 1 εάν η περιοχή οριοθετεί ποταμό- 0 διαφορετικά)</target>
+      </trans-unit>
+      <trans-unit id="s902fe1322b1d2c62">
+        <source>Nitric oxides concentration (parts per 10 million)</source>
+        <target>Συγκέντρωση οξειδίων του αζώτου (μέρη ανά 10 εκατομμύρια)</target>
+      </trans-unit>
+      <trans-unit id="sf928898f4043c6ff">
+        <source>Average number of rooms per dwelling</source>
+        <target>Μέσος αριθμός δωματίων ανά κατοικία</target>
+      </trans-unit>
+      <trans-unit id="s95f88e83db13ec5c">
+        <source>Proportion of owner-occupied units built prior to 1940</source>
+        <target>Ποσοστό των ιδιοκατοικούμενων μονάδων που χτίστηκαν πριν από το 1940</target>
+      </trans-unit>
+      <trans-unit id="sb60c67627b3119cc">
+        <source>Index of accessibility to radial highways</source>
+        <target>Δείκτης προσβασιμότητας σε ακτινικούς αυτοκινητόδρομους</target>
+      </trans-unit>
+      <trans-unit id="sc3ba6f6e119cd273">
+        <source>Full-value property-tax rate per $10,000</source>
+        <target>Συντελεστής φόρου ακίνητης περιουσίας πλήρους αξίας ανά 10.000 δολάρια</target>
+      </trans-unit>
+      <trans-unit id="s49d8fc3f40b093ac">
+        <source>Pupil-teacher ratio by town</source>
+        <target>Αναλογία μαθητών-δασκάλων ανά πόλη</target>
+      </trans-unit>
+      <trans-unit id="s577b270038a8c007">
+        <source>1000(Bk – 0.63)^2 where Bk is the proportion of blacks by town</source>
+        <target>1000(Bk - 0.63)^2 όπου Bk είναι το ποσοστό των μαύρων ανά πόλη</target>
+      </trans-unit>
+      <trans-unit id="s2f41bf569b07a4cc">
+        <source>% lower status of the population</source>
+        <target>% χαμηλότερη θέση του πληθυσμού</target>
+      </trans-unit>
+      <trans-unit id="sb96294312677cad5">
+        <source>Pima Indians Diabetes</source>
+        <target>Pima Ινδιάνοι Διαβήτης</target>
+      </trans-unit>
+      <trans-unit id="sc20c7530f6afbb7c">
+        <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
+        <target>Το σύνολο δεδομένων Pima Indians Diabetes περιλαμβάνει την πρόβλεψη της εμφάνισης διαβήτη εντός 5 ετών σε Ινδιάνους Pima με δεδομένες ιατρικές λεπτομέρειες. Πρόκειται για ένα δυαδικό πρόβλημα ταξινόμησης (2 κλάσεων). Ο αριθμός των παρατηρήσεων για κάθε κλάση δεν είναι ισορροπημένος. Υπάρχουν 768 παρατηρήσεις με 8 μεταβλητές εισόδου και 1 μεταβλητή εξόδου. Οι ελλείπουσες τιμές πιστεύεται ότι κωδικοποιούνται με μηδενικές τιμές.</target>
+      </trans-unit>
+      <trans-unit id="s4e77426bf7986294">
+        <source>Number of times pregnant</source>
+        <target>Αριθμός περιπτώσεων εγκυμοσύνης</target>
+      </trans-unit>
+      <trans-unit id="s5923001bb6219bb3">
+        <source>Plasma glucose concentration a 2 hours in an oral glucose tolerance test.</source>
+        <target>Συγκέντρωση γλυκόζης πλάσματος a 2 ώρες σε δοκιμή ανοχής γλυκόζης από το στόμα.</target>
+      </trans-unit>
+      <trans-unit id="sf7cdf4e3adc1b2fa">
+        <source>Diastolic blood pressure (mm Hg)</source>
+        <target>Διαστολική αρτηριακή πίεση (mm Hg)</target>
+      </trans-unit>
+      <trans-unit id="s5659cbd3943227de">
+        <source>Triceps skinfold thickness (mm)</source>
+        <target>Πάχος δερματοπτυχών τρικέφαλου (mm)</target>
+      </trans-unit>
+      <trans-unit id="sa17f891acb35efd2">
+        <source>2-Hour serum insulin (mu U/ml)</source>
+        <target>Ινσουλίνη ορού 2 ωρών (mu U/ml)</target>
+      </trans-unit>
+      <trans-unit id="s4a39fd2eb0e136da">
+        <source>Body mass index (weight in kg/(height in m)^2)</source>
+        <target>Δείκτης μάζας σώματος (βάρος σε kg/(ύψος σε m)^2)</target>
+      </trans-unit>
+      <trans-unit id="s66ebf0bd757d5159">
+        <source>Diabetes pedigree function</source>
+        <target>Λειτουργία γενεαλογικού δέντρου διαβήτη</target>
+      </trans-unit>
+      <trans-unit id="s5ef9308d320834d1">
+        <source>Age (years)</source>
+        <target>Ηλικία (έτη)</target>
+      </trans-unit>
+      <trans-unit id="s4e64552852c163c0">
+        <source>Diabetes</source>
+        <target>Διαβήτης</target>
+      </trans-unit>
+      <trans-unit id="sf27f87a94b05a690">
+        <source>Toggle Menu</source>
+        <target>Εναλλαγή μενού</target>
+      </trans-unit>
+      <trans-unit id="s236ae937cbcd6a39">
+        <source>Zoom in</source>
+        <target>Μεγέθυνση</target>
+      </trans-unit>
+      <trans-unit id="s5b1749c67945a111">
+        <source>Zoom to network</source>
+        <target>Ζουμ στο δίκτυο</target>
+      </trans-unit>
+      <trans-unit id="sc65ea2cf2f21a13a">
+        <source>Zoom out</source>
+        <target>Μεγέθυνση</target>
+      </trans-unit>
+      <trans-unit id="sd03c537f123f42a6">
+        <source>Exit Fullscreen</source>
+        <target>Έξοδος από την πλήρη οθόνη</target>
+      </trans-unit>
+      <trans-unit id="s4b10acae683d2978">
+        <source>Fullscreen</source>
+        <target>Πλήρης οθόνη</target>
+      </trans-unit>
+      <trans-unit id="sae1c7f13b7c0c47f">
+        <source>Start</source>
+        <target>Έναρξη</target>
+      </trans-unit>
+      <trans-unit id="s4488dd99533e7f65">
+        <source>Data set</source>
+        <target>Σύνολο δεδομένων</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

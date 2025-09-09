@@ -1,0 +1,37 @@
+{
+  ".": {
+    "description": {
+      "ar": "تصوّر التعلّم العميق لشبكات التغذية الأمامية مع مجموعات البيانات المخصصة والتدريب والتنبؤ.",
+      "de": "Visualisierung von Deep Learning für Feed-Forward-Netzwerke mit benutzerdefinierten Datensätzen, Training und Vorhersage.",
+      "bg": "Визуализация на дълбоко обучение за мрежи с пренасочване с потребителски набори от данни, обучение и прогнозиране.",
+      "cs": "Vizualizace hlubokého učení pro dopředné sítě s vlastními datovými sadami, trénováním a predikcí.",
+      "da": "Deep learning-visualisering til feed-forward-netværk med brugerdefinerede datasæt, træning og forudsigelse.",
+      "nl": "Deep learning visualisatie voor feed-forward netwerken met aangepaste datasets, training en voorspelling.",
+      "et": "Sügava õppimise visualiseerimine ettepoole suunatud võrkude jaoks koos kohandatud andmekogumite, koolituse ja prognoosimisega.",
+      "fi": "Syväoppimisen visualisointi feed-forward-verkoille mukautetuilla tietokokonaisuuksilla, koulutuksella ja ennustuksella.",
+      "fr": "Visualisation de l'apprentissage profond pour les réseaux feed-forward avec des ensembles de données personnalisés, formation et prédiction.",
+      "el": "Οπτικοποίηση βαθιάς μάθησης για δίκτυα feed-forward με προσαρμοσμένα σύνολα δεδομένων, εκπαίδευση και πρόβλεψη.",
+      "hu": "Mélytanulási vizualizáció feed-forward hálózatokhoz egyéni adathalmazokkal, képzéssel és előrejelzéssel.",
+      "it": "Visualizzazione dell'apprendimento profondo per reti feed-forward con set di dati personalizzati, addestramento e predizione.",
+      "lv": "Dziļās mācīšanās vizualizācija plūsmas-virziena tīkliem ar pielāgotām datu kopām, apmācību un prognozēšanu.",
+      "lt": "Gilaus mokymosi vizualizavimas \"feed-forward\" tinklams su pasirinktiniais duomenų rinkiniais, mokymu ir prognozavimu.",
+      "nb": "Visualisering av dyp læring for feed-forward-nettverk med egendefinerte datasett, opplæring og prediksjon.",
+      "pl": "Wizualizacja głębokiego uczenia dla sieci feed-forward z niestandardowymi zestawami danych, szkoleniem i przewidywaniem.",
+      "pt-PT": "Visualização de aprendizagem profunda para redes feed-forward com conjuntos de dados personalizados, formação e previsão.",
+      "ro": "Vizualizare de învățare profundă pentru rețele feed-forward cu seturi de date personalizate, instruire și predicție.",
+      "ru": "Визуализация глубокого обучения для feed-forward сетей с пользовательскими наборами данных, обучением и прогнозированием.",
+      "sk": "Vizualizácia hlbokého učenia pre dopredné siete s vlastnými súbormi údajov, tréningom a predikciou.",
+      "sl": "Vizualizacija globokega učenja za napajalno-napredna omrežja z nabori podatkov po meri, usposabljanjem in napovedovanjem.",
+      "es": "Visualización de aprendizaje profundo para redes feed-forward con conjuntos de datos personalizados, entrenamiento y predicción.",
+      "sv": "Deep learning-visualisering för feed-forward-nätverk med anpassade dataset, träning och prediktion.",
+      "tr": "Özel veri kümeleri, eğitim ve tahmin ile ileri beslemeli ağlar için derin öğrenme görselleştirmesi.",
+      "uk": "Візуалізація глибокого навчання для мереж прямого поширення зі спеціальними наборами даних, навчання та прогнозування.",
+      "pt-BR": "Visualização de aprendizagem profunda para redes feed-forward com conjuntos de dados personalizados, treinamento e previsão.",
+      "ko": "사용자 지정 데이터 세트, 학습 및 예측이 포함된 피드 포워드 네트워크를 위한 딥 러닝 시각화입니다.",
+      "ja": "カスタムデータセットによるフィードフォワードネットワークのディープラーニング可視化、トレーニング、予測。",
+      "id": "Visualisasi pembelajaran mendalam untuk jaringan feed-forward dengan set data khusus, pelatihan, dan prediksi.",
+      "zh-hans": "前馈网络的深度学习可视化，包括自定义数据集、训练和预测。",
+      "zh-hant": "具有自訂資料集、訓練和預測功能的前饋網路深度學習可視化。"
+    }
+  }
+}

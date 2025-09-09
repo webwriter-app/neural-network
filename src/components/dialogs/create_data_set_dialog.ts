@@ -8,28 +8,37 @@ import { globalStyles } from '@/global_styles'
 import type { DataSet } from '@/types/data_set'
 import { availableDataSetsContext } from '@/contexts/available_data_sets_context'
 
-import { SlChangeEvent, SlDialog, SlButton, SlInput, SlTextarea, SlTooltip, SlRadioGroup, SlRadioButton } from '@shoelace-style/shoelace'
+import {
+  SlChangeEvent,
+  SlDialog,
+  SlButton,
+  SlInput,
+  SlTextarea,
+  SlTooltip,
+  SlRadioGroup,
+  SlRadioButton,
+} from '@shoelace-style/shoelace'
 import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
 import { AlertUtils } from '@/utils/alert_utils'
 
-import IconQuestionCircle from "bootstrap-icons/icons/question-circle.svg"
-import IconArrowLeftCircle from "bootstrap-icons/icons/arrow-left-circle.svg"
-import IconArrowRightCircle from "bootstrap-icons/icons/arrow-right-circle.svg"
+import IconQuestionCircle from 'bootstrap-icons/icons/question-circle.svg'
+import IconArrowLeftCircle from 'bootstrap-icons/icons/arrow-left-circle.svg'
+import IconArrowRightCircle from 'bootstrap-icons/icons/arrow-right-circle.svg'
 import { CCard } from '../reusables/c-card'
+import { msg } from '@lit/localize'
 
 export class CreateDataSetDialog extends LitElementWw {
-
   static scopedElements = {
-    "sl-dialog": SlDialog,
-    "sl-textarea": SlTextarea,
-    "sl-tooltip": SlTooltip,
-    "sl-input": SlInput,
-    "c-card": CCard,
-    "sl-button": SlButton,
-    "sl-radio-group": SlRadioGroup,
-    "sl-radio-button": SlRadioButton,
+    'sl-dialog': SlDialog,
+    'sl-textarea': SlTextarea,
+    'sl-tooltip': SlTooltip,
+    'sl-input': SlInput,
+    'c-card': CCard,
+    'sl-button': SlButton,
+    'sl-radio-group': SlRadioGroup,
+    'sl-radio-button': SlRadioButton,
   }
-  
+
   @consume({ context: availableDataSetsContext, subscribe: true })
   accessor availableDataSets: DataSet[]
 
@@ -49,7 +58,9 @@ export class CreateDataSetDialog extends LitElementWw {
     data: [],
   }
   @property()
-  accessor config: DataSet = <DataSet>JSON.parse(JSON.stringify(this.emptyConfig))
+  accessor config: DataSet = <DataSet>(
+    JSON.parse(JSON.stringify(this.emptyConfig))
+  )
 
   @state()
   accessor step: number = 1
@@ -73,8 +84,9 @@ export class CreateDataSetDialog extends LitElementWw {
     console.log(serialize(this._dialogForm).data)
     if (this.step != 1 || serialize(this._dialogForm).data) {
       AlertUtils.spawn({
-        message:
+        message: msg(
           'The progress you made in creating your own data set was successfully restored!',
+        ),
         variant: 'success',
         icon: 'check-circle',
       })
@@ -83,9 +95,9 @@ export class CreateDataSetDialog extends LitElementWw {
 
   nextStep(e: MouseEvent) {
     const form: any = e.target
-    if(!form.checkValidity()) {
+    if (!form.checkValidity()) {
       form.reportValidity()
-      return;
+      return
     }
 
     if (this.step == 5) {
@@ -129,7 +141,7 @@ export class CreateDataSetDialog extends LitElementWw {
       this.availableDataSets.find((dataSet) => dataSet.name == this.config.name)
     ) {
       AlertUtils.spawn({
-        message: `A data set with the same name already exists!`,
+        message: msg('A data set with the same name already exists!'),
         variant: 'danger',
         icon: 'x-circle',
       })
@@ -138,12 +150,14 @@ export class CreateDataSetDialog extends LitElementWw {
 
     // additional validation
     const pattern = new RegExp(
-      `^(\\s*(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))(?:\\s*,\\s*(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))){${this.config.featureDescs.length}}\\s*)+$`
+      `^(\\s*(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))(?:\\s*,\\s*(?:(?:[-+]?\\d+(?:\\.\\d*)?)|(?:\\d*\\.\\d+))){${this.config.featureDescs.length}}\\s*)+$`,
     )
     const result = pattern.test(data)
     if (!result) {
       AlertUtils.spawn({
-        message: `The provided data does not match the required format! Please check again`,
+        message: msg(
+          'The provided data does not match the required format! Please check again',
+        ),
         variant: 'danger',
         icon: 'x-circle',
       })
@@ -181,14 +195,14 @@ export class CreateDataSetDialog extends LitElementWw {
         detail: dataSet,
         bubbles: true,
         composed: true,
-      })
+      }),
     )
     this.dispatchEvent(
       new CustomEvent<DataSet>('select-data-set', {
         detail: dataSet,
         bubbles: true,
         composed: true,
-      })
+      }),
     )
 
     this.config = <DataSet>JSON.parse(JSON.stringify(this.emptyConfig))
@@ -196,8 +210,9 @@ export class CreateDataSetDialog extends LitElementWw {
     this._dialogForm.reset()
 
     AlertUtils.spawn({
-      message:
+      message: msg(
         'A new data set was successfully created and automatically selected!',
+      ),
       variant: 'success',
       icon: 'check-circle',
     })
@@ -238,7 +253,7 @@ export class CreateDataSetDialog extends LitElementWw {
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
-      <sl-dialog label="Create a new data set">
+      <sl-dialog label=${msg('Create a new data set')}>
         <div class="step-chooser">
           <sl-button
             circle
@@ -280,26 +295,32 @@ export class CreateDataSetDialog extends LitElementWw {
             5
           </sl-button>
         </div>
-        <form class="dialog-form" @submit=${(e) => {this.nextStep(e)}}>
+        <form
+          class="dialog-form"
+          @submit=${(e) => {
+            this.nextStep(e)
+          }}
+        >
           <div class="form-main">
             <div ?hidden=${this.step !== 1} ?inert=${this.step !== 1}>
-              <h1>Welcome</h1>
+              <h1>${msg('Welcome')}</h1>
               <p>
-                This tour will guide you through creating your own data set in a
-                few simple steps. Everything is stored automatically, so you can
-                close this modal at any time and resume.
+                ${msg(
+                  'This tour will guide you through creating your own data set in a few simple steps. Everything is stored automatically, so you can close this modal at any time and resume.',
+                )}
               </p>
             </div>
             <div ?hidden=${this.step !== 2} ?inert=${this.step !== 2}>
-              <h1>General info about the data set</h1>
+              <h1>${msg('General info about the data set')}</h1>
               <p>
-                Choose a short but meaningful name for your data set and write a
-                description.
+                ${msg(
+                  'Choose a short but meaningful name for your data set and write a description.',
+                )}
               </p>
               <sl-input
                 name="name"
-                label="Name"
-                placeholder="Boston House Pricing"
+                label=${msg('Name')}
+                placeholder=${msg('Boston House Pricing')}
                 ?required=${this.step == 2}
                 minlength=${this.step == 2 ? 1 : nothing}
                 @sl-change=${(e: SlChangeEvent) => {
@@ -310,8 +331,10 @@ export class CreateDataSetDialog extends LitElementWw {
               <sl-textarea
                 rows="4"
                 name="description"
-                label="Description"
-                placeholder="The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood."
+                label=${msg('Description')}
+                placeholder=${msg(
+                  'The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.',
+                )}
                 ?required=${this.step == 2}
                 minlength=${this.step == 2 ? 1 : nothing}
                 @sl-change=${(e: SlChangeEvent) => {
@@ -322,16 +345,20 @@ export class CreateDataSetDialog extends LitElementWw {
               <sl-tooltip>
                 <div slot="content">
                   <p>
-                    Choose 'regression' if you want to predict continous values
-                    like house or gas prices
+                    ${msg(
+                      "Choose 'regression' if you want to predict continous values like house or gas prices",
+                    )}
                   </p>
                   <p>
-                    Choose 'classification' if you want information about the
-                    affiliation of the feature(s) to a class (e.g. what animal
-                    can be seen in this image? A dog, cat or horse?)
+                    ${msg(
+                      "Choose 'classification' if you want information about the affiliation of the feature(s) to a class (e.g. what animal can be seen in this image? A dog, cat or horse?)",
+                    )}
                   </p>
                 </div>
-                <p>Choose a type <sl-icon src=${IconQuestionCircle}></sl-icon></p>
+                <p>
+                  ${msg('Choose a type')}
+                  <sl-icon src=${IconQuestionCircle}></sl-icon>
+                </p>
               </sl-tooltip>
               <sl-radio-group
                 value="${this.config.type}"
@@ -343,73 +370,79 @@ export class CreateDataSetDialog extends LitElementWw {
                 }}"
               >
                 <sl-radio-button pill value="regression"
-                  >Regression</sl-radio-button
+                  >${msg('Regression')}</sl-radio-button
                 >
                 <sl-radio-button pill value="classification"
-                  >Classification</sl-radio-button
+                  >${msg('Classification')}</sl-radio-button
                 >
               </sl-radio-group>
             </div>
             <div ?hidden=${this.step !== 3} ?inert=${this.step !== 3}>
-              <h1>Features</h1>
+              <h1>${msg('Features')}</h1>
               <p>
-                Which data will be put into the neural network? Create arbitrary
-                many features!
+                ${msg(
+                  'Which data will be put into the neural network? Create arbitrary many features!',
+                )}
               </p>
               ${this.config.featureDescs.map(
-                (featureDesc, index) =>
-                  html`
-                    <c-card>
-                      <div slot="content">
-                        <sl-input
-                          value=${featureDesc.key}
-                          label="Key"
-                          placeholder="DIS"
-                          help-text="1-6 capital letters"
-                          ?required=${this.step == 3}
-                          maxlength=${this.step == 3 ? 6 : nothing}
-                          pattern=${this.step == 3 ? '[A-Z]+' : nothing}
-                          @sl-change=${(e: SlChangeEvent) => {
-                            this.config.featureDescs[index].key = (e.target as HTMLInputElement).value
-                            this.config = { ...this.config }
-                          }}
-                        ></sl-input>
-                        <sl-textarea
-                          rows="2"
-                          value=${featureDesc.description}
-                          label="Description"
-                          placeholder="Weighted distances to five Boston employment centers"
-                          ?required=${this.step == 3}
-                          minlength=${this.step == 3 ? 1 : nothing}
-                          @sl-change=${(e: SlChangeEvent) => {
-                            this.config.featureDescs[index].description = (e.target as HTMLInputElement).value
-                            this.config = { ...this.config }
-                          }}
-                        ></sl-textarea>
-                      </div>
-                    </c-card>
-                  `
+                (featureDesc, index) => html`
+                  <c-card>
+                    <div slot="content">
+                      <sl-input
+                        value=${featureDesc.key}
+                        label=${msg('Key')}
+                        placeholder="DIS"
+                        help-text=${msg('1-6 capital letters')}
+                        ?required=${this.step == 3}
+                        maxlength=${this.step == 3 ? 6 : nothing}
+                        pattern=${this.step == 3 ? '[A-Z]+' : nothing}
+                        @sl-change=${(e: SlChangeEvent) => {
+                          this.config.featureDescs[index].key = (
+                            e.target as HTMLInputElement
+                          ).value
+                          this.config = { ...this.config }
+                        }}
+                      ></sl-input>
+                      <sl-textarea
+                        rows="2"
+                        value=${featureDesc.description}
+                        label=${msg('Description')}
+                        placeholder=${msg(
+                          'Weighted distances to five Boston employment centers',
+                        )}
+                        ?required=${this.step == 3}
+                        minlength=${this.step == 3 ? 1 : nothing}
+                        @sl-change=${(e: SlChangeEvent) => {
+                          this.config.featureDescs[index].description = (
+                            e.target as HTMLInputElement
+                          ).value
+                          this.config = { ...this.config }
+                        }}
+                      ></sl-textarea>
+                    </div>
+                  </c-card>
+                `,
               )}
               ${this.config.featureDescs.length >= 2
                 ? html`
                     <sl-button
                       @click="${(_e: MouseEvent) => this.removeFeature()}"
-                      >Remove feature</sl-button
+                      >${msg('Remove feature')}</sl-button
                     >
                   `
                 : html``}
               <sl-button @click="${(_e: MouseEvent) => this.addFeature()}"
-                >Add feature</sl-button
+                >${msg('Add feature')}</sl-button
               >
             </div>
             <div ?hidden=${this.step !== 4} ?inert=${this.step !== 4}>
-              <h1>Label</h1>
-              <p>What shall be the output of the network?</p>
+              <h1>${msg('Label')}</h1>
+              <p>${msg('What shall be the output of the network?')}</p>
               <sl-input
                 value=${this.config.labelDesc.key}
-                label="Key"
+                label=${msg('Key')}
                 placeholder="MEDV"
-                help-text="1-6 capital letters"
+                help-text=${msg('1-6 capital letters')}
                 ?required=${this.step == 4}
                 maxlength=${this.step == 4 ? 6 : nothing}
                 pattern=${this.step == 4 ? '[A-Z]+' : nothing}
@@ -421,8 +454,10 @@ export class CreateDataSetDialog extends LitElementWw {
               <sl-textarea
                 rows="2"
                 value=${this.config.labelDesc.description}
-                label="Description"
-                placeholder="Median value of owner-occupied homes in $1000s"
+                label=${msg('Description')}
+                placeholder=${msg(
+                  'Median value of owner-occupied homes in $1000s',
+                )}
                 ?required=${this.step == 4}
                 minlength=${this.step == 4 ? 1 : nothing}
                 @sl-change=${(e: SlChangeEvent) => {
@@ -436,64 +471,65 @@ export class CreateDataSetDialog extends LitElementWw {
                 ? html`
                     <h3>Classes</h3>
                     ${this.config.labelDesc.classes?.map(
-                      (clazz, index) =>
-                        html`
-                          <c-card>
-                            <div slot="content">
-                              <sl-input
-                                type="number"
-                                value=${clazz.id}
-                                label="Key"
-                                placeholder="0"
-                                help-text="an integer"
-                                ?required=${this.step == 4}
-                                maxlength=${this.step == 4 ? 6 : nothing}
-                                pattern=${this.step == 4 ? '[A-Z]+' : nothing}
-                                @sl-change=${(e: SlChangeEvent) => {
-                                  this.config.labelDesc.classes[index].id =
-                                    parseInt((e.target as HTMLInputElement).value)
-                                  this.config = { ...this.config }
-                                }}
-                              ></sl-input>
-                              <sl-textarea
-                                rows="2"
-                                value=${clazz.description}
-                                label="Description"
-                                placeholder="Animal was detected as a horse"
-                                ?required=${this.step == 4}
-                                minlength=${this.step == 4 ? 1 : nothing}
-                                @sl-change=${(e: SlChangeEvent) => {
-                                  this.config.labelDesc.classes[
-                                    index
-                                  ].description = (<HTMLInputElement>(
-                                    e.target
-                                  )).value
-                                  this.config = { ...this.config }
-                                }}
-                              ></sl-textarea>
-                            </div>
-                          </c-card>
-                        `
+                      (clazz, index) => html`
+                        <c-card>
+                          <div slot="content">
+                            <sl-input
+                              type="number"
+                              value=${clazz.id}
+                              label=${msg('Key')}
+                              placeholder="0"
+                              help-text=${msg('an integer')}
+                              ?required=${this.step == 4}
+                              maxlength=${this.step == 4 ? 6 : nothing}
+                              pattern=${this.step == 4 ? '[A-Z]+' : nothing}
+                              @sl-change=${(e: SlChangeEvent) => {
+                                this.config.labelDesc.classes[index].id =
+                                  parseInt((e.target as HTMLInputElement).value)
+                                this.config = { ...this.config }
+                              }}
+                            ></sl-input>
+                            <sl-textarea
+                              rows="2"
+                              value=${clazz.description}
+                              label=${msg('Description')}
+                              placeholder=${msg(
+                                'Animal was detected as a horse',
+                              )}
+                              ?required=${this.step == 4}
+                              minlength=${this.step == 4 ? 1 : nothing}
+                              @sl-change=${(e: SlChangeEvent) => {
+                                this.config.labelDesc.classes[
+                                  index
+                                ].description = (<HTMLInputElement>(
+                                  e.target
+                                )).value
+                                this.config = { ...this.config }
+                              }}
+                            ></sl-textarea>
+                          </div>
+                        </c-card>
+                      `,
                     )}
                     ${this.config.labelDesc.classes.length >= 3
                       ? html`
                           <sl-button
                             @click="${(_e: MouseEvent) =>
                               this.removeLabelClass()}"
-                            >Remove class</sl-button
+                            >${msg('Remove class')}</sl-button
                           >
                         `
                       : html``}
                     <sl-button
                       @click="${(_e: MouseEvent) => this.addLabelClass()}"
-                      >Add class</sl-button
+                      >${msg('Add class')}</sl-button
                     >
                   `
                 : html``}
             </div>
             <div ?hidden=${this.step !== 5} ?inert=${this.step !== 5}>
-              <h1>You are nearly done</h1>
-              <p>Now add your data in the following format*:</p>
+              <h1>${msg('You are nearly done')}</h1>
+              <p>${msg('Now add your data in the following format')}*:</p>
               <div
                 class="tag-group"
                 style="justify-content: center !important;"
@@ -507,7 +543,7 @@ export class CreateDataSetDialog extends LitElementWw {
                       class="clickable"
                     ></c-data-info
                     >,
-                  `
+                  `,
                 )}
                 <c-data-info
                   type="label"
@@ -520,7 +556,9 @@ export class CreateDataSetDialog extends LitElementWw {
                 id="dataTextarea"
                 rows="10"
                 name="data"
-                help-text="*Each row needs to represent one set containing the features and the label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the features. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments."
+                help-text="*${msg(
+                  'Each row needs to represent one set containing the features and the label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the features. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments.',
+                )}"
                 ?required=${this.step == 5}
               ></sl-textarea>
             </div>
@@ -533,19 +571,25 @@ export class CreateDataSetDialog extends LitElementWw {
                     @click="${(_e: MouseEvent) => this.step--}"
                   >
                     <sl-icon slot="prefix" src=${IconArrowLeftCircle}></sl-icon>
-                    Previous
+                    ${msg('Previous')}
                   </sl-button>
                 `
               : html``}
             <sl-button variant="primary" type="submit" id="nextStepButton">
               ${this.step < 5
                 ? html`
-                    Next
-                    <sl-icon slot="suffix" src=${IconArrowRightCircle}></sl-icon>
+                    ${msg('Next')}
+                    <sl-icon
+                      slot="suffix"
+                      src=${IconArrowRightCircle}
+                    ></sl-icon>
                   `
                 : html`
-                    Validate and create
-                    <sl-icon slot="suffix" src=${IconArrowRightCircle}></sl-icon>
+                    ${msg('Validate and create')}
+                    <sl-icon
+                      slot="suffix"
+                      src=${IconArrowRightCircle}
+                    ></sl-icon>
                   `}
             </sl-button>
           </div>

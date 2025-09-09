@@ -15,6 +15,7 @@ import SlButton from "@shoelace-style/shoelace/dist/components/button/button.com
 
 import IconFiles from "bootstrap-icons/icons/files.svg"
 import IconTrash from "bootstrap-icons/icons/trash.svg"
+import { msg } from '@lit/localize'
 
 export class LayerActionsCard extends LitElementWw {
   
@@ -46,7 +47,7 @@ export class LayerActionsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Actions</div>
+        <div slot="title">${msg('Actions')}</div>
         <div slot="content">
           <div class="button-group">
             ${!(this.layer instanceof OutputLayer)
@@ -54,12 +55,12 @@ export class LayerActionsCard extends LitElementWw {
                   @click="${(_e: MouseEvent) => this.handleDuplicateLayer()}"
                 >
                   <sl-icon slot="prefix" src=${IconFiles}></sl-icon>
-                  Duplicate
+                  ${msg('Duplicate')}
                 </sl-button>`
               : html``}
             <sl-button @click="${(_e: MouseEvent) => this.handleDeleteLayer()}">
               <sl-icon slot="prefix" src=${IconTrash}></sl-icon>
-              Delete
+              ${msg('Delete')}
             </sl-button>
           </div>
         </div>

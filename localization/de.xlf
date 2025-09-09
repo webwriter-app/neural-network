@@ -1,0 +1,830 @@
+<xliff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd" xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file original="lit-localize-inputs" datatype="plaintext" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="s4c3e975942fc568d">
+        <source>You decided to train a model with the current configuration. As an effect, all options to edit the configuration have been temporarily removed or disabled to make sure the configuration you see is the same configuration the model uses. If you want to make changes to your configuration, you need to discard the current model first. If you discard your model, you can again perform any changes and train a new model based on the new configuration.</source>
+        <target>Sie haben sich entschieden, ein Modell mit der aktuellen Konfiguration zu trainieren. Infolgedessen wurden alle Optionen zur Bearbeitung der Konfiguration vorübergehend entfernt oder deaktiviert, um sicherzustellen, dass die angezeigte Konfiguration mit der vom Modell verwendeten übereinstimmt. Wenn Sie Änderungen an Ihrer Konfiguration vornehmen möchten, müssen Sie zuerst das aktuelle Modell verwerfen. Wenn Sie Ihr Modell verwerfen, können Sie alle Änderungen erneut durchführen und ein neues Modell auf der Grundlage der neuen Konfiguration trainieren.</target>
+      </trans-unit>
+      <trans-unit id="sb4810a60b4ad921e">
+        <source>Discards the model, which gains you back your editing capabilities</source>
+        <target>Verwirft das Modell, wodurch Sie Ihre Bearbeitungsmöglichkeiten zurückgewinnen</target>
+      </trans-unit>
+      <trans-unit id="sc00a88b90cd60661">
+        <source>Discard</source>
+        <target>Ablegen</target>
+      </trans-unit>
+      <trans-unit id="s2ed914b45e6f8fb0">
+        <source>Discard model</source>
+        <target>Modell verwerfen</target>
+      </trans-unit>
+      <trans-unit id="s9d167ef77aed79b6">
+        <source>Layer</source>
+        <target>Schicht</target>
+      </trans-unit>
+      <trans-unit id="se157debe22915185">
+        <source>was deleted because no data could be assigned to it!</source>
+        <target>wurde gelöscht, weil ihm keine Daten zugeordnet werden konnten!</target>
+      </trans-unit>
+      <trans-unit id="s8192fafe6f0cc0bb">
+        <source>An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)</source>
+        <target>Eine Eingabeschicht ist eine Schicht, die lediglich von außerhalb des Netzes gelieferte Daten aufnimmt und sie an die nächste(n) Schicht(en) weitergibt</target>
+      </trans-unit>
+      <trans-unit id="s0e36885f01f95cc8">
+        <source>A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.</source>
+        <target>Eine dichte Schicht, auch vollständig verbundene Schicht genannt, ist eine Schicht, deren innere Neuronen mit jedem Neuron der vorhergehenden Schicht verbunden sind.</target>
+      </trans-unit>
+      <trans-unit id="s3310986378624a28">
+        <source>The selected layer can not be duplicated! Only a single output layer is currently supported!</source>
+        <target>Die ausgewählte Schicht kann nicht dupliziert werden! Es wird derzeit nur eine einzige Ausgabeschicht unterstützt!</target>
+      </trans-unit>
+      <trans-unit id="sdc95be9d922008e7">
+        <source>An output layer in this simulation is just a normal dense layer, additionally equipped with the ability to output the incoming data out of the network.</source>
+        <target>Eine Ausgabeschicht ist in dieser Simulation nur eine normale dichte Schicht, die zusätzlich mit der Fähigkeit ausgestattet ist, die eingehenden Daten aus dem Netz auszugeben.</target>
+      </trans-unit>
+      <trans-unit id="sa5982fd2e05ee92d">
+        <source>Since the purpose if this layer is to output a classifiction, we should combine it with a softmax activation function in order to provide a probability distribution.</source>
+        <target>Da der Zweck dieser Schicht darin besteht, eine Klassifizierung auszugeben, sollten wir sie mit einer Softmax-Aktivierungsfunktion kombinieren, um eine Wahrscheinlichkeitsverteilung zu erhalten.</target>
+      </trans-unit>
+      <trans-unit id="s93d85c9969bc1e8e">
+        <source>Get started</source>
+        <target>Los geht's</target>
+      </trans-unit>
+      <trans-unit id="s37f8f9ad6c3ca6e8">
+        <source>Import JSON configuration</source>
+        <target>JSON-Konfiguration importieren</target>
+      </trans-unit>
+      <trans-unit id="sb39c29728a3aab64">
+        <source>Intermediate</source>
+        <target>Mittleres Niveau</target>
+      </trans-unit>
+      <trans-unit id="s4aba9979380614e1">
+        <source>Classification</source>
+        <target>Klassifizierung</target>
+      </trans-unit>
+      <trans-unit id="s7e7ce210415ee02c">
+        <source>Feed Forward</source>
+        <target>Feed Forward</target>
+      </trans-unit>
+      <trans-unit id="s835dc746e771a9d6">
+        <source>Boston House Pricing</source>
+        <target>Boston House Preisgestaltung</target>
+      </trans-unit>
+      <trans-unit id="s85f01e331f787810">
+        <source>Regression</source>
+        <target>Regression</target>
+      </trans-unit>
+      <trans-unit id="s382a2aa3984474dd">
+        <source>Create</source>
+        <target>Erstellen</target>
+      </trans-unit>
+      <trans-unit id="s13bf923e48a38e88">
+        <source>You can create a custom configuration by using the options in the corresponding right panels.</source>
+        <target>Sie können eine benutzerdefinierte Konfiguration erstellen, indem Sie die Optionen in den entsprechenden rechten Feldern verwenden.</target>
+      </trans-unit>
+      <trans-unit id="s9d8b8aa2b404c2c8">
+        <source>Settings</source>
+        <target>Einstellungen</target>
+      </trans-unit>
+      <trans-unit id="s769b92432aa0e57f">
+        <source>Configure which options the users of this widget are allowed to view and edit</source>
+        <target>Legen Sie fest, welche Optionen die Benutzer dieses Widgets anzeigen und bearbeiten dürfen</target>
+      </trans-unit>
+      <trans-unit id="s255857544a9d5ec0">
+        <source>Reset</source>
+        <target>Zurücksetzen</target>
+      </trans-unit>
+      <trans-unit id="s295e7ec3fae5aa15">
+        <source>Set to default</source>
+        <target>Auf Standard eingestellt</target>
+      </trans-unit>
+      <trans-unit id="s7f76d461768c268c">
+        <source>Allow importing configurations</source>
+        <target>Erlauben Sie den Import von Konfigurationen</target>
+      </trans-unit>
+      <trans-unit id="sa219044786efe4f4">
+        <source>Show recommendations</source>
+        <target>Empfehlungen anzeigen</target>
+      </trans-unit>
+      <trans-unit id="sa133a50ad676b757">
+        <source>Allow exporting configurations</source>
+        <target>Erlauben Sie den Export von Konfigurationen</target>
+      </trans-unit>
+      <trans-unit id="s9feb1a1345ccc3e5">
+        <source>Network</source>
+        <target>Netzwerk</target>
+      </trans-unit>
+      <trans-unit id="s3de2e4f3353ff071">
+        <source>Restrict layer types</source>
+        <target>Schichtentypen einschränken</target>
+      </trans-unit>
+      <trans-unit id="scfa788c4d56c9859">
+        <source>Allow dense layers</source>
+        <target>Erlaubt dichte Schichten</target>
+      </trans-unit>
+      <trans-unit id="s05c44a5db696fcaf">
+        <source>Editing</source>
+        <target>Bearbeitung von</target>
+      </trans-unit>
+      <trans-unit id="secd2b30927c9ada1">
+        <source>Allow adding and removing layers</source>
+        <target>Erlaubt das Hinzufügen und Entfernen von Schichten</target>
+      </trans-unit>
+      <trans-unit id="s1d6d96fee1f77a74">
+        <source>Allow editing layers</source>
+        <target>Bearbeitung von Schichten zulassen</target>
+      </trans-unit>
+      <trans-unit id="sc728fae3603c8b93">
+        <source>Allow selecting the data flowing into input layers</source>
+        <target>Ermöglicht die Auswahl der in die Eingabeschichten fließenden Daten</target>
+      </trans-unit>
+      <trans-unit id="s91346ada0f5220bf">
+        <source>Allow editing the number of neurons</source>
+        <target>Bearbeitung der Anzahl der Neuronen zulassen</target>
+      </trans-unit>
+      <trans-unit id="sff69314112eb4786">
+        <source>Allow changing the activation function</source>
+        <target>Änderung der Aktivierungsfunktion zulassen</target>
+      </trans-unit>
+      <trans-unit id="sb4aaa150117048eb">
+        <source>Allow reconnecting the layers with each other</source>
+        <target>Ermöglicht es, die Schichten wieder miteinander zu verbinden</target>
+      </trans-unit>
+      <trans-unit id="s505d96c3ca2f3c78">
+        <source>Allow selecting a different data set</source>
+        <target>Auswahl eines anderen Datensatzes zulassen</target>
+      </trans-unit>
+      <trans-unit id="sa3900af79012fda0">
+        <source>Allow managing (creating new and deleting) data sets</source>
+        <target>Ermöglicht die Verwaltung (Erstellung neuer und Löschung) von Datensätzen</target>
+      </trans-unit>
+      <trans-unit id="s0605944041e20ba8">
+        <source>Show plots</source>
+        <target>Plots anzeigen</target>
+      </trans-unit>
+      <trans-unit id="se65e4e6f3696e997">
+        <source>Training</source>
+        <target>Training</target>
+      </trans-unit>
+      <trans-unit id="s7188f983604e2188">
+        <source>Allow editing hyperparameters</source>
+        <target>Bearbeitung von Hyperparametern zulassen</target>
+      </trans-unit>
+      <trans-unit id="s77d657d2989d8bf6">
+        <source>Allow editing the batch size</source>
+        <target>Bearbeitung der Chargengröße zulassen</target>
+      </trans-unit>
+      <trans-unit id="s14a65ec1c3dc6761">
+        <source>Allow editing the learning rate</source>
+        <target>Erlauben Sie die Bearbeitung der Lernrate</target>
+      </trans-unit>
+      <trans-unit id="s399ed88a7aa67028">
+        <source>Allow editing the dropout rate</source>
+        <target>Bearbeitung der Abbrecherquote zulassen</target>
+      </trans-unit>
+      <trans-unit id="s991dbe8a07858b6b">
+        <source>Important info</source>
+        <target>Wichtige Informationen</target>
+      </trans-unit>
+      <trans-unit id="s293aa6a6446fb153">
+        <source>Export</source>
+        <target>Exportieren</target>
+      </trans-unit>
+      <trans-unit id="sc7aaabd93fb4c486">
+        <source>Export the current configuration to your local file system as a JSON file. Storing trained models is not supported.</source>
+        <target>Exportieren Sie die aktuelle Konfiguration als JSON-Datei in Ihr lokales Dateisystem. Das Speichern von trainierten Modellen wird nicht unterstützt.</target>
+      </trans-unit>
+      <trans-unit id="se3b4c857f91f80d7">
+        <source>Keyboard shortcuts</source>
+        <target>Tastaturkürzel</target>
+      </trans-unit>
+      <trans-unit id="sc25745d3142338ca">
+        <source>Deletes the currently selected layer</source>
+        <target>Löscht die aktuell ausgewählte Schicht</target>
+      </trans-unit>
+      <trans-unit id="sa5ed0165e089255e">
+        <source>Duplicates the currently selected layer</source>
+        <target>Dupliziert die aktuell ausgewählte Schicht</target>
+      </trans-unit>
+      <trans-unit id="s8ff8cee7c5d100bc">
+        <source>Moves the currently selected layer</source>
+        <target>Verschiebt die aktuell ausgewählte Schicht</target>
+      </trans-unit>
+      <trans-unit id="sa7f495fff0f250d9">
+        <source>Q &amp; A</source>
+        <target>FRAGEN UND ANTWORTEN</target>
+      </trans-unit>
+      <trans-unit id="s14b03351d9f0f4e8">
+        <source>There are currently no help entries. If you publish the widget like this, the help section will be hidden.</source>
+        <target>Derzeit gibt es keine Hilfe-Einträge. Wenn Sie das Widget auf diese Weise veröffentlichen, wird der Hilfebereich ausgeblendet.</target>
+      </trans-unit>
+      <trans-unit id="se1f4d0fd4b9438d0">
+        <source>Update entry</source>
+        <target>Eintrag aktualisieren</target>
+      </trans-unit>
+      <trans-unit id="s3983b0213bfac281">
+        <source>Remove entry</source>
+        <target>Eintrag entfernen</target>
+      </trans-unit>
+      <trans-unit id="s99f110d27e30b289">
+        <source>Title</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="s6cee92a3b310e650">
+        <source>Add entry</source>
+        <target>Eintrag hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="sc20cf39aef9b3355">
+        <source>About this app</source>
+        <target>Über diese App</target>
+      </trans-unit>
+      <trans-unit id="s984fb2f8f14ee101">
+        <source>This app was developed by Christian Koch, a student at RWTH Aachen University, with support of Frederic Salmen and the chair i9 at RWTH Aachen University.</source>
+        <target>Diese App wurde von Christian Koch, einem Studenten der RWTH Aachen, mit Unterstützung von Frederic Salmen und dem Lehrstuhl i9 der RWTH Aachen entwickelt.</target>
+      </trans-unit>
+      <trans-unit id="sc62667aa0380bc6b">
+        <source>About the developer</source>
+        <target>Über den Entwickler</target>
+      </trans-unit>
+      <trans-unit id="s17597a8bb4810524">
+        <source>License</source>
+        <target>Lizenz</target>
+      </trans-unit>
+      <trans-unit id="s8e7cfd29f14ffad6">
+        <source>All third-party data sets have been published under public domain</source>
+        <target>Alle Datensätze von Drittanbietern wurden öffentlich zugänglich gemacht.</target>
+      </trans-unit>
+      <trans-unit id="sb546e48af5e5c359">
+        <source>Add layer</source>
+        <target>Schicht hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="saea857a2b4e1f6a7">
+        <source>Drag a layer anywhere to place it on the canvas</source>
+        <target>Ziehen Sie eine Schicht an eine beliebige Stelle, um sie auf dem Canvas zu platzieren.</target>
+      </trans-unit>
+      <trans-unit id="sfd77270c3f54f664">
+        <source>Output</source>
+        <target>Ausgabe</target>
+      </trans-unit>
+      <trans-unit id="sb4f1dffbb6be6302">
+        <source>Clear</source>
+        <target>Löschen</target>
+      </trans-unit>
+      <trans-unit id="se6e9902ddea314c4">
+        <source>Clear network</source>
+        <target>Netzwerk löschen</target>
+      </trans-unit>
+      <trans-unit id="s14ad6d4ee3b48ca2">
+        <source>This will remove every layer from the network.</source>
+        <target>Dadurch wird jede Schicht aus dem Netz entfernt.</target>
+      </trans-unit>
+      <trans-unit id="sae901180c48ddefb">
+        <source>Your network currently contains</source>
+        <target>Ihr Netzwerk enthält derzeit</target>
+      </trans-unit>
+      <trans-unit id="s4554e34a747022df">
+        <source>layers</source>
+        <target>Schichten</target>
+      </trans-unit>
+      <trans-unit id="s4d1b055aa7613557">
+        <source>Your network is currently empty.</source>
+        <target>Ihr Netzwerk ist derzeit leer.</target>
+      </trans-unit>
+      <trans-unit id="sd2e79aff2aea724a">
+        <source>You currently do not have an input layer. Drag one onto the canvas!</source>
+        <target>Sie haben derzeit keine Eingabeschicht. Ziehen Sie eine auf die Leinwand!</target>
+      </trans-unit>
+      <trans-unit id="s37abcf4d745436f7">
+        <source>You currently do not have an output layer. Drag one onto the canvas!</source>
+        <target>Sie haben derzeit keine Ausgabeschicht. Ziehen Sie eine auf die Leinwand!</target>
+      </trans-unit>
+      <trans-unit id="s6a4607c5c4e55a03">
+        <source>Always make sure to connect your layers such that there is a path from your input layer(s) to your output layer! Therefore select a layer in the canvas and select its incoming or outgoing connections</source>
+        <target>Vergewissern Sie sich, dass Sie Ihre Schichten immer so verbinden, dass es einen Pfad von der/den Eingabeschicht(en) zu Ihrer Ausgabeschicht gibt! Wählen Sie dazu eine Schicht im Canvas aus und markieren Sie deren eingehende oder ausgehende Verbindungen</target>
+      </trans-unit>
+      <trans-unit id="s6a0bc0ce56a9ae4a">
+        <source>Features</source>
+        <target>Eigenschaften</target>
+      </trans-unit>
+      <trans-unit id="s5590dbf7e425789d">
+        <source>Label</source>
+        <target>Etikett</target>
+      </trans-unit>
+      <trans-unit id="s07e767f1fe8ad66a">
+        <source>View raw data</source>
+        <target>Rohdaten anzeigen</target>
+      </trans-unit>
+      <trans-unit id="s41ee884e3b2d7413">
+        <source>Click on an feature pill above to see the relation between this feature and the label in a plot</source>
+        <target>Klicken Sie auf eine Merkmale oben, um die Beziehung zwischen diesem Merkmal und der Beschriftung in einem Diagramm zu sehen</target>
+      </trans-unit>
+      <trans-unit id="scc33c632d6e60d84">
+        <source>plotted against</source>
+        <target>aufgetragen gegen</target>
+      </trans-unit>
+      <trans-unit id="s01c091af962d4963">
+        <source>Plots</source>
+        <target>Graphen</target>
+      </trans-unit>
+      <trans-unit id="s573de432d7ee9439">
+        <source>The progress you made in creating your own data set was successfully restored!</source>
+        <target>Der Fortschritt, den Sie bei der Erstellung Ihres eigenen Datensatzes gemacht haben, wurde erfolgreich wiederhergestellt!</target>
+      </trans-unit>
+      <trans-unit id="s8e77b85b1ae353e5">
+        <source>A data set with the same name already exists!</source>
+        <target>Ein Datensatz mit demselben Namen existiert bereits!</target>
+      </trans-unit>
+      <trans-unit id="s669ebaf3b9787562">
+        <source>The provided data does not match the required format! Please check again</source>
+        <target>Die angegebenen Daten entsprechen nicht dem erforderlichen Format! Bitte nochmals prüfen</target>
+      </trans-unit>
+      <trans-unit id="see988347633ae840">
+        <source>A new data set was successfully created and automatically selected!</source>
+        <target>Ein neuer Datensatz wurde erfolgreich erstellt und automatisch ausgewählt!</target>
+      </trans-unit>
+      <trans-unit id="s18de3f0678131658">
+        <source>Create a new data set</source>
+        <target>Erstellen Sie einen neuen Datensatz</target>
+      </trans-unit>
+      <trans-unit id="scdb1bac161852c73">
+        <source>Welcome</source>
+        <target>Willkommen</target>
+      </trans-unit>
+      <trans-unit id="s59163864a74213df">
+        <source>This tour will guide you through creating your own data set in a few simple steps. Everything is stored automatically, so you can close this modal at any time and resume.</source>
+        <target>Diese Tour führt Sie in wenigen einfachen Schritten durch die Erstellung Ihres eigenen Datensatzes. Alles wird automatisch gespeichert, so dass Sie dieses Modal jederzeit schließen und fortsetzen können.</target>
+      </trans-unit>
+      <trans-unit id="s420e8fef6d553399">
+        <source>General info about the data set</source>
+        <target>Allgemeine Informationen über den Datensatz</target>
+      </trans-unit>
+      <trans-unit id="sf82bd0ca92fc7478">
+        <source>Choose a short but meaningful name for your data set and write a description.</source>
+        <target>Wählen Sie einen kurzen, aber aussagekräftigen Namen für Ihren Datensatz und schreiben Sie eine Beschreibung.</target>
+      </trans-unit>
+      <trans-unit id="sef49aec68fd1dc66">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="s63d894b1ddb06289">
+        <source>Description</source>
+        <target>Beschreibung</target>
+      </trans-unit>
+      <trans-unit id="s4c5805b438fae5b7">
+        <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
+        <target>Der Bostoner Hauspreis-Datensatz beinhaltet die Vorhersage eines Hauspreises in Tausenden von Dollar anhand von Angaben zum Haus und seiner Nachbarschaft.</target>
+      </trans-unit>
+      <trans-unit id="sea29890d344759e2">
+        <source>Choose 'regression' if you want to predict continous values like house or gas prices</source>
+        <target>Wählen Sie "Regression", wenn Sie kontinuierliche Werte wie Haus- oder Gaspreise vorhersagen möchten.</target>
+      </trans-unit>
+      <trans-unit id="sa51b42a0f8bc1196">
+        <source>Choose 'classification' if you want information about the affiliation of the feature(s) to a class (e.g. what animal can be seen in this image? A dog, cat or horse?)</source>
+        <target>Wählen Sie "Klassifizierung", wenn Sie Informationen über die Zugehörigkeit des Merkmals/der Merkmale zu einer Klasse wünschen (z. B. welches Tier ist auf diesem Bild zu sehen? Ein Hund, eine Katze oder ein Pferd?)</target>
+      </trans-unit>
+      <trans-unit id="s381b5d0debf831a1">
+        <source>Choose a type</source>
+        <target>Wählen Sie einen Typ</target>
+      </trans-unit>
+      <trans-unit id="s641101718c90c0aa">
+        <source>Which data will be put into the neural network? Create arbitrary many features!</source>
+        <target>Welche Daten werden in das neuronale Netz eingegeben? Erstellen Sie beliebig viele Merkmale!</target>
+      </trans-unit>
+      <trans-unit id="s506b6a19d12f414c">
+        <source>Key</source>
+        <target>Schlüssel</target>
+      </trans-unit>
+      <trans-unit id="s0c9543b42518e43e">
+        <source>1-6 capital letters</source>
+        <target>1-6 Großbuchstaben</target>
+      </trans-unit>
+      <trans-unit id="sb0be465979ef3758">
+        <source>Weighted distances to five Boston employment centers</source>
+        <target>Gewichtete Entfernungen zu fünf Bostoner Beschäftigungszentren</target>
+      </trans-unit>
+      <trans-unit id="s9ccab5f6530bd7fb">
+        <source>Remove feature</source>
+        <target>Funktion entfernen</target>
+      </trans-unit>
+      <trans-unit id="sb1cdfd5a8a60f3ca">
+        <source>Add feature</source>
+        <target>Funktion hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="sa7f1260d99ed4dcb">
+        <source>What shall be the output of the network?</source>
+        <target>Was soll der Ausgang des Netzes sein?</target>
+      </trans-unit>
+      <trans-unit id="s473a26666565450c">
+        <source>Median value of owner-occupied homes in $1000s</source>
+        <target>Medianwert von Eigenheimen in 1000er Dollar</target>
+      </trans-unit>
+      <trans-unit id="s2ba861fd720acdec">
+        <source>an integer</source>
+        <target>eine ganze Zahl</target>
+      </trans-unit>
+      <trans-unit id="s2511ced2063529c4">
+        <source>Animal was detected as a horse</source>
+        <target>Tier wurde als Pferd entdeckt</target>
+      </trans-unit>
+      <trans-unit id="s81fe4b139dbcd729">
+        <source>Remove class</source>
+        <target>Klasse entfernen</target>
+      </trans-unit>
+      <trans-unit id="s3187969905158d04">
+        <source>Add class</source>
+        <target>Klasse hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="s93aa17486b781f3d">
+        <source>You are nearly done</source>
+        <target>Sie sind fast fertig</target>
+      </trans-unit>
+      <trans-unit id="s4770b2377cfb5113">
+        <source>Now add your data in the following format</source>
+        <target>Fügen Sie nun Ihre Daten in folgendem Format ein</target>
+      </trans-unit>
+      <trans-unit id="s514bbfe7a6a1385a">
+        <source>Each row needs to represent one set containing the features and the label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the features. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments.</source>
+        <target>Jede Zeile muss einen Satz darstellen, der die Merkmale und die Bezeichnung enthält. Trennen Sie die Elemente durch ein Komma (Leerzeichen vor und nach dem Komma sind in Ordnung). Das letzte Element steht immer für die Bezeichnung, während die Elemente davor die Merkmale darstellen. Achten Sie darauf, dass Sie für Fließkommawerte nur Punkte und keine Kommas verwenden. Wenn Sie Daten im CSV-Format haben, können Sie diese einfach hier einfügen, aber stellen Sie sicher, dass Sie alle Kommentare entfernen.</target>
+      </trans-unit>
+      <trans-unit id="sf3ff78cc329d3528">
+        <source>Previous</source>
+        <target>Zurück</target>
+      </trans-unit>
+      <trans-unit id="s0fbf6dc6a1966408">
+        <source>Next</source>
+        <target>Weiter</target>
+      </trans-unit>
+      <trans-unit id="s886925e360029fea">
+        <source>Validate and create</source>
+        <target>Überprüfen und erstellen</target>
+      </trans-unit>
+      <trans-unit id="s688d523f38404f47">
+        <source>Manage data sets</source>
+        <target>Verwalten von Datensätzen</target>
+      </trans-unit>
+      <trans-unit id="s114321122eed37a2">
+        <source>Currently selected</source>
+        <target>Derzeit ausgewählt</target>
+      </trans-unit>
+      <trans-unit id="s05560220ff65f5eb">
+        <source>Permanently delete data set</source>
+        <target>Datensatz unwiderruflich löschen</target>
+      </trans-unit>
+      <trans-unit id="s7ad8f95cd252ff9b">
+        <source>Select data set</source>
+        <target>Datensatz auswählen</target>
+      </trans-unit>
+      <trans-unit id="s8e0e95cf2d9f0fe0">
+        <source>"Select a data set"</source>
+        <target>"Wählen Sie einen Datensatz"</target>
+      </trans-unit>
+      <trans-unit id="s9ea77d0d371dc469">
+        <source>Train</source>
+        <target>Trainieren</target>
+      </trans-unit>
+      <trans-unit id="s69bf683344258f79">
+        <source>Training completed!</source>
+        <target>Training abgeschlossen!</target>
+      </trans-unit>
+      <trans-unit id="sedc9092c834a7a37">
+        <source>Feel free to continue training your model for some additional epochs which might get you even better results!</source>
+        <target>Sie können Ihr Modell ruhig noch einige Epochen lang trainieren, um noch bessere Ergebnisse zu erzielen!</target>
+      </trans-unit>
+      <trans-unit id="s900c980bdb200fcf">
+        <source>Epochs</source>
+        <target>Epochen</target>
+      </trans-unit>
+      <trans-unit id="s7f291599fb79b2a9">
+        <source>Number of iterations over the whole training data set</source>
+        <target>Anzahl der Iterationen über den gesamten Trainingsdatensatz</target>
+      </trans-unit>
+      <trans-unit id="s9fbbc819fe7e66aa">
+        <source>Run</source>
+        <target>ausführen.</target>
+      </trans-unit>
+      <trans-unit id="s7ae39eeb994f4040">
+        <source>Train for 1 epoch</source>
+        <target>Trainieren für 1 Epoche</target>
+      </trans-unit>
+      <trans-unit id="s415ece5a1e4e50ce">
+        <source>Train for</source>
+        <target>Trainieren für</target>
+      </trans-unit>
+      <trans-unit id="sa24fcd4e36a13aef">
+        <source>epochs</source>
+        <target>Epochen</target>
+      </trans-unit>
+      <trans-unit id="s12db7f32a3851306">
+        <source>Epoch</source>
+        <target>Epoche</target>
+      </trans-unit>
+      <trans-unit id="safda35e3d523b59b">
+        <source>Batch</source>
+        <target>Batch</target>
+      </trans-unit>
+      <trans-unit id="s97aa76056a81bd36">
+        <source>Metrics</source>
+        <target>Metriken</target>
+      </trans-unit>
+      <trans-unit id="s61e8f3fac73d5e85">
+        <source>Loss: Categorical Crossentropy</source>
+        <target>Verlust: kategoriale Kreuzentropie</target>
+      </trans-unit>
+      <trans-unit id="s9f262d3debac7e63">
+        <source>Accuracy: In what percentage of the tests was the right class predicted?</source>
+        <target>Genauigkeit: In wie viel Prozent der Tests wurde die richtige Klasse vorhergesagt?</target>
+      </trans-unit>
+      <trans-unit id="s04cf457a74a1ca3e">
+        <source>Loss: Mean Squared Error</source>
+        <target>Verlust: Mittlerer quadratischer Fehler</target>
+      </trans-unit>
+      <trans-unit id="s5f343a43e7ea9f91">
+        <source>Error</source>
+        <target>Fehler</target>
+      </trans-unit>
+      <trans-unit id="s7fd689e3ee842226">
+        <source>What is the difference between the two lines in a graph?</source>
+        <target>Was ist der Unterschied zwischen den beiden Linien in einem Diagramm?</target>
+      </trans-unit>
+      <trans-unit id="s9cc47ae161b22379">
+        <source>For val_..., the metric is calculated on the validation data set while for the data without val as a prefix the metric is calculated on the training data set. The metrics for the validation data set can be seen as more meaningful since this is the data the network does not 'know'.</source>
+        <target>Für val_... wird die Metrik für den Validierungsdatensatz berechnet, während für die Daten ohne val als Präfix die Metrik für den Trainingsdatensatz berechnet wird. Die Metrik für den Validierungsdatensatz kann als aussagekräftiger angesehen werden, da dies die Daten sind, die das Netz nicht "kennt".</target>
+      </trans-unit>
+      <trans-unit id="s5ebe428b72f9d9fd">
+        <source>Hyperparameters</source>
+        <target>Hyperparameter</target>
+      </trans-unit>
+      <trans-unit id="sd674ba4ce23f2290">
+        <source>Batch size</source>
+        <target>Batch Größe</target>
+      </trans-unit>
+      <trans-unit id="sa4aa72be4b18da23">
+        <source>Learning rate</source>
+        <target>Lernrate</target>
+      </trans-unit>
+      <trans-unit id="s29028574383c26b2">
+        <source>Dropout rate</source>
+        <target>Dropout-Rate</target>
+      </trans-unit>
+      <trans-unit id="s0d783bd504d48897">
+        <source>Adjust the probability of neurons being deactivated during training</source>
+        <target>Anpassen der Wahrscheinlichkeit, dass die Neuronen während des Trainings deaktiviert werden</target>
+      </trans-unit>
+      <trans-unit id="sd8305d1efc816b0a">
+        <source>Predict</source>
+        <target>Vorhersage</target>
+      </trans-unit>
+      <trans-unit id="sf7aa4a7f6a7a6ae9">
+        <source>Predicted label</source>
+        <target>Voraussichtliche Bezeichnung</target>
+      </trans-unit>
+      <trans-unit id="s5a27bd37c0a0ad1a">
+        <source>with a probability of</source>
+        <target>mit einer Wahrscheinlichkeit von</target>
+      </trans-unit>
+      <trans-unit id="sd0ee89e8e7353561">
+        <source>Make another prediction</source>
+        <target>Machen Sie eine weitere Vorhersage</target>
+      </trans-unit>
+      <trans-unit id="s8af61807443f32a4">
+        <source>Actions</source>
+        <target>Aktionen</target>
+      </trans-unit>
+      <trans-unit id="sfac15b89e0668996">
+        <source>Duplicate</source>
+        <target>Duplizieren Sie</target>
+      </trans-unit>
+      <trans-unit id="sdc673e73b5c13aea">
+        <source>Delete</source>
+        <target>Löschen</target>
+      </trans-unit>
+      <trans-unit id="s22b10e3713c037c7">
+        <source>Activation function</source>
+        <target>Aktivierungsfunktion</target>
+      </trans-unit>
+      <trans-unit id="sa90802aba569f823">
+        <source>The selected activation applies to all neurons in this layer.</source>
+        <target>Die gewählte Aktivierung gilt für alle Neuronen in dieser Schicht.</target>
+      </trans-unit>
+      <trans-unit id="s256782b6fa6c81e3">
+        <source>After calculating a neuron's value by adding up its weighted input values and its bias:</source>
+        <target>Nach der Berechnung des Wertes eines Neurons durch Addition seiner gewichteten Eingabewerte und seines Bias:</target>
+      </trans-unit>
+      <trans-unit id="s514d47a63e3b11c3">
+        <source>Range of possible output values:</source>
+        <target>Bereich der möglichen Ausgabewerte:</target>
+      </trans-unit>
+      <trans-unit id="s801ac62b23cc5f5f">
+        <source>Neurons</source>
+        <target>Neuronen</target>
+      </trans-unit>
+      <trans-unit id="sea4f08110bb8f15d">
+        <source>Remove</source>
+        <target>entfernen</target>
+      </trans-unit>
+      <trans-unit id="sf9aee319a006c9b4">
+        <source>Add</source>
+        <target>hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="s5a95fb6f50ddd6ff">
+        <source>neurons</source>
+        <target>Neuronen</target>
+      </trans-unit>
+      <trans-unit id="s8b0432eecbd8b034">
+        <source>Update</source>
+        <target>Update</target>
+      </trans-unit>
+      <trans-unit id="s69a4b7731c4ab258">
+        <source>Incoming connections</source>
+        <target>Eingehende Verbindungen</target>
+      </trans-unit>
+      <trans-unit id="sfcb8881b108f62ed">
+        <source>Select the layers that connect to this layer</source>
+        <target>Wählen Sie die Schichten aus, die mit dieser Schicht verbunden sind.</target>
+      </trans-unit>
+      <trans-unit id="sf35b120256b540b4">
+        <source>Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description.</source>
+        <target>Weisen Sie dieser Schicht ein Feature zu. Bewegen Sie den Mauszeiger über die Merkmalstasten im geöffneten Dropdown-Menü, um eine Beschreibung zu erhalten.</target>
+      </trans-unit>
+      <trans-unit id="s47333467f911302a">
+        <source>Outgoing connections</source>
+        <target>Ausgehende Verbindungen</target>
+      </trans-unit>
+      <trans-unit id="s684e13d4e599ccdd">
+        <source>Select the layers this layer connects to</source>
+        <target>Wählen Sie die Schichten aus, mit denen diese Schicht verbunden ist</target>
+      </trans-unit>
+      <trans-unit id="saf83c9eefbdeee91">
+        <source>Outgoing data</source>
+        <target>Ausgehende Daten</target>
+      </trans-unit>
+      <trans-unit id="s690d876ebcfe1dd6">
+        <source>Neuron</source>
+        <target>Neuron</target>
+      </trans-unit>
+      <trans-unit id="s8efe9b047510b849">
+        <source>Corresponding layer:</source>
+        <target>Entsprechende Schicht:</target>
+      </trans-unit>
+      <trans-unit id="sd6b4fb36bd73f830">
+        <source>Assigned feature (input)</source>
+        <target>Zugeordnetes Merkmal (Eingabe)</target>
+      </trans-unit>
+      <trans-unit id="s888d98a196a240d8">
+        <source>Inputs</source>
+        <target>Eingaben</target>
+      </trans-unit>
+      <trans-unit id="s7aaa83f30a557ce9">
+        <source>- All neurons from</source>
+        <target>- Alle Neuronen aus</target>
+      </trans-unit>
+      <trans-unit id="s4a3a9e0c684b763f">
+        <source>Label (output)</source>
+        <target>Etikett (Ausgabe)</target>
+      </trans-unit>
+      <trans-unit id="s066d70cf9d5e2915">
+        <source>Outputs</source>
+        <target>Ausgänge</target>
+      </trans-unit>
+      <trans-unit id="s6503256c2de2745c">
+        <source>Edge</source>
+        <target>Kante</target>
+      </trans-unit>
+      <trans-unit id="s517acbf1f96324f9">
+        <source>Weight</source>
+        <target>Gewicht</target>
+      </trans-unit>
+      <trans-unit id="s0b29ddb08394f57b">
+        <source>Failed to enter fullscreen mode.</source>
+        <target>Der Vollbildmodus konnte nicht aktiviert werden.</target>
+      </trans-unit>
+      <trans-unit id="sb59d68ed12d46377">
+        <source>Loading</source>
+        <target>Laden</target>
+      </trans-unit>
+      <trans-unit id="s92dd08d474f4ba4b">
+        <source>Per capita crime rate by town</source>
+        <target>Pro-Kopf-Verbrechensrate nach Stadt</target>
+      </trans-unit>
+      <trans-unit id="sa2cb02c992247501">
+        <source>Proportion of residential land zoned for lots over 25,000 sq.ft.</source>
+        <target>Anteil der Wohnbauflächen, die für Grundstücke mit mehr als 25.000 Quadratmetern ausgewiesen sind.</target>
+      </trans-unit>
+      <trans-unit id="s0ba84c8c8dd5dfe5">
+        <source>Proportion of nonretail business acres per town</source>
+        <target>Anteil der Flächen für Nicht-Einzelhandelsunternehmen pro Stadt</target>
+      </trans-unit>
+      <trans-unit id="sb85fa3ee37f69a87">
+        <source>Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)</source>
+        <target>Charles River Dummy-Variable (= 1, wenn der Trakt an einen Fluss grenzt; sonst 0)</target>
+      </trans-unit>
+      <trans-unit id="s902fe1322b1d2c62">
+        <source>Nitric oxides concentration (parts per 10 million)</source>
+        <target>Stickstoffoxidkonzentration (Teile pro 10 Millionen)</target>
+      </trans-unit>
+      <trans-unit id="sf928898f4043c6ff">
+        <source>Average number of rooms per dwelling</source>
+        <target>Durchschnittliche Anzahl der Zimmer pro Wohnung</target>
+      </trans-unit>
+      <trans-unit id="s95f88e83db13ec5c">
+        <source>Proportion of owner-occupied units built prior to 1940</source>
+        <target>Anteil der vor 1940 gebauten selbstgenutzten Wohneinheiten</target>
+      </trans-unit>
+      <trans-unit id="sb60c67627b3119cc">
+        <source>Index of accessibility to radial highways</source>
+        <target>Index der Erreichbarkeit von Autobahnen und Schnellstraßen</target>
+      </trans-unit>
+      <trans-unit id="sc3ba6f6e119cd273">
+        <source>Full-value property-tax rate per $10,000</source>
+        <target>Vollwertiger Grundsteuersatz pro 10.000 $</target>
+      </trans-unit>
+      <trans-unit id="s49d8fc3f40b093ac">
+        <source>Pupil-teacher ratio by town</source>
+        <target>Schüler-Lehrer-Verhältnis nach Stadt</target>
+      </trans-unit>
+      <trans-unit id="s577b270038a8c007">
+        <source>1000(Bk – 0.63)^2 where Bk is the proportion of blacks by town</source>
+        <target>1000(Bk - 0,63)^2 wobei Bk der Anteil der Schwarzen in der Stadt ist</target>
+      </trans-unit>
+      <trans-unit id="s2f41bf569b07a4cc">
+        <source>% lower status of the population</source>
+        <target>% niedrigerer Status der Bevölkerung</target>
+      </trans-unit>
+      <trans-unit id="sb96294312677cad5">
+        <source>Pima Indians Diabetes</source>
+        <target>Pima-Indianer Diabetes</target>
+      </trans-unit>
+      <trans-unit id="sc20c7530f6afbb7c">
+        <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
+        <target>Der Pima-Indianer-Diabetes-Datensatz beinhaltet die Vorhersage des Auftretens von Diabetes innerhalb von 5 Jahren bei Pima-Indianern anhand von medizinischen Details. Es handelt sich um ein binäres (2-Klassen) Klassifizierungsproblem. Die Anzahl der Beobachtungen für jede Klasse ist nicht ausgeglichen. Es gibt 768 Beobachtungen mit 8 Eingabevariablen und 1 Ausgabevariable. Es wird angenommen, dass fehlende Werte mit Nullwerten kodiert werden.</target>
+      </trans-unit>
+      <trans-unit id="s4e77426bf7986294">
+        <source>Number of times pregnant</source>
+        <target>Anzahl der Schwangerschaften</target>
+      </trans-unit>
+      <trans-unit id="s5923001bb6219bb3">
+        <source>Plasma glucose concentration a 2 hours in an oral glucose tolerance test.</source>
+        <target>Plasmaglukosekonzentration nach 2 Stunden bei einem oralen Glukosetoleranztest.</target>
+      </trans-unit>
+      <trans-unit id="sf7cdf4e3adc1b2fa">
+        <source>Diastolic blood pressure (mm Hg)</source>
+        <target>Diastolischer Blutdruck (mm Hg)</target>
+      </trans-unit>
+      <trans-unit id="s5659cbd3943227de">
+        <source>Triceps skinfold thickness (mm)</source>
+        <target>Hautfaltendicke des Trizeps (mm)</target>
+      </trans-unit>
+      <trans-unit id="sa17f891acb35efd2">
+        <source>2-Hour serum insulin (mu U/ml)</source>
+        <target>2-Stunden-Serum-Insulin (mu U/ml)</target>
+      </trans-unit>
+      <trans-unit id="s4a39fd2eb0e136da">
+        <source>Body mass index (weight in kg/(height in m)^2)</source>
+        <target>Body-Mass-Index (Gewicht in kg/(Größe in m)^2)</target>
+      </trans-unit>
+      <trans-unit id="s66ebf0bd757d5159">
+        <source>Diabetes pedigree function</source>
+        <target>Diabetes-Stammbaumfunktion</target>
+      </trans-unit>
+      <trans-unit id="s5ef9308d320834d1">
+        <source>Age (years)</source>
+        <target>Alter (Jahre)</target>
+      </trans-unit>
+      <trans-unit id="s4e64552852c163c0">
+        <source>Diabetes</source>
+        <target>Diabetes</target>
+      </trans-unit>
+      <trans-unit id="sf27f87a94b05a690">
+        <source>Toggle Menu</source>
+        <target>Menü umschalten</target>
+      </trans-unit>
+      <trans-unit id="s236ae937cbcd6a39">
+        <source>Zoom in</source>
+        <target>Vergrößern</target>
+      </trans-unit>
+      <trans-unit id="s5b1749c67945a111">
+        <source>Zoom to network</source>
+        <target>Zoom zum Netzwerk</target>
+      </trans-unit>
+      <trans-unit id="sc65ea2cf2f21a13a">
+        <source>Zoom out</source>
+        <target>Verkleinern</target>
+      </trans-unit>
+      <trans-unit id="sd03c537f123f42a6">
+        <source>Exit Fullscreen</source>
+        <target>Vollbildmodus beenden</target>
+      </trans-unit>
+      <trans-unit id="s4b10acae683d2978">
+        <source>Fullscreen</source>
+        <target>Vollbildschirm</target>
+      </trans-unit>
+      <trans-unit id="sae1c7f13b7c0c47f">
+        <source>Start</source>
+        <target>Start</target>
+      </trans-unit>
+      <trans-unit id="s4488dd99533e7f65">
+        <source>Data set</source>
+        <target>Datensatz</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -21,21 +21,21 @@ import { serialize } from '@shoelace-style/shoelace/dist/utilities/form.js'
 import { CCard } from '../reusables/c-card'
 import { CDataInfo } from '../reusables/c-data-info'
 
-import SlInput from "@shoelace-style/shoelace/dist/components/input/input.component.js"
-import SlIcon from "@shoelace-style/shoelace/dist/components/icon/icon.component.js"
-import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
-import IconSend from "bootstrap-icons/icons/send.svg"
+import SlInput from '@shoelace-style/shoelace/dist/components/input/input.component.js'
+import SlIcon from '@shoelace-style/shoelace/dist/components/icon/icon.component.js'
+import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
+import IconSend from 'bootstrap-icons/icons/send.svg'
+import { msg } from '@lit/localize'
 
 export class PredictCard extends LitElementWw {
-
   static scopedElements = {
-    "c-card": CCard,
-    "c-data-info": CDataInfo,
-    "sl-input": SlInput,
-    "sl-button": SlButton,
-    "sl-icon": SlIcon
+    'c-card': CCard,
+    'c-data-info': CDataInfo,
+    'sl-input': SlInput,
+    'sl-button': SlButton,
+    'sl-icon': SlIcon,
   }
-  
+
   @consume({ context: networkContext, subscribe: true })
   accessor network: CNetwork
 
@@ -53,7 +53,7 @@ export class PredictCard extends LitElementWw {
     super.connectedCallback()
     await this.updateComplete
     this._predictForm.addEventListener('submit', (e: SubmitEvent) =>
-      this.handlePredict(e)
+      this.handlePredict(e),
     )
   }
 
@@ -70,7 +70,7 @@ export class PredictCard extends LitElementWw {
         detail: inputs,
         bubbles: true,
         composed: true,
-      })
+      }),
     )
   }
 
@@ -80,7 +80,7 @@ export class PredictCard extends LitElementWw {
       new Event('delete-prediction', {
         bubbles: true,
         composed: true,
-      })
+      }),
     )
   }
 
@@ -109,7 +109,7 @@ export class PredictCard extends LitElementWw {
     for (const inputLayer of this.network.getInputLayers()) {
       for (const dataSetInput of DataSetUtils.getFeatureDescsByKeys(
         this.dataSet,
-        inputLayer.conf.featureKeys
+        inputLayer.conf.featureKeys,
       )) {
         requiredFeatureDescs.add(dataSetInput)
       }
@@ -117,7 +117,7 @@ export class PredictCard extends LitElementWw {
 
     return html`
       <c-card>
-        <div slot="title">Predict</div>
+        <div slot="title">${msg('Predict')}</div>
         <form slot="content" id="predictForm">
           <h2>Inputs</h2>
           <div class="inputs-grid">
@@ -136,11 +136,11 @@ export class PredictCard extends LitElementWw {
                     required
                   ></sl-input>
                 </div>
-              `
+              `,
             )}
           </div>
           ${this.modelConf.predictedValue
-            ? html`<h2>Predicted label</h2>
+            ? html`<h2>${msg('Predicted label')}</h2>
                 <span>
                   <c-data-info
                     type="label"
@@ -157,15 +157,15 @@ export class PredictCard extends LitElementWw {
                             this.modelConf.predictedValue
                           )).indexOf(
                             Math.max(
-                              ...(<number[]>this.modelConf.predictedValue)
-                            )
+                              ...(<number[]>this.modelConf.predictedValue),
+                            ),
                           )
                           return html`${this.dataSet.labelDesc.classes[
                             index
                           ].id.toString()}
-                          with a probability of
+                          ${msg('with a probability of')}
                           ${ModelUtils.formatWeight(
-                            (<number[]>this.modelConf.predictedValue)[index]
+                            (<number[]>this.modelConf.predictedValue)[index],
                           )} `
                         },
                       ],
@@ -173,20 +173,20 @@ export class PredictCard extends LitElementWw {
                         'regression',
                         () =>
                           html`${ModelUtils.formatWeight(
-                            <number>this.modelConf.predictedValue
+                            <number>this.modelConf.predictedValue,
                           )}`,
                       ],
                     ],
-                    () => html`<h1>Error</h1>`
+                    () => html`<h1>${msg('Error')}</h1>`,
                   )}
                 </span>
                 <sl-button
                   @click="${(_e: MouseEvent) => this.prepareNewPrediction()}"
                 >
-                  Make another prediction
+                  ${msg('Make another prediction')}
                 </sl-button>`
             : html`<sl-button variant="primary" type="submit">
-                Predict
+                ${msg('Predict')}
                 <sl-icon slot="suffix" src=${IconSend}></sl-icon>
               </sl-button>`}
         </form>

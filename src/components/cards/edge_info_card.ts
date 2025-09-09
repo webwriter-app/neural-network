@@ -7,12 +7,12 @@ import { globalStyles } from '@/global_styles'
 import type { CNeuron } from '@/components/network/neuron'
 import { CCard } from '../reusables/c-card'
 import { CNetworkLink } from '../reusables/c-network-link'
+import { msg } from '@lit/localize'
 
 export class EdgeInfoCard extends LitElementWw {
-
   static scopedElements = {
-    "c-card": CCard,
-    "c-network-link": CNetworkLink
+    'c-card': CCard,
+    'c-network-link': CNetworkLink,
   }
 
   @property({ attribute: false })
@@ -28,7 +28,7 @@ export class EdgeInfoCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Edge</div>
+        <div slot="title">${msg('Edge')}</div>
         <div slot="content">
           <p>
             From:

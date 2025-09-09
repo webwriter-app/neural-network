@@ -8,12 +8,12 @@ import { dataSetContext } from '@/contexts/data_set_context'
 import type { OutputLayer } from '@/components/network/output_layer'
 import { CCard } from '../reusables/c-card'
 import { CDataInfo } from '../reusables/c-data-info'
+import { msg } from '@lit/localize'
 
 export class LayerOutgoingDataCard extends LitElementWw {
-
   static scopedElements = {
-    "c-card": CCard,
-    "c-data-info": CDataInfo
+    'c-card': CCard,
+    'c-data-info': CDataInfo,
   }
 
   @property()
@@ -26,7 +26,7 @@ export class LayerOutgoingDataCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Outgoing data</div>
+        <div slot="title">${msg('Outgoing data')}</div>
         <div slot="content">
           ${this.layer.conf.dataSetLabel.key
             ? html`

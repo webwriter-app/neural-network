@@ -13,14 +13,14 @@ import { AlertUtils } from '@/utils/alert_utils'
 
 import * as tf from '@tensorflow/tfjs'
 import { CNeuron } from './neuron'
+import { msg } from '@lit/localize'
 
 export class OutputLayer extends CLayer {
-
   static scopedElements = {
-    "c-neuron": CNeuron
+    'c-neuron': CNeuron,
   }
 
-  @property({attribute: false}) // @ts-ignore
+  @property({ attribute: false }) // @ts-ignore
   accessor conf: OutputLayerConf
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -36,10 +36,10 @@ export class OutputLayer extends CLayer {
             detail: this,
             bubbles: true,
             composed: true,
-          })
+          }),
         )
         AlertUtils.spawn({
-          message: `Layer ${this.getCyId()} was deleted because no data could be assigned to it!`,
+          message: `${msg('Layer')} ${this.getCyId()} ${msg('was deleted because no data could be assigned to it!')}`,
           variant: 'warning',
           icon: 'x-circle',
         })
@@ -56,7 +56,7 @@ export class OutputLayer extends CLayer {
         new Event('update-layer-confs', {
           bubbles: true,
           composed: true,
-        })
+        }),
       )
     }
   }
@@ -90,7 +90,7 @@ export class OutputLayer extends CLayer {
         detail: outputLayerConf,
         bubbles: true,
         composed: true,
-      })
+      }),
     )
 
     return outputLayerConf
@@ -99,7 +99,9 @@ export class OutputLayer extends CLayer {
   // duplicate this layer
   duplicate(): void {
     AlertUtils.spawn({
-      message: `The selected layer can not be duplicated! Only a single output layer is currently supported!`,
+      message: msg(
+        'The selected layer can not be duplicated! Only a single output layer is currently supported!',
+      ),
       variant: 'warning',
       icon: 'x-circle',
     })
@@ -117,11 +119,15 @@ export class OutputLayer extends CLayer {
   }
   // get description
   getDescription(): string {
-    let description =
-      'An output layer in this simulation is just a normal dense layer, additionally equipped with the ability to output the incoming data out of the network.'
+    let description = msg(
+      'An output layer in this simulation is just a normal dense layer, additionally equipped with the ability to output the incoming data out of the network.',
+    )
     if (this.dataSet.type == 'classification') {
       description +=
-        ' Since the purpose if this layer is to output a classifiction, we should combine it with a softmax activation function in order to provide a probability distribution.'
+        ' ' +
+        msg(
+          'Since the purpose if this layer is to output a classifiction, we should combine it with a softmax activation function in order to provide a probability distribution.',
+        )
     }
     return description
   }
@@ -185,7 +191,7 @@ export class OutputLayer extends CLayer {
                 keyPos="top"
                 bias="${this.bias ? this.bias[i] : null}"
               ></c-neuron>
-            `
+            `,
           )}`
         : html``}
     `

@@ -15,13 +15,13 @@ import { networkContext } from '@/contexts/network_context'
 import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
 import { CCard } from '../reusables/c-card'
+import { msg } from '@lit/localize'
 
 export class NetworkInfoCard extends LitElementWw {
-
   static scopedElements = {
-    "c-card": CCard
+    'c-card': CCard,
   }
-  
+
   @consume({ context: editableContext, subscribe: true })
   accessor editable: boolean
 
@@ -44,30 +44,32 @@ export class NetworkInfoCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Network</div>
+        <div slot="title">${msg('Network')}</div>
         <div slot="content">
           ${this.layerConfs.length
             ? html`<p>
-                Your network currently contains ${this.layerConfs.length}
-                layers.
+                ${msg('Your network currently contains')}${' '}${this.layerConfs
+                  .length}${' '}${msg('layers')}.
               </p>`
-            : html`<p>Your network is currently empty.</p>`}
+            : html`<p>${msg('Your network is currently empty.')}</p>`}
           ${!this.modelConf.model &&
           (this.editable || this.settings.mayAddAndRemoveLayers)
             ? html`
                 ${!this.network.getInputLayers().length
                   ? html`
                       <p>
-                        You currently do not have an input layer. Drag one onto
-                        the canvas!
+                        ${msg(
+                          'You currently do not have an input layer. Drag one onto the canvas!',
+                        )}
                       </p>
                     `
                   : html``}
                 ${!this.network.getOutputLayer()
                   ? html`
                       <p>
-                        You currently do not have an output layer. Drag one onto
-                        the canvas!
+                        ${msg(
+                          'You currently do not have an output layer. Drag one onto the canvas!',
+                        )}
                       </p>
                     `
                   : html``}
@@ -77,10 +79,9 @@ export class NetworkInfoCard extends LitElementWw {
           (this.editable || this.settings.mayChangeLayerConnections)
             ? html`
                 <p>
-                  Always make sure to connect your layers such that there is a
-                  path from your input layer(s) to your output layer! Therefore
-                  select a layer in the canvas and select its incoming or
-                  outgoing connections
+                  ${msg(
+                    'Always make sure to connect your layers such that there is a path from your input layer(s) to your output layer! Therefore select a layer in the canvas and select its incoming or outgoing connections',
+                  )}
                 </p>
               `
             : html``}

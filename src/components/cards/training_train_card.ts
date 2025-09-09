@@ -15,18 +15,18 @@ import { modelConfContext } from '@/contexts/model_conf_context'
 import type { SlChangeEvent } from '@shoelace-style/shoelace'
 import { CCard } from '../reusables/c-card'
 
-import SlProgressBar from "@shoelace-style/shoelace/dist/components/progress-bar/progress-bar.component.js"
-import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
-import SlRange from "@shoelace-style/shoelace/dist/components/range/range.component.js"
-import IconPlay from "bootstrap-icons/icons/play.svg"
+import SlProgressBar from '@shoelace-style/shoelace/dist/components/progress-bar/progress-bar.component.js'
+import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
+import SlRange from '@shoelace-style/shoelace/dist/components/range/range.component.js'
+import IconPlay from 'bootstrap-icons/icons/play.svg'
+import { msg } from '@lit/localize'
 
 export class TrainingTrainCard extends LitElementWw {
-  
   static scopedElements = {
-    "c-card": CCard,
-    "sl-progress-bar": SlProgressBar,
-    "sl-button": SlButton,
-    "sl-range": SlRange
+    'c-card': CCard,
+    'sl-progress-bar': SlProgressBar,
+    'sl-button': SlButton,
+    'sl-range': SlRange,
   }
 
   @consume({ context: modelConfContext, subscribe: true })
@@ -55,7 +55,7 @@ export class TrainingTrainCard extends LitElementWw {
         detail: epochs,
         bubbles: true,
         composed: true,
-      })
+      }),
     )
   }
 
@@ -66,25 +66,25 @@ export class TrainingTrainCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Train</div>
+        <div slot="title">${msg('Train')}</div>
         <div slot="content">
           ${!this.modelConf.isTraining
             ? html`
                 ${this.modelConf.model
                   ? html`
                       <sl-progress-bar value="100"></sl-progress-bar>
-                      <p>✅ Training completed!</p>
+                      <p>✅ ${msg('Training completed!')}</p>
                       <p>
-                        Feel free to continue training your model for some
-                        additional epochs which might get you even better
-                        results!
+                        ${msg(
+                          'Feel free to continue training your model for some additional epochs which might get you even better results!',
+                        )}
                       </p>
                     `
                   : html``}
                 <sl-range
                   id="numberOfEpochsRange"
-                  label="Epochs: ${this.numberOfEpochs}"
-                  help-text="Number of iterations over the whole training data set"
+                  label="${msg('Epochs')}: ${this.numberOfEpochs}"
+                  help-text=${msg('Number of iterations over the whole training data set')}
                   min="1"
                   max="10"
                   step="1"
@@ -98,10 +98,10 @@ export class TrainingTrainCard extends LitElementWw {
                   @click="${(_e: MouseEvent) =>
                     this.handleTrain(this.numberOfEpochs)}"
                 >
-                  <sl-icon src=${IconPlay} label="Run"></sl-icon>
+                  <sl-icon src=${IconPlay} label=${msg('Run')}></sl-icon>
                   ${this.numberOfEpochs == 1
-                    ? html`Train for 1 epoch`
-                    : html` Train for ${this.numberOfEpochs} epochs`}
+                    ? html`${msg('Train for 1 epoch')}`
+                    : html`${msg('Train for')} ${this.numberOfEpochs} ${msg('epochs')}`}
                 </sl-button>
               `
             : html``}
@@ -113,10 +113,10 @@ export class TrainingTrainCard extends LitElementWw {
                   100}"
                 ></sl-progress-bar>
                 <p>
-                  Epoch ${this.modelConf.actEpoch} • Batch
+                  ${msg('Epoch')} ${this.modelConf.actEpoch} • ${msg('Batch')}
                   ${this.modelConf.actBatch}/${Math.ceil(
                     this.dataSet.data.length /
-                      parseInt(this.trainOptions.batchSize)
+                      parseInt(this.trainOptions.batchSize),
                   )}
                 </p>
               `

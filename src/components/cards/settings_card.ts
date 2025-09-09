@@ -11,19 +11,19 @@ import { SettingsUtils } from '@/utils/settings_utils'
 import { CCard } from '../reusables/c-card'
 import { CSetting } from '../reusables/c-setting'
 
-import SlIcon from "@shoelace-style/shoelace/dist/components/icon/icon.component.js"
-import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
-import IconArrowCounterclockwise from "bootstrap-icons/icons/arrow-counterclockwise.svg"
+import SlIcon from '@shoelace-style/shoelace/dist/components/icon/icon.component.js'
+import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
+import IconArrowCounterclockwise from 'bootstrap-icons/icons/arrow-counterclockwise.svg'
+import { msg } from '@lit/localize'
 
 export class SettingsCard extends LitElementWw {
-
   static scopedElements = {
-    "c-card": CCard,
-    "c-setting": CSetting,
-    "sl-button": SlButton,
-    "sl-icon": SlIcon
+    'c-card': CCard,
+    'c-setting': CSetting,
+    'sl-button': SlButton,
+    'sl-icon': SlIcon,
   }
-  
+
   @consume({ context: settingsContext, subscribe: true })
   accessor settings: Settings
 
@@ -36,7 +36,7 @@ export class SettingsCard extends LitElementWw {
         ),
         composed: true,
         bubbles: true,
-      })
+      }),
     )
   }
 
@@ -47,100 +47,114 @@ export class SettingsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Settings</div>
+        <div slot="title">${msg('Settings')}</div>
         <div slot="content">
           <p>
-            Configure which options the users of this widget are allowed to view
-            and edit
+            ${msg(
+              'Configure which options the users of this widget are allowed to view and edit',
+            )}
           </p>
 
           <div class="button-group">
             <sl-button @click="${(_e: MouseEvent) => this.resetSettings()}">
-              <sl-icon src=${IconArrowCounterclockwise} label="Reset"></sl-icon>
-              Set to default
+              <sl-icon src=${IconArrowCounterclockwise} label=${msg('Reset')}></sl-icon>
+              ${msg('Set to default')}
             </sl-button>
           </div>
 
           <h2>Start</h2>
           <c-setting
             name="mayImport"
-            description="Allow importing configurations"
+            description=${msg('Allow importing configurations')}
           >
             <c-setting
               name="showDefaultConfs"
-              description="Show recommendations"
+              description=${msg('Show recommendations')}
             >
             </c-setting>
           </c-setting>
           <c-setting
             name="mayExport"
-            description="Allow exporting configurations"
+            description=${msg('Allow exporting configurations')}
           >
           </c-setting>
 
-          <h2>Network</h2>
-          Restrict layer types
-          <c-setting name="allowDenseLayers" description="Allow dense layers">
-          </c-setting>
-          Editing
+          <h2>${msg('Network')}</h2>
+          ${msg('Restrict layer types')}
           <c-setting
-            name="mayAddAndRemoveLayers"
-            description="Allow adding and removing layers"
+            name="allowDenseLayers"
+            description=${msg('Allow dense layers')}
           >
           </c-setting>
-          <c-setting name="mayEditLayers" description="Allow editing layers">
+          ${msg('Editing')}
+          <c-setting
+            name="mayAddAndRemoveLayers"
+            description=${msg('Allow adding and removing layers')}
+          >
+          </c-setting>
+          <c-setting
+            name="mayEditLayers"
+            description=${msg('Allow editing layers')}
+          >
             <c-setting
               name="maySelectDataOnInputLayer"
-              description="Allow selecting the data flowing into input layers"
+              description=${msg(
+                'Allow selecting the data flowing into input layers',
+              )}
             >
             </c-setting>
             <c-setting
               name="mayChangeNeurons"
-              description="Allow editing the number of neurons"
+              description=${msg('Allow editing the number of neurons')}
             >
             </c-setting>
             <c-setting
               name="mayChangeActivationFunction"
-              description="Allow changing the activation function"
+              description=${msg('Allow changing the activation function')}
             >
             </c-setting>
           </c-setting>
           <c-setting
             name="mayChangeLayerConnections"
-            description="Allow reconnecting the layers with each other"
+            description=${msg('Allow reconnecting the layers with each other')}
           >
           </c-setting>
 
-          <h2>Data set</h2>
+          <h2>${msg('Data set')}</h2>
           <c-setting
             name="maySelectDataSet"
-            description="Allow selecting a different data set"
+            description=${msg('Allow selecting a different data set')}
           >
             <c-setting
               name="mayManageDataSets"
-              description="Allow managing (creating new and deleting) data sets"
+              description=${msg(
+                'Allow managing (creating new and deleting) data sets',
+              )}
             >
             </c-setting>
           </c-setting>
-          <c-setting name="showPlots" description="Show plots"></c-setting>
-          <h2>Training</h2>
+          <c-setting
+            name="showPlots"
+            description=${msg('Show plots')}
+          ></c-setting>
+          <h2>${msg('Training')}</h2>
           <c-setting
             name="mayEditHyperparameters"
-            description="Allow editing hyperparameters"
+            description=${msg('Allow editing hyperparameters')}
           >
             <c-setting
               name="mayEditBatchSize"
-              description="Allow editing the batch size"
+              description=${msg('Allow editing the batch size')}
             >
             </c-setting>
             <c-setting
               name="mayEditLearningRate"
-              description="Allow editing the learning rate"
+              description=${msg('Allow editing the learning rate')}
             >
             </c-setting>
             <c-setting
               name="mayEditDropoutRate"
-              description="Allow editing the dropout rate"
+              description=${msg('Allow editing the dropout rate')}
             >
             </c-setting>
           </c-setting>

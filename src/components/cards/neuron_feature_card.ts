@@ -11,6 +11,7 @@ import type { CNeuron } from '@/components/network/neuron'
 import { FeatureDesc } from '@/types/feature_desc'
 import { CCard } from '../reusables/c-card'
 import { CDataInfo } from '../reusables/c-data-info'
+import { msg } from '@lit/localize'
 
 export class NeuronFeatureCard extends LitElementWw {
 
@@ -35,7 +36,7 @@ export class NeuronFeatureCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Assigned feature (input)</div>
+        <div slot="title">${msg('Assigned feature (input)')}</div>
         <div slot="content">
           <c-data-info
             type="feature"

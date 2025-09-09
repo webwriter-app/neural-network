@@ -13,17 +13,17 @@ import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 
 import type { SlChangeEvent } from '@shoelace-style/shoelace'
 import { CCard } from '../reusables/c-card'
-import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js"
-import SlOption from "@shoelace-style/shoelace/dist/components/option/option.component.js"
+import SlSelect from '@shoelace-style/shoelace/dist/components/select/select.component.js'
+import SlOption from '@shoelace-style/shoelace/dist/components/option/option.component.js'
+import { msg } from '@lit/localize'
 
 export class LayerOutgoingConnectionsCard extends LitElementWw {
-
   static scopedElements = {
-    "c-card": CCard,
-    "sl-select": SlSelect,
-    "sl-option": SlOption
+    'c-card': CCard,
+    'sl-select': SlSelect,
+    'sl-option': SlOption,
   }
-  
+
   @property()
   accessor layer: CLayer
 
@@ -57,11 +57,11 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
 
     // add connections that do not yet exist
     const addedLayerIds = selectedLayerIds.filter(
-      (layerId) => !currentLayerIds.includes(layerId)
+      (layerId) => !currentLayerIds.includes(layerId),
     )
     for (const addedLayerId of addedLayerIds) {
       const targetLayerConf = this.layerConfs.find(
-        (layer) => layer.layerId == addedLayerId
+        (layer) => layer.layerId == addedLayerId,
       )
       this.dispatchEvent(
         new CustomEvent<{
@@ -74,17 +74,17 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
           },
           bubbles: true,
           composed: true,
-        })
+        }),
       )
     }
 
     // remove connections that existed but were unselected
     const removedLayerIds = currentLayerIds.filter(
-      (layerId) => !selectedLayerIds.includes(layerId)
+      (layerId) => !selectedLayerIds.includes(layerId),
     )
     for (const removedLayerId of removedLayerIds) {
       const targetLayerConf = this.layerConfs.find(
-        (layerConf) => layerConf.layerId == removedLayerId
+        (layerConf) => layerConf.layerId == removedLayerId,
       )
       this.dispatchEvent(
         new CustomEvent<{
@@ -97,7 +97,7 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
           },
           bubbles: true,
           composed: true,
-        })
+        }),
       )
     }
   }
@@ -106,14 +106,14 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
     const options = this.layerConfs
       .filter(
         (layerConf) =>
-          layerConf != this.layer.conf && !(layerConf.LAYER_TYPE == 'Input')
+          layerConf != this.layer.conf && !(layerConf.LAYER_TYPE == 'Input'),
       )
       .map((layerConf) => this.network.getLayerById(layerConf.layerId))
     return options.map(
       (layer) =>
         html`<sl-option value="${layer.conf.layerId.toString()}"
           >${layer.getName()}</sl-option
-        >`
+        >`,
     )
   }
 
@@ -121,7 +121,7 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Outgoing connections</div>
+        <div slot="title">${msg('Outgoing connections')}</div>
         <div slot="content">
           <sl-select
             id="connectionSelect"
@@ -133,7 +133,7 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
               .join(' ')}
             multiple
             clearable
-            help-text="Select the layers this layer connects to"
+            help-text=${msg('Select the layers this layer connects to')}
             @sl-change="${(_e: SlChangeEvent) =>
               this.handleChangeConnections()}"
           >

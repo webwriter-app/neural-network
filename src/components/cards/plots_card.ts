@@ -10,6 +10,7 @@ import { dataSetContext } from '@/contexts/data_set_context'
 
 import * as tfvis from '@tensorflow/tfjs-vis'
 import { CCard } from '../reusables/c-card'
+import { msg } from '@lit/localize'
 
 export class PlotsCard extends LitElementWw {
 
@@ -61,8 +62,7 @@ export class PlotsCard extends LitElementWw {
 
       return html`${parentContainer}`
     } else {
-      return html`Click on an feature pill above to see the relation between
-      this feature and the label in a plot`
+      return html`${msg('Click on an feature pill above to see the relation between this feature and the label in a plot')}`
     }
   }
 
@@ -82,8 +82,8 @@ export class PlotsCard extends LitElementWw {
       <c-card>
         <div slot="title">
           ${this.featureKey
-            ? `${this.featureKey} plotted against ${this.dataSet.labelDesc.key}`
-            : 'Plots'}
+            ? `${this.featureKey} ${msg('plotted against')} ${this.dataSet.labelDesc.key}`
+            : msg('Plots')}
         </div>
         <div slot="content">${this.buildPlots()}</div>
       </c-card>

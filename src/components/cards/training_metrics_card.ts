@@ -12,15 +12,15 @@ import type { ModelConf } from '@/types/model_conf'
 import { modelConfContext } from '@/contexts/model_conf_context'
 import { CCard } from '../reusables/c-card'
 
-import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.component.js"
+import SlDetails from '@shoelace-style/shoelace/dist/components/details/details.component.js'
+import { msg } from '@lit/localize'
 
 export class TrainingMetricsCard extends LitElementWw {
-
   static scopedElements = {
-    "c-card": CCard,
-    "sl-details": SlDetails
+    'c-card': CCard,
+    'sl-details': SlDetails,
   }
-  
+
   @consume({ context: dataSetContext, subscribe: true })
   accessor dataSet: DataSet
 
@@ -38,7 +38,7 @@ export class TrainingMetricsCard extends LitElementWw {
         detail: this._trainMetricsContainer,
         bubbles: true,
         composed: true,
-      }
+      },
     )
     this.dispatchEvent(event)
   }
@@ -50,7 +50,7 @@ export class TrainingMetricsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Metrics</div>
+        <div slot="title">${msg('Metrics')}</div>
         <div slot="content">
           ${choose(
             this.dataSet.type,
@@ -58,26 +58,30 @@ export class TrainingMetricsCard extends LitElementWw {
               [
                 'classification',
                 () =>
-                  html`<p>Loss: Categorical Crossentropy</p>
+                  html`<p>${msg('Loss: Categorical Crossentropy')}</p>
                     <p>
-                      Accuracy: In what percentage of the tests was the right
-                      class predicted?
+                      ${msg(
+                        'Accuracy: In what percentage of the tests was the right class predicted?',
+                      )}
                     </p> `,
               ],
-              ['regression', () => html`<p>Loss: Mean Squared Error</p>`],
+              [
+                'regression',
+                () => html`<p>${msg('Loss: Mean Squared Error')}</p>`,
+              ],
             ],
-            () => html`<h1>Error</h1>`
+            () => html`<h1>${msg('Error')}</h1>`,
           )}
           <div id="trainMetricsContainer"></div>
           <sl-details
-            summary="What is the difference between the two lines in a graph?"
+            summary=${msg(
+              'What is the difference between the two lines in a graph?',
+            )}
           >
             <p>
-              For val_..., the metric is calculated on the validation data set
-              while for the data without val as a prefix the metric is
-              calculated on the training data set. The metrics for the
-              validation data set can be seen as more meaningful since this is
-              the data the network does not 'know'.
+              ${msg(
+                "For val_..., the metric is calculated on the validation data set while for the data without val as a prefix the metric is calculated on the training data set. The metrics for the validation data set can be seen as more meaningful since this is the data the network does not 'know'.",
+              )}
             </p>
           </sl-details>
         </div>

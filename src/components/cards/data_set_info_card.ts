@@ -11,16 +11,16 @@ import { dataSetContext } from '@/contexts/data_set_context'
 import { DataSetUtils } from '@/utils/data_set_utils'
 import { CCard } from '../reusables/c-card'
 import { CDataInfo } from '../reusables/c-data-info'
-import SlDetails from "@shoelace-style/shoelace/dist/components/details/details.component.js"
+import SlDetails from '@shoelace-style/shoelace/dist/components/details/details.component.js'
+import { msg } from '@lit/localize'
 
 export class DataSetInfoCard extends LitElementWw {
-
   static scopedElements = {
-    "c-card": CCard,
-    "c-data-info": CDataInfo,
-    "sl-details": SlDetails
+    'c-card': CCard,
+    'c-data-info': CDataInfo,
+    'sl-details': SlDetails,
   }
-  
+
   @consume({ context: dataSetContext, subscribe: true })
   accessor dataSet: DataSet
 
@@ -29,7 +29,7 @@ export class DataSetInfoCard extends LitElementWw {
     this.dispatchEvent(
       new CustomEvent<string>('select-data-desc', {
         detail: featureDesc.key,
-      })
+      }),
     )
   }
 
@@ -50,7 +50,7 @@ export class DataSetInfoCard extends LitElementWw {
         <div slot="title">${this.dataSet.name}</div>
         <div slot="content">
           <p>${this.dataSet.description}</p>
-          <h2>Features</h2>
+          <h2>${msg('Features')}</h2>
           <div class="tag-group">
             ${this.dataSet.featureDescs.map(
               (featureDesc) => html`
@@ -62,10 +62,10 @@ export class DataSetInfoCard extends LitElementWw {
                   @click="${(_e: MouseEvent) =>
                     this.handleSelectDataDesc(featureDesc)}"
                 ></c-data-info>
-              `
+              `,
             )}
           </div>
-          <h2>Label</h2>
+          <h2>${msg('Label')}</h2>
           <div class="data-pills">
             <c-data-info
               type="label"
@@ -73,14 +73,14 @@ export class DataSetInfoCard extends LitElementWw {
               .dataSet="${this.dataSet}"
             ></c-data-info>
           </div>
-          <sl-details summary="View raw data">
+          <sl-details summary=${msg('View raw data')}>
             <div style="max-height: 200px; overflow-y: auto;">
               ${DataSetUtils.getData(this.dataSet).map(
                 (dataItem) =>
                   html`<p>
                     ${dataItem.features.map((feature) => html`${feature} `)} →
                     ${dataItem.label}
-                  </p>`
+                  </p>`,
               )}
             </div>
           </sl-details>

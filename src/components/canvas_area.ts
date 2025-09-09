@@ -22,6 +22,7 @@ import IconZoomOut from "bootstrap-icons/icons/zoom-out.svg"
 import IconArrowsCollapse from "bootstrap-icons/icons/arrows-collapse.svg"
 import IconFullscreenMaximize from "bootstrap-icons/icons/fullscreen.svg";
 import IconFullscreenMinimize from "bootstrap-icons/icons/fullscreen-exit.svg";
+import { msg } from '@lit/localize'
 
 export class CCanvasArea extends LitElementWw {
 
@@ -154,22 +155,22 @@ export class CCanvasArea extends LitElementWw {
           `
         : html``}
       <div id="canvasActions">
-        <sl-tooltip content="Toggle Menu">
+        <sl-tooltip content=${msg('Toggle Menu')}>
           <sl-button @click="${(_e: MouseEvent) => this.handleSideMenu()}" circle>
             <sl-icon src=${IconList}></sl-icon>
           </sl-button>
         </sl-tooltip>
-        <sl-tooltip content="Zoom in">
+        <sl-tooltip content=${msg('Zoom in')}>
           <sl-button @click="${(_e: MouseEvent) => this.zoomInCanvas()}" circle>
             <sl-icon src=${IconZoomIn}></sl-icon>
           </sl-button>
         </sl-tooltip>
-        <sl-tooltip content="Zoom to network">
+        <sl-tooltip content=${msg('Zoom to network')}>
           <sl-button @click="${(_e: MouseEvent) => this.centerCanvas()}" circle>
             <sl-icon src=${IconArrowsCollapse}></sl-icon>
           </sl-button>
         </sl-tooltip>
-        <sl-tooltip content="Zoom out">
+        <sl-tooltip content=${msg('Zoom out')}>
           <sl-button
             @click="${(_e: MouseEvent) => this.zoomOutCanvas()}"
             circle
@@ -177,7 +178,7 @@ export class CCanvasArea extends LitElementWw {
             <sl-icon src=${IconZoomOut}></sl-icon>
           </sl-button>
         </sl-tooltip>
-        <sl-tooltip content=${this.fullscreen ? "Exit Fullscreen" : "Fullscreen"}>
+        <sl-tooltip content=${this.fullscreen ? msg('Exit Fullscreen') : msg('Fullscreen')}>
           <sl-button @click="${(_e: MouseEvent) => this.handleFullscreenToggle()}" circle>
             <sl-icon src=${this.fullscreen ? IconFullscreenMinimize : IconFullscreenMaximize}></sl-icon>
           </sl-button>

@@ -14,6 +14,7 @@ import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 import { SlOption, type SlChangeEvent } from '@shoelace-style/shoelace'
 import { CCard } from '../reusables/c-card'
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js"
+import { msg } from '@lit/localize'
 
 export class LayerIncomingConnectionsCard extends LitElementWw {
   
@@ -120,7 +121,7 @@ export class LayerIncomingConnectionsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">Incoming connections</div>
+        <div slot="title">${msg('Incoming connections')}</div>
         <div slot="content">
           <sl-select
             id="connectionSelect"
@@ -132,7 +133,7 @@ export class LayerIncomingConnectionsCard extends LitElementWw {
               .join(' ')}
             multiple
             clearable
-            help-text="Select the layers that connect to this layer"
+            help-text=${msg('Select the layers that connect to this layer')}
             @sl-change="${(_e: SlChangeEvent) =>
               this.handleChangeConnections()}"
           >

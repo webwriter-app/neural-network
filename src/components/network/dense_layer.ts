@@ -11,6 +11,7 @@ import { NetworkUtils } from '@/utils/network_utils'
 
 import * as tf from '@tensorflow/tfjs'
 import { CNeuron } from './neuron'
+import { msg } from '@lit/localize'
 
 export class DenseLayer extends CLayer {
 
@@ -36,7 +37,7 @@ export class DenseLayer extends CLayer {
   // -> INFO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // get a description of this layer to display in an info card
   getDescription(): string {
-    return 'A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.'
+    return msg('A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.')
   }
 
   // -> CREATING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

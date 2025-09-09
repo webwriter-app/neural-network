@@ -12,6 +12,7 @@ import { AlertUtils } from '@/utils/alert_utils'
 
 import * as tf from '@tensorflow/tfjs'
 import { CNeuron } from './neuron'
+import { msg } from '@lit/localize'
 
 // an input layer is a special type of a neuron layer. We do not allow
 // activation functions and provide methods to assign features from the
@@ -36,7 +37,7 @@ export class InputLayer extends CLayer {
         // be deleted
         this.delete()
         AlertUtils.spawn({
-          message: `Layer ${this.getCyId()} was deleted because no data could be assigned to it!`,
+          message: `${msg('Layer')} ${this.getCyId()} ${msg('was deleted because no data could be assigned to it!')}`,
           variant: 'warning',
           icon: 'x-circle',
         })
@@ -69,7 +70,7 @@ export class InputLayer extends CLayer {
 
   // get description
   getDescription(): string {
-    return 'An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)'
+    return msg('An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)')
   }
 
   // -> CREATING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
