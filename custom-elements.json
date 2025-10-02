@@ -1,0 +1,381 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/app.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "NeuralNetwork",
+          "cssProperties": [
+            {
+              "description": "Host background color (forwarded from Shoelace).",
+              "name": "--sl-color-neutral-0"
+            },
+            {
+              "description": "Divider color (forwarded from Shoelace).",
+              "name": "--sl-color-neutral-50"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "scopedElements",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ \"canvas-area\": CCanvasArea, \"menu-area\": MenuArea, \"c-network\": CNetwork, \"theme-switch\": ThemeSwitch }",
+              "description": "Scoped element registry for child components used by this widget."
+            },
+            {
+              "kind": "field",
+              "name": "setupStatus",
+              "privacy": "public",
+              "type": {
+                "text": "SetupStatus"
+              },
+              "description": "Setup state of the widget."
+            },
+            {
+              "kind": "field",
+              "name": "editable",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether editing is enabled.",
+              "attribute": "editable",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "settings",
+              "privacy": "public",
+              "type": {
+                "text": "Settings"
+              },
+              "description": "Application settings.",
+              "attribute": "settings",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "qAndA",
+              "privacy": "public",
+              "type": {
+                "text": "QAndAEntry[]"
+              },
+              "description": "Help/Q&A content.",
+              "attribute": "qAndA",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "canvas",
+              "privacy": "public",
+              "type": {
+                "text": "CCanvas"
+              },
+              "description": "Canvas instance created by the canvas-area."
+            },
+            {
+              "kind": "field",
+              "name": "network",
+              "privacy": "public",
+              "type": {
+                "text": "CNetwork"
+              },
+              "description": "Network instance."
+            },
+            {
+              "kind": "field",
+              "name": "layerConfs",
+              "privacy": "public",
+              "type": {
+                "text": "CLayerConf[]"
+              },
+              "description": "Layer configuration list.",
+              "attribute": "layerConfs",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "layerConnectionConfs",
+              "privacy": "public",
+              "type": {
+                "text": "CLayerConnectionConf[]"
+              },
+              "description": "Layer connection configuration list between layers.",
+              "attribute": "layerConnectionConfs",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "dataSet",
+              "privacy": "public",
+              "type": {
+                "text": "DataSet"
+              },
+              "description": "Active dataset.",
+              "attribute": "dataSet",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "availableDataSets",
+              "privacy": "public",
+              "type": {
+                "text": "DataSet[]"
+              },
+              "description": "Available datasets.",
+              "attribute": "availableDataSets",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "trainOptions",
+              "privacy": "public",
+              "type": {
+                "text": "TrainOptions"
+              },
+              "description": "Training options.",
+              "attribute": "trainOptions",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "modelConf",
+              "privacy": "public",
+              "type": {
+                "text": "ModelConf"
+              },
+              "description": "Current model configuration."
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "privacy": "public",
+              "type": {
+                "text": "Selected"
+              },
+              "description": "Current multi-selection state."
+            },
+            {
+              "kind": "field",
+              "name": "selectedEle",
+              "privacy": "public",
+              "type": {
+                "text": "SelectedEle"
+              },
+              "description": "Current single selected element."
+            },
+            {
+              "kind": "field",
+              "name": "panel",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether the right panel is open."
+            },
+            {
+              "kind": "field",
+              "name": "theme",
+              "privacy": "public",
+              "type": {
+                "text": "Theme"
+              },
+              "description": "Active theme object with style string."
+            },
+            {
+              "kind": "field",
+              "name": "setupStatusProvider",
+              "default": "new ContextProvider(this, {context: setupStatusContext, initialValue: SetupUtils.defaultSetupStatus})"
+            },
+            {
+              "kind": "field",
+              "name": "editableProvider",
+              "default": "new ContextProvider(this, {context: editableContext, initialValue: false})"
+            },
+            {
+              "kind": "field",
+              "name": "settingsProvider",
+              "default": "new ContextProvider(this, {context: settingsContext, initialValue: JSON.parse(JSON.stringify(SettingsUtils.defaultSettings))})"
+            },
+            {
+              "kind": "field",
+              "name": "qAndAProvider",
+              "default": "new ContextProvider(this, {context: qAndAContext, initialValue: [...QAndAUtils.defaultQAndA]})"
+            },
+            {
+              "kind": "field",
+              "name": "canvasProvider",
+              "default": "new ContextProvider(this, {context: canvasContext})"
+            },
+            {
+              "kind": "field",
+              "name": "networkProvider",
+              "default": "new ContextProvider(this, {context: networkContext})"
+            },
+            {
+              "kind": "field",
+              "name": "layerConfsProvider",
+              "default": "new ContextProvider(this, {context: layerConfsContext, initialValue: []})"
+            },
+            {
+              "kind": "field",
+              "name": "layerConnectionConfsProvider",
+              "default": "new ContextProvider(this, {context: layerConnectionConfsContext, initialValue: []})"
+            },
+            {
+              "kind": "field",
+              "name": "dataSetProvider",
+              "default": "new ContextProvider(this, {context: dataSetContext, initialValue: DataSetUtils.defaultDataSet})"
+            },
+            {
+              "kind": "field",
+              "name": "availableDataSetsProvider",
+              "default": "new ContextProvider(this, {context: availableDataSetsContext, initialValue: DataSetUtils.defaultAvailableDataSets})"
+            },
+            {
+              "kind": "field",
+              "name": "trainOptionsProvider",
+              "default": "new ContextProvider(this, {context: trainOptionsContext, initialValue: <TrainOptions>(JSON.parse(JSON.stringify(ModelUtils.defaultTrainOptions)))})"
+            },
+            {
+              "kind": "field",
+              "name": "modelConfProvider",
+              "default": "new ContextProvider(this, {context: modelConfContext, initialValue: <ModelConf>(JSON.parse(JSON.stringify(ModelUtils.defaultModelConf)))})"
+            },
+            {
+              "kind": "field",
+              "name": "selectedProvider",
+              "default": "new ContextProvider(this, {context: selectedContext, initialValue: {}})"
+            },
+            {
+              "kind": "field",
+              "name": "selectedEleProvider",
+              "default": "new ContextProvider(this, {context: selectedEleContext})"
+            },
+            {
+              "kind": "field",
+              "name": "panelProvider",
+              "default": "new ContextProvider(this, {context: panelContext})"
+            },
+            {
+              "kind": "field",
+              "name": "themeProvider",
+              "default": "new ContextProvider(this, {context: themeContext, initialValue: ThemeUtils.lightTheme})"
+            }
+          ],
+          "events": [
+            {
+              "name": "focus",
+              "type": {
+                "text": "Event"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "Whether editing is enabled.",
+              "name": "editable",
+              "default": "false",
+              "fieldName": "editable"
+            },
+            {
+              "type": {
+                "text": "Settings"
+              },
+              "description": "Application settings.",
+              "name": "settings",
+              "fieldName": "settings"
+            },
+            {
+              "type": {
+                "text": "QAndAEntry[]"
+              },
+              "description": "Help/Q&A content.",
+              "name": "qAndA",
+              "fieldName": "qAndA"
+            },
+            {
+              "type": {
+                "text": "CLayerConf[]"
+              },
+              "description": "Layer configuration list.",
+              "name": "layerConfs",
+              "fieldName": "layerConfs"
+            },
+            {
+              "type": {
+                "text": "CLayerConnectionConf[]"
+              },
+              "description": "Layer connection configuration list between layers.",
+              "name": "layerConnectionConfs",
+              "fieldName": "layerConnectionConfs"
+            },
+            {
+              "type": {
+                "text": "DataSet"
+              },
+              "description": "Active dataset.",
+              "name": "dataSet",
+              "fieldName": "dataSet"
+            },
+            {
+              "type": {
+                "text": "DataSet[]"
+              },
+              "description": "Available datasets.",
+              "name": "availableDataSets",
+              "fieldName": "availableDataSets"
+            },
+            {
+              "type": {
+                "text": "TrainOptions"
+              },
+              "description": "Training options.",
+              "name": "trainOptions",
+              "fieldName": "trainOptions"
+            }
+          ],
+          "superclass": {
+            "name": "LitElementWw",
+            "package": "@webwriter/lit"
+          },
+          "tagName": "webwriter-neural-network",
+          "customElement": true,
+          "summary": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
+          "modulePath": "src/app.ts",
+          "definitionPath": "src/app.ts"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "NeuralNetwork",
+          "declaration": {
+            "name": "NeuralNetwork",
+            "module": "src/app.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "webwriter-neural-network",
+          "declaration": {
+            "name": "NeuralNetwork",
+            "module": "src/app.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

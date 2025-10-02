@@ -79,10 +79,41 @@ import { styleMap } from 'lit/directives/style-map.js'
 import { localized, msg } from '@lit/localize'
 import LOCALIZE from "../localization/generated";
 
+/**
+ * @summary Deep learning visualization for feed-forward networks with custom datasets, training and prediction.
+ *
+ * @tag webwriter-neural-network
+ * @tagname webwriter-neural-network
+ *
+ * @attr {boolean} [editable=false] - Enables authoring/editing features in child components. Reflected to the "editable" attribute.
+ * @attr {Settings} settings - Current application settings. Provide as a property for non-string values.
+ * @attr {QAndAEntry[]} qAndA - Static help content.
+ * @attr {CLayerConf[]} layerConfs - Network layer configurations.
+ * @attr {CLayerConnectionConf[]} layerConnectionConfs - Layer connection configurations.
+ * @attr {DataSet} dataSet - Active dataset.
+ * @attr {DataSet[]} availableDataSets - List of available datasets.
+ * @attr {TrainOptions} trainOptions - Training options.
+ *
+ * @prop {SetupStatus} setupStatus - Setup state of the widget.
+ * @prop {CCanvas} canvas - Canvas instance created by the canvas-area.
+ * @prop {CNetwork} network - Network instance.
+ * @prop {ModelConf} modelConf - Current model configuration.
+ * @prop {Selected} selected - Current multi-selection state.
+ * @prop {SelectedEle} selectedEle - Current single selected element.
+ * @prop {boolean} panel - Whether the right panel is open.
+ * @prop {Theme} theme - Active theme object with style string.
+ *
+ * @cssproperty --sl-color-neutral-0 - Host background color (forwarded from Shoelace).
+ * @cssproperty --sl-color-neutral-50 - Divider color (forwarded from Shoelace).
+ */
 @localized()
 export class NeuralNetwork extends LitElementWw {
+  /** @internal Localization bundle used by @lit/localize. */
   public localize = LOCALIZE;
 
+  /**
+   * Declares reactive properties and attribute reflection.
+   */
   static properties: PropertyDeclarations = {
     setupStatus: { attribute: false },
     editable: { attribute: true, type: Boolean, reflect: true },
@@ -102,6 +133,10 @@ export class NeuralNetwork extends LitElementWw {
     theme: { attribute: false }
   }
 
+  /**
+   * Creates context providers for all data channels and initializes defaults via utility modules.
+   * @internal
+   */
   constructor() {
     super()
     this.setupStatusProvider = new ContextProvider(this, {context: setupStatusContext, initialValue: SetupUtils.defaultSetupStatus})
@@ -122,23 +157,44 @@ export class NeuralNetwork extends LitElementWw {
     this.themeProvider = new ContextProvider(this, {context: themeContext, initialValue: ThemeUtils.lightTheme})
   }
 
-  setupStatusProvider: ContextProvider<any, NeuralNetwork>
-  editableProvider: ContextProvider<any, NeuralNetwork>
-  settingsProvider: ContextProvider<any, NeuralNetwork>
-  qAndAProvider: ContextProvider<any, NeuralNetwork>
-  canvasProvider: ContextProvider<any, NeuralNetwork>
-  networkProvider: ContextProvider<any, NeuralNetwork>
-  layerConfsProvider: ContextProvider<any, NeuralNetwork>
-  layerConnectionConfsProvider: ContextProvider<any, NeuralNetwork>
-  dataSetProvider: ContextProvider<any, NeuralNetwork>
-  availableDataSetsProvider: ContextProvider<any, NeuralNetwork>
-  trainOptionsProvider: ContextProvider<any, NeuralNetwork>
-  modelConfProvider: ContextProvider<any, NeuralNetwork>
-  selectedProvider: ContextProvider<any, NeuralNetwork>
-  selectedEleProvider: ContextProvider<any, NeuralNetwork>
-  panelProvider: ContextProvider<any, NeuralNetwork>
-  themeProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal Context providers wired to @lit/context. */
+  private setupStatusProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private editableProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private settingsProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private qAndAProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private canvasProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private networkProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private layerConfsProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private layerConnectionConfsProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private dataSetProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private availableDataSetsProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private trainOptionsProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private modelConfProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private selectedProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private selectedEleProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private panelProvider: ContextProvider<any, NeuralNetwork>
+  /** @internal */
+  private themeProvider: ContextProvider<any, NeuralNetwork>
 
+  /**
+   * Lit lifecycle hook. Attaches a ContextRoot to the document body to enable
+   * using context outside the component tree when necessary.
+   * @internal
+   */
   connectedCallback(): void {
     super.connectedCallback()
     const root = new ContextRoot();
@@ -146,17 +202,17 @@ export class NeuralNetwork extends LitElementWw {
   }
 
   /**
- * Whether the editor is in fullscreen mode.
- * @private
- */
+   * Whether the editor is in fullscreen mode.
+   * @internal
+   */
   private get isFullscreen(): boolean {
       return this.ownerDocument.fullscreenElement === this;
   }
 
   /**
- * Handles the fullscreen toggle event.
- * @private
- */
+   * Toggles fullscreen mode using the Fullscreen API and requests a re-render afterwards.
+   * @internal
+   */
   private async _onFullscreenToggle() {
     if (this.isFullscreen) {
       await this.ownerDocument.exitFullscreen();
@@ -171,6 +227,11 @@ export class NeuralNetwork extends LitElementWw {
     }
   }
 
+  /**
+   * Lit lifecycle hook: invoked after the component's DOM is first rendered.
+   * Adjusts host dimensions based on its bounding client rect to account for borders.
+   * @internal
+   */
   protected firstUpdated(_changedProperties: PropertyValues): void {
       super.firstUpdated(_changedProperties)
       setTimeout(() => {
@@ -180,160 +241,250 @@ export class NeuralNetwork extends LitElementWw {
       });
   }
 
+  /**
+   * Scoped element registry for child components used by this widget.
+   */
   static scopedElements = {
     "canvas-area": CCanvasArea,
     "menu-area": MenuArea,
     "c-network": CNetwork,
     "theme-switch": ThemeSwitch
   }
+
   // DATA PROVIDERS AND CONTROLLERS  - - - - - - - - - - - - - - - - - - - - - -
+
+  /** @internal Global configuration controller for the widget. */
   configurationController = new ConfigurationController(this)
 
-  // -> SETUP STATUS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  get setupStatus() {
+  // -> SETUP STATUS -----------------------------------------------------------
+
+  /**
+   * Setup status of the widget.
+   */
+  get setupStatus(): SetupStatus {
     return this.setupStatusProvider.value
   }
-  set setupStatus(value) {
+  set setupStatus(value: SetupStatus) {
     this.setupStatusProvider.setValue(value)
     this.requestUpdate("setupStatus")
   }
+  /** @internal Controller handling setup lifecycle and transitions. */
   setupController = new SetupController(this)
 
-  // -> EDITABLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  get editable() {
+  // -> EDITABLE ---------------------------------------------------------------
+
+  /**
+   * Whether editing is enabled.
+   */
+  get editable(): boolean {
     return this.editableProvider.value
   }
-  set editable(value) {
+  set editable(value: boolean) {
     this.editableProvider.setValue(value)
     this.requestUpdate("editable")
   }
 
-  // -> SETTINGS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  get settings() {
+  // -> SETTINGS ---------------------------------------------------------------
+
+  /**
+   * Application settings.
+   */
+  get settings(): Settings {
     return this.settingsProvider.value
   }
-  set settings(value) {
+  set settings(value: Settings) {
     this.settingsProvider.setValue(value)
     this.requestUpdate("settings")
   }
+  /** @internal Controller for reading/updating settings. */
   settingsController = new SettingsController(this)
 
-  // -> HELP - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  get qAndA() {
+  // -> HELP -------------------------------------------------------------------
+
+  /**
+   * Help/Q&A content.
+   */
+  get qAndA(): QAndAEntry[] {
     return this.qAndAProvider.value
   }
-  set qAndA(value) {
+  set qAndA(value: QAndAEntry[]) {
     this.qAndAProvider.setValue(value)
     this.requestUpdate("qAndA")
   }
+  /** @internal Controller for maintaining Q&A content. */
   qAndAController = new QAndAController(this)
 
-  // -> CANVAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  get canvas() {
+  // -> CANVAS -----------------------------------------------------------------
+
+  /**
+   * Canvas instance created by the canvas-area child component.
+   */
+  get canvas(): CCanvas | undefined {
     return this.canvasProvider.value
   }
-  set canvas(value) {
+  set canvas(value: CCanvas | undefined) {
     this.canvasProvider.setValue(value)
     this.requestUpdate("canvas")
   }
 
-  // -> NETWORK  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  get network() {
+  // -> NETWORK ----------------------------------------------------------------
+
+  /**
+   * Network instance used for neural network structure visualization.
+   */
+  get network(): CNetwork | undefined {
     return this.networkProvider.value
   }
-  set network(value) {
+  set network(value: CNetwork | undefined) {
     this.networkProvider.setValue(value)
     this.requestUpdate("network")
   }
-  get layerConfs() {
+
+  /**
+   * Layer configuration list.
+   */
+  get layerConfs(): CLayerConf[] {
     return this.layerConfsProvider.value
   }
-  set layerConfs(value) {
+  set layerConfs(value: CLayerConf[]) {
     this.layerConfsProvider.setValue(value)
     this.requestUpdate("layerConfs")
   }
-  get layerConnectionConfs() {
+
+  /**
+   * Layer connection configuration list between layers.
+   */
+  get layerConnectionConfs(): CLayerConnectionConf[] {
     return this.layerConnectionConfsProvider.value
   }
-  set layerConnectionConfs(value) {
+  set layerConnectionConfs(value: CLayerConnectionConf[]) {
     this.layerConnectionConfsProvider.setValue(value)
     this.requestUpdate("layerConnectionConfs")
   }
+
+  /** @internal Controller handling network operations and mutations. */
   networkController = new NetworkController(this)
 
-  // -> DATA SET - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  get dataSet() {
+  // -> DATA SET ---------------------------------------------------------------
+
+  /**
+   * Active dataset.
+   */
+  get dataSet(): DataSet {
     return this.dataSetProvider.value
   }
-  set dataSet(value) {
+  set dataSet(value: DataSet) {
     this.dataSetProvider.setValue(value)
     this.requestUpdate("dataSet")
   }
-  get availableDataSets() {
+
+  /**
+   * Available datasets.
+   */
+  get availableDataSets(): DataSet[] {
     return this.availableDataSetsProvider.value
   }
-  set availableDataSets(value) {
+  set availableDataSets(value: DataSet[]) {
     this.availableDataSetsProvider.setValue(value)
     this.requestUpdate("availableDataSets")
   }
+
+  /** @internal Controller for dataset loading/validation and selection. */
   dataSetController = new DataSetController(this)
 
-  // -> MODEL  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  get trainOptions() {
+  // -> MODEL ------------------------------------------------------------------
+
+  /**
+   * Training options.
+   */
+  get trainOptions(): TrainOptions {
     return this.trainOptionsProvider.value
   }
-  set trainOptions(value) {
+  set trainOptions(value: TrainOptions) {
     this.trainOptionsProvider.setValue(value)
     this.requestUpdate("trainOptions")
   }
-  get modelConf() {
+
+  /**
+   * Model configuration.
+   */
+  get modelConf(): ModelConf {
     return this.modelConfProvider.value
   }
-  set modelConf(value) {
+  set modelConf(value: ModelConf) {
     this.modelConfProvider.setValue(value)
     this.requestUpdate("modelConf")
   }
+
+  /** @internal Container reference for displaying training metrics. */
   trainMetricsContainer: HTMLDivElement
+  /** @internal Controller for model lifecycle and training orchestration. */
   modelController = new ModelController(this)
 
-  // -> SELECTED - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  get selected() {
+  // -> SELECTED ---------------------------------------------------------------
+
+  /**
+   * Current selection state.
+   */
+  get selected(): Selected {
     return this.selectedProvider.value
   }
-  set selected(value) {
+  set selected(value: Selected) {
     this.selectedProvider.setValue(value)
     this.requestUpdate("selected")
   }
-  get selectedEle() {
+
+  /**
+   * Currently selected element.
+   */
+  get selectedEle(): SelectedEle {
     return this.selectedEleProvider.value
   }
-  set selectedEle(value) {
+  set selectedEle(value: SelectedEle) {
     this.selectedEleProvider.setValue(value)
     this.requestUpdate("selectedEle")
   }
+
+  /** @internal Controller handling selection logic and events. */
   selectionController = new SelectionController(this)
 
-  // -> PANELS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  get panel() {
+  // -> PANELS -----------------------------------------------------------------
+
+  /**
+   * Whether the right panel is shown.
+   */
+  get panel(): boolean {
     return this.panelProvider.value
   }
-  set panel(value) {
+  set panel(value: boolean) {
     this.panelProvider.setValue(value)
     this.requestUpdate("panel")
   }
+
+  /** @internal Controller for panel state and interactions. */
   panelController = new PanelController(this)
 
-  // -> THEME  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  get theme() {
+  // -> THEME ------------------------------------------------------------------
+
+  /**
+   * Active theme object.
+   */
+  get theme(): Theme {
     return this.themeProvider.value
   }
-  set theme(value) {
+  set theme(value: Theme) {
     this.themeProvider.setValue(value)
     this.requestUpdate("theme")
   }
+
+  /** @internal Controller for theme switching and persistence. */
   themeController = new ThemeController(this)
 
-  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // STYLES --------------------------------------------------------------------
+
+  /**
+   * Styles for the host layout, canvas/menu areas, divider, and theme switch.
+   */
   static styles: CSSResult[] = [
     globalStyles,
     css`
@@ -414,7 +565,13 @@ export class NeuralNetwork extends LitElementWw {
     `,
   ]
 
-  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -F
+  // RENDER --------------------------------------------------------------------
+
+  /**
+   * Rendering
+   * 
+   * @returns An array of TemplateResult parts composing the UI.
+   */
   render(): TemplateResult<1>[] {
     const renderedHTML: TemplateResult<1>[] = []
     /* renderedHTML.push(html`<div class="sl-toast-stack"></div>`) */
