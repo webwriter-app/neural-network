@@ -223,6 +223,15 @@ export class CreateDataSetDialog extends LitElementWw {
   static styles: CSSResult[] = [
     globalStyles,
     css`
+      sl-dialog::part(base) {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+      sl-dialog::part(overlay) {
+        position: absolute;
+        width: 100%;
+      }
       sl-dialog::part(body) {
         text-align: center;
       }

@@ -58,6 +58,17 @@ export class ManageDataSetsDialog extends LitElementWw {
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = css`
+    sl-dialog::part(base) {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+    
+    sl-dialog::part(overlay) {
+      position: absolute;
+      width: 100%;
+    }
+
     sl-dialog::part(body) {
       display: flex;
       flex-direction: column;
