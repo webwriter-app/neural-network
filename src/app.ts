@@ -216,10 +216,14 @@ export class NeuralNetwork extends LitElementWw {
   private async _onFullscreenToggle() {
     if (this.isFullscreen) {
       await this.ownerDocument.exitFullscreen();
+      this.style.height = "500px"
+      this.style.width = "min(100%,796px)"
       this.requestUpdate()
     } else {
       try {
           await this.requestFullscreen();
+          this.style.height = "100%"
+          this.style.width = "100%"
           this.requestUpdate()
       } catch (error) {
           console.error(msg("Failed to enter fullscreen mode."));
@@ -236,8 +240,8 @@ export class NeuralNetwork extends LitElementWw {
       super.firstUpdated(_changedProperties)
       setTimeout(() => {
         const dim: DOMRect = this.getBoundingClientRect()
-        this.style.height = dim.height - 4 +"px"
-        this.style.width = dim.width - 4 +"px"
+        this.style.height = Math.max(dim.height - 4, 500) +"px"
+        this.style.width = "min(100%," + (dim.width - 4) + "px)"
       });
   }
 
@@ -503,7 +507,6 @@ export class NeuralNetwork extends LitElementWw {
         flex-direction: row;
         overflow: hidden;
         background-color: var(--sl-color-neutral-0);
-      
       }
 
       #loadingPage {
