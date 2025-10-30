@@ -57,22 +57,6 @@ npm install @webwriter/neural-network
 | `selectedEle` | `SelectedEle` | Current single selected element. | - | ✗ |
 | `panel` | `boolean` | Whether the right panel is open. | - | ✗ |
 | `theme` | `Theme` | Active theme object with style string. | - | ✗ |
-| `setupStatusProvider` | - | - | `new ContextProvider(this, {context: setupStatusContext, initialValue: SetupUtils.defaultSetupStatus})` | ✗ |
-| `editableProvider` | - | - | `new ContextProvider(this, {context: editableContext, initialValue: false})` | ✗ |
-| `settingsProvider` | - | - | `new ContextProvider(this, {context: settingsContext, initialValue: JSON.parse(JSON.stringify(SettingsUtils.defaultSettings))})` | ✗ |
-| `qAndAProvider` | - | - | `new ContextProvider(this, {context: qAndAContext, initialValue: [...QAndAUtils.defaultQAndA]})` | ✗ |
-| `canvasProvider` | - | - | `new ContextProvider(this, {context: canvasContext})` | ✗ |
-| `networkProvider` | - | - | `new ContextProvider(this, {context: networkContext})` | ✗ |
-| `layerConfsProvider` | - | - | `new ContextProvider(this, {context: layerConfsContext, initialValue: []})` | ✗ |
-| `layerConnectionConfsProvider` | - | - | `new ContextProvider(this, {context: layerConnectionConfsContext, initialValue: []})` | ✗ |
-| `dataSetProvider` | - | - | `new ContextProvider(this, {context: dataSetContext, initialValue: DataSetUtils.defaultDataSet})` | ✗ |
-| `availableDataSetsProvider` | - | - | `new ContextProvider(this, {context: availableDataSetsContext, initialValue: DataSetUtils.defaultAvailableDataSets})` | ✗ |
-| `trainOptionsProvider` | - | - | `new ContextProvider(this, {context: trainOptionsContext, initialValue: <TrainOptions>(JSON.parse(JSON.stringify(ModelUtils.defaultTrainOptions)))})` | ✗ |
-| `modelConfProvider` | - | - | `new ContextProvider(this, {context: modelConfContext, initialValue: <ModelConf>(JSON.parse(JSON.stringify(ModelUtils.defaultModelConf)))})` | ✗ |
-| `selectedProvider` | - | - | `new ContextProvider(this, {context: selectedContext, initialValue: {}})` | ✗ |
-| `selectedEleProvider` | - | - | `new ContextProvider(this, {context: selectedEleContext})` | ✗ |
-| `panelProvider` | - | - | `new ContextProvider(this, {context: panelContext})` | ✗ |
-| `themeProvider` | - | - | `new ContextProvider(this, {context: themeContext, initialValue: ThemeUtils.lightTheme})` | ✗ |
 
 *Fields including [properties](https://developer.mozilla.org/en-US/docs/Glossary/Property/JavaScript) and [attributes](https://developer.mozilla.org/en-US/docs/Glossary/Attribute) define the current state of the widget and offer customization options.*
 
