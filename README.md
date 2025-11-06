@@ -40,7 +40,6 @@ npm install @webwriter/neural-network
 ## Fields
 | Name (Attribute Name) | Type | Description | Default | Reflects |
 | :-------------------: | :--: | :---------: | :-----: | :------: |
-| `NeuralNetwork.scopedElements` | `object` | Scoped element registry for child components used by this widget. | `{ "canvas-area": CCanvasArea, "menu-area": MenuArea, "c-network": CNetwork, "theme-switch": ThemeSwitch }` | ✗ |
 | `setupStatus` | `SetupStatus` | Setup state of the widget. | - | ✗ |
 | `editable` (`editable`) | `boolean` | Whether editing is enabled. | - | ✓ |
 | `settings` (`settings`) | `Settings` | Application settings. | - | ✓ |
@@ -86,4 +85,4 @@ npm install @webwriter/neural-network
 
 
 ---
-*Generated with @webwriter/build@1.9.0*
+*Generated with @webwriter/build@1.9.1*

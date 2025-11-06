@@ -23,10 +23,155 @@
           "members": [
             {
               "kind": "field",
+              "name": "setupStatusProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: setupStatusContext, initialValue: SetupUtils.defaultSetupStatus})"
+            },
+            {
+              "kind": "field",
+              "name": "editableProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: editableContext, initialValue: false})"
+            },
+            {
+              "kind": "field",
+              "name": "settingsProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: settingsContext, initialValue: JSON.parse(JSON.stringify(SettingsUtils.defaultSettings))})"
+            },
+            {
+              "kind": "field",
+              "name": "qAndAProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: qAndAContext, initialValue: [...QAndAUtils.defaultQAndA]})"
+            },
+            {
+              "kind": "field",
+              "name": "canvasProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: canvasContext})"
+            },
+            {
+              "kind": "field",
+              "name": "networkProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: networkContext})"
+            },
+            {
+              "kind": "field",
+              "name": "layerConfsProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: layerConfsContext, initialValue: []})"
+            },
+            {
+              "kind": "field",
+              "name": "layerConnectionConfsProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: layerConnectionConfsContext, initialValue: []})"
+            },
+            {
+              "kind": "field",
+              "name": "dataSetProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: dataSetContext, initialValue: DataSetUtils.defaultDataSet})"
+            },
+            {
+              "kind": "field",
+              "name": "availableDataSetsProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: availableDataSetsContext, initialValue: DataSetUtils.defaultAvailableDataSets})"
+            },
+            {
+              "kind": "field",
+              "name": "trainOptionsProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: trainOptionsContext, initialValue: <TrainOptions>(JSON.parse(JSON.stringify(ModelUtils.defaultTrainOptions)))})"
+            },
+            {
+              "kind": "field",
+              "name": "modelConfProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: modelConfContext, initialValue: <ModelConf>(JSON.parse(JSON.stringify(ModelUtils.defaultModelConf)))})"
+            },
+            {
+              "kind": "field",
+              "name": "selectedProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: selectedContext, initialValue: {}})"
+            },
+            {
+              "kind": "field",
+              "name": "selectedEleProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: selectedEleContext})"
+            },
+            {
+              "kind": "field",
+              "name": "panelProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: panelContext})"
+            },
+            {
+              "kind": "field",
+              "name": "themeProvider",
+              "type": {
+                "text": "ContextProvider<any, NeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: themeContext, initialValue: ThemeUtils.lightTheme})"
+            },
+            {
+              "kind": "field",
               "name": "scopedElements",
               "type": {
                 "text": "object"
               },
+              "privacy": "protected",
               "static": true,
               "default": "{ \"canvas-area\": CCanvasArea, \"menu-area\": MenuArea, \"c-network\": CNetwork, \"theme-switch\": ThemeSwitch }",
               "description": "Scoped element registry for child components used by this widget."
@@ -190,86 +335,6 @@
                 "text": "Theme"
               },
               "description": "Active theme object with style string."
-            },
-            {
-              "kind": "field",
-              "name": "setupStatusProvider",
-              "default": "new ContextProvider(this, {context: setupStatusContext, initialValue: SetupUtils.defaultSetupStatus})"
-            },
-            {
-              "kind": "field",
-              "name": "editableProvider",
-              "default": "new ContextProvider(this, {context: editableContext, initialValue: false})"
-            },
-            {
-              "kind": "field",
-              "name": "settingsProvider",
-              "default": "new ContextProvider(this, {context: settingsContext, initialValue: JSON.parse(JSON.stringify(SettingsUtils.defaultSettings))})"
-            },
-            {
-              "kind": "field",
-              "name": "qAndAProvider",
-              "default": "new ContextProvider(this, {context: qAndAContext, initialValue: [...QAndAUtils.defaultQAndA]})"
-            },
-            {
-              "kind": "field",
-              "name": "canvasProvider",
-              "default": "new ContextProvider(this, {context: canvasContext})"
-            },
-            {
-              "kind": "field",
-              "name": "networkProvider",
-              "default": "new ContextProvider(this, {context: networkContext})"
-            },
-            {
-              "kind": "field",
-              "name": "layerConfsProvider",
-              "default": "new ContextProvider(this, {context: layerConfsContext, initialValue: []})"
-            },
-            {
-              "kind": "field",
-              "name": "layerConnectionConfsProvider",
-              "default": "new ContextProvider(this, {context: layerConnectionConfsContext, initialValue: []})"
-            },
-            {
-              "kind": "field",
-              "name": "dataSetProvider",
-              "default": "new ContextProvider(this, {context: dataSetContext, initialValue: DataSetUtils.defaultDataSet})"
-            },
-            {
-              "kind": "field",
-              "name": "availableDataSetsProvider",
-              "default": "new ContextProvider(this, {context: availableDataSetsContext, initialValue: DataSetUtils.defaultAvailableDataSets})"
-            },
-            {
-              "kind": "field",
-              "name": "trainOptionsProvider",
-              "default": "new ContextProvider(this, {context: trainOptionsContext, initialValue: <TrainOptions>(JSON.parse(JSON.stringify(ModelUtils.defaultTrainOptions)))})"
-            },
-            {
-              "kind": "field",
-              "name": "modelConfProvider",
-              "default": "new ContextProvider(this, {context: modelConfContext, initialValue: <ModelConf>(JSON.parse(JSON.stringify(ModelUtils.defaultModelConf)))})"
-            },
-            {
-              "kind": "field",
-              "name": "selectedProvider",
-              "default": "new ContextProvider(this, {context: selectedContext, initialValue: {}})"
-            },
-            {
-              "kind": "field",
-              "name": "selectedEleProvider",
-              "default": "new ContextProvider(this, {context: selectedEleContext})"
-            },
-            {
-              "kind": "field",
-              "name": "panelProvider",
-              "default": "new ContextProvider(this, {context: panelContext})"
-            },
-            {
-              "kind": "field",
-              "name": "themeProvider",
-              "default": "new ContextProvider(this, {context: themeContext, initialValue: ThemeUtils.lightTheme})"
             }
           ],
           "events": [

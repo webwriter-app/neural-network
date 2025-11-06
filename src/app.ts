@@ -157,38 +157,22 @@ export class NeuralNetwork extends LitElementWw {
     this.themeProvider = new ContextProvider(this, {context: themeContext, initialValue: ThemeUtils.lightTheme})
   }
 
-  /** @internal Context providers wired to @lit/context. */
-  private setupStatusProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private editableProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private settingsProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private qAndAProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private canvasProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private networkProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private layerConfsProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private layerConnectionConfsProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private dataSetProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private availableDataSetsProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private trainOptionsProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private modelConfProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private selectedProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private selectedEleProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private panelProvider: ContextProvider<any, NeuralNetwork>
-  /** @internal */
-  private themeProvider: ContextProvider<any, NeuralNetwork>
+  protected setupStatusProvider: ContextProvider<any, NeuralNetwork>
+  protected editableProvider: ContextProvider<any, NeuralNetwork>
+  protected settingsProvider: ContextProvider<any, NeuralNetwork>
+  protected qAndAProvider: ContextProvider<any, NeuralNetwork>
+  protected canvasProvider: ContextProvider<any, NeuralNetwork>
+  protected networkProvider: ContextProvider<any, NeuralNetwork>
+  protected layerConfsProvider: ContextProvider<any, NeuralNetwork>
+  protected layerConnectionConfsProvider: ContextProvider<any, NeuralNetwork>
+  protected dataSetProvider: ContextProvider<any, NeuralNetwork>
+  protected availableDataSetsProvider: ContextProvider<any, NeuralNetwork>
+  protected trainOptionsProvider: ContextProvider<any, NeuralNetwork>
+  protected modelConfProvider: ContextProvider<any, NeuralNetwork>
+  protected selectedProvider: ContextProvider<any, NeuralNetwork>
+  protected selectedEleProvider: ContextProvider<any, NeuralNetwork>
+  protected panelProvider: ContextProvider<any, NeuralNetwork>
+  protected themeProvider: ContextProvider<any, NeuralNetwork>
 
   /**
    * Lit lifecycle hook. Attaches a ContextRoot to the document body to enable
@@ -248,7 +232,7 @@ export class NeuralNetwork extends LitElementWw {
   /**
    * Scoped element registry for child components used by this widget.
    */
-  static scopedElements = {
+  protected static scopedElements = {
     "canvas-area": CCanvasArea,
     "menu-area": MenuArea,
     "c-network": CNetwork,
@@ -258,7 +242,7 @@ export class NeuralNetwork extends LitElementWw {
   // DATA PROVIDERS AND CONTROLLERS  - - - - - - - - - - - - - - - - - - - - - -
 
   /** @internal Global configuration controller for the widget. */
-  configurationController = new ConfigurationController(this)
+  private configurationController = new ConfigurationController(this)
 
   // -> SETUP STATUS -----------------------------------------------------------
 
@@ -273,7 +257,7 @@ export class NeuralNetwork extends LitElementWw {
     this.requestUpdate("setupStatus")
   }
   /** @internal Controller handling setup lifecycle and transitions. */
-  setupController = new SetupController(this)
+  private setupController = new SetupController(this)
 
   // -> EDITABLE ---------------------------------------------------------------
 
@@ -301,7 +285,7 @@ export class NeuralNetwork extends LitElementWw {
     this.requestUpdate("settings")
   }
   /** @internal Controller for reading/updating settings. */
-  settingsController = new SettingsController(this)
+  private settingsController = new SettingsController(this)
 
   // -> HELP -------------------------------------------------------------------
 
@@ -316,7 +300,7 @@ export class NeuralNetwork extends LitElementWw {
     this.requestUpdate("qAndA")
   }
   /** @internal Controller for maintaining Q&A content. */
-  qAndAController = new QAndAController(this)
+  private qAndAController = new QAndAController(this)
 
   // -> CANVAS -----------------------------------------------------------------
 
@@ -367,7 +351,7 @@ export class NeuralNetwork extends LitElementWw {
   }
 
   /** @internal Controller handling network operations and mutations. */
-  networkController = new NetworkController(this)
+  private networkController = new NetworkController(this)
 
   // -> DATA SET ---------------------------------------------------------------
 
@@ -394,7 +378,7 @@ export class NeuralNetwork extends LitElementWw {
   }
 
   /** @internal Controller for dataset loading/validation and selection. */
-  dataSetController = new DataSetController(this)
+  private dataSetController = new DataSetController(this)
 
   // -> MODEL ------------------------------------------------------------------
 
@@ -421,9 +405,9 @@ export class NeuralNetwork extends LitElementWw {
   }
 
   /** @internal Container reference for displaying training metrics. */
-  trainMetricsContainer: HTMLDivElement
+  private trainMetricsContainer: HTMLDivElement
   /** @internal Controller for model lifecycle and training orchestration. */
-  modelController = new ModelController(this)
+  private modelController = new ModelController(this)
 
   // -> SELECTED ---------------------------------------------------------------
 
@@ -450,7 +434,7 @@ export class NeuralNetwork extends LitElementWw {
   }
 
   /** @internal Controller handling selection logic and events. */
-  selectionController = new SelectionController(this)
+  private selectionController = new SelectionController(this)
 
   // -> PANELS -----------------------------------------------------------------
 
@@ -466,7 +450,7 @@ export class NeuralNetwork extends LitElementWw {
   }
 
   /** @internal Controller for panel state and interactions. */
-  panelController = new PanelController(this)
+  private panelController = new PanelController(this)
 
   // -> THEME ------------------------------------------------------------------
 
@@ -482,7 +466,7 @@ export class NeuralNetwork extends LitElementWw {
   }
 
   /** @internal Controller for theme switching and persistence. */
-  themeController = new ThemeController(this)
+  private themeController = new ThemeController(this)
 
   // STYLES --------------------------------------------------------------------
 
