@@ -64,9 +64,7 @@
     "@shoelace-style/shoelace": "^2.20.0",
     "@tensorflow/tfjs": "^4.22.0",
     "@tensorflow/tfjs-vis": "^1.5.1",
-    "@types/cytoscape": "^3.21.9",
     "@webcomponents/scoped-custom-element-registry": "^0.0.9",
-    "@webwriter/create-widget": "^0.4.2",
     "@webwriter/lit": "^2.1.6",
     "bootstrap-icons": "^1.11.3",
     "colorsea": "^1.2.2",
@@ -74,19 +72,17 @@
     "lit": "^3.2.1"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-decorators": "^7.25.9",
     "@types/wicg-file-system-access": "^2023.10.5",
     "@typescript-eslint/eslint-plugin": "^8.26.0",
     "@typescript-eslint/parser": "^8.26.0",
-    "@vitejs/plugin-react": "^4.3.4",
     "copyfiles": "^2.4.1",
     "eslint": "^9.22.0",
     "eslint-plugin-lit": "^1.15.0",
     "eslint-plugin-wc": "^2.2.1",
     "prettier": "^3.5.3",
-    "typescript": "^5.8.2",
-    "vite": "^5.4.14",
-    "vite-plugin-static-copy": "^1.0.6"
+    "typescript": "~6.0.3",
+    "vite": "^8.3.0",
+    "vite-plugin-static-copy": "^4.1.1"
   },
   "optionalDependencies": {
     "@rollup/rollup-win32-x64-msvc": "4.20.0"

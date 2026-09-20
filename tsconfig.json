@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
     "target": "es2022",
+    "strict": false,
+    "skipLibCheck": true,
     "module": "es2022",
     "moduleResolution": "bundler",
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
