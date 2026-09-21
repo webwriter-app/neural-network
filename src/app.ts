@@ -477,6 +477,7 @@ export class NeuralNetwork extends LitElementWw {
     globalStyles,
     css`
       :host {
+        position: relative;
         display: flex!important;
         flex-direction: row;
         overflow: hidden;
@@ -537,6 +538,10 @@ export class NeuralNetwork extends LitElementWw {
         top: 10px;
         bottom: 10px;
         background-color: var(--sl-color-neutral-50);
+      }
+
+      #divider.hidden {
+        display: none;
       }
 
       theme-switch {
