@@ -32,15 +32,8 @@ export class ConfigurationController implements ReactiveController {
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   async initiateImport(): Promise<void> {
-    const [handle] = await window.showOpenFilePicker({
-      types: [
-        {
-          description: 'JSON',
-          accept: { 'application/json': ['.json'] },
-        },
-      ],
-    })
-    const file = await handle.getFile()
+    const file = await this.pickFile()
+    if (!file) return // picker dismissed
     try {
       const text = await file.text()
       let fileConfig: FileConfig = await JSON.parse(text)
@@ -118,6 +111,26 @@ export class ConfigurationController implements ReactiveController {
     }, 1000)
   }
 
+  /** Opens a file picker via a hidden <input type=file> */
+  private async pickFile(): Promise<File | undefined> {
+    return new Promise((resolve) => {
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.accept = '.json,application/json'
+      input.style.display = 'none'
+      input.addEventListener('change', () => {
+        resolve(input.files?.[0])
+        input.remove()
+      })
+      input.addEventListener('cancel', () => {
+        resolve(undefined)
+        input.remove()
+      })
+      document.body.appendChild(input)
+      input.click()
+    })
+  }
+
   async exportConfig(): Promise<void> {
     const config: FileConfigV1 = {
       version: 1,
@@ -130,18 +143,16 @@ export class ConfigurationController implements ReactiveController {
       trainOptions: this.host.trainOptions,
     }
     const configJSON = JSON.stringify(config)
-    const handle = await window.showSaveFilePicker({
-      suggestedName: 'export.json',
-      types: [
-        {
-          description: 'JSON',
-          accept: { 'application/json': ['.json'] },
-        },
-      ],
-    })
-    const writer = await handle.createWritable()
-    await writer.write(configJSON)
-    await writer.close()
+    const url = URL.createObjectURL(
+      new Blob([configJSON], { type: 'application/json' })
+    )
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'export.json'
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+    setTimeout(() => URL.revokeObjectURL(url), 10000)
     AlertUtils.spawn({
       message: `The current configuration was successfully exported!`,
       variant: 'success',
