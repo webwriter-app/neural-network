@@ -87,7 +87,7 @@ export class CCanvas extends LitElementWw {
     })
 
     // Add event listener for selection of layers, neurons or edges
-    this.cy.on('click', 'node, edge', (e: cytoscape.EventObject) => {
+    this.cy.on('tap', 'node, edge', (e: cytoscape.EventObject) => {
       const evtTarget = <cytoscape.SingularData>e.target
 
       // Prevent selection of multiple nodes by holding shift
