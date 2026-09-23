@@ -535,7 +535,7 @@ export class NeuralNetwork extends LitElementWw {
 
       #divider {
         position: absolute;
-        right: 435px;
+        right: calc(435px - 2px);
         width: 2px;
         top: 10px;
         bottom: 10px;

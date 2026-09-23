@@ -6,6 +6,7 @@ import { consume } from '@lit/context'
 import cytoscape from 'cytoscape'
 
 import type { Position } from '@/types/position'
+import type { LayerType } from '@/types/layer_type'
 import { InputLayer } from '@/components/network/input_layer'
 import { DenseLayer } from '@/components/network/dense_layer'
 import { OutputLayer } from '@/components/network/output_layer'
@@ -440,46 +441,87 @@ export class CCanvas extends LitElementWw {
     }
   }
 
-  // -> DROPPING LAYERS  - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  handleDrop(e: DragEvent) {
+  // -> DRAGGING LAYERS FROM THE PALETTE - - - - - - - - - - - - - - - - - - - -
+  dragLayerOver(clientX: number, clientY: number): boolean {
+    const dragOver = this.isClientPointInside(clientX, clientY)
+    const didPan = dragOver && this.autoPan(clientX, clientY)
+    this.setDragOver(dragOver)
+    return didPan
+  }
+
+  // end a layer drag and add the dropped layer if it was dropped on the canvas
+  endLayerDrag(drop?: {
+    layerType: LayerType
+    clientX: number
+    clientY: number
+  }): void {
+    this.setDragOver(false)
+    if (!drop || !this.cy) return
+    if (!this.isClientPointInside(drop.clientX, drop.clientY)) return
+
+    const rect = this._canvasElm.getBoundingClientRect()
+    const pos = this.toModelPosition({
+      x: drop.clientX - rect.left,
+      y: drop.clientY - rect.top,
+    })
+    const layerClasses = {
+      Input: InputLayer,
+      Dense: DenseLayer,
+      Output: OutputLayer,
+    }
+    layerClasses[drop.layerType].create({ pos })
+  }
+
+  private isClientPointInside(clientX: number, clientY: number): boolean {
+    return !!this.shadowRoot
+      .elementFromPoint(clientX, clientY)
+      ?.closest('#canvasElm')
+  }
+
+  private setDragOver(dragOver: boolean): void {
+    if (dragOver === this._canvasElm.classList.contains('drag-over')) return
+    this._canvasElm.classList.toggle('drag-over', dragOver)
     this.dispatchEvent(
-      new Event('drag-leaved', {
+      new Event(dragOver ? 'drag-entered' : 'drag-leaved', {
         bubbles: true,
         composed: true,
       })
     )
-    const LAYER_TYPE: string = e.dataTransfer.getData('LAYER_TYPE')
-    if (LAYER_TYPE && ['Input', 'Dense', 'Output'].includes(LAYER_TYPE)) {
-      const renderedPos = {
-        x: e.clientX - 450, // Subtract width of side menu
-        y: e.clientY,
-      }
-      const pos = this.toModelPosition(renderedPos)
-      switch (LAYER_TYPE) {
-        case 'Input':
-          InputLayer.create({
-            pos,
-          })
-          break
-        case 'Dense':
-          DenseLayer.create({
-            pos,
-          })
-          break
-        case 'Output':
-          OutputLayer.create({
-            pos,
-          })
-          break
-      }
+  }
+
+  private autoPan(clientX: number, clientY: number): boolean {
+    if (!this.cy) return false
+
+    const rect = this._canvasElm.getBoundingClientRect()
+    const edge = Math.min(64, rect.width / 2, rect.height / 2)
+    const edgeStep = (position: number, start: number, end: number) => {
+      if (position < start + edge) return (-16 * (start + edge - position)) / edge
+      if (position > end - edge) return (16 * (position - end + edge)) / edge
+      return 0
     }
+
+    const dx = edgeStep(clientX, rect.left, rect.right)
+    const dy = edgeStep(clientY, rect.top, rect.bottom)
+    if (dx === 0 && dy === 0) return false
+    this.cy.panBy({ x: -dx, y: -dy })
+    return true
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = css`
     #canvasElm {
+      position: relative;
       height: 100%;
       width: 100%;
+    }
+
+    #canvasElm.drag-over::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      border: 2px dashed var(--sl-color-primary-500);
+      pointer-events: none;
     }
   `
 
@@ -488,24 +530,6 @@ export class CCanvas extends LitElementWw {
     return html` <style>
         ${this.theme.styles}
       </style>
-      <div
-        id="canvasElm"
-        @dragenter="${(_e: DragEvent) =>
-          this.dispatchEvent(
-            new Event('drag-entered', {
-              bubbles: true,
-              composed: true,
-            })
-          )}"
-        @dragover="${(e: DragEvent) => e.preventDefault()}"
-        @dragleave="${(_e: DragEvent) =>
-          this.dispatchEvent(
-            new Event('drag-leaved', {
-              bubbles: true,
-              composed: true,
-            })
-          )}"
-        @drop="${(e: DragEvent) => this.handleDrop(e)}"
-      ></div>`
+      <div id="canvasElm"></div>`
   }
 }

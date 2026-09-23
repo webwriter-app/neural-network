@@ -93,10 +93,6 @@ export const globalStyles = css`
     align-items: flex-start;
   }
 
-  sl-tag[draggable='true'] {
-    cursor: grab;
-  }
-
   sl-tooltip {
     max-width: 100%;
   }
