@@ -91,7 +91,7 @@ export class LayerActivationCard extends LitElementWw {
                 >`,
             )}
           </sl-select>
-          ${Object.hasOwn(this.layer.conf.activation, 'img')
+          ${activation?.img
             ? html`<img src=${activation.img} />`
             : html``}
           <p>

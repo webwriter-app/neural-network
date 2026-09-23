@@ -5,6 +5,7 @@ import { customElement, property } from 'lit/decorators.js'
 import { globalStyles } from '@/global_styles'
 
 import type { CNeuron } from '@/components/network/neuron'
+import { NetworkUtils } from '@/utils/network_utils'
 import { CCard } from '../reusables/c-card'
 import { msg } from '@lit/localize'
 
@@ -21,13 +22,16 @@ export class NeuronActivationCard extends LitElementWw {
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
+    const activation = NetworkUtils.getActivation(
+      this.neuron.layer.conf.activation.name as any,
+    )
     return html`
       <c-card>
         <div slot="title">${msg('Activation function')}</div>
         <div slot="content">
           <p>Activation: ${this.neuron.layer.conf.activation.name}</p>
-          ${Object.hasOwn(this.neuron.layer.conf.activation, 'img')
-            ? html`<img src=${this.neuron.layer.conf.activation.img} />`
+          ${activation?.img
+            ? html`<img src=${activation.img} />`
             : html``}
           <p>
             ${msg(
