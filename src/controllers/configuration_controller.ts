@@ -111,22 +111,23 @@ export class ConfigurationController implements ReactiveController {
     }, 1000)
   }
 
-  /** Opens a file picker via a hidden <input type=file> */
+  // reference to the detached file input so it is not garbage collected while
+  // the picker is open
+  fileInput?: HTMLInputElement
+
+  /** Opens a file picker via <input type=file> */
   private async pickFile(): Promise<File | undefined> {
     return new Promise((resolve) => {
       const input = document.createElement('input')
       input.type = 'file'
       input.accept = '.json,application/json'
-      input.style.display = 'none'
-      input.addEventListener('change', () => {
-        resolve(input.files?.[0])
-        input.remove()
-      })
-      input.addEventListener('cancel', () => {
-        resolve(undefined)
-        input.remove()
-      })
-      document.body.appendChild(input)
+      const done = (file?: File) => {
+        this.fileInput = undefined
+        resolve(file)
+      }
+      input.addEventListener('change', () => done(input.files?.[0]))
+      input.addEventListener('cancel', () => done(undefined))
+      this.fileInput = input
       input.click()
     })
   }
@@ -149,9 +150,7 @@ export class ConfigurationController implements ReactiveController {
     const a = document.createElement('a')
     a.href = url
     a.download = 'export.json'
-    document.body.appendChild(a)
     a.click()
-    a.remove()
     setTimeout(() => URL.revokeObjectURL(url), 10000)
     AlertUtils.spawn({
       message: `The current configuration was successfully exported!`,
