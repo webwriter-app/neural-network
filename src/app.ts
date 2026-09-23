@@ -1,3 +1,5 @@
+import '@/utils/tf_quiet_load'
+
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css, PropertyDeclarations, PropertyValues } from 'lit'
 import { customElement, property /* , query */, state } from 'lit/decorators.js'
