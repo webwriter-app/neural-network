@@ -47,6 +47,7 @@ export class CCanvas extends LitElementWw {
         minZoom: 0.1,
         maxZoom: 3,
       })
+      this.addLayerDragListeners()
     }
 
     // notify the root element that the canvas was created
@@ -127,6 +128,89 @@ export class CCanvas extends LitElementWw {
         )
       }
     })
+  }
+
+  private addLayerDragListeners(): void {
+    let layerDrag: {
+      layer: cytoscape.NodeSingular
+      start: cytoscape.Position
+      last: cytoscape.Position
+      threshold: number
+      moved: boolean
+    } | null = null
+
+    const endLayerDrag = () => {
+      if (!layerDrag) return
+      this.cy.userPanningEnabled(true)
+      if (layerDrag.moved) {
+        layerDrag.layer.emit('dragfree')
+      }
+      layerDrag = null
+    }
+
+    const findLayerAt = (
+      target: cytoscape.SingularElementArgument,
+      { x, y }: cytoscape.Position
+    ): cytoscape.NodeCollection => {
+      if (target.isNode()) {
+        return target.ancestors('[type="layer"]')
+      }
+      return this.cy.nodes('[type="layer"]').filter((l) => {
+        const bb = l.boundingBox({ includeLabels: false })
+        return x >= bb.x1 && x <= bb.x2 && y >= bb.y1 && y <= bb.y2
+      })
+    }
+
+    this.cy.on(
+      'tapstart',
+      'node[type="neuron"], node[type="neuron-wrapper"], edge',
+      (e: cytoscape.EventObject) => {
+        const layers = findLayerAt(e.target, e.position)
+        if (layers.length != 1) return
+        const layer = <cytoscape.NodeSingular>layers.first()
+        if (!layer.grabbable()) return
+        const isTouch = e.originalEvent?.type.startsWith('touch')
+        layerDrag = {
+          layer,
+          start: { ...e.renderedPosition },
+          last: { ...e.position },
+          threshold: isTouch ? 8 : 4,
+          moved: false,
+        }
+        this.cy.userPanningEnabled(false)
+      }
+    )
+
+    this.cy.on('tapdrag', (e: cytoscape.EventObject) => {
+      if (!layerDrag) return
+      // don't interfere with pinch-to-zoom
+      const touches = (<TouchEvent>(<unknown>e.originalEvent)).touches
+      if (touches && touches.length > 1) {
+        endLayerDrag()
+        return
+      }
+      // ignore small jitter so that taps don't move the layer
+      if (
+        !layerDrag.moved &&
+        Math.hypot(
+          e.renderedPosition.x - layerDrag.start.x,
+          e.renderedPosition.y - layerDrag.start.y
+        ) < layerDrag.threshold
+      ) {
+        return
+      }
+      const dx = e.position.x - layerDrag.last.x
+      const dy = e.position.y - layerDrag.last.y
+      layerDrag.last = { ...e.position }
+      layerDrag.layer
+        .descendants()
+        .filter((n) => n.isChildless())
+        .shift({ x: dx, y: dy })
+      layerDrag.moved = true
+    })
+
+    this.cy.on('tapend', endLayerDrag)
+    this.cy.container()?.addEventListener('touchcancel', endLayerDrag)
   }
 
   protected firstUpdated(_changedProperties: PropertyValues): void {
