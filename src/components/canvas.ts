@@ -42,7 +42,7 @@ export class CCanvas extends LitElementWw {
         container: this._canvasElm,
         elements: [],
         style: this.getStylesheetForCy(),
-        wheelSensitivity: 0.1,
+        wheelSensitivity: 5,
         boxSelectionEnabled: false,
         selectionType: 'single',
         minZoom: 0.1,
