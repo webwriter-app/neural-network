@@ -84,6 +84,8 @@ export class MenuArea extends LitElementWw {
     globalStyles,
     css`
       #rightMenu {
+        display: flex;
+        flex-direction: column;
         width: 100%;
         height: 100%;
       }
@@ -104,7 +106,8 @@ export class MenuArea extends LitElementWw {
 
       #rightMenuPanel {
         width: 435px;
-        height: calc(100% - 100px);
+        flex: 1 1 0;
+        min-height: 0;
         overflow: auto;
         -ms-overflow-style: none;
         scrollbar-width: none;

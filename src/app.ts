@@ -517,20 +517,18 @@ export class NeuralNetwork extends LitElementWw {
       }
 
       canvas-area {
-        width: calc(100% - 435px);
+        flex: 1 1 0;
+        min-width: 0;
         height: 100%;
       }
 
-      canvas-area.right-collapsed {
-        width: 100%;
-      }
-
       menu-area {
-        width: 100%;
+        flex: 0 0 435px;
+        min-width: 0;
       }
 
       menu-area.right-collapsed {
-        width: 0;
+        flex-basis: 0;
       }
 
       #divider {
