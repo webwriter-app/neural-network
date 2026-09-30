@@ -1,12 +1,11 @@
 import '@/utils/tf_quiet_load'
 
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html, css, PropertyDeclarations, PropertyValues } from 'lit'
+import { CSSResult, TemplateResult, html, css, PropertyDeclarations } from 'lit'
 import { customElement, property /* , query */, state } from 'lit/decorators.js'
 import { ContextRoot, provide } from '@lit/context'
 
-import '@shoelace-style/shoelace/dist/themes/light.css'
-import '@shoelace-style/shoelace/dist/themes/dark.css'
+import shoelaceLightStyles from '@shoelace-style/shoelace/dist/themes/light.styles.js'
 
 import { globalStyles } from '@/global_styles'
 
@@ -65,14 +64,11 @@ import { PanelController } from '@/controllers/panel_controller'
 /* import { AlertController } from '@/controllers/alert_controller'
 import { AlertUtils } from '@/utils/alert_utils'*/
 
-import type { Theme } from '@/types/theme'
 import { themeContext } from '@/contexts/theme_context'
-import { ThemeController } from '@/controllers/theme_controller'
 import { ThemeUtils } from '@/utils/theme_utils'
 
 import { CCanvasArea } from '@/components/canvas_area'
 import { MenuArea } from '@/components/menu_area'
-import { ThemeSwitch } from './components/theme_switch'
 import { ContextProvider } from '@lit/context'
 
 import '@webcomponents/scoped-custom-element-registry';
@@ -103,7 +99,6 @@ import LOCALIZE from "../localization/generated";
  * @prop {Selected} selected - Current multi-selection state.
  * @prop {SelectedEle} selectedEle - Current single selected element.
  * @prop {boolean} panel - Whether the right panel is open.
- * @prop {Theme} theme - Active theme object with style string.
  *
  * @cssproperty --sl-color-neutral-0 - Host background color (forwarded from Shoelace).
  * @cssproperty --sl-color-neutral-50 - Divider color (forwarded from Shoelace).
@@ -131,8 +126,7 @@ export class NeuralNetwork extends LitElementWw {
     modelConf: { attribute: false },
     selected: { attribute: false },
     selectedEle: { attribute: false },
-    panel: { attribute: false },
-    theme: { attribute: false }
+    panel: { attribute: false }
   }
 
   /**
@@ -185,7 +179,32 @@ export class NeuralNetwork extends LitElementWw {
     super.connectedCallback()
     const root = new ContextRoot();
     root.attach(document.body);
+
+    this.wasFullscreen = this.isFullscreen
+    this.resizeObserver = new ResizeObserver(() => {
+      const isFullscreen = this.isFullscreen
+      if (isFullscreen !== this.wasFullscreen) {
+        this.wasFullscreen = isFullscreen
+        this.requestUpdate()
+      }
+    })
+    this.resizeObserver.observe(this)
   }
+
+  /**
+   * Lit lifecycle hook. Disconnects the fullscreen resize observer.
+   * @internal
+   */
+  disconnectedCallback(): void {
+    super.disconnectedCallback()
+    this.resizeObserver?.disconnect()
+  }
+
+  /** @internal Observes the host's size so we can detect fullscreen changes. */
+  private resizeObserver?: ResizeObserver
+
+  /** @internal Last observed fullscreen state, used to detect changes from the ResizeObserver. */
+  private wasFullscreen = false
 
   /**
    * Whether the editor is in fullscreen mode.
@@ -202,14 +221,12 @@ export class NeuralNetwork extends LitElementWw {
   private async _onFullscreenToggle() {
     if (this.isFullscreen) {
       await this.ownerDocument.exitFullscreen();
-      this.style.height = "500px"
-      this.style.width = "min(100%,796px)"
+      this.wasFullscreen = false
       this.requestUpdate()
     } else {
       try {
           await this.requestFullscreen();
-          this.style.height = "100%"
-          this.style.width = "100%"
+          this.wasFullscreen = true
           this.requestUpdate()
       } catch (error) {
           console.error(msg("Failed to enter fullscreen mode."));
@@ -218,27 +235,12 @@ export class NeuralNetwork extends LitElementWw {
   }
 
   /**
-   * Lit lifecycle hook: invoked after the component's DOM is first rendered.
-   * Adjusts host dimensions based on its bounding client rect to account for borders.
-   * @internal
-   */
-  protected firstUpdated(_changedProperties: PropertyValues): void {
-      super.firstUpdated(_changedProperties)
-      setTimeout(() => {
-        const dim: DOMRect = this.getBoundingClientRect()
-        this.style.height = Math.max(dim.height - 4, 500) +"px"
-        this.style.width = "min(100%," + (dim.width - 4) + "px)"
-      });
-  }
-
-  /**
    * Scoped element registry for child components used by this widget.
    */
   protected static scopedElements = {
     "canvas-area": CCanvasArea,
     "menu-area": MenuArea,
-    "c-network": CNetwork,
-    "theme-switch": ThemeSwitch
+    "c-network": CNetwork
   }
 
   // DATA PROVIDERS AND CONTROLLERS  - - - - - - - - - - - - - - - - - - - - - -
@@ -454,28 +456,13 @@ export class NeuralNetwork extends LitElementWw {
   /** @internal Controller for panel state and interactions. */
   private panelController = new PanelController(this)
 
-  // -> THEME ------------------------------------------------------------------
-
-  /**
-   * Active theme object.
-   */
-  get theme(): Theme {
-    return this.themeProvider.value
-  }
-  set theme(value: Theme) {
-    this.themeProvider.setValue(value)
-    this.requestUpdate("theme")
-  }
-
-  /** @internal Controller for theme switching and persistence. */
-  private themeController = new ThemeController(this)
-
   // STYLES --------------------------------------------------------------------
 
   /**
-   * Styles for the host layout, canvas/menu areas, divider, and theme switch.
+   * Styles for the host layout, canvas/menu areas and divider.
    */
   static styles: CSSResult[] = [
+    shoelaceLightStyles,
     globalStyles,
     css`
       :host {
@@ -483,8 +470,19 @@ export class NeuralNetwork extends LitElementWw {
         display: flex!important;
         flex-direction: row;
         overflow: hidden;
+        box-sizing: border-box;
         background-color: var(--sl-color-neutral-0);
+        height: 500px;
+      }
+
+      :host(:fullscreen), :host(.ww-fullscreen) {
         height: 100%;
+        width: 100%;
+      }
+
+      :host(:not(:fullscreen):not(.ww-fullscreen)) {
+        border: 1px solid var(--sl-color-neutral-300, #d4d4d8);
+        border-radius: var(--sl-border-radius-medium, 0.375rem);
       }
 
       :host.embedded {
@@ -544,12 +542,6 @@ export class NeuralNetwork extends LitElementWw {
         display: none;
       }
 
-      theme-switch {
-        position: absolute;
-        bottom: 10px;
-        left: 10px;
-      }
-
       /* .sl-toast-stack {
         top: 300 !important;
         width: 50rem !important;
@@ -567,18 +559,6 @@ export class NeuralNetwork extends LitElementWw {
   render(): TemplateResult<1>[] {
     const renderedHTML: TemplateResult<1>[] = []
     /* renderedHTML.push(html`<div class="sl-toast-stack"></div>`) */
-
-    renderedHTML.push(
-      html`<style>
-        ${(this.theme as any).styles}
-        :host{
-          border-width: 2px;
-          border-style: solid;
-          border-radius: 5px;
-          border-color: #6a6a6a;
-        }
-      </style>`
-    )
     renderedHTML.push(html` <canvas-area
       class="${!this.panel ? 'right-collapsed' : ''}"
       @click=${()=>{this.dispatchEvent(new Event("focus"))}}
@@ -611,7 +591,6 @@ export class NeuralNetwork extends LitElementWw {
         <c-network></c-network>
       `)
     }
-    // renderedHTML.push(html`<theme-switch></theme-switch>`)
     return renderedHTML
   }
 }
