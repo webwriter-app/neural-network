@@ -1,23 +1,16 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
-import { consume } from '@lit/context'
 
 import SlCard from "@shoelace-style/shoelace/dist/components/card/card.component.js"
 
 import { globalStyles } from '@/global_styles'
-
-import { themeContext } from '@/contexts/theme_context'
-import type { Theme } from '@/types/theme'
 
 export class CCard extends LitElementWw {
 
   static scopedElements = {
     "sl-card": SlCard
   }
-
-  @consume({ context: themeContext, subscribe: true })
-  accessor theme: Theme
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult[] = [
@@ -46,9 +39,6 @@ export class CCard extends LitElementWw {
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
-      <style>
-        ${this.theme.styles}
-      </style>
       <sl-card class="c-card">
         <h1><slot name="title"></slot></h1>
         <div>

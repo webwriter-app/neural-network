@@ -64,8 +64,6 @@ import { PanelController } from '@/controllers/panel_controller'
 /* import { AlertController } from '@/controllers/alert_controller'
 import { AlertUtils } from '@/utils/alert_utils'*/
 
-import { themeContext } from '@/contexts/theme_context'
-import { ThemeUtils } from '@/utils/theme_utils'
 
 import { CCanvasArea } from '@/components/canvas_area'
 import { MenuArea } from '@/components/menu_area'
@@ -150,7 +148,6 @@ export class NeuralNetwork extends LitElementWw {
     this.selectedProvider = new ContextProvider(this, {context: selectedContext, initialValue: {}})
     this.selectedEleProvider = new ContextProvider(this, {context: selectedEleContext})
     this.panelProvider = new ContextProvider(this, {context: panelContext})
-    this.themeProvider = new ContextProvider(this, {context: themeContext, initialValue: ThemeUtils.lightTheme})
   }
 
   protected setupStatusProvider: ContextProvider<any, NeuralNetwork>
@@ -168,7 +165,6 @@ export class NeuralNetwork extends LitElementWw {
   protected selectedProvider: ContextProvider<any, NeuralNetwork>
   protected selectedEleProvider: ContextProvider<any, NeuralNetwork>
   protected panelProvider: ContextProvider<any, NeuralNetwork>
-  protected themeProvider: ContextProvider<any, NeuralNetwork>
 
   /**
    * Lit lifecycle hook. Attaches a ContextRoot to the document body to enable

@@ -1,7 +1,6 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css, PropertyValues } from 'lit'
-import { customElement, state, query, property } from 'lit/decorators.js'
-import { consume } from '@lit/context'
+import { customElement, state, query } from 'lit/decorators.js'
 
 import cytoscape from 'cytoscape'
 
@@ -10,8 +9,6 @@ import type { LayerType } from '@/types/layer_type'
 import { InputLayer } from '@/components/network/input_layer'
 import { DenseLayer } from '@/components/network/dense_layer'
 import { OutputLayer } from '@/components/network/output_layer'
-import type { Theme } from '@/types/theme'
-import { themeContext } from '@/contexts/theme_context'
 
 import colorsea from 'colorsea'
 
@@ -24,10 +21,6 @@ export class CCanvas extends LitElementWw {
 
   @query('#canvasElm', true)
   accessor _canvasElm: HTMLDivElement
-
-  @consume({ context: themeContext, subscribe: true })
-  @property({ attribute: false })
-  accessor theme: Theme
 
   @state()
   accessor cy: cytoscape.Core
@@ -232,14 +225,6 @@ export class CCanvas extends LitElementWw {
       // Cytoscape caches container bounds which become outdated after scrolling.
       // Calling resize() forces Cytoscape to update its internal bounds and correctly map mouse input.
       this.cy.resize()
-  }
-
-  updated(changedProperties: Map<string, unknown>): void {
-    super.updated(changedProperties)
-    // when the themed changed, update the stylesheet for the canvas
-    if (changedProperties.has('theme')) {
-      this.cy?.style(this.getStylesheetForCy())
-    }
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -527,9 +512,6 @@ export class CCanvas extends LitElementWw {
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
-    return html` <style>
-        ${this.theme.styles}
-      </style>
-      <div id="canvasElm"></div>`
+    return html`<div id="canvasElm"></div>`
   }
 }
