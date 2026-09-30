@@ -25,7 +25,7 @@
               "kind": "field",
               "name": "setupStatusProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof setupStatusContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: setupStatusContext, initialValue: SetupUtils.defaultSetupStatus})"
@@ -34,7 +34,7 @@
               "kind": "field",
               "name": "editableProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof editableContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: editableContext, initialValue: false})"
@@ -43,7 +43,7 @@
               "kind": "field",
               "name": "settingsProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof settingsContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: settingsContext, initialValue: JSON.parse(JSON.stringify(SettingsUtils.defaultSettings))})"
@@ -52,7 +52,7 @@
               "kind": "field",
               "name": "qAndAProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof qAndAContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: qAndAContext, initialValue: [...QAndAUtils.defaultQAndA]})"
@@ -61,7 +61,7 @@
               "kind": "field",
               "name": "canvasProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof canvasContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: canvasContext})"
@@ -70,7 +70,7 @@
               "kind": "field",
               "name": "networkProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof networkContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: networkContext})"
@@ -79,7 +79,7 @@
               "kind": "field",
               "name": "layerConfsProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof layerConfsContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: layerConfsContext, initialValue: []})"
@@ -88,7 +88,7 @@
               "kind": "field",
               "name": "layerConnectionConfsProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof layerConnectionConfsContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: layerConnectionConfsContext, initialValue: []})"
@@ -97,7 +97,7 @@
               "kind": "field",
               "name": "dataSetProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof dataSetContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: dataSetContext, initialValue: DataSetUtils.defaultDataSet})"
@@ -106,7 +106,7 @@
               "kind": "field",
               "name": "availableDataSetsProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof availableDataSetsContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: availableDataSetsContext, initialValue: DataSetUtils.defaultAvailableDataSets})"
@@ -115,7 +115,7 @@
               "kind": "field",
               "name": "trainOptionsProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof trainOptionsContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: trainOptionsContext, initialValue: <TrainOptions>(JSON.parse(JSON.stringify(ModelUtils.defaultTrainOptions)))})"
@@ -124,7 +124,7 @@
               "kind": "field",
               "name": "modelConfProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof modelConfContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: modelConfContext, initialValue: <ModelConf>(JSON.parse(JSON.stringify(ModelUtils.defaultModelConf)))})"
@@ -133,7 +133,7 @@
               "kind": "field",
               "name": "selectedProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof selectedContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: selectedContext, initialValue: {}})"
@@ -142,7 +142,7 @@
               "kind": "field",
               "name": "selectedEleProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof selectedEleContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: selectedEleContext})"
@@ -151,19 +151,10 @@
               "kind": "field",
               "name": "panelProvider",
               "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
+                "text": "ContextProvider<typeof panelContext, NeuralNetwork>"
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: panelContext})"
-            },
-            {
-              "kind": "field",
-              "name": "themeProvider",
-              "type": {
-                "text": "ContextProvider<any, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: themeContext, initialValue: ThemeUtils.lightTheme})"
             },
             {
               "kind": "field",
@@ -173,7 +164,7 @@
               },
               "privacy": "protected",
               "static": true,
-              "default": "{ \"canvas-area\": CCanvasArea, \"menu-area\": MenuArea, \"c-network\": CNetwork, \"theme-switch\": ThemeSwitch }",
+              "default": "{ \"canvas-area\": CCanvasArea, \"menu-area\": MenuArea, \"c-network\": CNetwork }",
               "description": "Scoped element registry for child components used by this widget."
             },
             {
@@ -323,18 +314,9 @@
               "name": "panel",
               "privacy": "public",
               "type": {
-                "text": "boolean"
+                "text": "string"
               },
-              "description": "Whether the right panel is open."
-            },
-            {
-              "kind": "field",
-              "name": "theme",
-              "privacy": "public",
-              "type": {
-                "text": "Theme"
-              },
-              "description": "Active theme object with style string."
+              "description": "Name of the open right panel, if any."
             }
           ],
           "events": [

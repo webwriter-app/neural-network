@@ -1,5 +1,5 @@
-# Neural Network (`@webwriter/neural-network@1.1.5`)
-[License: MIT](LICENSE) | Version: 1.1.5
+# Neural Network (`@webwriter/neural-network@1.1.7`)
+[License: MIT](LICENSE) | Version: 1.1.7
 
 Deep learning visualization for feed-forward networks with custom datasets, training and prediction.
 
@@ -54,8 +54,7 @@ npm install @webwriter/neural-network
 | `modelConf` | `ModelConf` | Current model configuration. | - | ✗ |
 | `selected` | `Selected` | Current multi-selection state. | - | ✗ |
 | `selectedEle` | `SelectedEle` | Current single selected element. | - | ✗ |
-| `panel` | `boolean` | Whether the right panel is open. | - | ✗ |
-| `theme` | `Theme` | Active theme object with style string. | - | ✗ |
+| `panel` | `string` | Name of the open right panel, if any. | - | ✗ |
 
 *Fields including [properties](https://developer.mozilla.org/en-US/docs/Glossary/Property/JavaScript) and [attributes](https://developer.mozilla.org/en-US/docs/Glossary/Attribute) define the current state of the widget and offer customization options.*
 
