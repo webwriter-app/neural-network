@@ -28,11 +28,11 @@ export class LayerOutgoingDataCard extends LitElementWw {
       <c-card>
         <div slot="title">${msg('Outgoing data')}</div>
         <div slot="content">
-          ${this.layer.conf.dataSetLabel.key
+          ${this.layer.conf.labelDesc.key
             ? html`
                 <c-data-info
                   type="label"
-                  .dataDesc="${this.layer.conf.dataSetLabel}"
+                  .dataDesc="${this.layer.conf.labelDesc}"
                   .dataSet="${this.dataSet}"
                 ></c-data-info>
               `

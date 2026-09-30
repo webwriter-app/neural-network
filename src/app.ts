@@ -96,7 +96,7 @@ import LOCALIZE from "../localization/generated";
  * @prop {ModelConf} modelConf - Current model configuration.
  * @prop {Selected} selected - Current multi-selection state.
  * @prop {SelectedEle} selectedEle - Current single selected element.
- * @prop {boolean} panel - Whether the right panel is open.
+ * @prop {string} panel - Name of the open right panel, if any.
  *
  * @cssproperty --sl-color-neutral-0 - Host background color (forwarded from Shoelace).
  * @cssproperty --sl-color-neutral-50 - Divider color (forwarded from Shoelace).
@@ -150,21 +150,21 @@ export class NeuralNetwork extends LitElementWw {
     this.panelProvider = new ContextProvider(this, {context: panelContext})
   }
 
-  protected setupStatusProvider: ContextProvider<any, NeuralNetwork>
-  protected editableProvider: ContextProvider<any, NeuralNetwork>
-  protected settingsProvider: ContextProvider<any, NeuralNetwork>
-  protected qAndAProvider: ContextProvider<any, NeuralNetwork>
-  protected canvasProvider: ContextProvider<any, NeuralNetwork>
-  protected networkProvider: ContextProvider<any, NeuralNetwork>
-  protected layerConfsProvider: ContextProvider<any, NeuralNetwork>
-  protected layerConnectionConfsProvider: ContextProvider<any, NeuralNetwork>
-  protected dataSetProvider: ContextProvider<any, NeuralNetwork>
-  protected availableDataSetsProvider: ContextProvider<any, NeuralNetwork>
-  protected trainOptionsProvider: ContextProvider<any, NeuralNetwork>
-  protected modelConfProvider: ContextProvider<any, NeuralNetwork>
-  protected selectedProvider: ContextProvider<any, NeuralNetwork>
-  protected selectedEleProvider: ContextProvider<any, NeuralNetwork>
-  protected panelProvider: ContextProvider<any, NeuralNetwork>
+  protected setupStatusProvider: ContextProvider<typeof setupStatusContext, NeuralNetwork>
+  protected editableProvider: ContextProvider<typeof editableContext, NeuralNetwork>
+  protected settingsProvider: ContextProvider<typeof settingsContext, NeuralNetwork>
+  protected qAndAProvider: ContextProvider<typeof qAndAContext, NeuralNetwork>
+  protected canvasProvider: ContextProvider<typeof canvasContext, NeuralNetwork>
+  protected networkProvider: ContextProvider<typeof networkContext, NeuralNetwork>
+  protected layerConfsProvider: ContextProvider<typeof layerConfsContext, NeuralNetwork>
+  protected layerConnectionConfsProvider: ContextProvider<typeof layerConnectionConfsContext, NeuralNetwork>
+  protected dataSetProvider: ContextProvider<typeof dataSetContext, NeuralNetwork>
+  protected availableDataSetsProvider: ContextProvider<typeof availableDataSetsContext, NeuralNetwork>
+  protected trainOptionsProvider: ContextProvider<typeof trainOptionsContext, NeuralNetwork>
+  protected modelConfProvider: ContextProvider<typeof modelConfContext, NeuralNetwork>
+  protected selectedProvider: ContextProvider<typeof selectedContext, NeuralNetwork>
+  protected selectedEleProvider: ContextProvider<typeof selectedEleContext, NeuralNetwork>
+  protected panelProvider: ContextProvider<typeof panelContext, NeuralNetwork>
 
   /**
    * Lit lifecycle hook. Attaches a ContextRoot to the document body to enable
@@ -351,7 +351,7 @@ export class NeuralNetwork extends LitElementWw {
   }
 
   /** @internal Controller handling network operations and mutations. */
-  private networkController = new NetworkController(this)
+  networkController = new NetworkController(this)
 
   // -> DATA SET ---------------------------------------------------------------
 
@@ -405,9 +405,9 @@ export class NeuralNetwork extends LitElementWw {
   }
 
   /** @internal Container reference for displaying training metrics. */
-  private trainMetricsContainer: HTMLDivElement
+  trainMetricsContainer: HTMLDivElement
   /** @internal Controller for model lifecycle and training orchestration. */
-  private modelController = new ModelController(this)
+  modelController = new ModelController(this)
 
   // -> SELECTED ---------------------------------------------------------------
 
@@ -434,17 +434,17 @@ export class NeuralNetwork extends LitElementWw {
   }
 
   /** @internal Controller handling selection logic and events. */
-  private selectionController = new SelectionController(this)
+  selectionController = new SelectionController(this)
 
   // -> PANELS -----------------------------------------------------------------
 
   /**
-   * Whether the right panel is shown.
+   * Name of the panel currently shown on the right, or undefined if none is open.
    */
-  get panel(): boolean {
+  get panel(): string | undefined {
     return this.panelProvider.value
   }
-  set panel(value: boolean) {
+  set panel(value: string | undefined) {
     this.panelProvider.setValue(value)
     this.requestUpdate("panel")
   }

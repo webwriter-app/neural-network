@@ -52,9 +52,10 @@ export class HelpQAndACard extends LitElementWw {
   }
 
   updateEntry(e: MouseEvent): void {
+    const button = <SlButton>e.target
     const entry: QAndAEntry = {
-      title: <string>e.target.title,
-      description: <string>e.target.parentNode.previousElementSibling.value,
+      title: button.title,
+      description: (<SlTextarea>button.parentElement.previousElementSibling).value,
     }
     this.dispatchEvent(
       new CustomEvent<QAndAEntry>('update-help-entry', {
@@ -68,7 +69,7 @@ export class HelpQAndACard extends LitElementWw {
   removeEntry(e: MouseEvent): void {
     this.dispatchEvent(
       new CustomEvent<string>('remove-help-entry', {
-        detail: <string>e.target.title,
+        detail: (<SlButton>e.target).title,
         bubbles: true,
         composed: true,
       }),

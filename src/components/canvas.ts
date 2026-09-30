@@ -229,7 +229,7 @@ export class CCanvas extends LitElementWw {
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // -> STYLING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  getStylesheetForCy(): cytoscape.Stylesheet[] {
+  getStylesheetForCy(): cytoscape.StylesheetJson {
     const MAIN_COLOR: string = colorsea(
       getComputedStyle(this).getPropertyValue('--sl-color-primary-200')
     ).hex()
@@ -258,7 +258,7 @@ export class CCanvas extends LitElementWw {
           'border-color': ACCENT_COLOR,
           color: TEXT_COLOR,
           'border-width': 5,
-          padding: this.LAYER_PADDING,
+          padding: `${this.LAYER_PADDING}px`,
           label: 'data(label)',
           'text-halign': 'left',
           'text-valign': 'center',
@@ -282,7 +282,7 @@ export class CCanvas extends LitElementWw {
           'border-width': 1,
           'background-opacity': 0,
           'border-color': MAIN_COLOR,
-          padding: 0,
+          padding: '0px',
           label: 'data(label)',
           color: TEXT_COLOR,
           'text-halign': 'center',

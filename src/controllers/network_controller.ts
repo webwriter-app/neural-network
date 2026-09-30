@@ -377,7 +377,7 @@ export class NetworkController implements ReactiveController {
   updateWeights(weights: tf.Tensor[]): void {
     console.log(weights)
     for (const weight of weights) {
-      const layerIdAndWeightType: string[] = weight.name.split('/')
+      const layerIdAndWeightType: string[] = (<tf.Variable>weight).name.split('/')
       if (layerIdAndWeightType.length != 2) {
         console.error('malformed weight name string: no "/"')
         return
