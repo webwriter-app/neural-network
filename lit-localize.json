@@ -62,7 +62,20 @@
     "kn",
     "ms",
     "vi",
-    "he"
+    "he",
+    "sq",
+    "eu",
+    "gl",
+    "cy",
+    "ta",
+    "ml",
+    "tl",
+    "th",
+    "mn",
+    "ka",
+    "hy",
+    "be",
+    "tpi"
   ],
   "tsConfig": "./tsconfig.json",
   "output": {

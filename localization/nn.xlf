@@ -178,7 +178,7 @@
 <target>Tøm nettverket</target></trans-unit>
 <trans-unit id="s14ad6d4ee3b48ca2">
   <source>This will remove every layer from the network.</source>
-<target>Dette vil fjerne alle lag fra nettverket.</target></trans-unit>
+<target>Dette fjernar alle lag frå nettverket.</target></trans-unit>
 <trans-unit id="sae901180c48ddefb">
   <source>Your network currently contains</source>
 <target>Nettverket ditt inneholder for øyeblikket</target></trans-unit>
@@ -274,7 +274,7 @@
 <target>Redigering</target></trans-unit>
 <trans-unit id="secd2b30927c9ada1">
   <source>Allow adding and removing layers</source>
-<target>Tillat å legge til og fjerne lag</target></trans-unit>
+<target>Tillat å leggje til og fjerne lag</target></trans-unit>
 <trans-unit id="s1d6d96fee1f77a74">
   <source>Allow editing layers</source>
 <target>Tillat redigering av lag</target></trans-unit>
@@ -397,7 +397,7 @@
 <target>Epoke</target></trans-unit>
 <trans-unit id="s7f291599fb79b2a9">
   <source>Number of iterations over the whole training data set</source>
-<target>Antall iterasjoner over hele treningsdatasettet</target></trans-unit>
+<target>Tal på iterasjonar over heile treningsdatasettet</target></trans-unit>
 <trans-unit id="s9fbbc819fe7e66aa">
   <source>Run</source>
 <target>Køyr</target></trans-unit>
@@ -424,7 +424,7 @@
 <target>Det finst allereie eit datasett med same namn.</target></trans-unit>
 <trans-unit id="s669ebaf3b9787562">
   <source>The provided data does not match the required format! Please check again</source>
-<target>De oppgitte dataa samsvarar ikkje med det naudsynte formatet! Ver venleg sjekk på nytt</target></trans-unit>
+<target>Dei oppgjevne dataa samsvarar ikkje med formatet som krevst! Sjekk på nytt.</target></trans-unit>
 <trans-unit id="see988347633ae840">
   <source>A new data set was successfully created and automatically selected!</source>
 <target>Eit nytt datasett vart oppretta og automatisk vald!</target></trans-unit>
@@ -562,7 +562,7 @@
 <target>Konsentrasjon av nitrogenoksider (deler per 10 millioner)</target></trans-unit>
 <trans-unit id="sf928898f4043c6ff">
   <source>Average number of rooms per dwelling</source>
-<target>gjennomsnittleg antall rom per bustad</target></trans-unit>
+<target>Gjennomsnittleg tal på rom per bustad</target></trans-unit>
 <trans-unit id="s95f88e83db13ec5c">
   <source>Proportion of owner-occupied units built prior to 1940</source>
 <target>Del av bustader der eigaren bur, bygde før 1940</target></trans-unit>
@@ -577,7 +577,7 @@
 <target>Full eiendomsskattesats per 10 000 dollar</target></trans-unit>
 <trans-unit id="s49d8fc3f40b093ac">
   <source>Pupil-teacher ratio by town</source>
-<target>elevar-lærar-ratio etter by</target></trans-unit>
+<target>Tilhøvet mellom elevar og lærarar etter by</target></trans-unit>
 <trans-unit id="s577b270038a8c007">
   <source>1000(Bk – 0.63)^2 where Bk is the proportion of blacks by town</source>
 <target>1000(Bk – 0.63)^2 der Bk er delen svarte innbyggjarar i byen</target></trans-unit>
@@ -595,7 +595,7 @@
 <target>Pima-indianar-datasettet blir brukt til å føreseie om ein person får diabetes innan fem år, basert på medisinske opplysningar. Dette er eit binært klassifiseringsproblem med to klassar. Klassane har ulikt tal observasjonar. Datasettet har 768 observasjonar, 8 inndatavariablar og 1 utdata. Manglande verdiar er truleg koda som null.</target></trans-unit>
 <trans-unit id="s4e77426bf7986294">
   <source>Number of times pregnant</source>
-<target>Antall ganger gravid</target></trans-unit>
+<target>Tal på svangerskap</target></trans-unit>
 <trans-unit id="s5923001bb6219bb3">
   <source>Plasma glucose concentration a 2 hours in an oral glucose tolerance test.</source>
 <target>Plasmaglukosekonsentrasjon etter 2 timer i ein oral glukosetoleransetest.</target></trans-unit>

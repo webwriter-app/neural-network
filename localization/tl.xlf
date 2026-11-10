@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<file target-language="tl" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+<body>
+<trans-unit id="s0b29ddb08394f57b">
+  <source>Failed to enter fullscreen mode.</source>
+<target>Hindi makapasok sa buong screen.</target></trans-unit>
+<trans-unit id="sb59d68ed12d46377">
+  <source>Loading</source>
+<target>Naglo-load</target></trans-unit>
+<trans-unit id="sf27f87a94b05a690">
+  <source>Toggle Menu</source>
+<target>Ipakita o itago ang menu</target></trans-unit>
+<trans-unit id="s236ae937cbcd6a39">
+  <source>Zoom in</source>
+<target>Palakihin</target></trans-unit>
+<trans-unit id="s5b1749c67945a111">
+  <source>Zoom to network</source>
+<target>Ipakita ang buong network</target></trans-unit>
+<trans-unit id="sc65ea2cf2f21a13a">
+  <source>Zoom out</source>
+<target>Paliitin</target></trans-unit>
+<trans-unit id="sd03c537f123f42a6">
+  <source>Exit Fullscreen</source>
+<target>Lumabas sa buong screen</target></trans-unit>
+<trans-unit id="s4b10acae683d2978">
+  <source>Fullscreen</source>
+<target>Buong screen</target></trans-unit>
+<trans-unit id="s991dbe8a07858b6b">
+  <source>Important info</source>
+<target>Mahalagang impormasyon</target></trans-unit>
+<trans-unit id="s4c3e975942fc568d">
+  <source>You decided to train a model with the current configuration. As an effect, all options to edit the configuration have been temporarily removed or disabled to make sure the configuration you see is the same configuration the model uses. If you want to make changes to your configuration, you need to discard the current model first. If you discard your model, you can again perform any changes and train a new model based on the new configuration.</source>
+<target>Pinili mong sanayin ang modelo gamit ang kasalukuyang mga setting. Pansamantalang itinago o hindi pinagana ang mga opsiyon sa pag-edit upang matiyak na pareho ang nakikita mong mga setting at ang ginagamit ng modelo. Para magbago ng setting, itapon muna ang kasalukuyang modelo. Pagkatapos ay maaari kang magbago ng mga setting at magsanay ng bagong modelo gamit ang mga iyon.</target></trans-unit>
+<trans-unit id="sb4810a60b4ad921e">
+  <source>Discards the model, which gains you back your editing capabilities</source>
+<target>Itinatapon ang modelo para makapag-edit ka ulit.</target></trans-unit>
+<trans-unit id="sc00a88b90cd60661">
+  <source>Discard</source>
+<target>Itapon</target></trans-unit>
+<trans-unit id="s2ed914b45e6f8fb0">
+  <source>Discard model</source>
+<target>Itapon ang modelo</target></trans-unit>
+<trans-unit id="s6a0bc0ce56a9ae4a">
+  <source>Features</source>
+<target>Mga katangian</target></trans-unit>
+<trans-unit id="s5590dbf7e425789d">
+  <source>Label</source>
+<target>Label</target></trans-unit>
+<trans-unit id="s07e767f1fe8ad66a">
+  <source>View raw data</source>
+<target>Tingnan ang hilaw na datos</target></trans-unit>
+<trans-unit id="s7ad8f95cd252ff9b">
+  <source>Select data set</source>
+<target>Pumili ng dataset</target></trans-unit>
+<trans-unit id="s8e0e95cf2d9f0fe0">
+  <source>"Select a data set"</source>
+<target>“Pumili ng dataset”</target></trans-unit>
+<trans-unit id="s6503256c2de2745c">
+  <source>Edge</source>
+<target>Koneksiyon</target></trans-unit>
+<trans-unit id="s517acbf1f96324f9">
+  <source>Weight</source>
+<target>Timbang</target></trans-unit>
+<trans-unit id="sc20cf39aef9b3355">
+  <source>About this app</source>
+<target>Tungkol sa app na ito</target></trans-unit>
+<trans-unit id="s984fb2f8f14ee101">
+  <source>This app was developed by Christian Koch, a student at RWTH Aachen University, with support of Frederic Salmen and the chair i9 at RWTH Aachen University.</source>
+<target>Ginawa ang app na ito ni Christian Koch, isang mag-aaral sa RWTH Aachen University, sa tulong ni Frederic Salmen at ng kagawaran ng i9 sa unibersidad.</target></trans-unit>
+<trans-unit id="sc62667aa0380bc6b">
+  <source>About the developer</source>
+<target>Tungkol sa gumawa</target></trans-unit>
+<trans-unit id="s17597a8bb4810524">
+  <source>License</source>
+<target>Lisensiya</target></trans-unit>
+<trans-unit id="s8e7cfd29f14ffad6">
+  <source>All third-party data sets have been published under public domain</source>
+<target>Inilathala sa pampublikong dominyo ang lahat ng dataset mula sa ibang tagapagbigay.</target></trans-unit>
+<trans-unit id="se3b4c857f91f80d7">
+  <source>Keyboard shortcuts</source>
+<target>Mga keyboard shortcut</target></trans-unit>
+<trans-unit id="sc25745d3142338ca">
+  <source>Deletes the currently selected layer</source>
+<target>Tinatanggal ang kasalukuyang napiling layer</target></trans-unit>
+<trans-unit id="sa5ed0165e089255e">
+  <source>Duplicates the currently selected layer</source>
+<target>Gumagawa ng kopya ng napiling layer</target></trans-unit>
+<trans-unit id="s8ff8cee7c5d100bc">
+  <source>Moves the currently selected layer</source>
+<target>Inililipat ang napiling layer</target></trans-unit>
+<trans-unit id="sa7f495fff0f250d9">
+  <source>Q &amp; A</source>
+<target>Mga tanong at sagot</target></trans-unit>
+<trans-unit id="s14b03351d9f0f4e8">
+  <source>There are currently no help entries. If you publish the widget like this, the help section will be hidden.</source>
+<target>Wala pang mga tala ng tulong. Kapag inilathala mo ang widget sa ganitong kalagayan, hindi lilitaw ang seksiyon ng tulong.</target></trans-unit>
+<trans-unit id="se1f4d0fd4b9438d0">
+  <source>Update entry</source>
+<target>I-update ang tala</target></trans-unit>
+<trans-unit id="s3983b0213bfac281">
+  <source>Remove entry</source>
+<target>Alisin ang tala</target></trans-unit>
+<trans-unit id="s99f110d27e30b289">
+  <source>Title</source>
+<target>Pamagat</target></trans-unit>
+<trans-unit id="s6cee92a3b310e650">
+  <source>Add entry</source>
+<target>Magdagdag ng tala</target></trans-unit>
+<trans-unit id="s8af61807443f32a4">
+  <source>Actions</source>
+<target>Mga pagkilos</target></trans-unit>
+<trans-unit id="sfac15b89e0668996">
+  <source>Duplicate</source>
+<target>Gumawa ng kopya</target></trans-unit>
+<trans-unit id="sdc673e73b5c13aea">
+  <source>Delete</source>
+<target>Tanggalin</target></trans-unit>
+<trans-unit id="s22b10e3713c037c7">
+  <source>Activation function</source>
+<target>Function ng activation</target></trans-unit>
+<trans-unit id="sa90802aba569f823">
+  <source>The selected activation applies to all neurons in this layer.</source>
+<target>Ilalapat ang napiling function ng activation sa lahat ng neuron sa layer na ito.</target></trans-unit>
+<trans-unit id="s256782b6fa6c81e3">
+  <source>After calculating a neuron's value by adding up its weighted input values and its bias:</source>
+<target>Pagkatapos kalkulahin ang halaga ng neuron sa pamamagitan ng pagdaragdag ng mga input na pinarami sa kani-kanilang timbang at ng bias nito:</target></trans-unit>
+<trans-unit id="s514d47a63e3b11c3">
+  <source>Range of possible output values:</source>
+<target>Saklaw ng mga posibleng halaga ng output:</target></trans-unit>
+<trans-unit id="s69a4b7731c4ab258">
+  <source>Incoming connections</source>
+<target>Mga papasok na koneksiyon</target></trans-unit>
+<trans-unit id="sfcb8881b108f62ed">
+  <source>Select the layers that connect to this layer</source>
+<target>Piliin ang mga layer na kumokonekta sa layer na ito.</target></trans-unit>
+<trans-unit id="sf35b120256b540b4">
+  <source>Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description.</source>
+<target>Magtalaga ng katangian sa layer na ito. Itapat ang pointer sa susi ng katangian sa nakabukas na menu para makita ang paglalarawan.</target></trans-unit>
+<trans-unit id="s801ac62b23cc5f5f">
+  <source>Neurons</source>
+<target>Mga neuron</target></trans-unit>
+<trans-unit id="sea4f08110bb8f15d">
+  <source>Remove</source>
+<target>Alisin</target></trans-unit>
+<trans-unit id="sf9aee319a006c9b4">
+  <source>Add</source>
+<target>Magdagdag</target></trans-unit>
+<trans-unit id="s5a95fb6f50ddd6ff">
+  <source>neurons</source>
+<target>neuron</target></trans-unit>
+<trans-unit id="s8b0432eecbd8b034">
+  <source>Update</source>
+<target>I-update</target></trans-unit>
+<trans-unit id="s47333467f911302a">
+  <source>Outgoing connections</source>
+<target>Mga palabas na koneksiyon</target></trans-unit>
+<trans-unit id="s684e13d4e599ccdd">
+  <source>Select the layers this layer connects to</source>
+<target>Piliin ang mga layer na pagkokonektahan mula rito.</target></trans-unit>
+<trans-unit id="saf83c9eefbdeee91">
+  <source>Outgoing data</source>
+<target>Palabas na datos</target></trans-unit>
+<trans-unit id="sfd77270c3f54f664">
+  <source>Output</source>
+<target>Output</target></trans-unit>
+<trans-unit id="sb546e48af5e5c359">
+  <source>Add layer</source>
+<target>Magdagdag ng layer</target></trans-unit>
+<trans-unit id="saea857a2b4e1f6a7">
+  <source>Drag a layer anywhere to place it on the canvas</source>
+<target>I-drag ang layer sa alinmang bahagi ng canvas.</target></trans-unit>
+<trans-unit id="sb4f1dffbb6be6302">
+  <source>Clear</source>
+<target>Burahin</target></trans-unit>
+<trans-unit id="se6e9902ddea314c4">
+  <source>Clear network</source>
+<target>Burahin ang network</target></trans-unit>
+<trans-unit id="s14ad6d4ee3b48ca2">
+  <source>This will remove every layer from the network.</source>
+<target>Aalisin nito ang lahat ng layer sa network.</target></trans-unit>
+<trans-unit id="sae901180c48ddefb">
+  <source>Your network currently contains</source>
+<target>Sa kasalukuyan, mayroon ang network mo na</target></trans-unit>
+<trans-unit id="s4554e34a747022df">
+  <source>layers</source>
+<target>layer</target></trans-unit>
+<trans-unit id="s4d1b055aa7613557">
+  <source>Your network is currently empty.</source>
+<target>Wala pang laman ang network mo.</target></trans-unit>
+<trans-unit id="sd2e79aff2aea724a">
+  <source>You currently do not have an input layer. Drag one onto the canvas!</source>
+<target>Wala ka pang input layer. I-drag ang isa sa canvas!</target></trans-unit>
+<trans-unit id="s37abcf4d745436f7">
+  <source>You currently do not have an output layer. Drag one onto the canvas!</source>
+<target>Wala ka pang output layer. I-drag ang isa sa canvas!</target></trans-unit>
+<trans-unit id="s6a4607c5c4e55a03">
+  <source>Always make sure to connect your layers such that there is a path from your input layer(s) to your output layer! Therefore select a layer in the canvas and select its incoming or outgoing connections</source>
+<target>Siguraduhing may landas mula sa mga input layer hanggang sa output layer. Pumili ng layer sa canvas at piliin ang mga papasok o palabas na koneksiyon nito.</target></trans-unit>
+<trans-unit id="sd6b4fb36bd73f830">
+  <source>Assigned feature (input)</source>
+<target>Itinalagang katangian (input)</target></trans-unit>
+<trans-unit id="s690d876ebcfe1dd6">
+  <source>Neuron</source>
+<target>Neuron</target></trans-unit>
+<trans-unit id="s8efe9b047510b849">
+  <source>Corresponding layer:</source>
+<target>Katumbas na layer:</target></trans-unit>
+<trans-unit id="s888d98a196a240d8">
+  <source>Inputs</source>
+<target>Mga input</target></trans-unit>
+<trans-unit id="s7aaa83f30a557ce9">
+  <source>- All neurons from</source>
+<target>– Lahat ng neuron mula sa</target></trans-unit>
+<trans-unit id="s4a3a9e0c684b763f">
+  <source>Label (output)</source>
+<target>Label (output)</target></trans-unit>
+<trans-unit id="s066d70cf9d5e2915">
+  <source>Outputs</source>
+<target>Mga output</target></trans-unit>
+<trans-unit id="s41ee884e3b2d7413">
+  <source>Click on an feature pill above to see the relation between this feature and the label in a plot</source>
+<target>I-click ang isang buton ng katangian sa itaas para makita sa graph ang ugnayan ng katangiang iyon at ng label.</target></trans-unit>
+<trans-unit id="scc33c632d6e60d84">
+  <source>plotted against</source>
+<target>inihambing sa</target></trans-unit>
+<trans-unit id="s01c091af962d4963">
+  <source>Plots</source>
+<target>Mga graph</target></trans-unit>
+<trans-unit id="sd8305d1efc816b0a">
+  <source>Predict</source>
+<target>Hulaan</target></trans-unit>
+<trans-unit id="sf7aa4a7f6a7a6ae9">
+  <source>Predicted label</source>
+<target>Hinulaang label</target></trans-unit>
+<trans-unit id="s5a27bd37c0a0ad1a">
+  <source>with a probability of</source>
+<target>na may probabilidad na</target></trans-unit>
+<trans-unit id="sd0ee89e8e7353561">
+  <source>Make another prediction</source>
+<target>Gumawa ng isa pang prediksiyon</target></trans-unit>
+<trans-unit id="s9d8b8aa2b404c2c8">
+  <source>Settings</source>
+<target>Mga setting</target></trans-unit>
+<trans-unit id="s769b92432aa0e57f">
+  <source>Configure which options the users of this widget are allowed to view and edit</source>
+<target>Piliin kung aling mga opsiyon ang maaaring makita at baguhin ng mga gumagamit ng widget na ito.</target></trans-unit>
+<trans-unit id="s255857544a9d5ec0">
+  <source>Reset</source>
+<target>I-reset</target></trans-unit>
+<trans-unit id="s295e7ec3fae5aa15">
+  <source>Set to default</source>
+<target>Ibalik sa default</target></trans-unit>
+<trans-unit id="s7f76d461768c268c">
+  <source>Allow importing configurations</source>
+<target>Payagan ang pag-import ng mga setting</target></trans-unit>
+<trans-unit id="sa219044786efe4f4">
+  <source>Show recommendations</source>
+<target>Ipakita ang mga mungkahi</target></trans-unit>
+<trans-unit id="sa133a50ad676b757">
+  <source>Allow exporting configurations</source>
+<target>Payagan ang pag-export ng mga setting</target></trans-unit>
+<trans-unit id="s9feb1a1345ccc3e5">
+  <source>Network</source>
+<target>Network</target></trans-unit>
+<trans-unit id="s3de2e4f3353ff071">
+  <source>Restrict layer types</source>
+<target>Limitahan ang mga uri ng layer</target></trans-unit>
+<trans-unit id="scfa788c4d56c9859">
+  <source>Allow dense layers</source>
+<target>Payagan ang mga layer na ganap na konektado</target></trans-unit>
+<trans-unit id="s05c44a5db696fcaf">
+  <source>Editing</source>
+<target>Pag-edit</target></trans-unit>
+<trans-unit id="secd2b30927c9ada1">
+  <source>Allow adding and removing layers</source>
+<target>Payagan ang pagdagdag at pag-alis ng layer</target></trans-unit>
+<trans-unit id="s1d6d96fee1f77a74">
+  <source>Allow editing layers</source>
+<target>Payagan ang pag-edit ng layer</target></trans-unit>
+<trans-unit id="sc728fae3603c8b93">
+  <source>Allow selecting the data flowing into input layers</source>
+<target>Payagang piliin ang datos na pumapasok sa mga input layer</target></trans-unit>
+<trans-unit id="s91346ada0f5220bf">
+  <source>Allow editing the number of neurons</source>
+<target>Payagang baguhin ang bilang ng mga neuron</target></trans-unit>
+<trans-unit id="sff69314112eb4786">
+  <source>Allow changing the activation function</source>
+<target>Payagang baguhin ang function ng activation</target></trans-unit>
+<trans-unit id="sb4aaa150117048eb">
+  <source>Allow reconnecting the layers with each other</source>
+<target>Payagang baguhin ang mga koneksiyon sa pagitan ng mga layer</target></trans-unit>
+<trans-unit id="s4488dd99533e7f65">
+  <source>Data set</source>
+<target>Dataset</target></trans-unit>
+<trans-unit id="s505d96c3ca2f3c78">
+  <source>Allow selecting a different data set</source>
+<target>Payagang pumili ng ibang dataset</target></trans-unit>
+<trans-unit id="sa3900af79012fda0">
+  <source>Allow managing (creating new and deleting) data sets</source>
+<target>Payagan ang pamamahala ng mga dataset (paggawa at pagtanggal)</target></trans-unit>
+<trans-unit id="s0605944041e20ba8">
+  <source>Show plots</source>
+<target>Ipakita ang mga graph</target></trans-unit>
+<trans-unit id="se65e4e6f3696e997">
+  <source>Training</source>
+<target>Pagsasanay</target></trans-unit>
+<trans-unit id="s7188f983604e2188">
+  <source>Allow editing hyperparameters</source>
+<target>Payagan ang pag-edit ng mga hyperparameter</target></trans-unit>
+<trans-unit id="s77d657d2989d8bf6">
+  <source>Allow editing the batch size</source>
+<target>Payagang baguhin ang laki ng batch</target></trans-unit>
+<trans-unit id="s14a65ec1c3dc6761">
+  <source>Allow editing the learning rate</source>
+<target>Payagang baguhin ang antas ng pagkatuto</target></trans-unit>
+<trans-unit id="s399ed88a7aa67028">
+  <source>Allow editing the dropout rate</source>
+<target>Payagang baguhin ang antas ng dropout</target></trans-unit>
+<trans-unit id="s293aa6a6446fb153">
+  <source>Export</source>
+<target>I-export</target></trans-unit>
+<trans-unit id="sc7aaabd93fb4c486">
+  <source>Export the current configuration to your local file system as a JSON file. Storing trained models is not supported.</source>
+<target>I-export ang kasalukuyang mga setting bilang JSON file sa iyong device. Hindi sinusuportahan ang pag-save ng mga nasanay na modelo.</target></trans-unit>
+<trans-unit id="s93d85c9969bc1e8e">
+  <source>Get started</source>
+<target>Magsimula</target></trans-unit>
+<trans-unit id="s37f8f9ad6c3ca6e8">
+  <source>Import JSON configuration</source>
+<target>Mag-import ng mga setting na JSON</target></trans-unit>
+<trans-unit id="sb39c29728a3aab64">
+  <source>Intermediate</source>
+<target>Katamtaman</target></trans-unit>
+<trans-unit id="s4aba9979380614e1">
+  <source>Classification</source>
+<target>Pag-uuri</target></trans-unit>
+<trans-unit id="s7e7ce210415ee02c">
+  <source>Feed Forward</source>
+<target>Pagpasa nang pasulong</target></trans-unit>
+<trans-unit id="s382a2aa3984474dd">
+  <source>Create</source>
+<target>Gumawa</target></trans-unit>
+<trans-unit id="s85f01e331f787810">
+  <source>Regression</source>
+<target>Regresyon</target></trans-unit>
+<trans-unit id="s13bf923e48a38e88">
+  <source>You can create a custom configuration by using the options in the corresponding right panels.</source>
+<target>Gamitin ang mga opsiyon sa angkop na panel sa kanan upang gumawa ng sarili mong mga setting.</target></trans-unit>
+<trans-unit id="s5ebe428b72f9d9fd">
+  <source>Hyperparameters</source>
+<target>Mga hyperparameter</target></trans-unit>
+<trans-unit id="sd674ba4ce23f2290">
+  <source>Batch size</source>
+<target>Laki ng batch</target></trans-unit>
+<trans-unit id="sa4aa72be4b18da23">
+  <source>Learning rate</source>
+<target>Antas ng pagkatuto</target></trans-unit>
+<trans-unit id="s29028574383c26b2">
+  <source>Dropout rate</source>
+<target>Antas ng dropout</target></trans-unit>
+<trans-unit id="s0d783bd504d48897">
+  <source>Adjust the probability of neurons being deactivated during training</source>
+<target>Ayusin ang probabilidad na i-deactivate ang mga neuron habang nagsasanay.</target></trans-unit>
+<trans-unit id="s97aa76056a81bd36">
+  <source>Metrics</source>
+<target>Mga sukatan</target></trans-unit>
+<trans-unit id="s61e8f3fac73d5e85">
+  <source>Loss: Categorical Crossentropy</source>
+<target>Loss: Categorical cross-entropy</target></trans-unit>
+<trans-unit id="s9f262d3debac7e63">
+  <source>Accuracy: In what percentage of the tests was the right class predicted?</source>
+<target>Katumpakan: Sa ilang porsiyento ng mga pagsubok nahulaan ang tamang klase?</target></trans-unit>
+<trans-unit id="s04cf457a74a1ca3e">
+  <source>Loss: Mean Squared Error</source>
+<target>Loss: Mean squared error</target></trans-unit>
+<trans-unit id="s5f343a43e7ea9f91">
+  <source>Error</source>
+<target>Error</target></trans-unit>
+<trans-unit id="s7fd689e3ee842226">
+  <source>What is the difference between the two lines in a graph?</source>
+<target>Ano ang pagkakaiba ng dalawang linya sa graph?</target></trans-unit>
+<trans-unit id="s9cc47ae161b22379">
+  <source>For val_..., the metric is calculated on the validation data set while for the data without val as a prefix the metric is calculated on the training data set. The metrics for the validation data set can be seen as more meaningful since this is the data the network does not 'know'.</source>
+<target>Ang sukatang may prefix na val_… ay kinukuwenta gamit ang dataset na pang-validate. Ang sukatang walang prefix na val ay kinukuwenta gamit ang dataset na pangsanay. Mas makabuluhan kadalasan ang mga sukatan ng pang-validate dahil hindi nakita ng network ang datos na iyon habang nagsasanay.</target></trans-unit>
+<trans-unit id="s9ea77d0d371dc469">
+  <source>Train</source>
+<target>Sanayin</target></trans-unit>
+<trans-unit id="s69bf683344258f79">
+  <source>Training completed!</source>
+<target>Tapos na ang pagsasanay!</target></trans-unit>
+<trans-unit id="sedc9092c834a7a37">
+  <source>Feel free to continue training your model for some additional epochs which might get you even better results!</source>
+<target>Maaari mong sanayin ang modelo sa ilan pang ikot para subukang pagandahin ang mga resulta.</target></trans-unit>
+<trans-unit id="s900c980bdb200fcf">
+  <source>Epochs</source>
+<target>Mga ikot ng pagsasanay</target></trans-unit>
+<trans-unit id="s7f291599fb79b2a9">
+  <source>Number of iterations over the whole training data set</source>
+<target>Bilang ng pagdaan sa buong dataset na pangsanay</target></trans-unit>
+<trans-unit id="s9fbbc819fe7e66aa">
+  <source>Run</source>
+<target>Patakbuhin</target></trans-unit>
+<trans-unit id="s7ae39eeb994f4040">
+  <source>Train for 1 epoch</source>
+<target>Sanayin nang 1 ikot</target></trans-unit>
+<trans-unit id="s415ece5a1e4e50ce">
+  <source>Train for</source>
+<target>Sanayin nang</target></trans-unit>
+<trans-unit id="sa24fcd4e36a13aef">
+  <source>epochs</source>
+<target>ikot</target></trans-unit>
+<trans-unit id="s12db7f32a3851306">
+  <source>Epoch</source>
+<target>Ikot</target></trans-unit>
+<trans-unit id="safda35e3d523b59b">
+  <source>Batch</source>
+<target>Batch</target></trans-unit>
+<trans-unit id="s573de432d7ee9439">
+  <source>The progress you made in creating your own data set was successfully restored!</source>
+<target>Naibalik ang progreso mo sa paggawa ng sarili mong dataset!</target></trans-unit>
+<trans-unit id="s8e77b85b1ae353e5">
+  <source>A data set with the same name already exists!</source>
+<target>May dataset nang may parehong pangalan!</target></trans-unit>
+<trans-unit id="s669ebaf3b9787562">
+  <source>The provided data does not match the required format! Please check again</source>
+<target>Hindi tugma ang datos sa kailangang format. Suriin muli.</target></trans-unit>
+<trans-unit id="see988347633ae840">
+  <source>A new data set was successfully created and automatically selected!</source>
+<target>Nakagawa at awtomatikong nakapili ng bagong dataset!</target></trans-unit>
+<trans-unit id="s18de3f0678131658">
+  <source>Create a new data set</source>
+<target>Gumawa ng bagong dataset</target></trans-unit>
+<trans-unit id="scdb1bac161852c73">
+  <source>Welcome</source>
+<target>Maligayang pagdating</target></trans-unit>
+<trans-unit id="s59163864a74213df">
+  <source>This tour will guide you through creating your own data set in a few simple steps. Everything is stored automatically, so you can close this modal at any time and resume.</source>
+<target>Gagabayan ka rito sa paggawa ng sarili mong dataset sa ilang simpleng hakbang. Awtomatikong nase-save ang lahat, kaya maaari mong isara ang window at magpatuloy anumang oras.</target></trans-unit>
+<trans-unit id="s420e8fef6d553399">
+  <source>General info about the data set</source>
+<target>Pangkalahatang impormasyon tungkol sa dataset</target></trans-unit>
+<trans-unit id="sf82bd0ca92fc7478">
+  <source>Choose a short but meaningful name for your data set and write a description.</source>
+<target>Pumili ng maikli ngunit malinaw na pangalan at sumulat ng paglalarawan para sa dataset.</target></trans-unit>
+<trans-unit id="sef49aec68fd1dc66">
+  <source>Name</source>
+<target>Pangalan</target></trans-unit>
+<trans-unit id="s63d894b1ddb06289">
+  <source>Description</source>
+<target>Paglalarawan</target></trans-unit>
+<trans-unit id="sea29890d344759e2">
+  <source>Choose 'regression' if you want to predict continous values like house or gas prices</source>
+<target>Piliin ang “regresyon” kung gusto mong hulaan ang mga tuloy-tuloy na halaga gaya ng presyo ng bahay o gasolina.</target></trans-unit>
+<trans-unit id="sa51b42a0f8bc1196">
+  <source>Choose 'classification' if you want information about the affiliation of the feature(s) to a class (e.g. what animal can be seen in this image? A dog, cat or horse?)</source>
+<target>Piliin ang “pag-uuri” kung gusto mong matukoy kung saang klase kabilang ang mga katangian. Halimbawa, aso, pusa, o kabayo ba ang nasa larawan?</target></trans-unit>
+<trans-unit id="s381b5d0debf831a1">
+  <source>Choose a type</source>
+<target>Pumili ng uri</target></trans-unit>
+<trans-unit id="s641101718c90c0aa">
+  <source>Which data will be put into the neural network? Create arbitrary many features!</source>
+<target>Aling datos ang ipapasok sa neural network? Gumawa ng gaano karaming katangian ang gusto mo.</target></trans-unit>
+<trans-unit id="s506b6a19d12f414c">
+  <source>Key</source>
+<target>Susi</target></trans-unit>
+<trans-unit id="s0c9543b42518e43e">
+  <source>1-6 capital letters</source>
+<target>1–6 na malaking titik sa alpabetong Latin</target></trans-unit>
+<trans-unit id="s9ccab5f6530bd7fb">
+  <source>Remove feature</source>
+<target>Alisin ang katangian</target></trans-unit>
+<trans-unit id="sb1cdfd5a8a60f3ca">
+  <source>Add feature</source>
+<target>Magdagdag ng katangian</target></trans-unit>
+<trans-unit id="sa7f1260d99ed4dcb">
+  <source>What shall be the output of the network?</source>
+<target>Ano ang magiging output ng network?</target></trans-unit>
+<trans-unit id="s2ba861fd720acdec">
+  <source>an integer</source>
+<target>isang integer</target></trans-unit>
+<trans-unit id="s2511ced2063529c4">
+  <source>Animal was detected as a horse</source>
+<target>Natukoy na kabayo ang hayop</target></trans-unit>
+<trans-unit id="s81fe4b139dbcd729">
+  <source>Remove class</source>
+<target>Alisin ang klase</target></trans-unit>
+<trans-unit id="s3187969905158d04">
+  <source>Add class</source>
+<target>Magdagdag ng klase</target></trans-unit>
+<trans-unit id="s93aa17486b781f3d">
+  <source>You are nearly done</source>
+<target>Malapit ka nang matapos</target></trans-unit>
+<trans-unit id="s4770b2377cfb5113">
+  <source>Now add your data in the following format</source>
+<target>Idagdag ngayon ang datos sa ganitong format.</target></trans-unit>
+<trans-unit id="s514bbfe7a6a1385a">
+  <source>Each row needs to represent one set containing the features and the label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the features. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments.</source>
+<target>Ang bawat hilera ay isang sample na may mga katangian at label. Paghiwalayin ang mga halaga gamit ang kuwit. Ayos lang ang espasyo bago o pagkatapos ng kuwit. Ang huling halaga ang label, at ang mga nauna rito ang mga katangian. Tuldok lang ang gamitin para sa mga decimal. Kung CSV ang datos, i-paste ito rito matapos alisin ang mga komento.</target></trans-unit>
+<trans-unit id="sf3ff78cc329d3528">
+  <source>Previous</source>
+<target>Nakaraan</target></trans-unit>
+<trans-unit id="s0fbf6dc6a1966408">
+  <source>Next</source>
+<target>Susunod</target></trans-unit>
+<trans-unit id="s886925e360029fea">
+  <source>Validate and create</source>
+<target>Suriin at gawin</target></trans-unit>
+<trans-unit id="s688d523f38404f47">
+  <source>Manage data sets</source>
+<target>Pamahalaan ang mga dataset</target></trans-unit>
+<trans-unit id="s114321122eed37a2">
+  <source>Currently selected</source>
+<target>Kasalukuyang napili</target></trans-unit>
+<trans-unit id="s05560220ff65f5eb">
+  <source>Permanently delete data set</source>
+<target>Permanenteng tanggalin ang dataset</target></trans-unit>
+<trans-unit id="sae1c7f13b7c0c47f">
+  <source>Start</source>
+<target>Magsimula</target></trans-unit>
+<trans-unit id="s0e36885f01f95cc8">
+  <source>A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.</source>
+<target>Sa layer na ganap na konektado, nakakonekta ang bawat neuron nito sa lahat ng neuron sa nakaraang layer.</target></trans-unit>
+<trans-unit id="s9d167ef77aed79b6">
+  <source>Layer</source>
+<target>Layer</target></trans-unit>
+<trans-unit id="se157debe22915185">
+  <source>was deleted because no data could be assigned to it!</source>
+<target>ay tinanggal dahil walang maitalagang datos dito!</target></trans-unit>
+<trans-unit id="s8192fafe6f0cc0bb">
+  <source>An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)</source>
+<target>Tumatanggap ang input layer ng datos mula sa labas ng network at ipinapasa ito sa mga susunod na layer.</target></trans-unit>
+<trans-unit id="s3310986378624a28">
+  <source>The selected layer can not be duplicated! Only a single output layer is currently supported!</source>
+<target>Hindi makopya ang napiling layer! Isang output layer pa lamang ang sinusuportahan.</target></trans-unit>
+<trans-unit id="sdc95be9d922008e7">
+  <source>An output layer in this simulation is just a normal dense layer, additionally equipped with the ability to output the incoming data out of the network.</source>
+<target>Ang output layer sa simulation na ito ay isang normal na layer na ganap na konektado, na maaari ring ilabas mula sa network ang datos na natatanggap nito.</target></trans-unit>
+<trans-unit id="sa5982fd2e05ee92d">
+  <source>Since the purpose if this layer is to output a classifiction, we should combine it with a softmax activation function in order to provide a probability distribution.</source>
+<target>Dahil naglalabas ng resulta ng pag-uuri ang layer na ito, gamitin ang softmax upang makabuo ng distribusyon ng probabilidad.</target></trans-unit>
+<trans-unit id="s835dc746e771a9d6">
+  <source>Boston House Pricing</source>
+<target>Mga Presyo ng Bahay sa Boston</target></trans-unit>
+<trans-unit id="s4c5805b438fae5b7">
+  <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
+<target>Ginagamit ang dataset na ito para hulaan ang presyo ng bahay sa libu-libong dolyar mula sa mga detalye tungkol sa bahay at kapitbahayan.</target></trans-unit>
+<trans-unit id="s92dd08d474f4ba4b">
+  <source>Per capita crime rate by town</source>
+<target>Antas ng krimen kada tao sa bawat bayan</target></trans-unit>
+<trans-unit id="sa2cb02c992247501">
+  <source>Proportion of residential land zoned for lots over 25,000 sq.ft.</source>
+<target>Bahagi ng lupang pantahanan na inilaan para sa mga loteng mas malaki sa 25,000 talampakang kuwadrado</target></trans-unit>
+<trans-unit id="s0ba84c8c8dd5dfe5">
+  <source>Proportion of nonretail business acres per town</source>
+<target>Bahagi ng lupang ginagamit sa negosyong hindi tingian sa bawat bayan</target></trans-unit>
+<trans-unit id="sb85fa3ee37f69a87">
+  <source>Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)</source>
+<target>Indicator variable para sa Ilog Charles (1 kung nasa tabi ng ilog ang lugar, 0 kung hindi)</target></trans-unit>
+<trans-unit id="s902fe1322b1d2c62">
+  <source>Nitric oxides concentration (parts per 10 million)</source>
+<target>Konsentrasyon ng mga nitrogen oxide (bahagi sa bawat 10 milyon)</target></trans-unit>
+<trans-unit id="sf928898f4043c6ff">
+  <source>Average number of rooms per dwelling</source>
+<target>Karaniwang bilang ng kuwarto bawat tirahan</target></trans-unit>
+<trans-unit id="s95f88e83db13ec5c">
+  <source>Proportion of owner-occupied units built prior to 1940</source>
+<target>Bahagi ng mga tirahang tinitirhan ng may-ari na naitayo bago ang 1940</target></trans-unit>
+<trans-unit id="sb0be465979ef3758">
+  <source>Weighted distances to five Boston employment centers</source>
+<target>Mga distansiyang tinimbang papunta sa limang sentro ng trabaho sa Boston</target></trans-unit>
+<trans-unit id="sb60c67627b3119cc">
+  <source>Index of accessibility to radial highways</source>
+<target>Indeks ng pag-access sa mga highway na kumakalat mula sa sentro</target></trans-unit>
+<trans-unit id="sc3ba6f6e119cd273">
+  <source>Full-value property-tax rate per $10,000</source>
+<target>Antas ng buwis sa kabuuang halaga ng ari-arian kada $10,000</target></trans-unit>
+<trans-unit id="s49d8fc3f40b093ac">
+  <source>Pupil-teacher ratio by town</source>
+<target>Proporsiyon ng mag-aaral sa guro sa bawat bayan</target></trans-unit>
+<trans-unit id="s577b270038a8c007">
+  <source>1000(Bk – 0.63)^2 where Bk is the proportion of blacks by town</source>
+<target>1000(Bk – 0.63)^2, kung saan ang Bk ay ang bahagdan ng mga residenteng Itim sa bawat bayan</target></trans-unit>
+<trans-unit id="s2f41bf569b07a4cc">
+  <source>% lower status of the population</source>
+<target>Porsiyento ng populasyong may mas mababang katayuang panlipunan</target></trans-unit>
+<trans-unit id="s473a26666565450c">
+  <source>Median value of owner-occupied homes in $1000s</source>
+<target>Median na halaga ng mga bahay na tinitirhan ng may-ari, sa libu-libong dolyar</target></trans-unit>
+<trans-unit id="sb96294312677cad5">
+  <source>Pima Indians Diabetes</source>
+<target>Diyabetis sa mga Pima</target></trans-unit>
+<trans-unit id="sc20c7530f6afbb7c">
+  <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
+<target>Ginagamit ang dataset na ito para hulaan ang pagsisimula ng diyabetis sa loob ng limang taon sa mga Pima batay sa medikal na impormasyon. Problema ito ng pag-uuri sa dalawang klase na hindi magkapantay ang dami ng obserbasyon. May 768 obserbasyon, 8 variable ng input at 1 variable ng output. Malamang na kinakatawan ng zero ang mga nawawalang halaga.</target></trans-unit>
+<trans-unit id="s4e77426bf7986294">
+  <source>Number of times pregnant</source>
+<target>Bilang ng pagbubuntis</target></trans-unit>
+<trans-unit id="s5923001bb6219bb3">
+  <source>Plasma glucose concentration a 2 hours in an oral glucose tolerance test.</source>
+<target>Konsentrasyon ng glucose sa plasma makalipas ang dalawang oras sa oral glucose tolerance test</target></trans-unit>
+<trans-unit id="sf7cdf4e3adc1b2fa">
+  <source>Diastolic blood pressure (mm Hg)</source>
+<target>Diastolic na presyon ng dugo (mm Hg)</target></trans-unit>
+<trans-unit id="s5659cbd3943227de">
+  <source>Triceps skinfold thickness (mm)</source>
+<target>Kapal ng tupi ng balat sa triceps (mm)</target></trans-unit>
+<trans-unit id="sa17f891acb35efd2">
+  <source>2-Hour serum insulin (mu U/ml)</source>
+<target>Insulin sa serum makalipas ang dalawang oras (mu U/ml)</target></trans-unit>
+<trans-unit id="s4a39fd2eb0e136da">
+  <source>Body mass index (weight in kg/(height in m)^2)</source>
+<target>Body mass index (timbang sa kg na hinati sa kuwadrado ng taas sa m)</target></trans-unit>
+<trans-unit id="s66ebf0bd757d5159">
+  <source>Diabetes pedigree function</source>
+<target>Sukatan ng kasaysayan ng diyabetis sa pamilya</target></trans-unit>
+<trans-unit id="s5ef9308d320834d1">
+  <source>Age (years)</source>
+<target>Edad (taon)</target></trans-unit>
+<trans-unit id="s4e64552852c163c0">
+  <source>Diabetes</source>
+<target>Diyabetis</target></trans-unit>
+<trans-unit id="s5c9d4638c1e38b36">
+  <source>Allow editing</source>
+<target>Payagan ang pag-edit</target></trans-unit>
+<trans-unit id="sdb1595f5c742dfbb">
+  <source>Input</source>
+<target>Input</target></trans-unit>
+<trans-unit id="sff96ebdc539c64b0">
+  <source>Dense</source>
+<target>Ganap na konektado</target></trans-unit>
+<trans-unit id="sf559b4b9f2109e05">
+  <source>Activation:</source>
+<target>Activation:</target></trans-unit>
+<trans-unit id="s0b49b37aa2ca0f35">
+  <source>Dense layer</source>
+<target>Layer na ganap na konektado</target></trans-unit>
+<trans-unit id="sc0ecc73d49676ffa">
+  <source>Input layer</source>
+<target>Input layer</target></trans-unit>
+<trans-unit id="s35659ef8d11dd2c9">
+  <source>Output layer</source>
+<target>Output layer</target></trans-unit>
+<trans-unit id="se988648386f27436">
+  <source>Type: regression</source>
+<target>Uri: regresyon</target></trans-unit>
+<trans-unit id="s795bb0b2a9c2e75f">
+  <source>Type: classification</source>
+<target>Uri: pag-uuri</target></trans-unit>
+<trans-unit id="s09205907b5b56cda">
+  <source>No</source>
+<target>Hindi</target></trans-unit>
+<trans-unit id="scb489a1a173ac3f0">
+  <source>Yes</source>
+<target>Oo</target></trans-unit>
+<trans-unit id="s669b18c6d2d9c95b">
+  <source>None</source>
+<target>Wala</target></trans-unit>
+<trans-unit id="s401c527ca9b140a8">
+  <source>No additional function is applied.</source>
+<target>Walang karagdagang function na ilalapat.</target></trans-unit>
+<trans-unit id="s6c2a68f18e1a1afd">
+  <source>Negative values are rounded up to zero.</source>
+<target>Ginagawang zero ang mga negatibong halaga.</target></trans-unit>
+<trans-unit id="s67c3b0f1a71c873c">
+  <source>Largely negative values are mapped to values close to zero while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>Ang malalaking negatibong halaga ay ginagawang malapit sa zero at ang malalaking positibong halaga ay ginagawang malapit sa isa (tingnan ang graph).</target></trans-unit>
+<trans-unit id="s2a6555107a533bb0">
+  <source>Largely negative values are mapped to values close to minus one while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>Ang malalaking negatibong halaga ay ginagawang malapit sa negatibong isa at ang malalaking positibong halaga ay ginagawang malapit sa isa (tingnan ang graph).</target></trans-unit>
+<trans-unit id="s77365296ebf281bc">
+  <source>Create a probability distribution such that the output values of all neurons in this layer add up to one.</source>
+<target>Gumagawa ng distribusyon ng probabilidad na ang kabuuan ng output ng lahat ng neuron sa layer ay isa.</target></trans-unit>
+<trans-unit id="sc5bc2a2d2fd1ee58">
+  <source>Why are some important options not editable or completely missing?</source>
+<target>Bakit hindi ma-edit o hindi nakikita ang ilang mahahalagang opsiyon?</target></trans-unit>
+<trans-unit id="s585d91c0fe28ad49">
+  <source>Many options are uneditable after you started a training to make sure what you see is actually what got translated into the model. To be able to edit everything again, just use the option to reset the model. After you performed your desired changes, you can then train a new model that respects them. If there is no trained model and you are missing options, most likely your teacher has disabled them for you.</source>
+<target>Kapag nagsimula ang pagsasanay, ikinakandado ang maraming opsiyon upang tumugma sa modelo ang nakikita mo. I-reset ang modelo upang makapag-edit muli. Pagkatapos mong baguhin ang mga setting, maaari kang magsanay ng bagong modelo. Kung wala pang nasanay na modelo ngunit kulang ang mga opsiyon, malamang na hindi pinagana ng guro ang mga ito.</target></trans-unit>
+<trans-unit id="sfe6f2a2f731252f8">
+  <source>'<x id="0" equiv-text="${this.getName()}" />' has been created!</source>
+<target>Nagawa ang “<x id="0" equiv-text="${this.getName()}" />”!</target></trans-unit>
+<trans-unit id="s0de010d496fb9b32">
+  <source>Neuron <x id="0" equiv-text="${this.neuronId}" /> inside <x id="1" equiv-text="${this.layer.getName()}" /></source>
+<target>Neuron <x id="0" equiv-text="${this.neuronId}" /> sa <x id="1" equiv-text="${this.layer.getName()}" /></target></trans-unit>
+<trans-unit id="sf0695e350c3bbc8f">
+  <source>The config you imported seems to be broken :(</source>
+<target>Mukhang may sira ang in-import mong mga setting :(</target></trans-unit>
+<trans-unit id="sd1dd1d906f1e9f57">
+  <source>The version of the config file is not compatible with the widget version you currently use!</source>
+<target>Hindi tugma ang bersiyon ng file ng mga setting sa kasalukuyang bersiyon ng widget!</target></trans-unit>
+<trans-unit id="sea22d7cb1b837fbc">
+  <source>The imported config was successfully loaded!</source>
+<target>Na-load ang in-import na mga setting!</target></trans-unit>
+<trans-unit id="s3a12b3bc9f64aaa9">
+  <source>The current configuration was successfully exported!</source>
+<target>Na-export ang kasalukuyang mga setting!</target></trans-unit>
+<trans-unit id="s10b8b649492e85d3">
+  <source>You can not delete a data set that is currently selected</source>
+<target>Hindi maaaring tanggalin ang kasalukuyang napiling dataset.</target></trans-unit>
+<trans-unit id="s1c5710ff3e4f9cfd">
+  <source>The data set '<x id="0" equiv-text="${name}" />' was successfully deleted</source>
+<target>Tinanggal ang dataset na “<x id="0" equiv-text="${name}" />”.</target></trans-unit>
+<trans-unit id="sa1843f0daccbc9c7">
+  <source>Error: Requested deletion of a data set that does not exist</source>
+<target>Error: Hindi umiiral ang dataset na hiniling mong tanggalin.</target></trans-unit>
+<trans-unit id="s68a9876d35971a36">
+  <source>The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!</source>
+<target>Matagumpay na na-compile ang modelo! Nailapat ang lahat ng pagbabago sa mga hyperparameter at estruktura ng network.</target></trans-unit>
+<trans-unit id="sd5d0be5e2482225b">
+  <source>'<x id="0" equiv-text="${layer.getName()}" />' has been deleted!</source>
+<target>Tinanggal ang “<x id="0" equiv-text="${layer.getName()}" />”!</target></trans-unit>
+<trans-unit id="sb266302725c5855d">
+  <source>You can not delete neurons by now! To adjust the number of neurons in the layer, select the layer and set the number of neurons in the right panel!</source>
+<target>Hindi pa direktang matatanggal ang mga neuron. Para baguhin ang bilang ng mga neuron, piliin ang layer at itakda ang bilang sa kanang panel.</target></trans-unit>
+<trans-unit id="s5bb2fd4c5d83e80a">
+  <source>Can not delete edges manually. If you wish to delete all connections between two layers, select one of the affected layers and change its input</source>
+<target>Hindi mano-manong matatanggal ang mga koneksiyon. Para tanggalin ang lahat ng koneksiyon sa pagitan ng dalawang layer, pumili ng isa sa mga layer at baguhin ang input nito.</target></trans-unit>
+<trans-unit id="sf8813f51b7447d06">
+  <source>Your network must contain at least one input layer</source>
+<target>Dapat may kahit isang input layer ang network.</target></trans-unit>
+<trans-unit id="s1f3d45458eb2b06d">
+  <source>Your network must contain at least one output layer</source>
+<target>Dapat may kahit isang output layer ang network.</target></trans-unit>
+<trans-unit id="s43fadf79188522d8">
+  <source>Make sure to have an output layer connected to the network!</source>
+<target>Tiyaking may output layer na nakakonekta sa network!</target></trans-unit>
+<trans-unit id="s9e914810882278d2">
+  <source>The help entry could not be created. Another entry with the same name already exists!</source>
+<target>Hindi nagawa ang tala ng tulong dahil may tala nang may parehong pangalan!</target></trans-unit>
+<trans-unit id="s99a4a9d1702badce">
+  <source>Help entry updated successfully</source>
+<target>Na-update ang tala ng tulong.</target></trans-unit>
+<trans-unit id="sc1367ed4c633ec08">
+  <source>Could not update Q&amp;A entry! An entry with this title does not exist!</source>
+<target>Hindi na-update ang tala ng mga tanong at sagot. Walang talang may ganitong pamagat!</target></trans-unit>
+</body>
+</file>
+</xliff>

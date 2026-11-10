@@ -70,7 +70,20 @@
       "kn": "ಕಸ್ಟಮ್ ಡೇಟಾಸೆಟ್‌ಗಳು, ತರಬೇತಿ ಮತ್ತು ಭವಿಷ್ಯವಾಣಿಯೊಂದಿಗೆ ಫೀಡ್-ಫಾರ್ವರ್ಡ್ ನೆಟ್‌ವರ್ಕ್‌ಗಳ ಡೀಪ್ ಲರ್ನಿಂಗ್ ದೃಶ್ಯೀಕರಣ.",
       "ms": "Visualisasi pembelajaran mendalam untuk rangkaian suap hadapan dengan set data tersuai, latihan dan ramalan.",
       "vi": "Trực quan hóa học sâu cho mạng truyền thẳng, với tập dữ liệu tùy chỉnh, huấn luyện và dự đoán.",
-      "he": "המחשה של למידה עמוקה ברשתות בהזנה קדימה, עם מערכי נתונים מותאמים, אימון וחיזוי."
+      "he": "המחשה של למידה עמוקה ברשתות בהזנה קדימה, עם מערכי נתונים מותאמים, אימון וחיזוי.",
+      "sq": "Vizualizim i mësimit të thellë për rrjete feed-forward me grupe të personalizuara të dhënash, trajnim dhe parashikim.",
+      "eu": "Ikaskuntza sakoneko bistaratzea feed-forward sareetarako, datu-multzo pertsonalizatuekin, entrenamenduarekin eta iragarpenarekin.",
+      "gl": "Visualización da aprendizaxe profunda para redes feed-forward con conxuntos de datos personalizados, adestramento e predición.",
+      "cy": "Delweddu dysgu dwfn ar gyfer rhwydweithiau bwydo ymlaen, gyda setiau data personol, hyfforddi a rhagfynegi.",
+      "ta": "தனிப்பயன் தரவுத்தொகுப்புகள், பயிற்சி மற்றும் கணிப்புடன் ஃபீட்-ஃபார்வர்ட் நெட்வொர்க்குகளின் டீப் லேர்னிங் காட்சிப்படுத்தல்.",
+      "ml": "കസ്റ്റം ഡാറ്റാസെറ്റുകൾ, പരിശീലനം, പ്രവചനം എന്നിവയുള്ള ഫീഡ്-ഫോർവേഡ് നെറ്റ്‌വർക്കുകളുടെ ഡീപ് ലേണിങ് ദൃശ്യവൽക്കരണം.",
+      "tl": "Biswal na pagpapakita ng deep learning para sa mga feedforward network na may sariling dataset, pagsasanay, at prediksiyon.",
+      "th": "การแสดงภาพการเรียนรู้เชิงลึกสำหรับโครงข่ายแบบป้อนไปข้างหน้า พร้อมชุดข้อมูลกำหนดเอง การฝึก และการทำนาย",
+      "mn": "Тохируулсан өгөгдлийн багц, сургалт, таамаглалтай урагш дамжуулах сүлжээний гүн сургалтын дүрслэл.",
+      "ka": "ღრმა სწავლების ვიზუალიზაცია გადამცემ-წინ ქსელებისთვის, მორგებული მონაცემთა ნაკრებებით, სწავლებითა და პროგნოზირებით.",
+      "hy": "Խորը ուսուցման տեսապատկերում առաջընթաց կապերով ցանցերի համար՝ հարմարեցվող տվյալների հավաքածուներով, ուսուցմամբ և կանխատեսմամբ։",
+      "be": "Візуалізацыя глыбокага навучання для сетак з прамой перадачай з карыстальніцкімі наборамі даных, навучаннем і прагназаваннем.",
+      "tpi": "Lukim pasin bilong dip lening long ol netwok i salim data i go fowet, wantaim dataset yu yet i wokim, trening na makim wanem model i ting bai kamap."
     },
     "label": {
       "_": "Neural Network",
@@ -140,7 +153,20 @@
       "kn": "ನ್ಯೂರಲ್ ನೆಟ್‌ವರ್ಕ್",
       "ms": "Rangkaian Neural",
       "vi": "Mạng nơ-ron",
-      "he": "רשת עצבית"
+      "he": "רשת עצבית",
+      "sq": "Rrjeti nervor",
+      "eu": "Neurona-sarea",
+      "gl": "Rede neuronal",
+      "cy": "Rhwydwaith Niwral",
+      "ta": "நியூரல் நெட்வொர்க்",
+      "ml": "ന്യൂറൽ നെറ്റ്‌വർക്ക്",
+      "tl": "Neural Network",
+      "th": "โครงข่ายประสาท",
+      "mn": "Мэдрэлийн сүлжээ",
+      "ka": "ნეირონული ქსელი",
+      "hy": "Նեյրոնային ցանց",
+      "be": "Нейронная сетка",
+      "tpi": "Netwok bilong ol Niuron"
     }
   },
   "./widgets/webwriter-neural-network": {
@@ -212,7 +238,20 @@
       "kn": "ನ್ಯೂರಲ್ ನೆಟ್‌ವರ್ಕ್",
       "ms": "Rangkaian Neural",
       "vi": "Mạng nơ-ron",
-      "he": "רשת עצבית"
+      "he": "רשת עצבית",
+      "sq": "Rrjeti nervor",
+      "eu": "Neurona-sarea",
+      "gl": "Rede neuronal",
+      "cy": "Rhwydwaith Niwral",
+      "ta": "நியூரல் நெட்வொர்க்",
+      "ml": "ന്യൂറൽ നെറ്റ്‌വർക്ക്",
+      "tl": "Neural Network",
+      "th": "โครงข่ายประสาท",
+      "mn": "Мэдрэлийн сүлжээ",
+      "ka": "ნეირონული ქსელი",
+      "hy": "Նեյրոնային ցանց",
+      "be": "Нейронная сетка",
+      "tpi": "Netwok bilong ol Niuron"
     }
   },
   "./snippets/Pima-Indians-Diabetes": {
@@ -284,7 +323,20 @@
       "kn": "Pima Indians ಮಧುಮೇಹ",
       "ms": "Diabetes dalam kalangan masyarakat Pima",
       "vi": "Bệnh tiểu đường ở người Pima",
-      "he": "סוכרת בקרב בני הפימה"
+      "he": "סוכרת בקרב בני הפימה",
+      "sq": "Diabeti te populli Pima",
+      "eu": "Pima indigenen diabetesa",
+      "gl": "Diabetes dos indios Pima",
+      "cy": "Diabetes Indiaid Pima",
+      "ta": "Pima Indians நீரிழிவு",
+      "ml": "Pima Indians പ്രമേഹം",
+      "tl": "Diyabetis sa mga Pima",
+      "th": "โรคเบาหวานในชาวพีมา",
+      "mn": "Пима индианчуудын чихрийн шижин",
+      "ka": "პიმას ინდიელების დიაბეტი",
+      "hy": "Պիմա հնդկացիների շաքարախտ",
+      "be": "Дыябет у індзейцаў Піма",
+      "tpi": "Suga sik namel long ol manmeri Pima"
     }
   },
   "./snippets/Boston-House-Pricing": {
@@ -356,7 +408,20 @@
       "kn": "Boston ಮನೆ ಬೆಲೆ",
       "ms": "Harga Rumah di Boston",
       "vi": "Giá nhà ở Boston",
-      "he": "מחירי בתים בבוסטון"
+      "he": "מחירי בתים בבוסטון",
+      "sq": "Çmimet e banesave në Boston",
+      "eu": "Bostongo etxebizitzen prezioak",
+      "gl": "Prezos da vivenda de Boston",
+      "cy": "Prisiau tai Boston",
+      "ta": "Boston வீட்டு விலை",
+      "ml": "Boston വീടുകളുടെ വില",
+      "tl": "Mga Presyo ng Bahay sa Boston",
+      "th": "ราคาบ้านในบอสตัน",
+      "mn": "Бостоны байшингийн үнэ",
+      "ka": "ბოსტონის სახლების ფასები",
+      "hy": "Բոստոնի տների գներ",
+      "be": "Цэны на дамы ў Бостане",
+      "tpi": "Prais bilong haus long Boston"
     }
   }
 }

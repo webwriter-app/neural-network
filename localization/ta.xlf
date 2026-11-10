@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<file target-language="ta" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+<body>
+<trans-unit id="s0b29ddb08394f57b">
+  <source>Failed to enter fullscreen mode.</source>
+<target>முழுத்திரை பயன்முறைக்குள் நுழைய முடியவில்லை.</target></trans-unit>
+<trans-unit id="sb59d68ed12d46377">
+  <source>Loading</source>
+<target>ஏற்றுகிறது</target></trans-unit>
+<trans-unit id="sf27f87a94b05a690">
+  <source>Toggle Menu</source>
+<target>மெனுவை மாற்று</target></trans-unit>
+<trans-unit id="s236ae937cbcd6a39">
+  <source>Zoom in</source>
+<target>பெரிதாக்கு</target></trans-unit>
+<trans-unit id="s5b1749c67945a111">
+  <source>Zoom to network</source>
+<target>நெட்வொர்க்கை பெரிதாக்கு</target></trans-unit>
+<trans-unit id="sc65ea2cf2f21a13a">
+  <source>Zoom out</source>
+<target>சிறிதாக்கு</target></trans-unit>
+<trans-unit id="sd03c537f123f42a6">
+  <source>Exit Fullscreen</source>
+<target>முழுத்திரையிலிருந்து வெளியேறு</target></trans-unit>
+<trans-unit id="s4b10acae683d2978">
+  <source>Fullscreen</source>
+<target>முழுத்திரை</target></trans-unit>
+<trans-unit id="s991dbe8a07858b6b">
+  <source>Important info</source>
+<target>முக்கிய தகவல்</target></trans-unit>
+<trans-unit id="s4c3e975942fc568d">
+  <source>You decided to train a model with the current configuration. As an effect, all options to edit the configuration have been temporarily removed or disabled to make sure the configuration you see is the same configuration the model uses. If you want to make changes to your configuration, you need to discard the current model first. If you discard your model, you can again perform any changes and train a new model based on the new configuration.</source>
+<target>தற்போதைய உள்ளமைவுடன் மாதிரியைப் பயிற்றுவிக்க முடிவு செய்துள்ளீர்கள். எனவே, நீங்கள் காணும் உள்ளமைவே மாதிரி பயன்படுத்தும் உள்ளமைவாக இருக்கும்படி திருத்துவதற்கான எல்லா விருப்பங்களும் தற்காலிகமாக அகற்றப்பட்டுள்ளன அல்லது முடக்கப்பட்டுள்ளன. மாற்றங்களைச் செய்ய முதலில் தற்போதைய மாதிரியை நிராகரிக்க வேண்டும். மாதிரியை நிராகரித்த பிறகு உள்ளமைவை மாற்றி புதிய மாதிரியைப் பயிற்றுவிக்கலாம்.</target></trans-unit>
+<trans-unit id="sb4810a60b4ad921e">
+  <source>Discards the model, which gains you back your editing capabilities</source>
+<target>மாதிரியை நிராகரிப்பதால் திருத்தும் திறன் மீண்டும் கிடைக்கும்</target></trans-unit>
+<trans-unit id="sc00a88b90cd60661">
+  <source>Discard</source>
+<target>நிராகரி</target></trans-unit>
+<trans-unit id="s2ed914b45e6f8fb0">
+  <source>Discard model</source>
+<target>மாதிரியை நிராகரி</target></trans-unit>
+<trans-unit id="s6a0bc0ce56a9ae4a">
+  <source>Features</source>
+<target>அம்சங்கள்</target></trans-unit>
+<trans-unit id="s5590dbf7e425789d">
+  <source>Label</source>
+<target>லேபிள்</target></trans-unit>
+<trans-unit id="s07e767f1fe8ad66a">
+  <source>View raw data</source>
+<target>மூலத் தரவைக் காண்க</target></trans-unit>
+<trans-unit id="s7ad8f95cd252ff9b">
+  <source>Select data set</source>
+<target>தரவுத்தொகுப்பைத் தேர்ந்தெடு</target></trans-unit>
+<trans-unit id="s8e0e95cf2d9f0fe0">
+  <source>"Select a data set"</source>
+<target>"ஒரு தரவுத்தொகுப்பைத் தேர்ந்தெடு"</target></trans-unit>
+<trans-unit id="s6503256c2de2745c">
+  <source>Edge</source>
+<target>விளிம்பு</target></trans-unit>
+<trans-unit id="s517acbf1f96324f9">
+  <source>Weight</source>
+<target>எடை</target></trans-unit>
+<trans-unit id="sc20cf39aef9b3355">
+  <source>About this app</source>
+<target>இந்தப் பயன்பாட்டைப் பற்றி</target></trans-unit>
+<trans-unit id="s984fb2f8f14ee101">
+  <source>This app was developed by Christian Koch, a student at RWTH Aachen University, with support of Frederic Salmen and the chair i9 at RWTH Aachen University.</source>
+<target>இந்தப் பயன்பாட்டை RWTH Aachen University மாணவர் Christian Koch, Frederic Salmen மற்றும் RWTH Aachen Universityயின் chair i9 ஆதரவுடன் உருவாக்கினார்.</target></trans-unit>
+<trans-unit id="sc62667aa0380bc6b">
+  <source>About the developer</source>
+<target>உருவாக்குநரைப் பற்றி</target></trans-unit>
+<trans-unit id="s17597a8bb4810524">
+  <source>License</source>
+<target>உரிமம்</target></trans-unit>
+<trans-unit id="s8e7cfd29f14ffad6">
+  <source>All third-party data sets have been published under public domain</source>
+<target>மூன்றாம் தரப்பு தரவுத்தொகுப்புகள் அனைத்தும் பொது உரிமத்தில் வெளியிடப்பட்டுள்ளன</target></trans-unit>
+<trans-unit id="se3b4c857f91f80d7">
+  <source>Keyboard shortcuts</source>
+<target>விசைப்பலகை குறுக்குவழிகள்</target></trans-unit>
+<trans-unit id="sc25745d3142338ca">
+  <source>Deletes the currently selected layer</source>
+<target>தற்போது தேர்ந்தெடுக்கப்பட்ட அடுக்கை நீக்குகிறது</target></trans-unit>
+<trans-unit id="sa5ed0165e089255e">
+  <source>Duplicates the currently selected layer</source>
+<target>தற்போது தேர்ந்தெடுக்கப்பட்ட அடுக்கின் நகலை உருவாக்குகிறது</target></trans-unit>
+<trans-unit id="s8ff8cee7c5d100bc">
+  <source>Moves the currently selected layer</source>
+<target>தற்போது தேர்ந்தெடுக்கப்பட்ட அடுக்கை நகர்த்துகிறது</target></trans-unit>
+<trans-unit id="sa7f495fff0f250d9">
+  <source>Q &amp; A</source>
+<target>கேள்வி பதில்</target></trans-unit>
+<trans-unit id="s14b03351d9f0f4e8">
+  <source>There are currently no help entries. If you publish the widget like this, the help section will be hidden.</source>
+<target>தற்போது உதவிப் பதிவுகள் எதுவும் இல்லை. இவ்வாறு விட்ஜெட்டை வெளியிட்டால் உதவிப் பகுதி மறைக்கப்படும்.</target></trans-unit>
+<trans-unit id="se1f4d0fd4b9438d0">
+  <source>Update entry</source>
+<target>பதிவைப் புதுப்பி</target></trans-unit>
+<trans-unit id="s3983b0213bfac281">
+  <source>Remove entry</source>
+<target>பதிவை அகற்று</target></trans-unit>
+<trans-unit id="s99f110d27e30b289">
+  <source>Title</source>
+<target>தலைப்பு</target></trans-unit>
+<trans-unit id="s6cee92a3b310e650">
+  <source>Add entry</source>
+<target>பதிவைச் சேர்</target></trans-unit>
+<trans-unit id="s8af61807443f32a4">
+  <source>Actions</source>
+<target>செயல்கள்</target></trans-unit>
+<trans-unit id="sfac15b89e0668996">
+  <source>Duplicate</source>
+<target>நகலெடு</target></trans-unit>
+<trans-unit id="sdc673e73b5c13aea">
+  <source>Delete</source>
+<target>நீக்கு</target></trans-unit>
+<trans-unit id="s22b10e3713c037c7">
+  <source>Activation function</source>
+<target>செயல்படுத்தும் சார்பு</target></trans-unit>
+<trans-unit id="sa90802aba569f823">
+  <source>The selected activation applies to all neurons in this layer.</source>
+<target>தேர்ந்தெடுத்த செயல்படுத்தல் இந்த அடுக்கின் அனைத்து நியூரான்களுக்கும் பொருந்தும்.</target></trans-unit>
+<trans-unit id="s256782b6fa6c81e3">
+  <source>After calculating a neuron's value by adding up its weighted input values and its bias:</source>
+<target>நியூரானின் எடையிட்ட உள்ளீட்டு மதிப்புகளையும் bias-ஐயும் கூட்டி அதன் மதிப்பைக் கணித்த பிறகு:</target></trans-unit>
+<trans-unit id="s514d47a63e3b11c3">
+  <source>Range of possible output values:</source>
+<target>சாத்தியமான வெளியீட்டு மதிப்புகளின் வரம்பு:</target></trans-unit>
+<trans-unit id="s69a4b7731c4ab258">
+  <source>Incoming connections</source>
+<target>உள்வரும் இணைப்புகள்</target></trans-unit>
+<trans-unit id="sfcb8881b108f62ed">
+  <source>Select the layers that connect to this layer</source>
+<target>இந்த அடுக்குடன் இணையும் அடுக்குகளைத் தேர்ந்தெடுக்கவும்</target></trans-unit>
+<trans-unit id="sf35b120256b540b4">
+  <source>Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description.</source>
+<target>இந்த அடுக்கிற்கு அம்சத்தை ஒதுக்கவும். விளக்கத்தைக் காண திறந்துள்ள dropdown-இல் அம்ச விசைகளின் மேல் சுட்டியை வைக்கவும்.</target></trans-unit>
+<trans-unit id="s801ac62b23cc5f5f">
+  <source>Neurons</source>
+<target>நியூரான்</target></trans-unit>
+<trans-unit id="sea4f08110bb8f15d">
+  <source>Remove</source>
+<target>அகற்று</target></trans-unit>
+<trans-unit id="sf9aee319a006c9b4">
+  <source>Add</source>
+<target>சேர்</target></trans-unit>
+<trans-unit id="s5a95fb6f50ddd6ff">
+  <source>neurons</source>
+<target>நியூரான்கள்</target></trans-unit>
+<trans-unit id="s8b0432eecbd8b034">
+  <source>Update</source>
+<target>புதுப்பி</target></trans-unit>
+<trans-unit id="s47333467f911302a">
+  <source>Outgoing connections</source>
+<target>வெளிச்செல்லும் இணைப்புகள்</target></trans-unit>
+<trans-unit id="s684e13d4e599ccdd">
+  <source>Select the layers this layer connects to</source>
+<target>இந்த அடுக்கு இணையும் அடுக்குகளைத் தேர்ந்தெடுக்கவும்</target></trans-unit>
+<trans-unit id="saf83c9eefbdeee91">
+  <source>Outgoing data</source>
+<target>வெளிச்செல்லும் தரவு</target></trans-unit>
+<trans-unit id="sfd77270c3f54f664">
+  <source>Output</source>
+<target>வெளியீடு</target></trans-unit>
+<trans-unit id="sb546e48af5e5c359">
+  <source>Add layer</source>
+<target>அடுக்கைச் சேர்</target></trans-unit>
+<trans-unit id="saea857a2b4e1f6a7">
+  <source>Drag a layer anywhere to place it on the canvas</source>
+<target>கேன்வாஸில் வைக்க அடுக்கை எங்கு வேண்டுமானாலும் இழுக்கவும்</target></trans-unit>
+<trans-unit id="sb4f1dffbb6be6302">
+  <source>Clear</source>
+<target>அழி</target></trans-unit>
+<trans-unit id="se6e9902ddea314c4">
+  <source>Clear network</source>
+<target>நெட்வொர்க்கை அழி</target></trans-unit>
+<trans-unit id="s14ad6d4ee3b48ca2">
+  <source>This will remove every layer from the network.</source>
+<target>இது நெட்வொர்க்கில் உள்ள ஒவ்வொரு அடுக்கையும் அகற்றும்.</target></trans-unit>
+<trans-unit id="sae901180c48ddefb">
+  <source>Your network currently contains</source>
+<target>உங்கள் நெட்வொர்க்கில் தற்போது உள்ளவை</target></trans-unit>
+<trans-unit id="s4554e34a747022df">
+  <source>layers</source>
+<target>அடுக்குகள்</target></trans-unit>
+<trans-unit id="s4d1b055aa7613557">
+  <source>Your network is currently empty.</source>
+<target>உங்கள் நெட்வொர்க் தற்போது காலியாக உள்ளது.</target></trans-unit>
+<trans-unit id="sd2e79aff2aea724a">
+  <source>You currently do not have an input layer. Drag one onto the canvas!</source>
+<target>உங்களிடம் தற்போது உள்ளீட்டு அடுக்கு இல்லை. ஒன்றைக் கேன்வாஸுக்கு இழுக்கவும்!</target></trans-unit>
+<trans-unit id="s37abcf4d745436f7">
+  <source>You currently do not have an output layer. Drag one onto the canvas!</source>
+<target>உங்களிடம் தற்போது வெளியீட்டு அடுக்கு இல்லை. ஒன்றைக் கேன்வாஸுக்கு இழுக்கவும்!</target></trans-unit>
+<trans-unit id="s6a4607c5c4e55a03">
+  <source>Always make sure to connect your layers such that there is a path from your input layer(s) to your output layer! Therefore select a layer in the canvas and select its incoming or outgoing connections</source>
+<target>உள்ளீட்டு அடுக்கு(களில்) இருந்து வெளியீட்டு அடுக்கு வரை பாதை இருக்கும் வகையில் அடுக்குகளை இணைக்கவும்! கேன்வாஸில் ஒரு அடுக்கைத் தேர்ந்தெடுத்து அதன் உள்வரும் அல்லது வெளிச்செல்லும் இணைப்புகளைத் தேர்ந்தெடுக்கவும்.</target></trans-unit>
+<trans-unit id="sd6b4fb36bd73f830">
+  <source>Assigned feature (input)</source>
+<target>ஒதுக்கப்பட்ட அம்சம் (உள்ளீடு)</target></trans-unit>
+<trans-unit id="s690d876ebcfe1dd6">
+  <source>Neuron</source>
+<target>நியூரான்</target></trans-unit>
+<trans-unit id="s8efe9b047510b849">
+  <source>Corresponding layer:</source>
+<target>தொடர்புடைய அடுக்கு:</target></trans-unit>
+<trans-unit id="s888d98a196a240d8">
+  <source>Inputs</source>
+<target>உள்ளீடுகள்</target></trans-unit>
+<trans-unit id="s7aaa83f30a557ce9">
+  <source>- All neurons from</source>
+<target>— இங்குள்ள அனைத்து நியூரான்களும்</target></trans-unit>
+<trans-unit id="s4a3a9e0c684b763f">
+  <source>Label (output)</source>
+<target>லேபிள் (வெளியீடு)</target></trans-unit>
+<trans-unit id="s066d70cf9d5e2915">
+  <source>Outputs</source>
+<target>வெளியீடுகள்</target></trans-unit>
+<trans-unit id="s41ee884e3b2d7413">
+  <source>Click on an feature pill above to see the relation between this feature and the label in a plot</source>
+<target>இந்த அம்சத்துக்கும் லேபிளுக்கும் உள்ள தொடர்பை வரைபடத்தில் காண மேலே உள்ள அம்ச pill-ஐக் கிளிக் செய்யவும்</target></trans-unit>
+<trans-unit id="scc33c632d6e60d84">
+  <source>plotted against</source>
+<target>இதனுடன் ஒப்பிட்டு வரையப்பட்டது</target></trans-unit>
+<trans-unit id="s01c091af962d4963">
+  <source>Plots</source>
+<target>வரைபடங்கள்</target></trans-unit>
+<trans-unit id="sd8305d1efc816b0a">
+  <source>Predict</source>
+<target>கணிக்கவும்</target></trans-unit>
+<trans-unit id="sf7aa4a7f6a7a6ae9">
+  <source>Predicted label</source>
+<target>கணிக்கப்பட்ட லேபிள்</target></trans-unit>
+<trans-unit id="s5a27bd37c0a0ad1a">
+  <source>with a probability of</source>
+<target>இவ்வளவு நிகழ்தகவுடன்</target></trans-unit>
+<trans-unit id="sd0ee89e8e7353561">
+  <source>Make another prediction</source>
+<target>மற்றொரு கணிப்பைச் செய்</target></trans-unit>
+<trans-unit id="s9d8b8aa2b404c2c8">
+  <source>Settings</source>
+<target>அமைப்புகள்</target></trans-unit>
+<trans-unit id="s769b92432aa0e57f">
+  <source>Configure which options the users of this widget are allowed to view and edit</source>
+<target>இந்த விட்ஜெட்டைப் பயன்படுத்துவோர் எந்த விருப்பங்களைக் காணவும் திருத்தவும் முடியும் என்பதை உள்ளமைக்கவும்</target></trans-unit>
+<trans-unit id="s255857544a9d5ec0">
+  <source>Reset</source>
+<target>மீட்டமை</target></trans-unit>
+<trans-unit id="s295e7ec3fae5aa15">
+  <source>Set to default</source>
+<target>இயல்புநிலைக்கு அமை</target></trans-unit>
+<trans-unit id="s7f76d461768c268c">
+  <source>Allow importing configurations</source>
+<target>உள்ளமைவுகளை இறக்குமதி செய்ய அனுமதி</target></trans-unit>
+<trans-unit id="sa219044786efe4f4">
+  <source>Show recommendations</source>
+<target>பரிந்துரைகளைக் காட்டு</target></trans-unit>
+<trans-unit id="sa133a50ad676b757">
+  <source>Allow exporting configurations</source>
+<target>உள்ளமைவுகளை ஏற்றுமதி செய்ய அனுமதி</target></trans-unit>
+<trans-unit id="s9feb1a1345ccc3e5">
+  <source>Network</source>
+<target>நெட்வொர்க்</target></trans-unit>
+<trans-unit id="s3de2e4f3353ff071">
+  <source>Restrict layer types</source>
+<target>அடுக்கு வகைகளைக் கட்டுப்படுத்து</target></trans-unit>
+<trans-unit id="scfa788c4d56c9859">
+  <source>Allow dense layers</source>
+<target>Dense அடுக்குகளை அனுமதி</target></trans-unit>
+<trans-unit id="s05c44a5db696fcaf">
+  <source>Editing</source>
+<target>திருத்துதல்</target></trans-unit>
+<trans-unit id="secd2b30927c9ada1">
+  <source>Allow adding and removing layers</source>
+<target>அடுக்குகளைச் சேர்க்கவும் அகற்றவும் அனுமதி</target></trans-unit>
+<trans-unit id="s1d6d96fee1f77a74">
+  <source>Allow editing layers</source>
+<target>அடுக்குகளைத் திருத்த அனுமதி</target></trans-unit>
+<trans-unit id="sc728fae3603c8b93">
+  <source>Allow selecting the data flowing into input layers</source>
+<target>உள்ளீட்டு அடுக்குகளுக்குள் வரும் தரவைத் தேர்ந்தெடுக்க அனுமதி</target></trans-unit>
+<trans-unit id="s91346ada0f5220bf">
+  <source>Allow editing the number of neurons</source>
+<target>நியூரான்களின் எண்ணிக்கையைத் திருத்த அனுமதி</target></trans-unit>
+<trans-unit id="sff69314112eb4786">
+  <source>Allow changing the activation function</source>
+<target>செயல்படுத்தும் சார்பை மாற்ற அனுமதி</target></trans-unit>
+<trans-unit id="sb4aaa150117048eb">
+  <source>Allow reconnecting the layers with each other</source>
+<target>அடுக்குகளை மீண்டும் இணைக்க அனுமதி</target></trans-unit>
+<trans-unit id="s4488dd99533e7f65">
+  <source>Data set</source>
+<target>தரவுத்தொகுப்பு</target></trans-unit>
+<trans-unit id="s505d96c3ca2f3c78">
+  <source>Allow selecting a different data set</source>
+<target>வேறு தரவுத்தொகுப்பைத் தேர்ந்தெடுக்க அனுமதி</target></trans-unit>
+<trans-unit id="sa3900af79012fda0">
+  <source>Allow managing (creating new and deleting) data sets</source>
+<target>தரவுத்தொகுப்புகளை நிர்வகிக்க அனுமதி (புதியவற்றை உருவாக்குதல், நீக்குதல்)</target></trans-unit>
+<trans-unit id="s0605944041e20ba8">
+  <source>Show plots</source>
+<target>வரைபடங்களைக் காட்டு</target></trans-unit>
+<trans-unit id="se65e4e6f3696e997">
+  <source>Training</source>
+<target>பயிற்சி</target></trans-unit>
+<trans-unit id="s7188f983604e2188">
+  <source>Allow editing hyperparameters</source>
+<target>ஹைப்பர்பாராமீட்டர்களைத் திருத்த அனுமதி</target></trans-unit>
+<trans-unit id="s77d657d2989d8bf6">
+  <source>Allow editing the batch size</source>
+<target>தொகுதி அளவைத் திருத்த அனுமதி</target></trans-unit>
+<trans-unit id="s14a65ec1c3dc6761">
+  <source>Allow editing the learning rate</source>
+<target>கற்றல் விகிதத்தைத் திருத்த அனுமதி</target></trans-unit>
+<trans-unit id="s399ed88a7aa67028">
+  <source>Allow editing the dropout rate</source>
+<target>dropout விகிதத்தைத் திருத்த அனுமதி</target></trans-unit>
+<trans-unit id="s293aa6a6446fb153">
+  <source>Export</source>
+<target>ஏற்றுமதி</target></trans-unit>
+<trans-unit id="sc7aaabd93fb4c486">
+  <source>Export the current configuration to your local file system as a JSON file. Storing trained models is not supported.</source>
+<target>தற்போதைய உள்ளமைவை JSON கோப்பாக உங்கள் உள்ளூர் கோப்பு முறைமைக்கு ஏற்றுமதி செய்யவும். பயிற்சியளிக்கப்பட்ட மாதிரிகளைச் சேமிப்பது ஆதரிக்கப்படாது.</target></trans-unit>
+<trans-unit id="s93d85c9969bc1e8e">
+  <source>Get started</source>
+<target>தொடங்கு</target></trans-unit>
+<trans-unit id="s37f8f9ad6c3ca6e8">
+  <source>Import JSON configuration</source>
+<target>JSON உள்ளமைவை இறக்குமதி செய்</target></trans-unit>
+<trans-unit id="sb39c29728a3aab64">
+  <source>Intermediate</source>
+<target>இடைநிலை</target></trans-unit>
+<trans-unit id="s4aba9979380614e1">
+  <source>Classification</source>
+<target>வகைப்பாடு</target></trans-unit>
+<trans-unit id="s7e7ce210415ee02c">
+  <source>Feed Forward</source>
+<target>ஃபீட் ஃபார்வர்ட்</target></trans-unit>
+<trans-unit id="s382a2aa3984474dd">
+  <source>Create</source>
+<target>உருவாக்கு</target></trans-unit>
+<trans-unit id="s85f01e331f787810">
+  <source>Regression</source>
+<target>பின்னடைவு</target></trans-unit>
+<trans-unit id="s13bf923e48a38e88">
+  <source>You can create a custom configuration by using the options in the corresponding right panels.</source>
+<target>தொடர்புடைய வலது பக்கப் பலகைகளில் உள்ள விருப்பங்களைப் பயன்படுத்தி தனிப்பயன் உள்ளமைவை உருவாக்கலாம்.</target></trans-unit>
+<trans-unit id="s5ebe428b72f9d9fd">
+  <source>Hyperparameters</source>
+<target>ஹைப்பர்பாராமீட்டர்கள்</target></trans-unit>
+<trans-unit id="sd674ba4ce23f2290">
+  <source>Batch size</source>
+<target>தொகுதி அளவு</target></trans-unit>
+<trans-unit id="sa4aa72be4b18da23">
+  <source>Learning rate</source>
+<target>கற்றல் விகிதம்</target></trans-unit>
+<trans-unit id="s29028574383c26b2">
+  <source>Dropout rate</source>
+<target>dropout விகிதம்</target></trans-unit>
+<trans-unit id="s0d783bd504d48897">
+  <source>Adjust the probability of neurons being deactivated during training</source>
+<target>பயிற்சியின்போது நியூரான்கள் செயலிழக்கும் நிகழ்தகவைச் சரிசெய்யவும்</target></trans-unit>
+<trans-unit id="s97aa76056a81bd36">
+  <source>Metrics</source>
+<target>அளவீடுகள்</target></trans-unit>
+<trans-unit id="s61e8f3fac73d5e85">
+  <source>Loss: Categorical Crossentropy</source>
+<target>இழப்பு: Categorical Crossentropy</target></trans-unit>
+<trans-unit id="s9f262d3debac7e63">
+  <source>Accuracy: In what percentage of the tests was the right class predicted?</source>
+<target>துல்லியம்: எத்தனை சதவீதச் சோதனைகளில் சரியான வகுப்பு கணிக்கப்பட்டது?</target></trans-unit>
+<trans-unit id="s04cf457a74a1ca3e">
+  <source>Loss: Mean Squared Error</source>
+<target>இழப்பு: Mean Squared Error</target></trans-unit>
+<trans-unit id="s5f343a43e7ea9f91">
+  <source>Error</source>
+<target>பிழை</target></trans-unit>
+<trans-unit id="s7fd689e3ee842226">
+  <source>What is the difference between the two lines in a graph?</source>
+<target>வரைபடத்தில் உள்ள இரண்டு கோடுகளுக்கு என்ன வேறுபாடு?</target></trans-unit>
+<trans-unit id="s9cc47ae161b22379">
+  <source>For val_..., the metric is calculated on the validation data set while for the data without val as a prefix the metric is calculated on the training data set. The metrics for the validation data set can be seen as more meaningful since this is the data the network does not 'know'.</source>
+<target>val_... க்கான அளவீடு சரிபார்ப்புத் தரவுத்தொகுப்பில் கணக்கிடப்படுகிறது; val முன்னொட்டு இல்லாத தரவுக்கான அளவீடு பயிற்சித் தரவுத்தொகுப்பில் கணக்கிடப்படுகிறது. சரிபார்ப்புத் தரவுத்தொகுப்பின் அளவீடுகள் அதிக அர்த்தமுள்ளவை, ஏனெனில் இந்தத் தரவை நெட்வொர்க் 'அறியாது'.</target></trans-unit>
+<trans-unit id="s9ea77d0d371dc469">
+  <source>Train</source>
+<target>பயிற்றுவி</target></trans-unit>
+<trans-unit id="s69bf683344258f79">
+  <source>Training completed!</source>
+<target>பயிற்சி முடிந்தது!</target></trans-unit>
+<trans-unit id="sedc9092c834a7a37">
+  <source>Feel free to continue training your model for some additional epochs which might get you even better results!</source>
+<target>மேலும் சிறந்த முடிவுகளைப் பெற மாதிரிக்கு இன்னும் சில epochs பயிற்சியளிக்கலாம்!</target></trans-unit>
+<trans-unit id="s900c980bdb200fcf">
+  <source>Epochs</source>
+<target>எபாக்களின் எண்ணிக்கை</target></trans-unit>
+<trans-unit id="s7f291599fb79b2a9">
+  <source>Number of iterations over the whole training data set</source>
+<target>முழுப் பயிற்சித் தரவுத்தொகுப்பின் மீள்செயல்களின் எண்ணிக்கை</target></trans-unit>
+<trans-unit id="s9fbbc819fe7e66aa">
+  <source>Run</source>
+<target>இயக்கு</target></trans-unit>
+<trans-unit id="s7ae39eeb994f4040">
+  <source>Train for 1 epoch</source>
+<target>1 epoch பயிற்றுவி</target></trans-unit>
+<trans-unit id="s415ece5a1e4e50ce">
+  <source>Train for</source>
+<target>இத்தனை epochs பயிற்றுவி</target></trans-unit>
+<trans-unit id="sa24fcd4e36a13aef">
+  <source>epochs</source>
+<target>எபாக்</target></trans-unit>
+<trans-unit id="s12db7f32a3851306">
+  <source>Epoch</source>
+<target>எபாக்</target></trans-unit>
+<trans-unit id="safda35e3d523b59b">
+  <source>Batch</source>
+<target>தொகுதி</target></trans-unit>
+<trans-unit id="s573de432d7ee9439">
+  <source>The progress you made in creating your own data set was successfully restored!</source>
+<target>உங்கள் தரவுத்தொகுப்பை உருவாக்கிய முன்னேற்றம் வெற்றிகரமாக மீட்டமைக்கப்பட்டது!</target></trans-unit>
+<trans-unit id="s8e77b85b1ae353e5">
+  <source>A data set with the same name already exists!</source>
+<target>அதே பெயரில் ஒரு தரவுத்தொகுப்பு ஏற்கனவே உள்ளது!</target></trans-unit>
+<trans-unit id="s669ebaf3b9787562">
+  <source>The provided data does not match the required format! Please check again</source>
+<target>வழங்கப்பட்ட தரவு தேவையான வடிவத்துடன் பொருந்தவில்லை! மீண்டும் சரிபார்க்கவும்</target></trans-unit>
+<trans-unit id="see988347633ae840">
+  <source>A new data set was successfully created and automatically selected!</source>
+<target>புதிய தரவுத்தொகுப்பு வெற்றிகரமாக உருவாக்கப்பட்டு தானாகத் தேர்ந்தெடுக்கப்பட்டது!</target></trans-unit>
+<trans-unit id="s18de3f0678131658">
+  <source>Create a new data set</source>
+<target>புதிய தரவுத்தொகுப்பை உருவாக்கு</target></trans-unit>
+<trans-unit id="scdb1bac161852c73">
+  <source>Welcome</source>
+<target>வரவேற்கிறோம்</target></trans-unit>
+<trans-unit id="s59163864a74213df">
+  <source>This tour will guide you through creating your own data set in a few simple steps. Everything is stored automatically, so you can close this modal at any time and resume.</source>
+<target>சில எளிய படிகளில் உங்கள் சொந்த தரவுத்தொகுப்பை உருவாக்க இந்த வழிகாட்டி உதவும். அனைத்தும் தானாகச் சேமிக்கப்படும்; எனவே இந்த modal-ஐ எப்போது வேண்டுமானாலும் மூடி மீண்டும் தொடரலாம்.</target></trans-unit>
+<trans-unit id="s420e8fef6d553399">
+  <source>General info about the data set</source>
+<target>தரவுத்தொகுப்பு பற்றிய பொதுத் தகவல்</target></trans-unit>
+<trans-unit id="sf82bd0ca92fc7478">
+  <source>Choose a short but meaningful name for your data set and write a description.</source>
+<target>உங்கள் தரவுத்தொகுப்புக்கு சுருக்கமான, பொருளுள்ள பெயரைத் தேர்ந்தெடுத்து விளக்கம் எழுதவும்.</target></trans-unit>
+<trans-unit id="sef49aec68fd1dc66">
+  <source>Name</source>
+<target>பெயர்</target></trans-unit>
+<trans-unit id="s63d894b1ddb06289">
+  <source>Description</source>
+<target>விளக்கம்</target></trans-unit>
+<trans-unit id="sea29890d344759e2">
+  <source>Choose 'regression' if you want to predict continous values like house or gas prices</source>
+<target>வீடு அல்லது எரிவாயு விலை போன்ற தொடர்ச்சியான மதிப்புகளைக் கணிக்க 'regression' தேர்ந்தெடுக்கவும்</target></trans-unit>
+<trans-unit id="sa51b42a0f8bc1196">
+  <source>Choose 'classification' if you want information about the affiliation of the feature(s) to a class (e.g. what animal can be seen in this image? A dog, cat or horse?)</source>
+<target>அம்சம்(கள்) எந்த வகையைச் சேர்ந்தது என்பதை அறிய 'classification' தேர்ந்தெடுக்கவும் (எ.கா. படத்தில் என்ன விலங்கு உள்ளது? நாய், பூனை அல்லது குதிரை?)</target></trans-unit>
+<trans-unit id="s381b5d0debf831a1">
+  <source>Choose a type</source>
+<target>ஒரு வகையைத் தேர்ந்தெடு</target></trans-unit>
+<trans-unit id="s641101718c90c0aa">
+  <source>Which data will be put into the neural network? Create arbitrary many features!</source>
+<target>நியூரல் நெட்வொர்க்கில் எந்தத் தரவு சேர்க்கப்படும்? தேவையான அளவு அம்சங்களை உருவாக்கவும்!</target></trans-unit>
+<trans-unit id="s506b6a19d12f414c">
+  <source>Key</source>
+<target>விசை</target></trans-unit>
+<trans-unit id="s0c9543b42518e43e">
+  <source>1-6 capital letters</source>
+<target>1-6 பெரிய எழுத்துகள்</target></trans-unit>
+<trans-unit id="s9ccab5f6530bd7fb">
+  <source>Remove feature</source>
+<target>அம்சத்தை அகற்று</target></trans-unit>
+<trans-unit id="sb1cdfd5a8a60f3ca">
+  <source>Add feature</source>
+<target>அம்சத்தைச் சேர்</target></trans-unit>
+<trans-unit id="sa7f1260d99ed4dcb">
+  <source>What shall be the output of the network?</source>
+<target>நெட்வொர்க்கின் வெளியீடு என்னவாக இருக்க வேண்டும்?</target></trans-unit>
+<trans-unit id="s2ba861fd720acdec">
+  <source>an integer</source>
+<target>ஒரு முழு எண்</target></trans-unit>
+<trans-unit id="s2511ced2063529c4">
+  <source>Animal was detected as a horse</source>
+<target>விலங்கு குதிரையாகக் கண்டறியப்பட்டது</target></trans-unit>
+<trans-unit id="s81fe4b139dbcd729">
+  <source>Remove class</source>
+<target>வகுப்பை அகற்று</target></trans-unit>
+<trans-unit id="s3187969905158d04">
+  <source>Add class</source>
+<target>வகுப்பைச் சேர்</target></trans-unit>
+<trans-unit id="s93aa17486b781f3d">
+  <source>You are nearly done</source>
+<target>நீங்கள் கிட்டத்தட்ட முடித்துவிட்டீர்கள்</target></trans-unit>
+<trans-unit id="s4770b2377cfb5113">
+  <source>Now add your data in the following format</source>
+<target>இப்போது கீழுள்ள வடிவத்தில் தரவைச் சேர்க்கவும்</target></trans-unit>
+<trans-unit id="s514bbfe7a6a1385a">
+  <source>Each row needs to represent one set containing the features and the label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the features. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments.</source>
+<target>ஒவ்வொரு வரியும் அம்சங்களையும் லேபிளையும் கொண்ட ஒரு தொகுப்பைக் குறிக்க வேண்டும். உருப்படிகளை காற்புள்ளியால் பிரிக்கவும் (காற்புள்ளிக்கு முன் அல்லது பின் இடைவெளி இருக்கலாம்). கடைசி உருப்படி எப்போதும் லேபிள்; அதற்கு முன்புள்ளவை அம்சங்கள். தசம மதிப்புகளுக்கு காற்புள்ளி அல்ல, புள்ளி மட்டும் பயன்படுத்தவும். CSV தரவு இருந்தால் இங்கே ஒட்டலாம்; ஆனால் கருத்துரைகளை நீக்கவும்.</target></trans-unit>
+<trans-unit id="sf3ff78cc329d3528">
+  <source>Previous</source>
+<target>முந்தையது</target></trans-unit>
+<trans-unit id="s0fbf6dc6a1966408">
+  <source>Next</source>
+<target>அடுத்து</target></trans-unit>
+<trans-unit id="s886925e360029fea">
+  <source>Validate and create</source>
+<target>சரிபார்த்து உருவாக்கு</target></trans-unit>
+<trans-unit id="s688d523f38404f47">
+  <source>Manage data sets</source>
+<target>தரவுத்தொகுப்புகளை நிர்வகி</target></trans-unit>
+<trans-unit id="s114321122eed37a2">
+  <source>Currently selected</source>
+<target>தற்போது தேர்ந்தெடுக்கப்பட்டது</target></trans-unit>
+<trans-unit id="s05560220ff65f5eb">
+  <source>Permanently delete data set</source>
+<target>தரவுத்தொகுப்பை நிரந்தரமாக நீக்கு</target></trans-unit>
+<trans-unit id="sae1c7f13b7c0c47f">
+  <source>Start</source>
+<target>தொடக்கம்</target></trans-unit>
+<trans-unit id="s0e36885f01f95cc8">
+  <source>A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.</source>
+<target>fully-connected அடுக்கு என்றும் அழைக்கப்படும் Dense அடுக்கு என்பது, அதன் உள்ளிருக்கும் நியூரான்கள் முந்தைய அடுக்கின் ஒவ்வொரு நியூரானுடனும் இணையும் அடுக்கு.</target></trans-unit>
+<trans-unit id="s9d167ef77aed79b6">
+  <source>Layer</source>
+<target>அடுக்கு</target></trans-unit>
+<trans-unit id="se157debe22915185">
+  <source>was deleted because no data could be assigned to it!</source>
+<target>தரவை ஒதுக்க முடியாததால் நீக்கப்பட்டது!</target></trans-unit>
+<trans-unit id="s8192fafe6f0cc0bb">
+  <source>An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)</source>
+<target>உள்ளீட்டு அடுக்கு நெட்வொர்க்கிற்கு வெளியிலிருந்து வழங்கப்படும் தரவைப் பெற்று அடுத்த அடுக்கு(களுக்கு) அனுப்பும்.</target></trans-unit>
+<trans-unit id="s3310986378624a28">
+  <source>The selected layer can not be duplicated! Only a single output layer is currently supported!</source>
+<target>தேர்ந்தெடுத்த அடுக்கை நகலெடுக்க முடியாது! தற்போது ஒரே ஒரு வெளியீட்டு அடுக்கு மட்டுமே ஆதரிக்கப்படுகிறது!</target></trans-unit>
+<trans-unit id="sdc95be9d922008e7">
+  <source>An output layer in this simulation is just a normal dense layer, additionally equipped with the ability to output the incoming data out of the network.</source>
+<target>இந்த உருவகப்படுத்தலில் வெளியீட்டு அடுக்கு சாதாரண Dense அடுக்கு; நெட்வொர்க்கிலிருந்து உள்வரும் தரவை வெளியிடும் திறனும் அதற்கு உள்ளது.</target></trans-unit>
+<trans-unit id="sa5982fd2e05ee92d">
+  <source>Since the purpose if this layer is to output a classifiction, we should combine it with a softmax activation function in order to provide a probability distribution.</source>
+<target>இந்த அடுக்கின் நோக்கம் வகைப்பாட்டை வெளியிடுவது; எனவே நிகழ்தகவு பகிர்வை வழங்க softmax செயல்படுத்தும் சார்புடன் இணைக்க வேண்டும்.</target></trans-unit>
+<trans-unit id="s835dc746e771a9d6">
+  <source>Boston House Pricing</source>
+<target>Boston வீட்டு விலைகள்</target></trans-unit>
+<trans-unit id="s4c5805b438fae5b7">
+  <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
+<target>Boston House Price தரவுத்தொகுப்பு வீடு மற்றும் அதன் சுற்றுப்புற விவரங்களைக் கொண்டு ஆயிரம் டாலர்களில் வீட்டு விலையைக் கணிக்கிறது.</target></trans-unit>
+<trans-unit id="s92dd08d474f4ba4b">
+  <source>Per capita crime rate by town</source>
+<target>நகரத்தின் தனிநபர் குற்ற விகிதம்</target></trans-unit>
+<trans-unit id="sa2cb02c992247501">
+  <source>Proportion of residential land zoned for lots over 25,000 sq.ft.</source>
+<target>25,000 சதுர அடிக்கு மேற்பட்ட நிலங்களுக்கு குடியிருப்பு மண்டலமாக ஒதுக்கப்பட்ட நிலத்தின் விகிதம்</target></trans-unit>
+<trans-unit id="s0ba84c8c8dd5dfe5">
+  <source>Proportion of nonretail business acres per town</source>
+<target>ஒரு நகரத்திற்கான சில்லறை அல்லாத வணிக ஏக்கர்களின் விகிதம்</target></trans-unit>
+<trans-unit id="sb85fa3ee37f69a87">
+  <source>Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)</source>
+<target>Charles River போலி மாறி (= நிலப்பகுதி ஆற்றின் எல்லையில் இருந்தால் 1; இல்லையெனில் 0)</target></trans-unit>
+<trans-unit id="s902fe1322b1d2c62">
+  <source>Nitric oxides concentration (parts per 10 million)</source>
+<target>நைட்ரிக் ஆக்சைடு செறிவு (10 மில்லியனுக்கு பாகங்கள்)</target></trans-unit>
+<trans-unit id="sf928898f4043c6ff">
+  <source>Average number of rooms per dwelling</source>
+<target>ஒவ்வொரு குடியிருப்பிலும் உள்ள அறைகளின் சராசரி எண்ணிக்கை</target></trans-unit>
+<trans-unit id="s95f88e83db13ec5c">
+  <source>Proportion of owner-occupied units built prior to 1940</source>
+<target>1940க்கு முன் கட்டப்பட்ட உரிமையாளர் குடியிருப்பு அலகுகளின் விகிதம்</target></trans-unit>
+<trans-unit id="sb0be465979ef3758">
+  <source>Weighted distances to five Boston employment centers</source>
+<target>Boston வேலைவாய்ப்பு மையங்கள் ஐந்திற்கான எடையிட்ட தூரங்கள்</target></trans-unit>
+<trans-unit id="sb60c67627b3119cc">
+  <source>Index of accessibility to radial highways</source>
+<target>ரேடியல் நெடுஞ்சாலைகளுக்கான அணுகல் குறியீடு</target></trans-unit>
+<trans-unit id="sc3ba6f6e119cd273">
+  <source>Full-value property-tax rate per $10,000</source>
+<target>ஒவ்வொரு $10,000க்கும் சொத்து முழு மதிப்பு வரி விகிதம்</target></trans-unit>
+<trans-unit id="s49d8fc3f40b093ac">
+  <source>Pupil-teacher ratio by town</source>
+<target>நகரத்தின் மாணவர்-ஆசிரியர் விகிதம்</target></trans-unit>
+<trans-unit id="s577b270038a8c007">
+  <source>1000(Bk – 0.63)^2 where Bk is the proportion of blacks by town</source>
+<target>1000(Bk – 0.63)^2; இங்கு Bk என்பது நகரத்தின் கறுப்பின மக்களின் விகிதம்</target></trans-unit>
+<trans-unit id="s2f41bf569b07a4cc">
+  <source>% lower status of the population</source>
+<target>மக்கள்தொகையின் கீழ்நிலை நிலை %</target></trans-unit>
+<trans-unit id="s473a26666565450c">
+  <source>Median value of owner-occupied homes in $1000s</source>
+<target>உரிமையாளர் குடியிருக்கும் வீடுகளின் நடுநிலை மதிப்பு ($1000களில்)</target></trans-unit>
+<trans-unit id="sb96294312677cad5">
+  <source>Pima Indians Diabetes</source>
+<target>Pima Indians நீரிழிவு</target></trans-unit>
+<trans-unit id="sc20c7530f6afbb7c">
+  <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
+<target>Pima Indians Diabetes தரவுத்தொகுப்பு மருத்துவ விவரங்களைக் கொண்டு Pima Indians மக்களிடையே 5 ஆண்டுகளுக்குள் நீரிழிவு தொடங்குவதை கணிக்கிறது. இது இரு-வகை வகைப்பாட்டுச் சிக்கல். ஒவ்வொரு வகையிலும் உள்ள பதிவுகளின் எண்ணிக்கை சமமில்லை. 768 பதிவுகள், 8 உள்ளீட்டு மாறிகள், 1 வெளியீட்டு மாறி உள்ளன. விடுபட்ட மதிப்புகள் பூஜ்ஜியமாகக் குறிக்கப்பட்டதாகக் கருதப்படுகிறது.</target></trans-unit>
+<trans-unit id="s4e77426bf7986294">
+  <source>Number of times pregnant</source>
+<target>கர்ப்பமான முறை எண்ணிக்கை</target></trans-unit>
+<trans-unit id="s5923001bb6219bb3">
+  <source>Plasma glucose concentration a 2 hours in an oral glucose tolerance test.</source>
+<target>வாய்வழி குளுக்கோஸ் சகிப்புத்தன்மை சோதனையில் 2 மணி நேரத்திற்குப் பிந்தைய பிளாஸ்மா குளுக்கோஸ் செறிவு.</target></trans-unit>
+<trans-unit id="sf7cdf4e3adc1b2fa">
+  <source>Diastolic blood pressure (mm Hg)</source>
+<target>டயஸ்டாலிக் இரத்த அழுத்தம் (mm Hg)</target></trans-unit>
+<trans-unit id="s5659cbd3943227de">
+  <source>Triceps skinfold thickness (mm)</source>
+<target>ட்ரைசெப்ஸ் தோல் மடிப்பு தடிமன் (mm)</target></trans-unit>
+<trans-unit id="sa17f891acb35efd2">
+  <source>2-Hour serum insulin (mu U/ml)</source>
+<target>2-மணி நேர சீரம் இன்சுலின் (mu U/ml)</target></trans-unit>
+<trans-unit id="s4a39fd2eb0e136da">
+  <source>Body mass index (weight in kg/(height in m)^2)</source>
+<target>உடல் நிறைக் குறியீடு (எடை kg/(உயரம் m)^2)</target></trans-unit>
+<trans-unit id="s66ebf0bd757d5159">
+  <source>Diabetes pedigree function</source>
+<target>நீரிழிவு மரபுவழி சார்பு</target></trans-unit>
+<trans-unit id="s5ef9308d320834d1">
+  <source>Age (years)</source>
+<target>வயது (ஆண்டுகள்)</target></trans-unit>
+<trans-unit id="s4e64552852c163c0">
+  <source>Diabetes</source>
+<target>நீரிழிவு</target></trans-unit>
+<trans-unit id="s5c9d4638c1e38b36">
+  <source>Allow editing</source>
+<target>திருத்த அனுமதி</target></trans-unit>
+<trans-unit id="sdb1595f5c742dfbb">
+  <source>Input</source>
+<target>உள்ளீடு</target></trans-unit>
+<trans-unit id="sff96ebdc539c64b0">
+  <source>Dense</source>
+<target>அடர்த்தியான அடுக்கு</target></trans-unit>
+<trans-unit id="sf559b4b9f2109e05">
+  <source>Activation:</source>
+<target>செயல்படுத்தல்:</target></trans-unit>
+<trans-unit id="s0b49b37aa2ca0f35">
+  <source>Dense layer</source>
+<target>Dense அடுக்கு</target></trans-unit>
+<trans-unit id="sc0ecc73d49676ffa">
+  <source>Input layer</source>
+<target>உள்ளீட்டு அடுக்கு</target></trans-unit>
+<trans-unit id="s35659ef8d11dd2c9">
+  <source>Output layer</source>
+<target>வெளியீட்டு அடுக்கு</target></trans-unit>
+<trans-unit id="se988648386f27436">
+  <source>Type: regression</source>
+<target>வகை: regression</target></trans-unit>
+<trans-unit id="s795bb0b2a9c2e75f">
+  <source>Type: classification</source>
+<target>வகை: classification</target></trans-unit>
+<trans-unit id="s09205907b5b56cda">
+  <source>No</source>
+<target>இல்லை</target></trans-unit>
+<trans-unit id="scb489a1a173ac3f0">
+  <source>Yes</source>
+<target>ஆம்</target></trans-unit>
+<trans-unit id="s669b18c6d2d9c95b">
+  <source>None</source>
+<target>எதுவுமில்லை</target></trans-unit>
+<trans-unit id="s401c527ca9b140a8">
+  <source>No additional function is applied.</source>
+<target>கூடுதல் சார்பு எதுவும் பயன்படுத்தப்படாது.</target></trans-unit>
+<trans-unit id="s6c2a68f18e1a1afd">
+  <source>Negative values are rounded up to zero.</source>
+<target>எதிர்மறை மதிப்புகள் பூஜ்ஜியமாகச் சுருக்கப்படுகின்றன.</target></trans-unit>
+<trans-unit id="s67c3b0f1a71c873c">
+  <source>Largely negative values are mapped to values close to zero while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>மிகவும் எதிர்மறை மதிப்புகள் பூஜ்ஜியத்துக்கு அருகிலும் மிகவும் நேர்மறை மதிப்புகள் ஒன்றுக்கு அருகிலும் மாற்றப்படுகின்றன (படத்தைப் பார்க்கவும்).</target></trans-unit>
+<trans-unit id="s2a6555107a533bb0">
+  <source>Largely negative values are mapped to values close to minus one while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>மிகவும் எதிர்மறை மதிப்புகள் மைனஸ் ஒன்றுக்கு அருகிலும் மிகவும் நேர்மறை மதிப்புகள் ஒன்றுக்கு அருகிலும் மாற்றப்படுகின்றன (படத்தைப் பார்க்கவும்).</target></trans-unit>
+<trans-unit id="s77365296ebf281bc">
+  <source>Create a probability distribution such that the output values of all neurons in this layer add up to one.</source>
+<target>இந்த அடுக்கின் அனைத்து நியூரான்களின் வெளியீட்டு மதிப்புகளின் கூட்டுத்தொகை ஒன்றாக இருக்குமாறு நிகழ்தகவு பகிர்வை உருவாக்கவும்.</target></trans-unit>
+<trans-unit id="sc5bc2a2d2fd1ee58">
+  <source>Why are some important options not editable or completely missing?</source>
+<target>சில முக்கிய விருப்பங்களை ஏன் திருத்த முடியவில்லை அல்லது முற்றிலும் காணவில்லை?</target></trans-unit>
+<trans-unit id="s585d91c0fe28ad49">
+  <source>Many options are uneditable after you started a training to make sure what you see is actually what got translated into the model. To be able to edit everything again, just use the option to reset the model. After you performed your desired changes, you can then train a new model that respects them. If there is no trained model and you are missing options, most likely your teacher has disabled them for you.</source>
+<target>பயிற்சியைத் தொடங்கிய பிறகு பல விருப்பங்களைத் திருத்த முடியாது; இதனால் நீங்கள் காண்பது மாதிரியாக மாற்றப்பட்ட உள்ளமைவுடன் ஒத்திருக்கிறது. அனைத்தையும் மீண்டும் திருத்த மாதிரியை மீட்டமைக்கவும். விரும்பிய மாற்றங்களைச் செய்தபின் அவற்றை அடிப்படையாகக் கொண்டு புதிய மாதிரியைப் பயிற்றுவிக்கவும். பயிற்சியளிக்கப்பட்ட மாதிரி இல்லாமலும் விருப்பங்கள் காணவில்லை என்றால், உங்கள் ஆசிரியர் அவற்றை முடக்கியிருக்கலாம்.</target></trans-unit>
+<trans-unit id="sfe6f2a2f731252f8">
+  <source>'<x id="0" equiv-text="${this.getName()}" />' has been created!</source>
+<target>'<x id="0" equiv-text="${this.getName()}" />' உருவாக்கப்பட்டது!</target></trans-unit>
+<trans-unit id="s0de010d496fb9b32">
+  <source>Neuron <x id="0" equiv-text="${this.neuronId}" /> inside <x id="1" equiv-text="${this.layer.getName()}" /></source>
+<target><x id="0" equiv-text="${this.neuronId}" /> என்பது <x id="1" equiv-text="${this.layer.getName()}" /> உள்ளே உள்ள நியூரான்</target></trans-unit>
+<trans-unit id="sf0695e350c3bbc8f">
+  <source>The config you imported seems to be broken :(</source>
+<target>நீங்கள் இறக்குமதி செய்த உள்ளமைவு பழுதடைந்தது போல் தெரிகிறது :(</target></trans-unit>
+<trans-unit id="sd1dd1d906f1e9f57">
+  <source>The version of the config file is not compatible with the widget version you currently use!</source>
+<target>உள்ளமைவு கோப்பின் பதிப்பு நீங்கள் பயன்படுத்தும் விட்ஜெட் பதிப்புடன் பொருந்தவில்லை!</target></trans-unit>
+<trans-unit id="sea22d7cb1b837fbc">
+  <source>The imported config was successfully loaded!</source>
+<target>இறக்குமதி செய்யப்பட்ட உள்ளமைவு வெற்றிகரமாக ஏற்றப்பட்டது!</target></trans-unit>
+<trans-unit id="s3a12b3bc9f64aaa9">
+  <source>The current configuration was successfully exported!</source>
+<target>தற்போதைய உள்ளமைவு வெற்றிகரமாக ஏற்றுமதி செய்யப்பட்டது!</target></trans-unit>
+<trans-unit id="s10b8b649492e85d3">
+  <source>You can not delete a data set that is currently selected</source>
+<target>தற்போது தேர்ந்தெடுத்த தரவுத்தொகுப்பை நீக்க முடியாது</target></trans-unit>
+<trans-unit id="s1c5710ff3e4f9cfd">
+  <source>The data set '<x id="0" equiv-text="${name}" />' was successfully deleted</source>
+<target>தரவுத்தொகுப்பு '<x id="0" equiv-text="${name}" />' வெற்றிகரமாக நீக்கப்பட்டது</target></trans-unit>
+<trans-unit id="sa1843f0daccbc9c7">
+  <source>Error: Requested deletion of a data set that does not exist</source>
+<target>பிழை: நீக்கக் கோரிய தரவுத்தொகுப்பு இல்லை</target></trans-unit>
+<trans-unit id="s68a9876d35971a36">
+  <source>The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!</source>
+<target>மாதிரி வெற்றிகரமாக தொகுக்கப்பட்டது! எல்லா ஹைப்பர்பாராமீட்டர் மற்றும் நெட்வொர்க் கட்டமைப்பு மாற்றங்களும் பயன்படுத்தப்பட்டன!</target></trans-unit>
+<trans-unit id="sd5d0be5e2482225b">
+  <source>'<x id="0" equiv-text="${layer.getName()}" />' has been deleted!</source>
+<target>'<x id="0" equiv-text="${layer.getName()}" />' நீக்கப்பட்டது!</target></trans-unit>
+<trans-unit id="sb266302725c5855d">
+  <source>You can not delete neurons by now! To adjust the number of neurons in the layer, select the layer and set the number of neurons in the right panel!</source>
+<target>இப்போது நியூரான்களை நீக்க முடியாது! அடுக்கிலுள்ள நியூரான்களின் எண்ணிக்கையை மாற்ற, அடுக்கைத் தேர்ந்தெடுத்து வலது பக்கப் பலகையில் எண்ணிக்கையை அமைக்கவும்!</target></trans-unit>
+<trans-unit id="s5bb2fd4c5d83e80a">
+  <source>Can not delete edges manually. If you wish to delete all connections between two layers, select one of the affected layers and change its input</source>
+<target>விளிம்புகளை கைமுறையாக நீக்க முடியாது. இரண்டு அடுக்குகளுக்கிடையிலான எல்லா இணைப்புகளையும் நீக்க, தொடர்புடைய அடுக்கைத் தேர்ந்தெடுத்து அதன் உள்ளீட்டை மாற்றவும்.</target></trans-unit>
+<trans-unit id="sf8813f51b7447d06">
+  <source>Your network must contain at least one input layer</source>
+<target>உங்கள் நெட்வொர்க்கில் குறைந்தது ஒரு உள்ளீட்டு அடுக்கு இருக்க வேண்டும்</target></trans-unit>
+<trans-unit id="s1f3d45458eb2b06d">
+  <source>Your network must contain at least one output layer</source>
+<target>உங்கள் நெட்வொர்க்கில் குறைந்தது ஒரு வெளியீட்டு அடுக்கு இருக்க வேண்டும்</target></trans-unit>
+<trans-unit id="s43fadf79188522d8">
+  <source>Make sure to have an output layer connected to the network!</source>
+<target>நெட்வொர்க்குடன் இணைக்கப்பட்ட வெளியீட்டு அடுக்கு இருப்பதை உறுதிசெய்யவும்!</target></trans-unit>
+<trans-unit id="s9e914810882278d2">
+  <source>The help entry could not be created. Another entry with the same name already exists!</source>
+<target>உதவிப் பதிவை உருவாக்க முடியவில்லை. அதே பெயரில் மற்றொரு பதிவு ஏற்கனவே உள்ளது!</target></trans-unit>
+<trans-unit id="s99a4a9d1702badce">
+  <source>Help entry updated successfully</source>
+<target>உதவிப் பதிவு வெற்றிகரமாகப் புதுப்பிக்கப்பட்டது</target></trans-unit>
+<trans-unit id="sc1367ed4c633ec08">
+  <source>Could not update Q&amp;A entry! An entry with this title does not exist!</source>
+<target>கேள்வி பதில் பதிவைப் புதுப்பிக்க முடியவில்லை! இந்தத் தலைப்பில் பதிவு இல்லை!</target></trans-unit>
+</body>
+</file>
+</xliff>
