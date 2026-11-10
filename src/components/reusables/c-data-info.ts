@@ -46,18 +46,18 @@ export class CDataInfo extends LitElementWw {
           case 'regression':
             return html`
               <p>${DataSetUtils.localizeText(this.dataSet, this.dataDesc.description, this.msg)}</p>
-              <p>Type: regression</p>
+              <p>${this.msg('Type: regression')}</p>
             `
           case 'classification':
             return html`
               <p>${DataSetUtils.localizeText(this.dataSet, this.dataDesc.description, this.msg)}</p>
-              <p>Type: classification</p>
+              <p>${this.msg('Type: classification')}</p>
               ${'classes' in this.dataDesc
                 ? html`
                     ${this.dataDesc.classes.map(
                       (clazz) =>
                         html`
-                          <p>${clazz.id.toString()}: ${clazz.description}</p>
+                          <p>${clazz.id.toString()}: ${DataSetUtils.localizeText(this.dataSet, clazz.description, this.msg)}</p>
                         `
                     )}
                   `

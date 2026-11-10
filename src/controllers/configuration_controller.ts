@@ -51,7 +51,7 @@ export class ConfigurationController implements ReactiveController {
               Object.hasOwn(fileConfig, 'trainOptions')
             )
           ) {
-            throw new Error('The config you imported seems to be broken :(')
+            throw new Error(this.host.msg('The config you imported seems to be broken :('))
           }
           const config: FileConfigV1 = {
             version: 1,
@@ -68,7 +68,7 @@ export class ConfigurationController implements ReactiveController {
         }
         default: {
           throw new Error(
-            'The version of the config file is not compatible with the widget version you currently use!'
+            this.host.msg('The version of the config file is not compatible with the widget version you currently use!')
           )
         }
       }
@@ -100,7 +100,7 @@ export class ConfigurationController implements ReactiveController {
     this.host.selected = {}
 
     AlertUtils.spawn({
-      message: `The imported config was successfully loaded!`,
+      message: this.host.msg('The imported config was successfully loaded!'),
       variant: 'success',
       icon: 'check-circle',
     })
@@ -153,7 +153,7 @@ export class ConfigurationController implements ReactiveController {
     a.click()
     setTimeout(() => URL.revokeObjectURL(url), 10000)
     AlertUtils.spawn({
-      message: `The current configuration was successfully exported!`,
+      message: this.host.msg('The current configuration was successfully exported!'),
       variant: 'success',
       icon: 'check-circle',
     })

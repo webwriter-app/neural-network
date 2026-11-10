@@ -829,6 +829,117 @@
     <trans-unit id="sdb1595f5c742dfbb">
   <source>Input</source>
 <target>Vstup</target></trans-unit>
+<trans-unit id="s669b18c6d2d9c95b">
+  <source>None</source>
+<target>Žádné</target></trans-unit>
+<trans-unit id="s5c9d4638c1e38b36">
+  <source>Allow editing</source>
+<target>Povolit úpravy</target></trans-unit>
+<trans-unit id="sff96ebdc539c64b0">
+  <source>Dense</source>
+<target>Plně propojená</target></trans-unit>
+<trans-unit id="sf559b4b9f2109e05">
+  <source>Activation:</source>
+<target>Aktivace:</target></trans-unit>
+<trans-unit id="s0b49b37aa2ca0f35">
+  <source>Dense layer</source>
+<target>Plně propojená vrstva</target></trans-unit>
+<trans-unit id="sc0ecc73d49676ffa">
+  <source>Input layer</source>
+<target>Vstupní vrstva</target></trans-unit>
+<trans-unit id="s35659ef8d11dd2c9">
+  <source>Output layer</source>
+<target>Výstupní vrstva</target></trans-unit>
+<trans-unit id="se988648386f27436">
+  <source>Type: regression</source>
+<target>Typ: regrese</target></trans-unit>
+<trans-unit id="s795bb0b2a9c2e75f">
+  <source>Type: classification</source>
+<target>Typ: klasifikace</target></trans-unit>
+<trans-unit id="s09205907b5b56cda">
+  <source>No</source>
+<target>Ne</target></trans-unit>
+<trans-unit id="scb489a1a173ac3f0">
+  <source>Yes</source>
+<target>Ano</target></trans-unit>
+<trans-unit id="s401c527ca9b140a8">
+  <source>No additional function is applied.</source>
+<target>Nepoužije se žádná další funkce.</target></trans-unit>
+<trans-unit id="s6c2a68f18e1a1afd">
+  <source>Negative values are rounded up to zero.</source>
+<target>Záporné hodnoty se nastaví na nulu.</target></trans-unit>
+<trans-unit id="s67c3b0f1a71c873c">
+  <source>Largely negative values are mapped to values close to zero while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>Velmi záporné hodnoty se převedou na hodnoty blízké nule, zatímco velmi kladné hodnoty na hodnoty blízké jedné (viz graf).</target></trans-unit>
+<trans-unit id="s2a6555107a533bb0">
+  <source>Largely negative values are mapped to values close to minus one while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>Velmi záporné hodnoty se převedou na hodnoty blízké minus jedné, zatímco velmi kladné hodnoty na hodnoty blízké jedné (viz graf).</target></trans-unit>
+<trans-unit id="s77365296ebf281bc">
+  <source>Create a probability distribution such that the output values of all neurons in this layer add up to one.</source>
+<target>Vytvoří rozdělení pravděpodobnosti, v němž se výstupní hodnoty všech neuronů v této vrstvě sečtou na jedna.</target></trans-unit>
+<trans-unit id="sc5bc2a2d2fd1ee58">
+  <source>Why are some important options not editable or completely missing?</source>
+<target>Proč některé důležité možnosti nelze upravit nebo úplně chybí?</target></trans-unit>
+<trans-unit id="s585d91c0fe28ad49">
+  <source>Many options are uneditable after you started a training to make sure what you see is actually what got translated into the model. To be able to edit everything again, just use the option to reset the model. After you performed your desired changes, you can then train a new model that respects them. If there is no trained model and you are missing options, most likely your teacher has disabled them for you.</source>
+<target>Po zahájení trénování nelze mnoho možností měnit, aby zobrazené nastavení odpovídalo modelu. Chcete-li znovu upravovat vše, resetujte model. Po provedení požadovaných změn můžete natrénovat nový model, který je zohlední. Pokud ještě není natrénovaný žádný model a některé možnosti chybí, nejspíš je pro vás vypnul vyučující.</target></trans-unit>
+<trans-unit id="sfe6f2a2f731252f8">
+  <source>'<x id="0" equiv-text="${this.getName()}" />' has been created!</source>
+<target>Bylo vytvořeno '<x id="0" equiv-text="${this.getName()}" />'!</target></trans-unit>
+<trans-unit id="s0de010d496fb9b32">
+  <source>Neuron <x id="0" equiv-text="${this.neuronId}" /> inside <x id="1" equiv-text="${this.layer.getName()}" /></source>
+<target>Neuron <x id="0" equiv-text="${this.neuronId}" /> uvnitř <x id="1" equiv-text="${this.layer.getName()}" /></target></trans-unit>
+<trans-unit id="sf0695e350c3bbc8f">
+  <source>The config you imported seems to be broken :(</source>
+<target>Zdá se, že importovaná konfigurace je poškozená :(</target></trans-unit>
+<trans-unit id="sd1dd1d906f1e9f57">
+  <source>The version of the config file is not compatible with the widget version you currently use!</source>
+<target>Verze konfiguračního souboru není kompatibilní s aktuální verzí widgetu!</target></trans-unit>
+<trans-unit id="sea22d7cb1b837fbc">
+  <source>The imported config was successfully loaded!</source>
+<target>Importovaná konfigurace byla úspěšně načtena!</target></trans-unit>
+<trans-unit id="s3a12b3bc9f64aaa9">
+  <source>The current configuration was successfully exported!</source>
+<target>Aktuální konfigurace byla úspěšně exportována!</target></trans-unit>
+<trans-unit id="s10b8b649492e85d3">
+  <source>You can not delete a data set that is currently selected</source>
+<target>Nelze odstranit právě vybranou datovou sadu</target></trans-unit>
+<trans-unit id="s1c5710ff3e4f9cfd">
+  <source>The data set '<x id="0" equiv-text="${name}" />' was successfully deleted</source>
+<target>Datová sada '<x id="0" equiv-text="${name}" />' byla úspěšně odstraněna</target></trans-unit>
+<trans-unit id="sa1843f0daccbc9c7">
+  <source>Error: Requested deletion of a data set that does not exist</source>
+<target>Chyba: Požadavek na odstranění neexistující datové sady</target></trans-unit>
+<trans-unit id="s68a9876d35971a36">
+  <source>The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!</source>
+<target>Model byl úspěšně zkompilován! Byly zohledněny všechny změny hyperparametrů a architektury sítě!</target></trans-unit>
+<trans-unit id="sd5d0be5e2482225b">
+  <source>'<x id="0" equiv-text="${layer.getName()}" />' has been deleted!</source>
+<target>Bylo odstraněno '<x id="0" equiv-text="${layer.getName()}" />'!</target></trans-unit>
+<trans-unit id="sb266302725c5855d">
+  <source>You can not delete neurons by now! To adjust the number of neurons in the layer, select the layer and set the number of neurons in the right panel!</source>
+<target>Neurony zatím nelze odstranit! Chcete-li upravit jejich počet ve vrstvě, vyberte vrstvu a nastavte počet v pravém panelu!</target></trans-unit>
+<trans-unit id="s5bb2fd4c5d83e80a">
+  <source>Can not delete edges manually. If you wish to delete all connections between two layers, select one of the affected layers and change its input</source>
+<target>Spojení nelze odstranit ručně. Chcete-li odstranit všechna spojení mezi dvěma vrstvami, vyberte jednu z nich a změňte její vstup</target></trans-unit>
+<trans-unit id="sf8813f51b7447d06">
+  <source>Your network must contain at least one input layer</source>
+<target>Síť musí obsahovat alespoň jednu vstupní vrstvu</target></trans-unit>
+<trans-unit id="s1f3d45458eb2b06d">
+  <source>Your network must contain at least one output layer</source>
+<target>Síť musí obsahovat alespoň jednu výstupní vrstvu</target></trans-unit>
+<trans-unit id="s43fadf79188522d8">
+  <source>Make sure to have an output layer connected to the network!</source>
+<target>Zkontrolujte, zda je k síti připojena výstupní vrstva!</target></trans-unit>
+<trans-unit id="s9e914810882278d2">
+  <source>The help entry could not be created. Another entry with the same name already exists!</source>
+<target>Položku nápovědy nelze vytvořit. Jiná položka se stejným názvem již existuje!</target></trans-unit>
+<trans-unit id="s99a4a9d1702badce">
+  <source>Help entry updated successfully</source>
+<target>Položka nápovědy byla úspěšně aktualizována</target></trans-unit>
+<trans-unit id="sc1367ed4c633ec08">
+  <source>Could not update Q&amp;A entry! An entry with this title does not exist!</source>
+<target>Položku otázek a odpovědí nelze aktualizovat! Položka s tímto názvem neexistuje!</target></trans-unit>
 </body>
   </file>
 </xliff>

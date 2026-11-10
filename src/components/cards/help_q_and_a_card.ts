@@ -9,6 +9,7 @@ import { globalStyles } from '@/global_styles'
 import { editableContext } from '@/contexts/editable_context'
 import type { QAndAEntry } from '@/types/q_and_a_entry'
 import { qAndAContext } from '@/contexts/q_and_a_context'
+import { QAndAUtils } from '@/utils/q_and_a_utils'
 
 import SlDetails from '@shoelace-style/shoelace/dist/components/details/details.component.js'
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input.component.js'
@@ -95,11 +96,11 @@ export class HelpQAndACard extends LitElementWw {
                 'There are currently no help entries. If you publish the widget like this, the help section will be hidden.',
               )}`
             : html``}
-          ${this.qAndA.map(
-            (entry) =>
-              html` <sl-details summary=${entry.title}>
+          ${this.qAndA.map(entry => {
+              const localized = QAndAUtils.localizeEntry(entry, this.msg)
+              return html` <sl-details summary=${localized.title}>
                 ${this.editable
-                  ? html` <sl-textarea value=${entry.description}></sl-textarea>
+                  ? html` <sl-textarea value=${localized.description}></sl-textarea>
                       <div class="button-group">
                         <sl-button
                           variant="primary"
@@ -118,9 +119,9 @@ export class HelpQAndACard extends LitElementWw {
                           ${this.msg('Remove entry')}
                         </sl-button>
                       </div>`
-                  : html`${entry.description}`}
-              </sl-details>`,
-          )}
+                  : html`${localized.description}`}
+              </sl-details>`
+          })}
           ${this.editable
             ? html` <form
                 @submit="${(e: MouseEvent) => this.addEntry(e)}"

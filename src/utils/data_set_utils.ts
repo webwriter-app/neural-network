@@ -16,7 +16,8 @@ export class DataSetUtils {
     if (!builtin) return text
     const known = text === builtin.name || text === builtin.description ||
       builtin.featureDescs.some(({ description }) => description === text) ||
-      text === builtin.labelDesc.description
+      text === builtin.labelDesc.description ||
+      builtin.labelDesc.classes?.some(({ description }) => description === text)
     // Built-in strings are extracted from the source datasets themselves.
     return known ? (msg as (text: string) => string)(text) : text
   }

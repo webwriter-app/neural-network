@@ -111,7 +111,7 @@ export class ModelController implements ReactiveController {
       })
       this.host.modelConf.model = model
       AlertUtils.spawn({
-        message: `The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!`,
+        message: this.host.msg('The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!'),
         variant: 'success',
         icon: 'check-circle',
       })

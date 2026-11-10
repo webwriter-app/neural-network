@@ -49,11 +49,11 @@ export const pimaIndiansDiabetes: DataSet = {
     classes: [
       {
         id: 0,
-        description: 'No',
+        description: msg('No'),
       },
       {
         id: 1,
-        description: 'Yes',
+        description: msg('Yes'),
       },
     ],
   },

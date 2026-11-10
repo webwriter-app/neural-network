@@ -1,4 +1,4 @@
-import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
+import { effectiveLanguage, nativeLanguageAttributes } from "../../../localization/localizer";
 import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { map } from 'lit/directives/map.js'
@@ -18,7 +18,6 @@ export class DenseLayer extends CLayer {
 
   override get lang(): string { return effectiveLanguage(this); }
   override set lang(value: string) { this.setAttribute("lang", value); }
-  private readonly msg = localizeElement(this);
 
   static scopedElements = {
     "c-neuron": CNeuron

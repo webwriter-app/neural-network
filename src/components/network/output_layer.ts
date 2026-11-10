@@ -1,4 +1,4 @@
-import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
+import { effectiveLanguage, nativeLanguageAttributes } from "../../../localization/localizer";
 import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -20,7 +20,6 @@ export class OutputLayer extends CLayer {
 
   override get lang(): string { return effectiveLanguage(this); }
   override set lang(value: string) { this.setAttribute("lang", value); }
-  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-neuron': CNeuron,
   }
@@ -116,8 +115,9 @@ export class OutputLayer extends CLayer {
   // -> INFO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // overwrite getName for the outputKey
   getName(): string {
-    return `${this.conf.labelDesc.key} ${this.conf.LAYER_NAME} ${
-      this.conf.activation != NetworkUtils.actNone
+    const name = this.conf.LAYER_NAME === 'Output layer' ? this.msg('Output layer') : this.conf.LAYER_NAME
+    return `${this.conf.labelDesc.key} ${name} ${
+      this.conf.activation.tfName
         ? `(${this.conf.activation.name})`
         : ``
     }`

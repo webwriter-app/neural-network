@@ -1,4 +1,4 @@
-import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
+import { effectiveLanguage, nativeLanguageAttributes } from "../../../localization/localizer";
 import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -23,7 +23,6 @@ export class InputLayer extends CLayer {
 
   override get lang(): string { return effectiveLanguage(this); }
   override set lang(value: string) { this.setAttribute("lang", value); }
-  private readonly msg = localizeElement(this);
 
   static scopedElements = {
     "c-neuron": CNeuron
@@ -70,7 +69,8 @@ export class InputLayer extends CLayer {
   // overwrite getName function because activation function is always 'None' for
   // input layer
   getName(): string {
-    return `${this.conf.layerId} - ${this.conf.LAYER_NAME}`
+    const name = this.conf.LAYER_NAME === 'Input layer' ? this.msg('Input layer') : this.conf.LAYER_NAME
+    return `${this.conf.layerId} - ${name}`
   }
 
   // get description

@@ -1,4 +1,4 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElementWw } from '../../../localization/element'
 import { TemplateResult, html } from 'lit'
 import { customElement, state, property, queryAll } from 'lit/decorators.js'
 import { consume } from '@lit/context'

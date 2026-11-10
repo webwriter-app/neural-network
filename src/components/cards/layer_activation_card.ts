@@ -71,6 +71,7 @@ export class LayerActivationCard extends LitElementWw {
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
+    const translate = this.msg as (text: string) => string
     const activation = NetworkUtils.getActivation(
       this.layer.conf.activation.name as any,
     )
@@ -92,17 +93,17 @@ export class LayerActivationCard extends LitElementWw {
             ${NetworkUtils.activationOptions.map(
               (activation) =>
                 html`<sl-option value="${activation.name}"
-                  >${activation.name}</sl-option
+                  >${translate(activation.name)}</sl-option
                 >`,
             )}
           </sl-select>
           ${activation?.img
-            ? html`<img src=${activation.img} />`
+            ? html`<img src=${activation.img} alt=${translate(activation.name)} />`
             : html``}
           <p>
             ${this.msg(
               "After calculating a neuron's value by adding up its weighted input values and its bias:",
-            )}${' '}${this.layer.conf.activation.description}
+            )}${' '}${translate(this.layer.conf.activation.description)}
           </p>
           <p>
             ${this.msg('Range of possible output values:')}${' '}${this.layer.conf

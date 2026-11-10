@@ -1,4 +1,5 @@
 import type { ReactiveController } from 'lit'
+import { str } from '@lit/localize'
 import type { NeuralNetwork } from '@/app'
 import type { CLayerConf } from '@/types/c_layer_conf'
 import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
@@ -231,7 +232,7 @@ export class NetworkController implements ReactiveController {
       this.host.selectionController.unselect()
 
       AlertUtils.spawn({
-        message: `'${layer.getName()}' has been deleted!`,
+        message: this.host.msg(str`'${layer.getName()}' has been deleted!`),
         variant: 'danger',
         icon: 'trash',
       })
@@ -254,13 +255,13 @@ export class NetworkController implements ReactiveController {
       // spawn alert when instead a neuron are edge is selected
       else if (this.host.selected.neuron) {
         AlertUtils.spawn({
-          message: `You can not delete neurons by now! To adjust the number of neurons in the layer, select the layer and set the number of neurons in the right panel!`,
+          message: this.host.msg('You can not delete neurons by now! To adjust the number of neurons in the layer, select the layer and set the number of neurons in the right panel!'),
           variant: 'warning',
           icon: 'x-circle',
         })
       } else if (this.host.selected.edge) {
         AlertUtils.spawn({
-          message: `Can not delete edges manually. If you wish to delete all connections between two layers, select one of the affected layers and change its input`,
+          message: this.host.msg('Can not delete edges manually. If you wish to delete all connections between two layers, select one of the affected layers and change its input'),
           variant: 'warning',
           icon: 'x-circle',
         })
@@ -303,7 +304,7 @@ export class NetworkController implements ReactiveController {
     // check if at least one input layer exists
     if (!this.host.network.getInputLayers().length) {
       AlertUtils.spawn({
-        message: 'Your network must contain at least one input layer',
+        message: this.host.msg('Your network must contain at least one input layer'),
         variant: 'warning',
         icon: 'x-circle',
       })
@@ -313,7 +314,7 @@ export class NetworkController implements ReactiveController {
     // check if an output layer exists
     if (!this.host.network.getOutputLayer()) {
       AlertUtils.spawn({
-        message: 'Your network must contain at least one output layer',
+        message: this.host.msg('Your network must contain at least one output layer'),
         variant: 'warning',
         icon: 'x-circle',
       })
@@ -353,7 +354,7 @@ export class NetworkController implements ReactiveController {
     // some problems else)
     if (!this.host.network.getOutputLayer().tensor) {
       AlertUtils.spawn({
-        message: 'Make sure to have an output layer connected to the network!',
+        message: this.host.msg('Make sure to have an output layer connected to the network!'),
         variant: 'warning',
         icon: 'x-circle',
       })
