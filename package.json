@@ -1,6 +1,6 @@
 {
   "name": "@webwriter/neural-network",
-  "version": "1.1.7",
+  "version": "2.0.0",
   "description": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
   "repository": "github:webwriter-app/neural-network",
   "keywords": [
