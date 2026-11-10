@@ -48,7 +48,17 @@
       "bs": "Vizualizacija dubokog učenja za unaprijedne mreže s prilagođenim skupovima podataka, treniranjem i predviđanjem.",
       "ca": "Visualització de l'aprenentatge profund per a xarxes feedforward amb conjunts de dades personalitzats, entrenament i predicció.",
       "ca-ES-valencia": "Visualització de l'aprenentatge profund per a xarxes feedforward amb conjunts de dades personalitzats, entrenament i predicció.",
-      "ga": "Amharcléiriú ar fhoghlaim dhomhain do líonraí réamhchothaithe le tacair shaincheaptha sonraí, oiliúint agus tuar."
+      "ga": "Amharcléiriú ar fhoghlaim dhomhain do líonraí réamhchothaithe le tacair shaincheaptha sonraí, oiliúint agus tuar.",
+      "fa": "نمایش یادگیری عمیق برای شبکه‌های پیش‌خور با مجموعه‌دادهٔ سفارشی، آموزش و پیش‌بینی.",
+      "hi": "कस्टम डेटासेट, प्रशिक्षण और पूर्वानुमान के साथ फीड-फॉरवर्ड नेटवर्क का डीप लर्निंग दृश्यांकन।",
+      "sr": "Визуализација дубоког учења за неуронске мреже са прослеђивањем унапред, са прилагођеним скуповима података, тренирањем и предвиђањем.",
+      "sr-Cyrl": "Визуализација дубоког учења за неуронске мреже са прослеђивањем унапред, са прилагођеним скуповима података, тренирањем и предвиђањем.",
+      "sr-Latn": "Vizualizacija dubokog učenja za neuronske mreže sa prosleđivanjem unapred, sa prilagođenim skupovima podataka, treniranjem i predviđanjem.",
+      "is": "Sjónræn framsetning djúpnáms fyrir framvirk net með sérsniðnum gagnasöfnum, þjálfun og spá.",
+      "bn": "কাস্টম ডেটাসেট, প্রশিক্ষণ ও পূর্বাভাসসহ ফিড-ফরোয়ার্ড নেটওয়ার্কের ডিপ লার্নিং দৃশ্যায়ন।",
+      "pa": "ਕਸਟਮ ਡੇਟਾਸੈੱਟ, ਟ੍ਰੇਨਿੰਗ ਅਤੇ ਭਵਿੱਖਬਾਣੀ ਨਾਲ ਫੀਡ-ਫਾਰਵਰਡ ਨੈੱਟਵਰਕ ਦੀ ਡੀਪ ਲਰਨਿੰਗ ਦ੍ਰਿਸ਼ਾਵਲੀ।",
+      "gu": "કસ્ટમ ડેટાસેટ, તાલીમ અને અનુમાન સાથે ફીડ-ફોરવર્ડ નેટવર્કનું ડીપ લર્નિંગ દૃશ્યીકરણ.",
+      "sw": "Taswira ya ujifunzaji wa kina kwa mitandao inayopitisha data mbele, yenye seti maalumu za data, mafunzo na utabiri."
     },
     "label": {
       "_": "Neural Network",
@@ -96,7 +106,17 @@
       "bs": "Neuronska mreža",
       "ca": "Xarxa neuronal",
       "ca-ES-valencia": "Xarxa neuronal",
-      "ga": "Líonra Néarach"
+      "ga": "Líonra Néarach",
+      "fa": "شبکهٔ عصبی",
+      "hi": "न्यूरल नेटवर्क",
+      "sr": "Неуронска мрежа",
+      "sr-Cyrl": "Неуронска мрежа",
+      "sr-Latn": "Neuronska mreža",
+      "is": "Tauganet",
+      "bn": "নিউরাল নেটওয়ার্ক",
+      "pa": "ਨਿਊਰਲ ਨੈੱਟਵਰਕ",
+      "gu": "ન્યુરલ નેટવર્ક",
+      "sw": "Mtandao wa neva"
     }
   },
   "./widgets/webwriter-neural-network": {
@@ -146,7 +166,17 @@
       "bs": "Neuronska mreža",
       "ca": "Xarxa neuronal",
       "ca-ES-valencia": "Xarxa neuronal",
-      "ga": "Líonra Néarach"
+      "ga": "Líonra Néarach",
+      "fa": "شبکهٔ عصبی",
+      "hi": "न्यूरल नेटवर्क",
+      "sr": "Неуронска мрежа",
+      "sr-Cyrl": "Неуронска мрежа",
+      "sr-Latn": "Neuronska mreža",
+      "is": "Tauganet",
+      "bn": "নিউরাল নেটওয়ার্ক",
+      "pa": "ਨਿਊਰਲ ਨੈੱਟਵਰਕ",
+      "gu": "ન્યુરલ નેટવર્ક",
+      "sw": "Mtandao wa neva"
     }
   },
   "./snippets/Pima-Indians-Diabetes": {
@@ -196,7 +226,17 @@
       "bs": "Dijabetes kod Indijanaca plemena Pima",
       "ca": "Diabetis dels indis Pima",
       "ca-ES-valencia": "Diabetis dels indis Pima",
-      "ga": "Diaibéiteas na bPima"
+      "ga": "Diaibéiteas na bPima",
+      "fa": "دیابت در مردم پیما",
+      "hi": "Pima-इंडियन्स-डायबिटीज़",
+      "sr": "Дијабетес код народа Пима",
+      "sr-Cyrl": "Дијабетес код народа Пима",
+      "sr-Latn": "Dijabetes kod naroda Pima",
+      "is": "Sykursýki Pima-indíána",
+      "bn": "Pima-ইন্ডিয়ানস-ডায়াবেটিস",
+      "pa": "Pima Indians ਡਾਇਬਟੀਜ਼",
+      "gu": "Pima Indians ડાયાબિટીસ",
+      "sw": "Kisukari miongoni mwa watu wa Pima"
     }
   },
   "./snippets/Boston-House-Pricing": {
@@ -246,7 +286,17 @@
       "bs": "Cijene kuća u Bostonu",
       "ca": "Preus dels habitatges de Boston",
       "ca-ES-valencia": "Preus dels habitatges de Boston",
-      "ga": "Praghsáil Tithe Boston"
+      "ga": "Praghsáil Tithe Boston",
+      "fa": "قیمت مسکن بوستون",
+      "hi": "Boston-हाउस-प्राइसिंग",
+      "sr": "Цене кућа у Бостону",
+      "sr-Cyrl": "Цене кућа у Бостону",
+      "sr-Latn": "Cene kuća u Bostonu",
+      "is": "Verðlagning húsa í Boston",
+      "bn": "Boston-ঘরের-মূল্য",
+      "pa": "Boston ਘਰਾਂ ਦੀ ਕੀਮਤ",
+      "gu": "Boston ઘરની કિંમત",
+      "sw": "Bei za nyumba za Boston"
     }
   }
 }

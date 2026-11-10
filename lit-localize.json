@@ -40,7 +40,17 @@
     "bs",
     "ca",
     "ca-ES-valencia",
-    "ga"
+    "ga",
+    "fa",
+    "hi",
+    "sr",
+    "sr-Cyrl",
+    "sr-Latn",
+    "is",
+    "bn",
+    "pa",
+    "gu",
+    "sw"
   ],
   "tsConfig": "./tsconfig.json",
   "output": {

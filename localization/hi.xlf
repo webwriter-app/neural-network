@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<file target-language="hi" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+<body>
+<trans-unit id="s0b29ddb08394f57b">
+  <source>Failed to enter fullscreen mode.</source>
+<target>फ़ुलस्क्रीन मोड में प्रवेश नहीं हो सका।</target></trans-unit>
+<trans-unit id="sb59d68ed12d46377">
+  <source>Loading</source>
+<target>लोड हो रहा है</target></trans-unit>
+<trans-unit id="sf27f87a94b05a690">
+  <source>Toggle Menu</source>
+<target>मेनू टॉगल करें</target></trans-unit>
+<trans-unit id="s236ae937cbcd6a39">
+  <source>Zoom in</source>
+<target>ज़ूम इन</target></trans-unit>
+<trans-unit id="s5b1749c67945a111">
+  <source>Zoom to network</source>
+<target>नेटवर्क पर ज़ूम करें</target></trans-unit>
+<trans-unit id="sc65ea2cf2f21a13a">
+  <source>Zoom out</source>
+<target>ज़ूम आउट</target></trans-unit>
+<trans-unit id="sd03c537f123f42a6">
+  <source>Exit Fullscreen</source>
+<target>फ़ुलस्क्रीन से बाहर निकलें</target></trans-unit>
+<trans-unit id="s4b10acae683d2978">
+  <source>Fullscreen</source>
+<target>फ़ुलस्क्रीन</target></trans-unit>
+<trans-unit id="s991dbe8a07858b6b">
+  <source>Important info</source>
+<target>महत्वपूर्ण जानकारी</target></trans-unit>
+<trans-unit id="s4c3e975942fc568d">
+  <source>You decided to train a model with the current configuration. As an effect, all options to edit the configuration have been temporarily removed or disabled to make sure the configuration you see is the same configuration the model uses. If you want to make changes to your configuration, you need to discard the current model first. If you discard your model, you can again perform any changes and train a new model based on the new configuration.</source>
+<target>आपने मौजूदा कॉन्फ़िगरेशन के साथ मॉडल को प्रशिक्षित करने का निर्णय लिया है। इसलिए कॉन्फ़िगरेशन संपादित करने के सभी विकल्प अस्थायी रूप से हटाए या निष्क्रिय किए गए हैं, ताकि दिखाई देने वाला कॉन्फ़िगरेशन वही हो जिसका मॉडल उपयोग करता है। बदलाव करने के लिए पहले मौजूदा मॉडल हटाएँ। मॉडल हटाने के बाद आप बदलाव करके नए कॉन्फ़िगरेशन पर आधारित मॉडल को फिर प्रशिक्षित कर सकते हैं।</target></trans-unit>
+<trans-unit id="sb4810a60b4ad921e">
+  <source>Discards the model, which gains you back your editing capabilities</source>
+<target>मॉडल हटाने से संपादन की सुविधा वापस मिलेगी</target></trans-unit>
+<trans-unit id="sc00a88b90cd60661">
+  <source>Discard</source>
+<target>हटाएँ</target></trans-unit>
+<trans-unit id="s2ed914b45e6f8fb0">
+  <source>Discard model</source>
+<target>मॉडल हटाएँ</target></trans-unit>
+<trans-unit id="s6a0bc0ce56a9ae4a">
+  <source>Features</source>
+<target>विशेषताएँ</target></trans-unit>
+<trans-unit id="s5590dbf7e425789d">
+  <source>Label</source>
+<target>लेबल</target></trans-unit>
+<trans-unit id="s07e767f1fe8ad66a">
+  <source>View raw data</source>
+<target>कच्चा डेटा देखें</target></trans-unit>
+<trans-unit id="s7ad8f95cd252ff9b">
+  <source>Select data set</source>
+<target>डेटासेट चुनें</target></trans-unit>
+<trans-unit id="s8e0e95cf2d9f0fe0">
+  <source>"Select a data set"</source>
+<target>"डेटासेट चुनें"</target></trans-unit>
+<trans-unit id="s6503256c2de2745c">
+  <source>Edge</source>
+<target>किनारा</target></trans-unit>
+<trans-unit id="s517acbf1f96324f9">
+  <source>Weight</source>
+<target>भार</target></trans-unit>
+<trans-unit id="sc20cf39aef9b3355">
+  <source>About this app</source>
+<target>इस ऐप के बारे में</target></trans-unit>
+<trans-unit id="s984fb2f8f14ee101">
+  <source>This app was developed by Christian Koch, a student at RWTH Aachen University, with support of Frederic Salmen and the chair i9 at RWTH Aachen University.</source>
+<target>यह ऐप RWTH Aachen University के छात्र Christian Koch ने Frederic Salmen और RWTH Aachen University की चेयर i9 के सहयोग से बनाया।</target></trans-unit>
+<trans-unit id="sc62667aa0380bc6b">
+  <source>About the developer</source>
+<target>डेवलपर के बारे में</target></trans-unit>
+<trans-unit id="s17597a8bb4810524">
+  <source>License</source>
+<target>लाइसेंस</target></trans-unit>
+<trans-unit id="s8e7cfd29f14ffad6">
+  <source>All third-party data sets have been published under public domain</source>
+<target>सभी तृतीय-पक्ष डेटासेट सार्वजनिक डोमेन में प्रकाशित किए गए हैं</target></trans-unit>
+<trans-unit id="se3b4c857f91f80d7">
+  <source>Keyboard shortcuts</source>
+<target>कीबोर्ड शॉर्टकट</target></trans-unit>
+<trans-unit id="sc25745d3142338ca">
+  <source>Deletes the currently selected layer</source>
+<target>चुनी हुई परत हटाता है</target></trans-unit>
+<trans-unit id="sa5ed0165e089255e">
+  <source>Duplicates the currently selected layer</source>
+<target>चुनी हुई परत की प्रतिलिपि बनाता है</target></trans-unit>
+<trans-unit id="s8ff8cee7c5d100bc">
+  <source>Moves the currently selected layer</source>
+<target>चुनी हुई परत को स्थानांतरित करता है</target></trans-unit>
+<trans-unit id="sa7f495fff0f250d9">
+  <source>Q &amp; A</source>
+<target>प्रश्नोत्तर</target></trans-unit>
+<trans-unit id="s14b03351d9f0f4e8">
+  <source>There are currently no help entries. If you publish the widget like this, the help section will be hidden.</source>
+<target>अभी कोई सहायता प्रविष्टि नहीं है। यदि आप विजेट को ऐसे प्रकाशित करते हैं, तो सहायता अनुभाग छिपा रहेगा।</target></trans-unit>
+<trans-unit id="se1f4d0fd4b9438d0">
+  <source>Update entry</source>
+<target>प्रविष्टि अपडेट करें</target></trans-unit>
+<trans-unit id="s3983b0213bfac281">
+  <source>Remove entry</source>
+<target>प्रविष्टि हटाएँ</target></trans-unit>
+<trans-unit id="s99f110d27e30b289">
+  <source>Title</source>
+<target>शीर्षक</target></trans-unit>
+<trans-unit id="s6cee92a3b310e650">
+  <source>Add entry</source>
+<target>प्रविष्टि जोड़ें</target></trans-unit>
+<trans-unit id="s8af61807443f32a4">
+  <source>Actions</source>
+<target>क्रियाएँ</target></trans-unit>
+<trans-unit id="sfac15b89e0668996">
+  <source>Duplicate</source>
+<target>प्रतिलिपि बनाएँ</target></trans-unit>
+<trans-unit id="sdc673e73b5c13aea">
+  <source>Delete</source>
+<target>हटाएँ</target></trans-unit>
+<trans-unit id="s22b10e3713c037c7">
+  <source>Activation function</source>
+<target>सक्रियण फ़ंक्शन</target></trans-unit>
+<trans-unit id="sa90802aba569f823">
+  <source>The selected activation applies to all neurons in this layer.</source>
+<target>चुना गया सक्रियण इस परत के सभी न्यूरॉन्स पर लागू होता है।</target></trans-unit>
+<trans-unit id="s256782b6fa6c81e3">
+  <source>After calculating a neuron's value by adding up its weighted input values and its bias:</source>
+<target>न्यूरॉन के भारित इनपुट मानों और बायस को जोड़कर उसका मान निकालने के बाद:</target></trans-unit>
+<trans-unit id="s514d47a63e3b11c3">
+  <source>Range of possible output values:</source>
+<target>संभावित आउटपुट मानों की सीमा:</target></trans-unit>
+<trans-unit id="s69a4b7731c4ab258">
+  <source>Incoming connections</source>
+<target>आने वाले कनेक्शन</target></trans-unit>
+<trans-unit id="sfcb8881b108f62ed">
+  <source>Select the layers that connect to this layer</source>
+<target>इस परत से जुड़ने वाली परतें चुनें</target></trans-unit>
+<trans-unit id="sf35b120256b540b4">
+  <source>Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description.</source>
+<target>इस परत को विशेषता दें। विवरण के लिए खुले ड्रॉपडाउन में विशेषता कुंजियों पर होवर करें।</target></trans-unit>
+<trans-unit id="s801ac62b23cc5f5f">
+  <source>Neurons</source>
+<target>न्यूरॉन</target></trans-unit>
+<trans-unit id="sea4f08110bb8f15d">
+  <source>Remove</source>
+<target>हटाएँ</target></trans-unit>
+<trans-unit id="sf9aee319a006c9b4">
+  <source>Add</source>
+<target>जोड़ें</target></trans-unit>
+<trans-unit id="s5a95fb6f50ddd6ff">
+  <source>neurons</source>
+<target>न्यूरॉन्स</target></trans-unit>
+<trans-unit id="s8b0432eecbd8b034">
+  <source>Update</source>
+<target>अपडेट करें</target></trans-unit>
+<trans-unit id="s47333467f911302a">
+  <source>Outgoing connections</source>
+<target>बाहर जाने वाले कनेक्शन</target></trans-unit>
+<trans-unit id="s684e13d4e599ccdd">
+  <source>Select the layers this layer connects to</source>
+<target>वे परतें चुनें जिनसे यह परत जुड़ती है</target></trans-unit>
+<trans-unit id="saf83c9eefbdeee91">
+  <source>Outgoing data</source>
+<target>बाहर जाने वाला डेटा</target></trans-unit>
+<trans-unit id="sfd77270c3f54f664">
+  <source>Output</source>
+<target>आउटपुट</target></trans-unit>
+<trans-unit id="sb546e48af5e5c359">
+  <source>Add layer</source>
+<target>परत जोड़ें</target></trans-unit>
+<trans-unit id="saea857a2b4e1f6a7">
+  <source>Drag a layer anywhere to place it on the canvas</source>
+<target>कैनवास पर रखने के लिए परत को कहीं भी खींचें</target></trans-unit>
+<trans-unit id="sb4f1dffbb6be6302">
+  <source>Clear</source>
+<target>साफ़ करें</target></trans-unit>
+<trans-unit id="se6e9902ddea314c4">
+  <source>Clear network</source>
+<target>नेटवर्क साफ़ करें</target></trans-unit>
+<trans-unit id="s14ad6d4ee3b48ca2">
+  <source>This will remove every layer from the network.</source>
+<target>इससे नेटवर्क की हर परत हट जाएगी।</target></trans-unit>
+<trans-unit id="sae901180c48ddefb">
+  <source>Your network currently contains</source>
+<target>आपके नेटवर्क में अभी हैं</target></trans-unit>
+<trans-unit id="s4554e34a747022df">
+  <source>layers</source>
+<target>परतें</target></trans-unit>
+<trans-unit id="s4d1b055aa7613557">
+  <source>Your network is currently empty.</source>
+<target>आपका नेटवर्क अभी खाली है।</target></trans-unit>
+<trans-unit id="sd2e79aff2aea724a">
+  <source>You currently do not have an input layer. Drag one onto the canvas!</source>
+<target>आपके पास अभी इनपुट परत नहीं है। एक को कैनवास पर खींचें!</target></trans-unit>
+<trans-unit id="s37abcf4d745436f7">
+  <source>You currently do not have an output layer. Drag one onto the canvas!</source>
+<target>आपके पास अभी आउटपुट परत नहीं है। एक को कैनवास पर खींचें!</target></trans-unit>
+<trans-unit id="s6a4607c5c4e55a03">
+  <source>Always make sure to connect your layers such that there is a path from your input layer(s) to your output layer! Therefore select a layer in the canvas and select its incoming or outgoing connections</source>
+<target>सुनिश्चित करें कि इनपुट परत(ों) से आउटपुट परत तक रास्ता हो। इसके लिए कैनवास में परत चुनें और उसके आने वाले या बाहर जाने वाले कनेक्शन चुनें।</target></trans-unit>
+<trans-unit id="sd6b4fb36bd73f830">
+  <source>Assigned feature (input)</source>
+<target>असाइन की गई विशेषता (इनपुट)</target></trans-unit>
+<trans-unit id="s690d876ebcfe1dd6">
+  <source>Neuron</source>
+<target>न्यूरॉन</target></trans-unit>
+<trans-unit id="s8efe9b047510b849">
+  <source>Corresponding layer:</source>
+<target>संबंधित परत:</target></trans-unit>
+<trans-unit id="s888d98a196a240d8">
+  <source>Inputs</source>
+<target>इनपुट</target></trans-unit>
+<trans-unit id="s7aaa83f30a557ce9">
+  <source>- All neurons from</source>
+<target>— सभी न्यूरॉन्स यहाँ से</target></trans-unit>
+<trans-unit id="s4a3a9e0c684b763f">
+  <source>Label (output)</source>
+<target>लेबल (आउटपुट)</target></trans-unit>
+<trans-unit id="s066d70cf9d5e2915">
+  <source>Outputs</source>
+<target>आउटपुट</target></trans-unit>
+<trans-unit id="s41ee884e3b2d7413">
+  <source>Click on an feature pill above to see the relation between this feature and the label in a plot</source>
+<target>ग्राफ़ में इस विशेषता और लेबल का संबंध देखने के लिए ऊपर की विशेषता गोली पर क्लिक करें</target></trans-unit>
+<trans-unit id="scc33c632d6e60d84">
+  <source>plotted against</source>
+<target>के विरुद्ध प्लॉट किया गया</target></trans-unit>
+<trans-unit id="s01c091af962d4963">
+  <source>Plots</source>
+<target>प्लॉट</target></trans-unit>
+<trans-unit id="sd8305d1efc816b0a">
+  <source>Predict</source>
+<target>पूर्वानुमान करें</target></trans-unit>
+<trans-unit id="sf7aa4a7f6a7a6ae9">
+  <source>Predicted label</source>
+<target>पूर्वानुमानित लेबल</target></trans-unit>
+<trans-unit id="s5a27bd37c0a0ad1a">
+  <source>with a probability of</source>
+<target>की संभावना के साथ</target></trans-unit>
+<trans-unit id="sd0ee89e8e7353561">
+  <source>Make another prediction</source>
+<target>एक और पूर्वानुमान करें</target></trans-unit>
+<trans-unit id="s9d8b8aa2b404c2c8">
+  <source>Settings</source>
+<target>सेटिंग्स</target></trans-unit>
+<trans-unit id="s769b92432aa0e57f">
+  <source>Configure which options the users of this widget are allowed to view and edit</source>
+<target>कॉन्फ़िगर करें कि इस विजेट के उपयोगकर्ता कौन-से विकल्प देख और संपादित कर सकते हैं</target></trans-unit>
+<trans-unit id="s255857544a9d5ec0">
+  <source>Reset</source>
+<target>रीसेट</target></trans-unit>
+<trans-unit id="s295e7ec3fae5aa15">
+  <source>Set to default</source>
+<target>डिफ़ॉल्ट पर सेट करें</target></trans-unit>
+<trans-unit id="s7f76d461768c268c">
+  <source>Allow importing configurations</source>
+<target>कॉन्फ़िगरेशन आयात करने दें</target></trans-unit>
+<trans-unit id="sa219044786efe4f4">
+  <source>Show recommendations</source>
+<target>सिफ़ारिशें दिखाएँ</target></trans-unit>
+<trans-unit id="sa133a50ad676b757">
+  <source>Allow exporting configurations</source>
+<target>कॉन्फ़िगरेशन निर्यात करने दें</target></trans-unit>
+<trans-unit id="s9feb1a1345ccc3e5">
+  <source>Network</source>
+<target>नेटवर्क</target></trans-unit>
+<trans-unit id="s3de2e4f3353ff071">
+  <source>Restrict layer types</source>
+<target>परत के प्रकार सीमित करें</target></trans-unit>
+<trans-unit id="scfa788c4d56c9859">
+  <source>Allow dense layers</source>
+<target>Dense परतों की अनुमति दें</target></trans-unit>
+<trans-unit id="s05c44a5db696fcaf">
+  <source>Editing</source>
+<target>संपादन</target></trans-unit>
+<trans-unit id="secd2b30927c9ada1">
+  <source>Allow adding and removing layers</source>
+<target>परतें जोड़ने और हटाने दें</target></trans-unit>
+<trans-unit id="s1d6d96fee1f77a74">
+  <source>Allow editing layers</source>
+<target>परतें संपादित करने दें</target></trans-unit>
+<trans-unit id="sc728fae3603c8b93">
+  <source>Allow selecting the data flowing into input layers</source>
+<target>इनपुट परतों में आने वाला डेटा चुनने दें</target></trans-unit>
+<trans-unit id="s91346ada0f5220bf">
+  <source>Allow editing the number of neurons</source>
+<target>न्यूरॉन्स की संख्या संपादित करने दें</target></trans-unit>
+<trans-unit id="sff69314112eb4786">
+  <source>Allow changing the activation function</source>
+<target>सक्रियण फ़ंक्शन बदलने दें</target></trans-unit>
+<trans-unit id="sb4aaa150117048eb">
+  <source>Allow reconnecting the layers with each other</source>
+<target>परतों को फिर से जोड़ने दें</target></trans-unit>
+<trans-unit id="s4488dd99533e7f65">
+  <source>Data set</source>
+<target>डेटासेट</target></trans-unit>
+<trans-unit id="s505d96c3ca2f3c78">
+  <source>Allow selecting a different data set</source>
+<target>दूसरा डेटासेट चुनने दें</target></trans-unit>
+<trans-unit id="sa3900af79012fda0">
+  <source>Allow managing (creating new and deleting) data sets</source>
+<target>डेटासेट प्रबंधित करने दें (नए बनाना और हटाना)</target></trans-unit>
+<trans-unit id="s0605944041e20ba8">
+  <source>Show plots</source>
+<target>प्लॉट दिखाएँ</target></trans-unit>
+<trans-unit id="se65e4e6f3696e997">
+  <source>Training</source>
+<target>प्रशिक्षण</target></trans-unit>
+<trans-unit id="s7188f983604e2188">
+  <source>Allow editing hyperparameters</source>
+<target>हाइपरपैरामीटर संपादित करने दें</target></trans-unit>
+<trans-unit id="s77d657d2989d8bf6">
+  <source>Allow editing the batch size</source>
+<target>बैच आकार संपादित करने दें</target></trans-unit>
+<trans-unit id="s14a65ec1c3dc6761">
+  <source>Allow editing the learning rate</source>
+<target>लर्निंग रेट संपादित करने दें</target></trans-unit>
+<trans-unit id="s399ed88a7aa67028">
+  <source>Allow editing the dropout rate</source>
+<target>ड्रॉपआउट रेट संपादित करने दें</target></trans-unit>
+<trans-unit id="s293aa6a6446fb153">
+  <source>Export</source>
+<target>निर्यात</target></trans-unit>
+<trans-unit id="sc7aaabd93fb4c486">
+  <source>Export the current configuration to your local file system as a JSON file. Storing trained models is not supported.</source>
+<target>मौजूदा कॉन्फ़िगरेशन को JSON फ़ाइल के रूप में अपने स्थानीय फ़ाइल सिस्टम में निर्यात करें। प्रशिक्षित मॉडल सहेजना समर्थित नहीं है।</target></trans-unit>
+<trans-unit id="s93d85c9969bc1e8e">
+  <source>Get started</source>
+<target>शुरू करें</target></trans-unit>
+<trans-unit id="s37f8f9ad6c3ca6e8">
+  <source>Import JSON configuration</source>
+<target>JSON कॉन्फ़िगरेशन आयात करें</target></trans-unit>
+<trans-unit id="sb39c29728a3aab64">
+  <source>Intermediate</source>
+<target>मध्यवर्ती</target></trans-unit>
+<trans-unit id="s4aba9979380614e1">
+  <source>Classification</source>
+<target>वर्गीकरण</target></trans-unit>
+<trans-unit id="s7e7ce210415ee02c">
+  <source>Feed Forward</source>
+<target>फीड फ़ॉरवर्ड</target></trans-unit>
+<trans-unit id="s382a2aa3984474dd">
+  <source>Create</source>
+<target>बनाएँ</target></trans-unit>
+<trans-unit id="s85f01e331f787810">
+  <source>Regression</source>
+<target>प्रतिगमन</target></trans-unit>
+<trans-unit id="s13bf923e48a38e88">
+  <source>You can create a custom configuration by using the options in the corresponding right panels.</source>
+<target>संबंधित दाएँ पैनल के विकल्पों से कस्टम कॉन्फ़िगरेशन बना सकते हैं।</target></trans-unit>
+<trans-unit id="s5ebe428b72f9d9fd">
+  <source>Hyperparameters</source>
+<target>हाइपरपैरामीटर</target></trans-unit>
+<trans-unit id="sd674ba4ce23f2290">
+  <source>Batch size</source>
+<target>बैच आकार</target></trans-unit>
+<trans-unit id="sa4aa72be4b18da23">
+  <source>Learning rate</source>
+<target>लर्निंग रेट</target></trans-unit>
+<trans-unit id="s29028574383c26b2">
+  <source>Dropout rate</source>
+<target>ड्रॉपआउट रेट</target></trans-unit>
+<trans-unit id="s0d783bd504d48897">
+  <source>Adjust the probability of neurons being deactivated during training</source>
+<target>प्रशिक्षण के दौरान न्यूरॉन्स के निष्क्रिय होने की संभावना समायोजित करें</target></trans-unit>
+<trans-unit id="s97aa76056a81bd36">
+  <source>Metrics</source>
+<target>मेट्रिक्स</target></trans-unit>
+<trans-unit id="s61e8f3fac73d5e85">
+  <source>Loss: Categorical Crossentropy</source>
+<target>हानि: Categorical Crossentropy</target></trans-unit>
+<trans-unit id="s9f262d3debac7e63">
+  <source>Accuracy: In what percentage of the tests was the right class predicted?</source>
+<target>सटीकता: कितने प्रतिशत परीक्षणों में सही वर्ग का अनुमान लगाया गया?</target></trans-unit>
+<trans-unit id="s04cf457a74a1ca3e">
+  <source>Loss: Mean Squared Error</source>
+<target>हानि: Mean Squared Error</target></trans-unit>
+<trans-unit id="s5f343a43e7ea9f91">
+  <source>Error</source>
+<target>त्रुटि</target></trans-unit>
+<trans-unit id="s7fd689e3ee842226">
+  <source>What is the difference between the two lines in a graph?</source>
+<target>ग्राफ़ की दो रेखाओं में क्या अंतर है?</target></trans-unit>
+<trans-unit id="s9cc47ae161b22379">
+  <source>For val_..., the metric is calculated on the validation data set while for the data without val as a prefix the metric is calculated on the training data set. The metrics for the validation data set can be seen as more meaningful since this is the data the network does not 'know'.</source>
+<target>val_... के लिए मेट्रिक सत्यापन डेटासेट पर निकाली जाती है; val उपसर्ग के बिना मेट्रिक प्रशिक्षण डेटासेट पर निकाली जाती है। सत्यापन डेटासेट के मेट्रिक्स अधिक अर्थपूर्ण हैं, क्योंकि नेटवर्क इस डेटा को 'नहीं जानता'।</target></trans-unit>
+<trans-unit id="s9ea77d0d371dc469">
+  <source>Train</source>
+<target>प्रशिक्षित करें</target></trans-unit>
+<trans-unit id="s69bf683344258f79">
+  <source>Training completed!</source>
+<target>प्रशिक्षण पूरा हुआ!</target></trans-unit>
+<trans-unit id="sedc9092c834a7a37">
+  <source>Feel free to continue training your model for some additional epochs which might get you even better results!</source>
+<target>बेहतर परिणाम पाने के लिए कुछ और epochs तक मॉडल का प्रशिक्षण जारी रख सकते हैं!</target></trans-unit>
+<trans-unit id="s900c980bdb200fcf">
+  <source>Epochs</source>
+<target>एपॉक की संख्या</target></trans-unit>
+<trans-unit id="s7f291599fb79b2a9">
+  <source>Number of iterations over the whole training data set</source>
+<target>पूरे प्रशिक्षण डेटासेट पर दोहराव की संख्या</target></trans-unit>
+<trans-unit id="s9fbbc819fe7e66aa">
+  <source>Run</source>
+<target>चलाएँ</target></trans-unit>
+<trans-unit id="s7ae39eeb994f4040">
+  <source>Train for 1 epoch</source>
+<target>1 epoch तक प्रशिक्षित करें</target></trans-unit>
+<trans-unit id="s415ece5a1e4e50ce">
+  <source>Train for</source>
+<target>इतने epochs तक प्रशिक्षित करें</target></trans-unit>
+<trans-unit id="sa24fcd4e36a13aef">
+  <source>epochs</source>
+<target>एपॉक</target></trans-unit>
+<trans-unit id="s12db7f32a3851306">
+  <source>Epoch</source>
+<target>एपॉक</target></trans-unit>
+<trans-unit id="safda35e3d523b59b">
+  <source>Batch</source>
+<target>बैच</target></trans-unit>
+<trans-unit id="s573de432d7ee9439">
+  <source>The progress you made in creating your own data set was successfully restored!</source>
+<target>अपना डेटासेट बनाने में हुई प्रगति सफलतापूर्वक बहाल कर दी गई!</target></trans-unit>
+<trans-unit id="s8e77b85b1ae353e5">
+  <source>A data set with the same name already exists!</source>
+<target>इसी नाम का डेटासेट पहले से मौजूद है!</target></trans-unit>
+<trans-unit id="s669ebaf3b9787562">
+  <source>The provided data does not match the required format! Please check again</source>
+<target>दिया गया डेटा आवश्यक प्रारूप से मेल नहीं खाता! कृपया फिर जाँचें</target></trans-unit>
+<trans-unit id="see988347633ae840">
+  <source>A new data set was successfully created and automatically selected!</source>
+<target>नया डेटासेट सफलतापूर्वक बनाया गया और अपने आप चुना गया!</target></trans-unit>
+<trans-unit id="s18de3f0678131658">
+  <source>Create a new data set</source>
+<target>नया डेटासेट बनाएँ</target></trans-unit>
+<trans-unit id="scdb1bac161852c73">
+  <source>Welcome</source>
+<target>स्वागत है</target></trans-unit>
+<trans-unit id="s59163864a74213df">
+  <source>This tour will guide you through creating your own data set in a few simple steps. Everything is stored automatically, so you can close this modal at any time and resume.</source>
+<target>यह टूर कुछ आसान चरणों में अपना डेटासेट बनाने में आपकी मदद करेगा। सब कुछ अपने आप सहेजा जाता है, इसलिए इस मोडल को कभी भी बंद करके बाद में जारी रख सकते हैं।</target></trans-unit>
+<trans-unit id="s420e8fef6d553399">
+  <source>General info about the data set</source>
+<target>डेटासेट की सामान्य जानकारी</target></trans-unit>
+<trans-unit id="sf82bd0ca92fc7478">
+  <source>Choose a short but meaningful name for your data set and write a description.</source>
+<target>अपने डेटासेट के लिए छोटा, अर्थपूर्ण नाम चुनें और विवरण लिखें।</target></trans-unit>
+<trans-unit id="sef49aec68fd1dc66">
+  <source>Name</source>
+<target>नाम</target></trans-unit>
+<trans-unit id="s63d894b1ddb06289">
+  <source>Description</source>
+<target>विवरण</target></trans-unit>
+<trans-unit id="sea29890d344759e2">
+  <source>Choose 'regression' if you want to predict continous values like house or gas prices</source>
+<target>घर या गैस के दाम जैसी निरंतर संख्याओं का अनुमान लगाना हो तो 'regression' चुनें</target></trans-unit>
+<trans-unit id="sa51b42a0f8bc1196">
+  <source>Choose 'classification' if you want information about the affiliation of the feature(s) to a class (e.g. what animal can be seen in this image? A dog, cat or horse?)</source>
+<target>विशेषता(ओं) का वर्ग जानना हो तो 'classification' चुनें (जैसे, चित्र में कौन-सा जानवर है? कुत्ता, बिल्ली या घोड़ा?)</target></trans-unit>
+<trans-unit id="s381b5d0debf831a1">
+  <source>Choose a type</source>
+<target>एक प्रकार चुनें</target></trans-unit>
+<trans-unit id="s641101718c90c0aa">
+  <source>Which data will be put into the neural network? Create arbitrary many features!</source>
+<target>न्यूरल नेटवर्क में कौन-सा डेटा जाएगा? मनचाही संख्या में विशेषताएँ बनाएँ!</target></trans-unit>
+<trans-unit id="s506b6a19d12f414c">
+  <source>Key</source>
+<target>कुंजी</target></trans-unit>
+<trans-unit id="s0c9543b42518e43e">
+  <source>1-6 capital letters</source>
+<target>1-6 बड़े अक्षर</target></trans-unit>
+<trans-unit id="s9ccab5f6530bd7fb">
+  <source>Remove feature</source>
+<target>विशेषता हटाएँ</target></trans-unit>
+<trans-unit id="sb1cdfd5a8a60f3ca">
+  <source>Add feature</source>
+<target>विशेषता जोड़ें</target></trans-unit>
+<trans-unit id="sa7f1260d99ed4dcb">
+  <source>What shall be the output of the network?</source>
+<target>नेटवर्क का आउटपुट क्या होना चाहिए?</target></trans-unit>
+<trans-unit id="s2ba861fd720acdec">
+  <source>an integer</source>
+<target>एक पूर्णांक</target></trans-unit>
+<trans-unit id="s2511ced2063529c4">
+  <source>Animal was detected as a horse</source>
+<target>जानवर की पहचान घोड़े के रूप में हुई</target></trans-unit>
+<trans-unit id="s81fe4b139dbcd729">
+  <source>Remove class</source>
+<target>वर्ग हटाएँ</target></trans-unit>
+<trans-unit id="s3187969905158d04">
+  <source>Add class</source>
+<target>वर्ग जोड़ें</target></trans-unit>
+<trans-unit id="s93aa17486b781f3d">
+  <source>You are nearly done</source>
+<target>आप लगभग पूरा कर चुके हैं</target></trans-unit>
+<trans-unit id="s4770b2377cfb5113">
+  <source>Now add your data in the following format</source>
+<target>अब नीचे दिए प्रारूप में अपना डेटा जोड़ें</target></trans-unit>
+<trans-unit id="s514bbfe7a6a1385a">
+  <source>Each row needs to represent one set containing the features and the label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the features. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments.</source>
+<target>हर पंक्ति में विशेषताओं और लेबल वाला एक सेट होना चाहिए। आइटमों को अल्पविराम से अलग करें (अल्पविराम से पहले और बाद में खाली जगह चलती है)। आख़िरी आइटम हमेशा लेबल होता है और उससे पहले के आइटम विशेषताएँ। दशमलव मानों में अल्पविराम नहीं, केवल बिंदु लिखें। CSV डेटा हो तो यहाँ पेस्ट करें, लेकिन टिप्पणियाँ हटाना न भूलें।</target></trans-unit>
+<trans-unit id="sf3ff78cc329d3528">
+  <source>Previous</source>
+<target>पिछला</target></trans-unit>
+<trans-unit id="s0fbf6dc6a1966408">
+  <source>Next</source>
+<target>अगला</target></trans-unit>
+<trans-unit id="s886925e360029fea">
+  <source>Validate and create</source>
+<target>जाँचें और बनाएँ</target></trans-unit>
+<trans-unit id="s688d523f38404f47">
+  <source>Manage data sets</source>
+<target>डेटासेट प्रबंधित करें</target></trans-unit>
+<trans-unit id="s114321122eed37a2">
+  <source>Currently selected</source>
+<target>अभी चुना हुआ</target></trans-unit>
+<trans-unit id="s05560220ff65f5eb">
+  <source>Permanently delete data set</source>
+<target>डेटासेट स्थायी रूप से हटाएँ</target></trans-unit>
+<trans-unit id="sae1c7f13b7c0c47f">
+  <source>Start</source>
+<target>शुरू</target></trans-unit>
+<trans-unit id="s0e36885f01f95cc8">
+  <source>A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.</source>
+<target>Dense परत, जिसे fully-connected परत भी कहते हैं, ऐसी परत है जिसके अंदर के न्यूरॉन्स पिछली परत के हर न्यूरॉन से जुड़े होते हैं।</target></trans-unit>
+<trans-unit id="s9d167ef77aed79b6">
+  <source>Layer</source>
+<target>परत</target></trans-unit>
+<trans-unit id="se157debe22915185">
+  <source>was deleted because no data could be assigned to it!</source>
+<target>डेटा असाइन न हो पाने के कारण हटाई गई!</target></trans-unit>
+<trans-unit id="s8192fafe6f0cc0bb">
+  <source>An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)</source>
+<target>इनपुट परत नेटवर्क के बाहर से दिया गया डेटा लेती है और अगली परत(ों) तक पहुँचाती है।</target></trans-unit>
+<trans-unit id="s3310986378624a28">
+  <source>The selected layer can not be duplicated! Only a single output layer is currently supported!</source>
+<target>चुनी हुई परत की प्रतिलिपि नहीं बनाई जा सकती! अभी केवल एक आउटपुट परत समर्थित है!</target></trans-unit>
+<trans-unit id="sdc95be9d922008e7">
+  <source>An output layer in this simulation is just a normal dense layer, additionally equipped with the ability to output the incoming data out of the network.</source>
+<target>इस सिमुलेशन में आउटपुट परत सामान्य Dense परत है, जिसे आने वाला डेटा नेटवर्क से बाहर देने की क्षमता भी मिली है।</target></trans-unit>
+<trans-unit id="sa5982fd2e05ee92d">
+  <source>Since the purpose if this layer is to output a classifiction, we should combine it with a softmax activation function in order to provide a probability distribution.</source>
+<target>इस परत का उद्देश्य वर्गीकरण आउटपुट करना है, इसलिए संभाव्यता वितरण देने के लिए इसे softmax सक्रियण फ़ंक्शन के साथ जोड़ना चाहिए।</target></trans-unit>
+<trans-unit id="s835dc746e771a9d6">
+  <source>Boston House Pricing</source>
+<target>Boston के घरों की कीमत</target></trans-unit>
+<trans-unit id="s4c5805b438fae5b7">
+  <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
+<target>Boston House Price डेटासेट में घर और उसके पड़ोस के विवरण से हजार डॉलर में घर की कीमत का अनुमान लगाया जाता है।</target></trans-unit>
+<trans-unit id="s92dd08d474f4ba4b">
+  <source>Per capita crime rate by town</source>
+<target>प्रति नगर प्रति व्यक्ति अपराध दर</target></trans-unit>
+<trans-unit id="sa2cb02c992247501">
+  <source>Proportion of residential land zoned for lots over 25,000 sq.ft.</source>
+<target>25,000 वर्ग फुट से बड़े प्लॉट के लिए आवासीय ज़ोन की गई भूमि का अनुपात</target></trans-unit>
+<trans-unit id="s0ba84c8c8dd5dfe5">
+  <source>Proportion of nonretail business acres per town</source>
+<target>प्रति नगर गैर-खुदरा व्यावसायिक एकड़ का अनुपात</target></trans-unit>
+<trans-unit id="sb85fa3ee37f69a87">
+  <source>Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)</source>
+<target>Charles River डमी चर (= ट्रैक्ट नदी की सीमा पर हो तो 1; अन्यथा 0)</target></trans-unit>
+<trans-unit id="s902fe1322b1d2c62">
+  <source>Nitric oxides concentration (parts per 10 million)</source>
+<target>नाइट्रिक ऑक्साइड की सांद्रता (प्रति 10 मिलियन भाग)</target></trans-unit>
+<trans-unit id="sf928898f4043c6ff">
+  <source>Average number of rooms per dwelling</source>
+<target>प्रति आवास कमरों की औसत संख्या</target></trans-unit>
+<trans-unit id="s95f88e83db13ec5c">
+  <source>Proportion of owner-occupied units built prior to 1940</source>
+<target>1940 से पहले बने मालिक-अधिभोग वाले आवासों का अनुपात</target></trans-unit>
+<trans-unit id="sb0be465979ef3758">
+  <source>Weighted distances to five Boston employment centers</source>
+<target>Boston के पाँच रोज़गार केंद्रों तक भारित दूरी</target></trans-unit>
+<trans-unit id="sb60c67627b3119cc">
+  <source>Index of accessibility to radial highways</source>
+<target>रेडियल राजमार्गों तक पहुँच का सूचकांक</target></trans-unit>
+<trans-unit id="sc3ba6f6e119cd273">
+  <source>Full-value property-tax rate per $10,000</source>
+<target>प्रति $10,000 संपत्ति का पूर्ण-मूल्य कर-दर</target></trans-unit>
+<trans-unit id="s49d8fc3f40b093ac">
+  <source>Pupil-teacher ratio by town</source>
+<target>नगर के अनुसार छात्र-शिक्षक अनुपात</target></trans-unit>
+<trans-unit id="s577b270038a8c007">
+  <source>1000(Bk – 0.63)^2 where Bk is the proportion of blacks by town</source>
+<target>1000(Bk – 0.63)^2, जहाँ Bk नगर में अश्वेत आबादी का अनुपात है</target></trans-unit>
+<trans-unit id="s2f41bf569b07a4cc">
+  <source>% lower status of the population</source>
+<target>जनसंख्या का निम्न स्थिति वाला प्रतिशत</target></trans-unit>
+<trans-unit id="s473a26666565450c">
+  <source>Median value of owner-occupied homes in $1000s</source>
+<target>मालिक-अधिभोग वाले घरों का माध्य मूल्य ($1000 में)</target></trans-unit>
+<trans-unit id="sb96294312677cad5">
+  <source>Pima Indians Diabetes</source>
+<target>Pima इंडियन्स का मधुमेह</target></trans-unit>
+<trans-unit id="sc20c7530f6afbb7c">
+  <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
+<target>Pima Indians Diabetes डेटासेट चिकित्सा विवरण के आधार पर Pima Indians में 5 वर्षों के भीतर मधुमेह शुरू होने का अनुमान लगाता है। यह द्वि-वर्ग वर्गीकरण समस्या है। दोनों वर्गों के अवलोकनों की संख्या बराबर नहीं है। इसमें 768 अवलोकन, 8 इनपुट चर और 1 आउटपुट चर हैं। माना जाता है कि अनुपलब्ध मान शून्य से दर्शाए गए हैं।</target></trans-unit>
+<trans-unit id="s4e77426bf7986294">
+  <source>Number of times pregnant</source>
+<target>गर्भधारण की संख्या</target></trans-unit>
+<trans-unit id="s5923001bb6219bb3">
+  <source>Plasma glucose concentration a 2 hours in an oral glucose tolerance test.</source>
+<target>मौखिक ग्लूकोज़ सहनशीलता परीक्षण में 2 घंटे बाद प्लाज़्मा ग्लूकोज़ सांद्रता।</target></trans-unit>
+<trans-unit id="sf7cdf4e3adc1b2fa">
+  <source>Diastolic blood pressure (mm Hg)</source>
+<target>डायस्टोलिक रक्तचाप (mm Hg)</target></trans-unit>
+<trans-unit id="s5659cbd3943227de">
+  <source>Triceps skinfold thickness (mm)</source>
+<target>ट्राइसेप्स त्वचा-मोड़ की मोटाई (mm)</target></trans-unit>
+<trans-unit id="sa17f891acb35efd2">
+  <source>2-Hour serum insulin (mu U/ml)</source>
+<target>2-घंटे का सीरम इंसुलिन (mu U/ml)</target></trans-unit>
+<trans-unit id="s4a39fd2eb0e136da">
+  <source>Body mass index (weight in kg/(height in m)^2)</source>
+<target>बॉडी मास इंडेक्स (वज़न kg/(ऊँचाई m)^2)</target></trans-unit>
+<trans-unit id="s66ebf0bd757d5159">
+  <source>Diabetes pedigree function</source>
+<target>मधुमेह वंशावली फ़ंक्शन</target></trans-unit>
+<trans-unit id="s5ef9308d320834d1">
+  <source>Age (years)</source>
+<target>आयु (वर्ष)</target></trans-unit>
+<trans-unit id="s4e64552852c163c0">
+  <source>Diabetes</source>
+<target>मधुमेह</target></trans-unit>
+<trans-unit id="s5c9d4638c1e38b36">
+  <source>Allow editing</source>
+<target>संपादन की अनुमति दें</target></trans-unit>
+<trans-unit id="sdb1595f5c742dfbb">
+  <source>Input</source>
+<target>इनपुट</target></trans-unit>
+<trans-unit id="sff96ebdc539c64b0">
+  <source>Dense</source>
+<target>सघन परत</target></trans-unit>
+<trans-unit id="sf559b4b9f2109e05">
+  <source>Activation:</source>
+<target>सक्रियण:</target></trans-unit>
+<trans-unit id="s0b49b37aa2ca0f35">
+  <source>Dense layer</source>
+<target>Dense परत</target></trans-unit>
+<trans-unit id="sc0ecc73d49676ffa">
+  <source>Input layer</source>
+<target>इनपुट परत</target></trans-unit>
+<trans-unit id="s35659ef8d11dd2c9">
+  <source>Output layer</source>
+<target>आउटपुट परत</target></trans-unit>
+<trans-unit id="se988648386f27436">
+  <source>Type: regression</source>
+<target>प्रकार: regression</target></trans-unit>
+<trans-unit id="s795bb0b2a9c2e75f">
+  <source>Type: classification</source>
+<target>प्रकार: classification</target></trans-unit>
+<trans-unit id="s09205907b5b56cda">
+  <source>No</source>
+<target>नहीं</target></trans-unit>
+<trans-unit id="scb489a1a173ac3f0">
+  <source>Yes</source>
+<target>हाँ</target></trans-unit>
+<trans-unit id="s669b18c6d2d9c95b">
+  <source>None</source>
+<target>कोई नहीं</target></trans-unit>
+<trans-unit id="s401c527ca9b140a8">
+  <source>No additional function is applied.</source>
+<target>कोई अतिरिक्त फ़ंक्शन लागू नहीं होता।</target></trans-unit>
+<trans-unit id="s6c2a68f18e1a1afd">
+  <source>Negative values are rounded up to zero.</source>
+<target>ऋणात्मक मानों को शून्य तक गोल किया जाता है।</target></trans-unit>
+<trans-unit id="s67c3b0f1a71c873c">
+  <source>Largely negative values are mapped to values close to zero while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>बहुत ऋणात्मक मान शून्य के पास और बहुत धनात्मक मान एक के पास मैप होते हैं (चित्र देखें)।</target></trans-unit>
+<trans-unit id="s2a6555107a533bb0">
+  <source>Largely negative values are mapped to values close to minus one while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>बहुत ऋणात्मक मान माइनस एक के पास और बहुत धनात्मक मान एक के पास मैप होते हैं (चित्र देखें)।</target></trans-unit>
+<trans-unit id="s77365296ebf281bc">
+  <source>Create a probability distribution such that the output values of all neurons in this layer add up to one.</source>
+<target>ऐसा संभाव्यता वितरण बनाएँ जिसमें इस परत के सभी न्यूरॉन्स के आउटपुट का योग एक हो।</target></trans-unit>
+<trans-unit id="sc5bc2a2d2fd1ee58">
+  <source>Why are some important options not editable or completely missing?</source>
+<target>कुछ ज़रूरी विकल्प संपादन योग्य क्यों नहीं हैं या बिल्कुल दिखाई नहीं देते?</target></trans-unit>
+<trans-unit id="s585d91c0fe28ad49">
+  <source>Many options are uneditable after you started a training to make sure what you see is actually what got translated into the model. To be able to edit everything again, just use the option to reset the model. After you performed your desired changes, you can then train a new model that respects them. If there is no trained model and you are missing options, most likely your teacher has disabled them for you.</source>
+<target>प्रशिक्षण शुरू करने के बाद कई विकल्प संपादन योग्य नहीं रहते, ताकि दिखाई देने वाला कॉन्फ़िगरेशन मॉडल में इस्तेमाल हुए कॉन्फ़िगरेशन से मेल खाए। सब कुछ फिर संपादित करने के लिए मॉडल रीसेट करें। ज़रूरी बदलाव करने के बाद उनसे मेल खाने वाला नया मॉडल प्रशिक्षित करें। यदि प्रशिक्षित मॉडल नहीं है और विकल्प गायब हैं, तो संभवतः आपके शिक्षक ने उन्हें बंद किया है।</target></trans-unit>
+<trans-unit id="sfe6f2a2f731252f8">
+  <source>'<x id="0" equiv-text="${this.getName()}" />' has been created!</source>
+<target>'<x id="0" equiv-text="${this.getName()}" />' बनाया गया!</target></trans-unit>
+<trans-unit id="s0de010d496fb9b32">
+  <source>Neuron <x id="0" equiv-text="${this.neuronId}" /> inside <x id="1" equiv-text="${this.layer.getName()}" /></source>
+<target><x id="0" equiv-text="${this.neuronId}" />, <x id="1" equiv-text="${this.layer.getName()}" /> के अंदर न्यूरॉन है</target></trans-unit>
+<trans-unit id="sf0695e350c3bbc8f">
+  <source>The config you imported seems to be broken :(</source>
+<target>आपका आयात किया कॉन्फ़िगरेशन खराब लगता है :(</target></trans-unit>
+<trans-unit id="sd1dd1d906f1e9f57">
+  <source>The version of the config file is not compatible with the widget version you currently use!</source>
+<target>कॉन्फ़िगरेशन फ़ाइल का संस्करण आपके मौजूदा विजेट संस्करण के अनुकूल नहीं है!</target></trans-unit>
+<trans-unit id="sea22d7cb1b837fbc">
+  <source>The imported config was successfully loaded!</source>
+<target>आयात किया कॉन्फ़िगरेशन सफलतापूर्वक लोड हुआ!</target></trans-unit>
+<trans-unit id="s3a12b3bc9f64aaa9">
+  <source>The current configuration was successfully exported!</source>
+<target>मौजूदा कॉन्फ़िगरेशन सफलतापूर्वक निर्यात हुआ!</target></trans-unit>
+<trans-unit id="s10b8b649492e85d3">
+  <source>You can not delete a data set that is currently selected</source>
+<target>अभी चुना डेटासेट नहीं हटा सकते</target></trans-unit>
+<trans-unit id="s1c5710ff3e4f9cfd">
+  <source>The data set '<x id="0" equiv-text="${name}" />' was successfully deleted</source>
+<target>डेटासेट '<x id="0" equiv-text="${name}" />' सफलतापूर्वक हटाया गया</target></trans-unit>
+<trans-unit id="sa1843f0daccbc9c7">
+  <source>Error: Requested deletion of a data set that does not exist</source>
+<target>त्रुटि: जिस डेटासेट को हटाने का अनुरोध किया गया, वह मौजूद नहीं है</target></trans-unit>
+<trans-unit id="s68a9876d35971a36">
+  <source>The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!</source>
+<target>मॉडल सफलतापूर्वक संकलित हुआ! सभी हाइपरपैरामीटर और नेटवर्क संरचना के बदलाव लागू किए गए!</target></trans-unit>
+<trans-unit id="sd5d0be5e2482225b">
+  <source>'<x id="0" equiv-text="${layer.getName()}" />' has been deleted!</source>
+<target>'<x id="0" equiv-text="${layer.getName()}" />' हटा दिया गया!</target></trans-unit>
+<trans-unit id="sb266302725c5855d">
+  <source>You can not delete neurons by now! To adjust the number of neurons in the layer, select the layer and set the number of neurons in the right panel!</source>
+<target>अभी न्यूरॉन्स नहीं हटा सकते! परत में न्यूरॉन्स की संख्या बदलने के लिए परत चुनें और दाएँ पैनल में संख्या निर्धारित करें!</target></trans-unit>
+<trans-unit id="s5bb2fd4c5d83e80a">
+  <source>Can not delete edges manually. If you wish to delete all connections between two layers, select one of the affected layers and change its input</source>
+<target>किनारों को हाथ से नहीं हटा सकते। दो परतों के बीच सभी कनेक्शन हटाने के लिए प्रभावित परत चुनें और उसका इनपुट बदलें।</target></trans-unit>
+<trans-unit id="sf8813f51b7447d06">
+  <source>Your network must contain at least one input layer</source>
+<target>आपके नेटवर्क में कम से कम एक इनपुट परत होनी चाहिए</target></trans-unit>
+<trans-unit id="s1f3d45458eb2b06d">
+  <source>Your network must contain at least one output layer</source>
+<target>आपके नेटवर्क में कम से कम एक आउटपुट परत होनी चाहिए</target></trans-unit>
+<trans-unit id="s43fadf79188522d8">
+  <source>Make sure to have an output layer connected to the network!</source>
+<target>सुनिश्चित करें कि नेटवर्क से जुड़ी आउटपुट परत हो!</target></trans-unit>
+<trans-unit id="s9e914810882278d2">
+  <source>The help entry could not be created. Another entry with the same name already exists!</source>
+<target>सहायता प्रविष्टि नहीं बनाई जा सकी। इसी नाम की एक और प्रविष्टि पहले से मौजूद है!</target></trans-unit>
+<trans-unit id="s99a4a9d1702badce">
+  <source>Help entry updated successfully</source>
+<target>सहायता प्रविष्टि सफलतापूर्वक अपडेट हुई</target></trans-unit>
+<trans-unit id="sc1367ed4c633ec08">
+  <source>Could not update Q&amp;A entry! An entry with this title does not exist!</source>
+<target>प्रश्नोत्तर प्रविष्टि अपडेट नहीं हो सकी! इस शीर्षक वाली प्रविष्टि मौजूद नहीं है!</target></trans-unit>
+</body>
+</file>
+</xliff>

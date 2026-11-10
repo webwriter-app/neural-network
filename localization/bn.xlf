@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<file target-language="bn" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+<body>
+<trans-unit id="s0b29ddb08394f57b">
+  <source>Failed to enter fullscreen mode.</source>
+<target>পূর্ণস্ক্রিন মোডে প্রবেশ করা যায়নি।</target></trans-unit>
+<trans-unit id="sb59d68ed12d46377">
+  <source>Loading</source>
+<target>লোড হচ্ছে</target></trans-unit>
+<trans-unit id="sf27f87a94b05a690">
+  <source>Toggle Menu</source>
+<target>মেনু টগল করুন</target></trans-unit>
+<trans-unit id="s236ae937cbcd6a39">
+  <source>Zoom in</source>
+<target>জুম ইন</target></trans-unit>
+<trans-unit id="s5b1749c67945a111">
+  <source>Zoom to network</source>
+<target>নেটওয়ার্কে জুম করুন</target></trans-unit>
+<trans-unit id="sc65ea2cf2f21a13a">
+  <source>Zoom out</source>
+<target>জুম আউট</target></trans-unit>
+<trans-unit id="sd03c537f123f42a6">
+  <source>Exit Fullscreen</source>
+<target>পূর্ণস্ক্রিন থেকে বের হন</target></trans-unit>
+<trans-unit id="s4b10acae683d2978">
+  <source>Fullscreen</source>
+<target>পূর্ণস্ক্রিন</target></trans-unit>
+<trans-unit id="s991dbe8a07858b6b">
+  <source>Important info</source>
+<target>গুরুত্বপূর্ণ তথ্য</target></trans-unit>
+<trans-unit id="s4c3e975942fc568d">
+  <source>You decided to train a model with the current configuration. As an effect, all options to edit the configuration have been temporarily removed or disabled to make sure the configuration you see is the same configuration the model uses. If you want to make changes to your configuration, you need to discard the current model first. If you discard your model, you can again perform any changes and train a new model based on the new configuration.</source>
+<target>আপনি বর্তমান কনফিগারেশন দিয়ে একটি মডেল প্রশিক্ষণ দেওয়ার সিদ্ধান্ত নিয়েছেন। এর ফলে, কনফিগারেশন সম্পাদনার সব বিকল্প সাময়িকভাবে সরানো বা নিষ্ক্রিয় করা হয়েছে, যাতে প্রদর্শিত কনফিগারেশনটি মডেল ব্যবহৃত কনফিগারেশনের সঙ্গে মেলে। কনফিগারেশনে পরিবর্তন করতে হলে আগে বর্তমান মডেলটি বাতিল করুন। মডেল বাতিল করলে আবার পরিবর্তন করে নতুন কনফিগারেশনের ভিত্তিতে মডেল প্রশিক্ষণ দিতে পারবেন।</target></trans-unit>
+<trans-unit id="sb4810a60b4ad921e">
+  <source>Discards the model, which gains you back your editing capabilities</source>
+<target>মডেল বাতিল করলে সম্পাদনার সুবিধা ফিরে পাবেন</target></trans-unit>
+<trans-unit id="sc00a88b90cd60661">
+  <source>Discard</source>
+<target>বাতিল করুন</target></trans-unit>
+<trans-unit id="s2ed914b45e6f8fb0">
+  <source>Discard model</source>
+<target>মডেল বাতিল করুন</target></trans-unit>
+<trans-unit id="s6a0bc0ce56a9ae4a">
+  <source>Features</source>
+<target>বৈশিষ্ট্য</target></trans-unit>
+<trans-unit id="s5590dbf7e425789d">
+  <source>Label</source>
+<target>লেবেল</target></trans-unit>
+<trans-unit id="s07e767f1fe8ad66a">
+  <source>View raw data</source>
+<target>কাঁচা ডেটা দেখুন</target></trans-unit>
+<trans-unit id="s7ad8f95cd252ff9b">
+  <source>Select data set</source>
+<target>ডেটাসেট নির্বাচন করুন</target></trans-unit>
+<trans-unit id="s8e0e95cf2d9f0fe0">
+  <source>"Select a data set"</source>
+<target>"একটি ডেটাসেট নির্বাচন করুন"</target></trans-unit>
+<trans-unit id="s6503256c2de2745c">
+  <source>Edge</source>
+<target>সংযোগ</target></trans-unit>
+<trans-unit id="s517acbf1f96324f9">
+  <source>Weight</source>
+<target>ওজন</target></trans-unit>
+<trans-unit id="sc20cf39aef9b3355">
+  <source>About this app</source>
+<target>এই অ্যাপ সম্পর্কে</target></trans-unit>
+<trans-unit id="s984fb2f8f14ee101">
+  <source>This app was developed by Christian Koch, a student at RWTH Aachen University, with support of Frederic Salmen and the chair i9 at RWTH Aachen University.</source>
+<target>এই অ্যাপটি RWTH Aachen University-এর শিক্ষার্থী Christian Koch, Frederic Salmen-এর সহায়তা এবং RWTH Aachen University-এর i9 চেয়ারের সহযোগিতায় তৈরি করেছেন।</target></trans-unit>
+<trans-unit id="sc62667aa0380bc6b">
+  <source>About the developer</source>
+<target>ডেভেলপার সম্পর্কে</target></trans-unit>
+<trans-unit id="s17597a8bb4810524">
+  <source>License</source>
+<target>লাইসেন্স</target></trans-unit>
+<trans-unit id="s8e7cfd29f14ffad6">
+  <source>All third-party data sets have been published under public domain</source>
+<target>সব তৃতীয় পক্ষের ডেটাসেট পাবলিক ডোমেইনে প্রকাশিত হয়েছে</target></trans-unit>
+<trans-unit id="se3b4c857f91f80d7">
+  <source>Keyboard shortcuts</source>
+<target>কীবোর্ড শর্টকাট</target></trans-unit>
+<trans-unit id="sc25745d3142338ca">
+  <source>Deletes the currently selected layer</source>
+<target>বর্তমানে নির্বাচিত স্তর মুছে দেয়</target></trans-unit>
+<trans-unit id="sa5ed0165e089255e">
+  <source>Duplicates the currently selected layer</source>
+<target>বর্তমানে নির্বাচিত স্তর নকল করে</target></trans-unit>
+<trans-unit id="s8ff8cee7c5d100bc">
+  <source>Moves the currently selected layer</source>
+<target>বর্তমানে নির্বাচিত স্তর সরায়</target></trans-unit>
+<trans-unit id="sa7f495fff0f250d9">
+  <source>Q &amp; A</source>
+<target>প্রশ্নোত্তর</target></trans-unit>
+<trans-unit id="s14b03351d9f0f4e8">
+  <source>There are currently no help entries. If you publish the widget like this, the help section will be hidden.</source>
+<target>এখনও কোনো সহায়তা এন্ট্রি নেই। এভাবে উইজেট প্রকাশ করলে সহায়তা বিভাগটি লুকানো থাকবে।</target></trans-unit>
+<trans-unit id="se1f4d0fd4b9438d0">
+  <source>Update entry</source>
+<target>এন্ট্রি আপডেট করুন</target></trans-unit>
+<trans-unit id="s3983b0213bfac281">
+  <source>Remove entry</source>
+<target>এন্ট্রি সরান</target></trans-unit>
+<trans-unit id="s99f110d27e30b289">
+  <source>Title</source>
+<target>শিরোনাম</target></trans-unit>
+<trans-unit id="s6cee92a3b310e650">
+  <source>Add entry</source>
+<target>এন্ট্রি যোগ করুন</target></trans-unit>
+<trans-unit id="s8af61807443f32a4">
+  <source>Actions</source>
+<target>ক্রিয়া</target></trans-unit>
+<trans-unit id="sfac15b89e0668996">
+  <source>Duplicate</source>
+<target>নকল</target></trans-unit>
+<trans-unit id="sdc673e73b5c13aea">
+  <source>Delete</source>
+<target>মুছুন</target></trans-unit>
+<trans-unit id="s22b10e3713c037c7">
+  <source>Activation function</source>
+<target>অ্যাক্টিভেশন ফাংশন</target></trans-unit>
+<trans-unit id="sa90802aba569f823">
+  <source>The selected activation applies to all neurons in this layer.</source>
+<target>নির্বাচিত অ্যাক্টিভেশন এই স্তরের সব নিউরনে প্রযোজ্য।</target></trans-unit>
+<trans-unit id="s256782b6fa6c81e3">
+  <source>After calculating a neuron's value by adding up its weighted input values and its bias:</source>
+<target>ওজনযুক্ত ইনপুট মান ও বায়াস যোগ করে নিউরনের মান গণনা করার পরে:</target></trans-unit>
+<trans-unit id="s514d47a63e3b11c3">
+  <source>Range of possible output values:</source>
+<target>সম্ভাব্য আউটপুট মানের পরিসর:</target></trans-unit>
+<trans-unit id="s69a4b7731c4ab258">
+  <source>Incoming connections</source>
+<target>ইনকামিং সংযোগ</target></trans-unit>
+<trans-unit id="sfcb8881b108f62ed">
+  <source>Select the layers that connect to this layer</source>
+<target>এই স্তরের সঙ্গে যুক্ত স্তরগুলি নির্বাচন করুন</target></trans-unit>
+<trans-unit id="sf35b120256b540b4">
+  <source>Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description.</source>
+<target>এই স্তরে বৈশিষ্ট্য বরাদ্দ করুন। বিবরণ দেখতে খোলা ড্রপডাউন মেনুতে বৈশিষ্ট্যের কীগুলোর ওপর হোভার করুন।</target></trans-unit>
+<trans-unit id="s801ac62b23cc5f5f">
+  <source>Neurons</source>
+<target>নিউরন</target></trans-unit>
+<trans-unit id="sea4f08110bb8f15d">
+  <source>Remove</source>
+<target>সরান</target></trans-unit>
+<trans-unit id="sf9aee319a006c9b4">
+  <source>Add</source>
+<target>যোগ করুন</target></trans-unit>
+<trans-unit id="s5a95fb6f50ddd6ff">
+  <source>neurons</source>
+<target>নিউরন</target></trans-unit>
+<trans-unit id="s8b0432eecbd8b034">
+  <source>Update</source>
+<target>আপডেট</target></trans-unit>
+<trans-unit id="s47333467f911302a">
+  <source>Outgoing connections</source>
+<target>আউটগোয়িং সংযোগ</target></trans-unit>
+<trans-unit id="s684e13d4e599ccdd">
+  <source>Select the layers this layer connects to</source>
+<target>এই স্তরটি যেসব স্তরের সঙ্গে যুক্ত, সেগুলো নির্বাচন করুন</target></trans-unit>
+<trans-unit id="saf83c9eefbdeee91">
+  <source>Outgoing data</source>
+<target>আউটগোয়িং ডেটা</target></trans-unit>
+<trans-unit id="sfd77270c3f54f664">
+  <source>Output</source>
+<target>আউটপুট</target></trans-unit>
+<trans-unit id="sb546e48af5e5c359">
+  <source>Add layer</source>
+<target>স্তর যোগ করুন</target></trans-unit>
+<trans-unit id="saea857a2b4e1f6a7">
+  <source>Drag a layer anywhere to place it on the canvas</source>
+<target>ক্যানভাসে বসাতে একটি স্তর যেকোনো জায়গায় টেনে আনুন</target></trans-unit>
+<trans-unit id="sb4f1dffbb6be6302">
+  <source>Clear</source>
+<target>মুছুন</target></trans-unit>
+<trans-unit id="se6e9902ddea314c4">
+  <source>Clear network</source>
+<target>নেটওয়ার্ক পরিষ্কার করুন</target></trans-unit>
+<trans-unit id="s14ad6d4ee3b48ca2">
+  <source>This will remove every layer from the network.</source>
+<target>এতে নেটওয়ার্কের প্রতিটি স্তর মুছে যাবে।</target></trans-unit>
+<trans-unit id="sae901180c48ddefb">
+  <source>Your network currently contains</source>
+<target>আপনার নেটওয়ার্কে বর্তমানে আছে</target></trans-unit>
+<trans-unit id="s4554e34a747022df">
+  <source>layers</source>
+<target>স্তর</target></trans-unit>
+<trans-unit id="s4d1b055aa7613557">
+  <source>Your network is currently empty.</source>
+<target>আপনার নেটওয়ার্ক বর্তমানে খালি।</target></trans-unit>
+<trans-unit id="sd2e79aff2aea724a">
+  <source>You currently do not have an input layer. Drag one onto the canvas!</source>
+<target>আপনার কোনো ইনপুট স্তর নেই। একটি ক্যানভাসে টেনে আনুন!</target></trans-unit>
+<trans-unit id="s37abcf4d745436f7">
+  <source>You currently do not have an output layer. Drag one onto the canvas!</source>
+<target>আপনার কোনো আউটপুট স্তর নেই। একটি ক্যানভাসে টেনে আনুন!</target></trans-unit>
+<trans-unit id="s6a4607c5c4e55a03">
+  <source>Always make sure to connect your layers such that there is a path from your input layer(s) to your output layer! Therefore select a layer in the canvas and select its incoming or outgoing connections</source>
+<target>ইনপুট স্তর(গুলি) থেকে আউটপুট স্তর পর্যন্ত পথ থাকে এমনভাবে স্তরগুলি অবশ্যই সংযুক্ত করুন! তাই ক্যানভাসে একটি স্তর নির্বাচন করে এর ইনকামিং বা আউটগোয়িং সংযোগ নির্বাচন করুন।</target></trans-unit>
+<trans-unit id="sd6b4fb36bd73f830">
+  <source>Assigned feature (input)</source>
+<target>বরাদ্দ করা বৈশিষ্ট্য (ইনপুট)</target></trans-unit>
+<trans-unit id="s690d876ebcfe1dd6">
+  <source>Neuron</source>
+<target>নিউরন</target></trans-unit>
+<trans-unit id="s8efe9b047510b849">
+  <source>Corresponding layer:</source>
+<target>সংশ্লিষ্ট স্তর:</target></trans-unit>
+<trans-unit id="s888d98a196a240d8">
+  <source>Inputs</source>
+<target>ইনপুট</target></trans-unit>
+<trans-unit id="s7aaa83f30a557ce9">
+  <source>- All neurons from</source>
+<target>— সব নিউরন এখান থেকে</target></trans-unit>
+<trans-unit id="s4a3a9e0c684b763f">
+  <source>Label (output)</source>
+<target>লেবেল (আউটপুট)</target></trans-unit>
+<trans-unit id="s066d70cf9d5e2915">
+  <source>Outputs</source>
+<target>আউটপুট</target></trans-unit>
+<trans-unit id="s41ee884e3b2d7413">
+  <source>Click on an feature pill above to see the relation between this feature and the label in a plot</source>
+<target>এই বৈশিষ্ট্য ও লেবেলের সম্পর্ক গ্রাফে দেখতে ওপরের বৈশিষ্ট্য পিল ক্লিক করুন</target></trans-unit>
+<trans-unit id="scc33c632d6e60d84">
+  <source>plotted against</source>
+<target>এর বিপরীতে অঙ্কিত</target></trans-unit>
+<trans-unit id="s01c091af962d4963">
+  <source>Plots</source>
+<target>প্লট</target></trans-unit>
+<trans-unit id="sd8305d1efc816b0a">
+  <source>Predict</source>
+<target>পূর্বাভাস</target></trans-unit>
+<trans-unit id="sf7aa4a7f6a7a6ae9">
+  <source>Predicted label</source>
+<target>পূর্বাভাসিত লেবেল</target></trans-unit>
+<trans-unit id="s5a27bd37c0a0ad1a">
+  <source>with a probability of</source>
+<target>সম্ভাব্যতা</target></trans-unit>
+<trans-unit id="sd0ee89e8e7353561">
+  <source>Make another prediction</source>
+<target>আরেকটি পূর্বাভাস করুন</target></trans-unit>
+<trans-unit id="s9d8b8aa2b404c2c8">
+  <source>Settings</source>
+<target>সেটিংস</target></trans-unit>
+<trans-unit id="s769b92432aa0e57f">
+  <source>Configure which options the users of this widget are allowed to view and edit</source>
+<target>এই উইজেটের ব্যবহারকারীরা কোন বিকল্প দেখতে ও সম্পাদনা করতে পারবেন তা কনফিগার করুন</target></trans-unit>
+<trans-unit id="s255857544a9d5ec0">
+  <source>Reset</source>
+<target>রিসেট</target></trans-unit>
+<trans-unit id="s295e7ec3fae5aa15">
+  <source>Set to default</source>
+<target>ডিফল্টে সেট করুন</target></trans-unit>
+<trans-unit id="s7f76d461768c268c">
+  <source>Allow importing configurations</source>
+<target>কনফিগারেশন আমদানি করার অনুমতি দিন</target></trans-unit>
+<trans-unit id="sa219044786efe4f4">
+  <source>Show recommendations</source>
+<target>সুপারিশ দেখান</target></trans-unit>
+<trans-unit id="sa133a50ad676b757">
+  <source>Allow exporting configurations</source>
+<target>কনফিগারেশন রপ্তানি করার অনুমতি দিন</target></trans-unit>
+<trans-unit id="s9feb1a1345ccc3e5">
+  <source>Network</source>
+<target>নেটওয়ার্ক</target></trans-unit>
+<trans-unit id="s3de2e4f3353ff071">
+  <source>Restrict layer types</source>
+<target>স্তরের ধরন সীমিত করুন</target></trans-unit>
+<trans-unit id="scfa788c4d56c9859">
+  <source>Allow dense layers</source>
+<target>Dense স্তরের অনুমতি দিন</target></trans-unit>
+<trans-unit id="s05c44a5db696fcaf">
+  <source>Editing</source>
+<target>সম্পাদনা</target></trans-unit>
+<trans-unit id="secd2b30927c9ada1">
+  <source>Allow adding and removing layers</source>
+<target>স্তর যোগ ও সরানোর অনুমতি দিন</target></trans-unit>
+<trans-unit id="s1d6d96fee1f77a74">
+  <source>Allow editing layers</source>
+<target>স্তর সম্পাদনার অনুমতি দিন</target></trans-unit>
+<trans-unit id="sc728fae3603c8b93">
+  <source>Allow selecting the data flowing into input layers</source>
+<target>ইনপুট স্তরে প্রবাহিত ডেটা নির্বাচন করতে দিন</target></trans-unit>
+<trans-unit id="s91346ada0f5220bf">
+  <source>Allow editing the number of neurons</source>
+<target>নিউরনের সংখ্যা সম্পাদনা করতে দিন</target></trans-unit>
+<trans-unit id="sff69314112eb4786">
+  <source>Allow changing the activation function</source>
+<target>অ্যাক্টিভেশন ফাংশন বদলাতে দিন</target></trans-unit>
+<trans-unit id="sb4aaa150117048eb">
+  <source>Allow reconnecting the layers with each other</source>
+<target>স্তরগুলো পুনরায় সংযুক্ত করতে দিন</target></trans-unit>
+<trans-unit id="s4488dd99533e7f65">
+  <source>Data set</source>
+<target>ডেটাসেট</target></trans-unit>
+<trans-unit id="s505d96c3ca2f3c78">
+  <source>Allow selecting a different data set</source>
+<target>অন্য ডেটাসেট নির্বাচন করতে দিন</target></trans-unit>
+<trans-unit id="sa3900af79012fda0">
+  <source>Allow managing (creating new and deleting) data sets</source>
+<target>ডেটাসেট পরিচালনা করতে দিন (নতুন তৈরি ও মুছে ফেলা)</target></trans-unit>
+<trans-unit id="s0605944041e20ba8">
+  <source>Show plots</source>
+<target>প্লট দেখান</target></trans-unit>
+<trans-unit id="se65e4e6f3696e997">
+  <source>Training</source>
+<target>প্রশিক্ষণ</target></trans-unit>
+<trans-unit id="s7188f983604e2188">
+  <source>Allow editing hyperparameters</source>
+<target>হাইপারপ্যারামিটার সম্পাদনা করতে দিন</target></trans-unit>
+<trans-unit id="s77d657d2989d8bf6">
+  <source>Allow editing the batch size</source>
+<target>ব্যাচের আকার সম্পাদনা করতে দিন</target></trans-unit>
+<trans-unit id="s14a65ec1c3dc6761">
+  <source>Allow editing the learning rate</source>
+<target>লার্নিং রেট সম্পাদনা করতে দিন</target></trans-unit>
+<trans-unit id="s399ed88a7aa67028">
+  <source>Allow editing the dropout rate</source>
+<target>ড্রপআউট রেট সম্পাদনা করতে দিন</target></trans-unit>
+<trans-unit id="s293aa6a6446fb153">
+  <source>Export</source>
+<target>রপ্তানি</target></trans-unit>
+<trans-unit id="sc7aaabd93fb4c486">
+  <source>Export the current configuration to your local file system as a JSON file. Storing trained models is not supported.</source>
+<target>বর্তমান কনফিগারেশন JSON ফাইল হিসেবে আপনার স্থানীয় ফাইল সিস্টেমে রপ্তানি করুন। প্রশিক্ষিত মডেল সংরক্ষণ সমর্থিত নয়।</target></trans-unit>
+<trans-unit id="s93d85c9969bc1e8e">
+  <source>Get started</source>
+<target>শুরু করুন</target></trans-unit>
+<trans-unit id="s37f8f9ad6c3ca6e8">
+  <source>Import JSON configuration</source>
+<target>JSON কনফিগারেশন আমদানি করুন</target></trans-unit>
+<trans-unit id="sb39c29728a3aab64">
+  <source>Intermediate</source>
+<target>মধ্যবর্তী</target></trans-unit>
+<trans-unit id="s4aba9979380614e1">
+  <source>Classification</source>
+<target>শ্রেণিবিন্যাস</target></trans-unit>
+<trans-unit id="s7e7ce210415ee02c">
+  <source>Feed Forward</source>
+<target>ফিড ফরোয়ার্ড</target></trans-unit>
+<trans-unit id="s382a2aa3984474dd">
+  <source>Create</source>
+<target>তৈরি করুন</target></trans-unit>
+<trans-unit id="s85f01e331f787810">
+  <source>Regression</source>
+<target>রিগ্রেশন</target></trans-unit>
+<trans-unit id="s13bf923e48a38e88">
+  <source>You can create a custom configuration by using the options in the corresponding right panels.</source>
+<target>সংশ্লিষ্ট ডান প্যানেলের বিকল্পগুলো ব্যবহার করে কাস্টম কনফিগারেশন তৈরি করতে পারেন।</target></trans-unit>
+<trans-unit id="s5ebe428b72f9d9fd">
+  <source>Hyperparameters</source>
+<target>হাইপারপ্যারামিটার</target></trans-unit>
+<trans-unit id="sd674ba4ce23f2290">
+  <source>Batch size</source>
+<target>ব্যাচের আকার</target></trans-unit>
+<trans-unit id="sa4aa72be4b18da23">
+  <source>Learning rate</source>
+<target>লার্নিং রেট</target></trans-unit>
+<trans-unit id="s29028574383c26b2">
+  <source>Dropout rate</source>
+<target>ড্রপআউট রেট</target></trans-unit>
+<trans-unit id="s0d783bd504d48897">
+  <source>Adjust the probability of neurons being deactivated during training</source>
+<target>প্রশিক্ষণের সময় নিষ্ক্রিয় নিউরনের সম্ভাবনা সমন্বয় করুন</target></trans-unit>
+<trans-unit id="s97aa76056a81bd36">
+  <source>Metrics</source>
+<target>মেট্রিক</target></trans-unit>
+<trans-unit id="s61e8f3fac73d5e85">
+  <source>Loss: Categorical Crossentropy</source>
+<target>ক্ষতি: Categorical Crossentropy</target></trans-unit>
+<trans-unit id="s9f262d3debac7e63">
+  <source>Accuracy: In what percentage of the tests was the right class predicted?</source>
+<target>নির্ভুলতা: কত শতাংশ পরীক্ষায় সঠিক শ্রেণি পূর্বাভাস দেওয়া হয়েছে?</target></trans-unit>
+<trans-unit id="s04cf457a74a1ca3e">
+  <source>Loss: Mean Squared Error</source>
+<target>ক্ষতি: Mean Squared Error</target></trans-unit>
+<trans-unit id="s5f343a43e7ea9f91">
+  <source>Error</source>
+<target>ত্রুটি</target></trans-unit>
+<trans-unit id="s7fd689e3ee842226">
+  <source>What is the difference between the two lines in a graph?</source>
+<target>গ্রাফের দুটি রেখার মধ্যে পার্থক্য কী?</target></trans-unit>
+<trans-unit id="s9cc47ae161b22379">
+  <source>For val_..., the metric is calculated on the validation data set while for the data without val as a prefix the metric is calculated on the training data set. The metrics for the validation data set can be seen as more meaningful since this is the data the network does not 'know'.</source>
+<target>val_...-এর ক্ষেত্রে মেট্রিকটি যাচাইকরণ ডেটাসেটে গণনা করা হয়; val উপসর্গহীন ডেটার ক্ষেত্রে প্রশিক্ষণ ডেটাসেটে গণনা করা হয়। যাচাইকরণ ডেটাসেটের মেট্রিক বেশি অর্থবহ, কারণ এই ডেটা নেটওয়ার্ক আগে 'জানে' না।</target></trans-unit>
+<trans-unit id="s9ea77d0d371dc469">
+  <source>Train</source>
+<target>প্রশিক্ষণ দিন</target></trans-unit>
+<trans-unit id="s69bf683344258f79">
+  <source>Training completed!</source>
+<target>প্রশিক্ষণ সম্পন্ন হয়েছে!</target></trans-unit>
+<trans-unit id="sedc9092c834a7a37">
+  <source>Feel free to continue training your model for some additional epochs which might get you even better results!</source>
+<target>আরও ভালো ফল পেতে মডেলটিকে আরও কয়েকটি epoch প্রশিক্ষণ দিতে পারেন!</target></trans-unit>
+<trans-unit id="s900c980bdb200fcf">
+  <source>Epochs</source>
+<target>ইপকের সংখ্যা</target></trans-unit>
+<trans-unit id="s7f291599fb79b2a9">
+  <source>Number of iterations over the whole training data set</source>
+<target>সম্পূর্ণ প্রশিক্ষণ ডেটাসেটের ওপর পুনরাবৃত্তির সংখ্যা</target></trans-unit>
+<trans-unit id="s9fbbc819fe7e66aa">
+  <source>Run</source>
+<target>চালান</target></trans-unit>
+<trans-unit id="s7ae39eeb994f4040">
+  <source>Train for 1 epoch</source>
+<target>১ epoch প্রশিক্ষণ দিন</target></trans-unit>
+<trans-unit id="s415ece5a1e4e50ce">
+  <source>Train for</source>
+<target>প্রশিক্ষণ দিন</target></trans-unit>
+<trans-unit id="sa24fcd4e36a13aef">
+  <source>epochs</source>
+<target>ইপক</target></trans-unit>
+<trans-unit id="s12db7f32a3851306">
+  <source>Epoch</source>
+<target>ইপক</target></trans-unit>
+<trans-unit id="safda35e3d523b59b">
+  <source>Batch</source>
+<target>ব্যাচ</target></trans-unit>
+<trans-unit id="s573de432d7ee9439">
+  <source>The progress you made in creating your own data set was successfully restored!</source>
+<target>আপনার নিজস্ব ডেটাসেট তৈরির অগ্রগতি সফলভাবে পুনরুদ্ধার হয়েছে!</target></trans-unit>
+<trans-unit id="s8e77b85b1ae353e5">
+  <source>A data set with the same name already exists!</source>
+<target>একই নামের ডেটাসেট ইতিমধ্যে আছে!</target></trans-unit>
+<trans-unit id="s669ebaf3b9787562">
+  <source>The provided data does not match the required format! Please check again</source>
+<target>প্রদত্ত ডেটা প্রয়োজনীয় ফরম্যাটের সঙ্গে মেলে না! আবার পরীক্ষা করুন</target></trans-unit>
+<trans-unit id="see988347633ae840">
+  <source>A new data set was successfully created and automatically selected!</source>
+<target>নতুন ডেটাসেট সফলভাবে তৈরি হয়েছে এবং স্বয়ংক্রিয়ভাবে নির্বাচন করা হয়েছে!</target></trans-unit>
+<trans-unit id="s18de3f0678131658">
+  <source>Create a new data set</source>
+<target>নতুন ডেটাসেট তৈরি করুন</target></trans-unit>
+<trans-unit id="scdb1bac161852c73">
+  <source>Welcome</source>
+<target>স্বাগতম</target></trans-unit>
+<trans-unit id="s59163864a74213df">
+  <source>This tour will guide you through creating your own data set in a few simple steps. Everything is stored automatically, so you can close this modal at any time and resume.</source>
+<target>এই নির্দেশিকা কয়েকটি সহজ ধাপে আপনার নিজস্ব ডেটাসেট তৈরি করতে সাহায্য করবে। সবকিছু স্বয়ংক্রিয়ভাবে সংরক্ষিত হয়, তাই যেকোনো সময় এই মডাল বন্ধ করে পরে চালিয়ে যেতে পারেন।</target></trans-unit>
+<trans-unit id="s420e8fef6d553399">
+  <source>General info about the data set</source>
+<target>ডেটাসেট সম্পর্কে সাধারণ তথ্য</target></trans-unit>
+<trans-unit id="sf82bd0ca92fc7478">
+  <source>Choose a short but meaningful name for your data set and write a description.</source>
+<target>ডেটাসেটের জন্য সংক্ষিপ্ত কিন্তু অর্থবহ নাম বেছে নিয়ে বিবরণ লিখুন।</target></trans-unit>
+<trans-unit id="sef49aec68fd1dc66">
+  <source>Name</source>
+<target>নাম</target></trans-unit>
+<trans-unit id="s63d894b1ddb06289">
+  <source>Description</source>
+<target>বিবরণ</target></trans-unit>
+<trans-unit id="sea29890d344759e2">
+  <source>Choose 'regression' if you want to predict continous values like house or gas prices</source>
+<target>বাড়ি বা গ্যাসের দামের মতো ধারাবাহিক মান পূর্বাভাস দিতে চাইলে 'regression' বেছে নিন</target></trans-unit>
+<trans-unit id="sa51b42a0f8bc1196">
+  <source>Choose 'classification' if you want information about the affiliation of the feature(s) to a class (e.g. what animal can be seen in this image? A dog, cat or horse?)</source>
+<target>বৈশিষ্ট্য(গুলি) কোন শ্রেণির অন্তর্ভুক্ত তা জানতে চাইলে 'classification' বেছে নিন (যেমন ছবিতে কোন প্রাণী? কুকুর, বিড়াল নাকি ঘোড়া?)</target></trans-unit>
+<trans-unit id="s381b5d0debf831a1">
+  <source>Choose a type</source>
+<target>একটি ধরন বেছে নিন</target></trans-unit>
+<trans-unit id="s641101718c90c0aa">
+  <source>Which data will be put into the neural network? Create arbitrary many features!</source>
+<target>নিউরাল নেটওয়ার্কে কোন ডেটা দেওয়া হবে? ইচ্ছামতো অনেক বৈশিষ্ট্য তৈরি করুন!</target></trans-unit>
+<trans-unit id="s506b6a19d12f414c">
+  <source>Key</source>
+<target>কী</target></trans-unit>
+<trans-unit id="s0c9543b42518e43e">
+  <source>1-6 capital letters</source>
+<target>১-৬টি বড় হাতের অক্ষর</target></trans-unit>
+<trans-unit id="s9ccab5f6530bd7fb">
+  <source>Remove feature</source>
+<target>বৈশিষ্ট্য সরান</target></trans-unit>
+<trans-unit id="sb1cdfd5a8a60f3ca">
+  <source>Add feature</source>
+<target>বৈশিষ্ট্য যোগ করুন</target></trans-unit>
+<trans-unit id="sa7f1260d99ed4dcb">
+  <source>What shall be the output of the network?</source>
+<target>নেটওয়ার্কের আউটপুট কী হবে?</target></trans-unit>
+<trans-unit id="s2ba861fd720acdec">
+  <source>an integer</source>
+<target>একটি পূর্ণসংখ্যা</target></trans-unit>
+<trans-unit id="s2511ced2063529c4">
+  <source>Animal was detected as a horse</source>
+<target>প্রাণীটিকে ঘোড়া হিসেবে শনাক্ত করা হয়েছে</target></trans-unit>
+<trans-unit id="s81fe4b139dbcd729">
+  <source>Remove class</source>
+<target>শ্রেণি সরান</target></trans-unit>
+<trans-unit id="s3187969905158d04">
+  <source>Add class</source>
+<target>শ্রেণি যোগ করুন</target></trans-unit>
+<trans-unit id="s93aa17486b781f3d">
+  <source>You are nearly done</source>
+<target>আপনার প্রায় শেষ</target></trans-unit>
+<trans-unit id="s4770b2377cfb5113">
+  <source>Now add your data in the following format</source>
+<target>এখন নিচের ফরম্যাটে ডেটা যোগ করুন</target></trans-unit>
+<trans-unit id="s514bbfe7a6a1385a">
+  <source>Each row needs to represent one set containing the features and the label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the features. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments.</source>
+<target>প্রতিটি সারিতে বৈশিষ্ট্য ও লেবেলসহ একটি সেট থাকবে। কমা দিয়ে আইটেম আলাদা করুন (কমার আগে-পরে ফাঁকা স্থান চলবে)। শেষ আইটেমটি সবসময় লেবেল; তার আগেরগুলো বৈশিষ্ট্য। দশমিক সংখ্যায় কমা নয়, শুধু বিন্দু ব্যবহার করুন। CSV ডেটা থাকলে এখানে পেস্ট করতে পারেন, তবে মন্তব্য মুছে ফেলুন।</target></trans-unit>
+<trans-unit id="sf3ff78cc329d3528">
+  <source>Previous</source>
+<target>আগের</target></trans-unit>
+<trans-unit id="s0fbf6dc6a1966408">
+  <source>Next</source>
+<target>পরবর্তী</target></trans-unit>
+<trans-unit id="s886925e360029fea">
+  <source>Validate and create</source>
+<target>যাচাই করে তৈরি করুন</target></trans-unit>
+<trans-unit id="s688d523f38404f47">
+  <source>Manage data sets</source>
+<target>ডেটাসেট পরিচালনা করুন</target></trans-unit>
+<trans-unit id="s114321122eed37a2">
+  <source>Currently selected</source>
+<target>বর্তমানে নির্বাচিত</target></trans-unit>
+<trans-unit id="s05560220ff65f5eb">
+  <source>Permanently delete data set</source>
+<target>ডেটাসেট স্থায়ীভাবে মুছুন</target></trans-unit>
+<trans-unit id="sae1c7f13b7c0c47f">
+  <source>Start</source>
+<target>শুরু</target></trans-unit>
+<trans-unit id="s0e36885f01f95cc8">
+  <source>A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.</source>
+<target>একটি dense স্তর, যাকে fully-connected স্তরও বলা হয়, এমন একটি স্তর যার ভেতরের নিউরনগুলো আগের স্তরের প্রতিটি নিউরনের সঙ্গে যুক্ত থাকে।</target></trans-unit>
+<trans-unit id="s9d167ef77aed79b6">
+  <source>Layer</source>
+<target>স্তর</target></trans-unit>
+<trans-unit id="se157debe22915185">
+  <source>was deleted because no data could be assigned to it!</source>
+<target>ডেটা বরাদ্দ করা যায়নি বলে মুছে ফেলা হয়েছে!</target></trans-unit>
+<trans-unit id="s8192fafe6f0cc0bb">
+  <source>An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)</source>
+<target>ইনপুট স্তর বাইরে থেকে দেওয়া ডেটা গ্রহণ করে এবং পরবর্তী স্তর(গুলি)-তে পাঠায়।</target></trans-unit>
+<trans-unit id="s3310986378624a28">
+  <source>The selected layer can not be duplicated! Only a single output layer is currently supported!</source>
+<target>নির্বাচিত স্তরটি নকল করা যায় না! বর্তমানে কেবল একটি আউটপুট স্তর সমর্থিত!</target></trans-unit>
+<trans-unit id="sdc95be9d922008e7">
+  <source>An output layer in this simulation is just a normal dense layer, additionally equipped with the ability to output the incoming data out of the network.</source>
+<target>এই সিমুলেশনে আউটপুট স্তরটি সাধারণ dense স্তর, যা নেটওয়ার্ক থেকে ইনকামিং ডেটা আউটপুট করার ক্ষমতাও রাখে।</target></trans-unit>
+<trans-unit id="sa5982fd2e05ee92d">
+  <source>Since the purpose if this layer is to output a classifiction, we should combine it with a softmax activation function in order to provide a probability distribution.</source>
+<target>এই স্তরের উদ্দেশ্য শ্রেণিবিন্যাস আউটপুট করা, তাই সম্ভাব্যতা বণ্টন দিতে এটিকে softmax অ্যাক্টিভেশন ফাংশনের সঙ্গে ব্যবহার করা উচিত।</target></trans-unit>
+<trans-unit id="s835dc746e771a9d6">
+  <source>Boston House Pricing</source>
+<target>Boston বাড়ির মূল্য</target></trans-unit>
+<trans-unit id="s4c5805b438fae5b7">
+  <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
+<target>Boston House Price ডেটাসেটে বাড়ি ও তার আশপাশের তথ্য থেকে হাজার ডলারে বাড়ির দাম পূর্বাভাস করা হয়।</target></trans-unit>
+<trans-unit id="s92dd08d474f4ba4b">
+  <source>Per capita crime rate by town</source>
+<target>প্রতি শহরে মাথাপিছু অপরাধের হার</target></trans-unit>
+<trans-unit id="sa2cb02c992247501">
+  <source>Proportion of residential land zoned for lots over 25,000 sq.ft.</source>
+<target>25,000 বর্গফুটের বেশি প্লটের জন্য আবাসিক হিসেবে নির্ধারিত জমির অনুপাত</target></trans-unit>
+<trans-unit id="s0ba84c8c8dd5dfe5">
+  <source>Proportion of nonretail business acres per town</source>
+<target>প্রতি শহরে খুচরা-বহির্ভূত ব্যবসায়িক জমির অনুপাত</target></trans-unit>
+<trans-unit id="sb85fa3ee37f69a87">
+  <source>Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)</source>
+<target>Charles River ডামি ভেরিয়েবল (= ট্র্যাক্ট নদীর সীমানায় হলে 1; অন্যথায় 0)</target></trans-unit>
+<trans-unit id="s902fe1322b1d2c62">
+  <source>Nitric oxides concentration (parts per 10 million)</source>
+<target>নাইট্রিক অক্সাইডের ঘনত্ব (প্রতি 10 মিলিয়নে অংশ)</target></trans-unit>
+<trans-unit id="sf928898f4043c6ff">
+  <source>Average number of rooms per dwelling</source>
+<target>প্রতি বাসস্থানে কক্ষের গড় সংখ্যা</target></trans-unit>
+<trans-unit id="s95f88e83db13ec5c">
+  <source>Proportion of owner-occupied units built prior to 1940</source>
+<target>1940 সালের আগে নির্মিত মালিক-অধিকৃত ইউনিটের অনুপাত</target></trans-unit>
+<trans-unit id="sb0be465979ef3758">
+  <source>Weighted distances to five Boston employment centers</source>
+<target>পাঁচটি Boston কর্মসংস্থান কেন্দ্রে ওজনযুক্ত দূরত্ব</target></trans-unit>
+<trans-unit id="sb60c67627b3119cc">
+  <source>Index of accessibility to radial highways</source>
+<target>রেডিয়াল হাইওয়েতে প্রবেশযোগ্যতার সূচক</target></trans-unit>
+<trans-unit id="sc3ba6f6e119cd273">
+  <source>Full-value property-tax rate per $10,000</source>
+<target>প্রতি $10,000-এ সম্পত্তি করের পূর্ণ-মূল্য হার</target></trans-unit>
+<trans-unit id="s49d8fc3f40b093ac">
+  <source>Pupil-teacher ratio by town</source>
+<target>শহরভিত্তিক ছাত্র-শিক্ষক অনুপাত</target></trans-unit>
+<trans-unit id="s577b270038a8c007">
+  <source>1000(Bk – 0.63)^2 where Bk is the proportion of blacks by town</source>
+<target>1000(Bk – 0.63)^2, যেখানে Bk শহরভিত্তিক কৃষ্ণাঙ্গ জনসংখ্যার অনুপাত</target></trans-unit>
+<trans-unit id="s2f41bf569b07a4cc">
+  <source>% lower status of the population</source>
+<target>জনসংখ্যার নিম্ন মর্যাদার শতাংশ</target></trans-unit>
+<trans-unit id="s473a26666565450c">
+  <source>Median value of owner-occupied homes in $1000s</source>
+<target>মালিক-অধিকৃত বাড়ির মধ্যম মূল্য ($1000 এককে)</target></trans-unit>
+<trans-unit id="sb96294312677cad5">
+  <source>Pima Indians Diabetes</source>
+<target>Pima ইন্ডিয়ানদের ডায়াবেটিস</target></trans-unit>
+<trans-unit id="sc20c7530f6afbb7c">
+  <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
+<target>Pima Indians Diabetes ডেটাসেটে চিকিৎসা-সংক্রান্ত তথ্যের ভিত্তিতে Pima Indians-এর পাঁচ বছরের মধ্যে ডায়াবেটিস শুরু হওয়ার পূর্বাভাস দেওয়া হয়। এটি দ্বি-শ্রেণির শ্রেণিবিন্যাস সমস্যা। দুই শ্রেণির পর্যবেক্ষণ সংখ্যা সমান নয়। এখানে 768টি পর্যবেক্ষণ, 8টি ইনপুট ভেরিয়েবল এবং 1টি আউটপুট ভেরিয়েবল আছে। অনুপস্থিত মান শূন্য দিয়ে চিহ্নিত বলে মনে করা হয়।</target></trans-unit>
+<trans-unit id="s4e77426bf7986294">
+  <source>Number of times pregnant</source>
+<target>গর্ভধারণের সংখ্যা</target></trans-unit>
+<trans-unit id="s5923001bb6219bb3">
+  <source>Plasma glucose concentration a 2 hours in an oral glucose tolerance test.</source>
+<target>মৌখিক গ্লুকোজ সহনশীলতা পরীক্ষার 2 ঘণ্টা পর প্লাজমা গ্লুকোজের ঘনত্ব।</target></trans-unit>
+<trans-unit id="sf7cdf4e3adc1b2fa">
+  <source>Diastolic blood pressure (mm Hg)</source>
+<target>ডায়াস্টোলিক রক্তচাপ (mm Hg)</target></trans-unit>
+<trans-unit id="s5659cbd3943227de">
+  <source>Triceps skinfold thickness (mm)</source>
+<target>ট্রাইসেপস ত্বকের ভাঁজের পুরুত্ব (mm)</target></trans-unit>
+<trans-unit id="sa17f891acb35efd2">
+  <source>2-Hour serum insulin (mu U/ml)</source>
+<target>2-ঘণ্টার সিরাম ইনসুলিন (mu U/ml)</target></trans-unit>
+<trans-unit id="s4a39fd2eb0e136da">
+  <source>Body mass index (weight in kg/(height in m)^2)</source>
+<target>বডি মাস ইনডেক্স (ওজন kg/(উচ্চতা m)^2)</target></trans-unit>
+<trans-unit id="s66ebf0bd757d5159">
+  <source>Diabetes pedigree function</source>
+<target>ডায়াবেটিস বংশলতিকা ফাংশন</target></trans-unit>
+<trans-unit id="s5ef9308d320834d1">
+  <source>Age (years)</source>
+<target>বয়স (বছর)</target></trans-unit>
+<trans-unit id="s4e64552852c163c0">
+  <source>Diabetes</source>
+<target>ডায়াবেটিস</target></trans-unit>
+<trans-unit id="s5c9d4638c1e38b36">
+  <source>Allow editing</source>
+<target>সম্পাদনার অনুমতি দিন</target></trans-unit>
+<trans-unit id="sdb1595f5c742dfbb">
+  <source>Input</source>
+<target>ইনপুট</target></trans-unit>
+<trans-unit id="sff96ebdc539c64b0">
+  <source>Dense</source>
+<target>ঘন স্তর</target></trans-unit>
+<trans-unit id="sf559b4b9f2109e05">
+  <source>Activation:</source>
+<target>অ্যাক্টিভেশন:</target></trans-unit>
+<trans-unit id="s0b49b37aa2ca0f35">
+  <source>Dense layer</source>
+<target>Dense স্তর</target></trans-unit>
+<trans-unit id="sc0ecc73d49676ffa">
+  <source>Input layer</source>
+<target>ইনপুট স্তর</target></trans-unit>
+<trans-unit id="s35659ef8d11dd2c9">
+  <source>Output layer</source>
+<target>আউটপুট স্তর</target></trans-unit>
+<trans-unit id="se988648386f27436">
+  <source>Type: regression</source>
+<target>ধরন: regression</target></trans-unit>
+<trans-unit id="s795bb0b2a9c2e75f">
+  <source>Type: classification</source>
+<target>ধরন: classification</target></trans-unit>
+<trans-unit id="s09205907b5b56cda">
+  <source>No</source>
+<target>না</target></trans-unit>
+<trans-unit id="scb489a1a173ac3f0">
+  <source>Yes</source>
+<target>হ্যাঁ</target></trans-unit>
+<trans-unit id="s669b18c6d2d9c95b">
+  <source>None</source>
+<target>কোনোটিই নয়</target></trans-unit>
+<trans-unit id="s401c527ca9b140a8">
+  <source>No additional function is applied.</source>
+<target>কোনো অতিরিক্ত ফাংশন প্রয়োগ করা হয় না।</target></trans-unit>
+<trans-unit id="s6c2a68f18e1a1afd">
+  <source>Negative values are rounded up to zero.</source>
+<target>ঋণাত্মক মানগুলোকে শূন্যে গোল করা হয়।</target></trans-unit>
+<trans-unit id="s67c3b0f1a71c873c">
+  <source>Largely negative values are mapped to values close to zero while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>অনেক ঋণাত্মক মানকে শূন্যের কাছাকাছি এবং অনেক ধনাত্মক মানকে একের কাছাকাছি রূপান্তর করা হয় (চিত্র দেখুন)।</target></trans-unit>
+<trans-unit id="s2a6555107a533bb0">
+  <source>Largely negative values are mapped to values close to minus one while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>অনেক ঋণাত্মক মানকে মাইনাস একের কাছাকাছি এবং অনেক ধনাত্মক মানকে একের কাছাকাছি রূপান্তর করা হয় (চিত্র দেখুন)।</target></trans-unit>
+<trans-unit id="s77365296ebf281bc">
+  <source>Create a probability distribution such that the output values of all neurons in this layer add up to one.</source>
+<target>এমন সম্ভাব্যতা বণ্টন তৈরি করুন যাতে এই স্তরের সব নিউরনের আউটপুটের যোগফল এক হয়।</target></trans-unit>
+<trans-unit id="sc5bc2a2d2fd1ee58">
+  <source>Why are some important options not editable or completely missing?</source>
+<target>কিছু গুরুত্বপূর্ণ বিকল্প সম্পাদনাযোগ্য নয় বা একেবারেই নেই কেন?</target></trans-unit>
+<trans-unit id="s585d91c0fe28ad49">
+  <source>Many options are uneditable after you started a training to make sure what you see is actually what got translated into the model. To be able to edit everything again, just use the option to reset the model. After you performed your desired changes, you can then train a new model that respects them. If there is no trained model and you are missing options, most likely your teacher has disabled them for you.</source>
+<target>প্রশিক্ষণ শুরু করার পর অনেক বিকল্প সম্পাদনাযোগ্য থাকে না, যাতে আপনি যা দেখছেন তা মডেলে রূপান্তরিত কনফিগারেশনের সঙ্গে মেলে। সবকিছু আবার সম্পাদনা করতে মডেল রিসেট করুন। কাঙ্ক্ষিত পরিবর্তন করার পরে সেগুলো অনুসরণ করে নতুন মডেল প্রশিক্ষণ দিতে পারেন। প্রশিক্ষিত মডেল না থাকলেও বিকল্প অনুপস্থিত হলে সম্ভবত আপনার শিক্ষক সেগুলো নিষ্ক্রিয় করেছেন।</target></trans-unit>
+<trans-unit id="sfe6f2a2f731252f8">
+  <source>'<x id="0" equiv-text="${this.getName()}" />' has been created!</source>
+<target>'<x id="0" equiv-text="${this.getName()}" />' তৈরি করা হয়েছে!</target></trans-unit>
+<trans-unit id="s0de010d496fb9b32">
+  <source>Neuron <x id="0" equiv-text="${this.neuronId}" /> inside <x id="1" equiv-text="${this.layer.getName()}" /></source>
+<target><x id="0" equiv-text="${this.neuronId}" /> হলো <x id="1" equiv-text="${this.layer.getName()}" />-এর ভেতরের নিউরন</target></trans-unit>
+<trans-unit id="sf0695e350c3bbc8f">
+  <source>The config you imported seems to be broken :(</source>
+<target>আপনার আমদানি করা কনফিগারেশনটি নষ্ট বলে মনে হচ্ছে :(</target></trans-unit>
+<trans-unit id="sd1dd1d906f1e9f57">
+  <source>The version of the config file is not compatible with the widget version you currently use!</source>
+<target>কনফিগারেশন ফাইলের সংস্করণটি আপনার ব্যবহৃত উইজেট সংস্করণের সঙ্গে সামঞ্জস্যপূর্ণ নয়!</target></trans-unit>
+<trans-unit id="sea22d7cb1b837fbc">
+  <source>The imported config was successfully loaded!</source>
+<target>আমদানি করা কনফিগারেশন সফলভাবে লোড হয়েছে!</target></trans-unit>
+<trans-unit id="s3a12b3bc9f64aaa9">
+  <source>The current configuration was successfully exported!</source>
+<target>বর্তমান কনফিগারেশন সফলভাবে রপ্তানি হয়েছে!</target></trans-unit>
+<trans-unit id="s10b8b649492e85d3">
+  <source>You can not delete a data set that is currently selected</source>
+<target>বর্তমানে নির্বাচিত ডেটাসেট মুছতে পারবেন না</target></trans-unit>
+<trans-unit id="s1c5710ff3e4f9cfd">
+  <source>The data set '<x id="0" equiv-text="${name}" />' was successfully deleted</source>
+<target>ডেটাসেট '<x id="0" equiv-text="${name}" />' সফলভাবে মুছে ফেলা হয়েছে</target></trans-unit>
+<trans-unit id="sa1843f0daccbc9c7">
+  <source>Error: Requested deletion of a data set that does not exist</source>
+<target>ত্রুটি: যে ডেটাসেট মুছতে বলা হয়েছে তা নেই</target></trans-unit>
+<trans-unit id="s68a9876d35971a36">
+  <source>The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!</source>
+<target>মডেল সফলভাবে কম্পাইল হয়েছে! সব হাইপারপ্যারামিটার ও নেটওয়ার্ক আর্কিটেকচারের পরিবর্তন প্রয়োগ করা হয়েছে!</target></trans-unit>
+<trans-unit id="sd5d0be5e2482225b">
+  <source>'<x id="0" equiv-text="${layer.getName()}" />' has been deleted!</source>
+<target>'<x id="0" equiv-text="${layer.getName()}" />' মুছে ফেলা হয়েছে!</target></trans-unit>
+<trans-unit id="sb266302725c5855d">
+  <source>You can not delete neurons by now! To adjust the number of neurons in the layer, select the layer and set the number of neurons in the right panel!</source>
+<target>এখন নিউরন মুছতে পারবেন না! স্তরের নিউরনের সংখ্যা বদলাতে স্তরটি নির্বাচন করে ডান প্যানেলে সংখ্যা নির্ধারণ করুন!</target></trans-unit>
+<trans-unit id="s5bb2fd4c5d83e80a">
+  <source>Can not delete edges manually. If you wish to delete all connections between two layers, select one of the affected layers and change its input</source>
+<target>এজ ম্যানুয়ালি মুছতে পারবেন না। দুই স্তরের সব সংযোগ মুছতে সংশ্লিষ্ট স্তর বেছে নিয়ে এর ইনপুট বদলান।</target></trans-unit>
+<trans-unit id="sf8813f51b7447d06">
+  <source>Your network must contain at least one input layer</source>
+<target>আপনার নেটওয়ার্কে অন্তত একটি ইনপুট স্তর থাকতে হবে</target></trans-unit>
+<trans-unit id="s1f3d45458eb2b06d">
+  <source>Your network must contain at least one output layer</source>
+<target>আপনার নেটওয়ার্কে অন্তত একটি আউটপুট স্তর থাকতে হবে</target></trans-unit>
+<trans-unit id="s43fadf79188522d8">
+  <source>Make sure to have an output layer connected to the network!</source>
+<target>নেটওয়ার্কের সঙ্গে সংযুক্ত একটি আউটপুট স্তর রাখুন!</target></trans-unit>
+<trans-unit id="s9e914810882278d2">
+  <source>The help entry could not be created. Another entry with the same name already exists!</source>
+<target>সহায়তা এন্ট্রি তৈরি করা যায়নি। একই নামের আরেকটি এন্ট্রি আছে!</target></trans-unit>
+<trans-unit id="s99a4a9d1702badce">
+  <source>Help entry updated successfully</source>
+<target>সহায়তা এন্ট্রি সফলভাবে আপডেট হয়েছে</target></trans-unit>
+<trans-unit id="sc1367ed4c633ec08">
+  <source>Could not update Q&amp;A entry! An entry with this title does not exist!</source>
+<target>প্রশ্নোত্তর এন্ট্রি আপডেট করা যায়নি! এই শিরোনামের কোনো এন্ট্রি নেই!</target></trans-unit>
+</body>
+</file>
+</xliff>
