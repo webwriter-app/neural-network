@@ -58,7 +58,19 @@
       "bn": "কাস্টম ডেটাসেট, প্রশিক্ষণ ও পূর্বাভাসসহ ফিড-ফরোয়ার্ড নেটওয়ার্কের ডিপ লার্নিং দৃশ্যায়ন।",
       "pa": "ਕਸਟਮ ਡੇਟਾਸੈੱਟ, ਟ੍ਰੇਨਿੰਗ ਅਤੇ ਭਵਿੱਖਬਾਣੀ ਨਾਲ ਫੀਡ-ਫਾਰਵਰਡ ਨੈੱਟਵਰਕ ਦੀ ਡੀਪ ਲਰਨਿੰਗ ਦ੍ਰਿਸ਼ਾਵਲੀ।",
       "gu": "કસ્ટમ ડેટાસેટ, તાલીમ અને અનુમાન સાથે ફીડ-ફોરવર્ડ નેટવર્કનું ડીપ લર્નિંગ દૃશ્યીકરણ.",
-      "sw": "Taswira ya ujifunzaji wa kina kwa mitandao inayopitisha data mbele, yenye seti maalumu za data, mafunzo na utabiri."
+      "sw": "Taswira ya ujifunzaji wa kina kwa mitandao inayopitisha data mbele, yenye seti maalumu za data, mafunzo na utabiri.",
+      "mt": "Viżwalizzazzjoni tat-tagħlim profond għal netwerks feed-forward b’settijiet tad-dejta personalizzati, taħriġ u tbassir.",
+      "nn": "Visualisering av djup læring for framoverkopla nettverk med eigendefinerte datasett, trening og prediksjon.",
+      "sr-ijekavsk": "Vizualizacija dubokog učenja za neuronske mreže sa prosljeđivanjem unaprijed, sa prilagođenim skupovima podataka, treniranjem i predviđanjem.",
+      "cnr": "Vizualizacija dubokog učenja za neuronske mreže sa prosljeđivanjem unaprijed, sa prilagođenim skupovima podataka, treniranjem i predviđanjem.",
+      "mk": "Визуелизација на длабоко учење за мрежи со пренос нанапред, со приспособени збирки податоци, тренирање и предвидување.",
+      "mr": "कस्टम डेटासेट, प्रशिक्षण आणि अंदाजासह फीड-फॉरवर्ड नेटवर्कचे डीप लर्निंग दृश्यीकरण.",
+      "te": "కస్టమ్ డేటాసెట్‌లు, శిక్షణ, అంచనాతో ఫీడ్-ఫార్వర్డ్ నెట్‌వర్క్‌ల డీప్ లెర్నింగ్ దృశ్యీకరణ.",
+      "ur": "کسٹم ڈیٹاسیٹس، تربیت اور پیش گوئی کے ساتھ فیڈ فارورڈ نیٹ ورکس کا ڈیپ لرننگ تصور۔",
+      "kn": "ಕಸ್ಟಮ್ ಡೇಟಾಸೆಟ್‌ಗಳು, ತರಬೇತಿ ಮತ್ತು ಭವಿಷ್ಯವಾಣಿಯೊಂದಿಗೆ ಫೀಡ್-ಫಾರ್ವರ್ಡ್ ನೆಟ್‌ವರ್ಕ್‌ಗಳ ಡೀಪ್ ಲರ್ನಿಂಗ್ ದೃಶ್ಯೀಕರಣ.",
+      "ms": "Visualisasi pembelajaran mendalam untuk rangkaian suap hadapan dengan set data tersuai, latihan dan ramalan.",
+      "vi": "Trực quan hóa học sâu cho mạng truyền thẳng, với tập dữ liệu tùy chỉnh, huấn luyện và dự đoán.",
+      "he": "המחשה של למידה עמוקה ברשתות בהזנה קדימה, עם מערכי נתונים מותאמים, אימון וחיזוי."
     },
     "label": {
       "_": "Neural Network",
@@ -116,7 +128,19 @@
       "bn": "নিউরাল নেটওয়ার্ক",
       "pa": "ਨਿਊਰਲ ਨੈੱਟਵਰਕ",
       "gu": "ન્યુરલ નેટવર્ક",
-      "sw": "Mtandao wa neva"
+      "sw": "Mtandao wa neva",
+      "mt": "Netwerk newrali",
+      "nn": "Nevralt nettverk",
+      "sr-ijekavsk": "Neuronska mreža",
+      "cnr": "Neuronska mreža",
+      "mk": "Невронска мрежа",
+      "mr": "न्यूरल नेटवर्क",
+      "te": "న్యూరల్ నెట్‌వర్క్",
+      "ur": "نیورل نیٹ ورک",
+      "kn": "ನ್ಯೂರಲ್ ನೆಟ್‌ವರ್ಕ್",
+      "ms": "Rangkaian Neural",
+      "vi": "Mạng nơ-ron",
+      "he": "רשת עצבית"
     }
   },
   "./widgets/webwriter-neural-network": {
@@ -176,7 +200,19 @@
       "bn": "নিউরাল নেটওয়ার্ক",
       "pa": "ਨਿਊਰਲ ਨੈੱਟਵਰਕ",
       "gu": "ન્યુરલ નેટવર્ક",
-      "sw": "Mtandao wa neva"
+      "sw": "Mtandao wa neva",
+      "mt": "Netwerk newrali",
+      "nn": "Nevralt nettverk",
+      "sr-ijekavsk": "Neuronska mreža",
+      "cnr": "Neuronska mreža",
+      "mk": "Невронска мрежа",
+      "mr": "न्यूरल नेटवर्क",
+      "te": "న్యూరల్ నెట్‌వర్క్",
+      "ur": "نیورل نیٹ ورک",
+      "kn": "ನ್ಯೂರಲ್ ನೆಟ್‌ವರ್ಕ್",
+      "ms": "Rangkaian Neural",
+      "vi": "Mạng nơ-ron",
+      "he": "רשת עצבית"
     }
   },
   "./snippets/Pima-Indians-Diabetes": {
@@ -236,7 +272,19 @@
       "bn": "Pima-ইন্ডিয়ানস-ডায়াবেটিস",
       "pa": "Pima Indians ਡਾਇਬਟੀਜ਼",
       "gu": "Pima Indians ડાયાબિટીસ",
-      "sw": "Kisukari miongoni mwa watu wa Pima"
+      "sw": "Kisukari miongoni mwa watu wa Pima",
+      "mt": "Dijabete tal-Indjani Pima",
+      "nn": "Diabetes hos Pima-indianarar",
+      "sr-ijekavsk": "Dijabetes kod naroda Pima",
+      "cnr": "Dijabetes kod naroda Pima",
+      "mk": "Дијабетес кај Индијанците Пима",
+      "mr": "Pima Indians मधुमेह",
+      "te": "Pima Indians మధుమేహం",
+      "ur": "Pima Indians ذیابیطس",
+      "kn": "Pima Indians ಮಧುಮೇಹ",
+      "ms": "Diabetes dalam kalangan masyarakat Pima",
+      "vi": "Bệnh tiểu đường ở người Pima",
+      "he": "סוכרת בקרב בני הפימה"
     }
   },
   "./snippets/Boston-House-Pricing": {
@@ -296,7 +344,19 @@
       "bn": "Boston-ঘরের-মূল্য",
       "pa": "Boston ਘਰਾਂ ਦੀ ਕੀਮਤ",
       "gu": "Boston ઘરની કિંમત",
-      "sw": "Bei za nyumba za Boston"
+      "sw": "Bei za nyumba za Boston",
+      "mt": "Prezzijiet tad-djar ta’ Boston",
+      "nn": "Bustadprisar i Boston",
+      "sr-ijekavsk": "Cijene kuća u Bostonu",
+      "cnr": "Cijene kuća u Bostonu",
+      "mk": "Цени на куќи во Бостон",
+      "mr": "Boston घरांची किंमत",
+      "te": "Boston ఇళ్ల ధర",
+      "ur": "Boston گھروں کی قیمت",
+      "kn": "Boston ಮನೆ ಬೆಲೆ",
+      "ms": "Harga Rumah di Boston",
+      "vi": "Giá nhà ở Boston",
+      "he": "מחירי בתים בבוסטון"
     }
   }
 }

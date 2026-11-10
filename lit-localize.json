@@ -50,7 +50,19 @@
     "bn",
     "pa",
     "gu",
-    "sw"
+    "sw",
+    "mt",
+    "nn",
+    "sr-ijekavsk",
+    "cnr",
+    "mk",
+    "mr",
+    "te",
+    "ur",
+    "kn",
+    "ms",
+    "vi",
+    "he"
   ],
   "tsConfig": "./tsconfig.json",
   "output": {
