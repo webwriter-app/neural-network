@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
@@ -11,9 +12,13 @@ import { settingsContext } from '@/contexts/settings_context'
 import { CCard } from '../reusables/c-card'
 
 import SlTag from '@shoelace-style/shoelace/dist/components/tag/tag.component.js'
-import { msg } from '@lit/localize'
 
 export class HelpKeyboardShortcutsCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'sl-tag': SlTag,
@@ -32,24 +37,24 @@ export class HelpKeyboardShortcutsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Keyboard shortcuts')}</div>
+        <div slot="title">${this.msg('Keyboard shortcuts')}</div>
         <div slot="content">
-          <h2>${msg('Layer')}</h2>
+          <h2>${this.msg('Layer')}</h2>
           ${this.editable || this.settings.mayAddAndRemoveLayers
             ? html`<div class="tag-group">
                 <sl-tag pill variant="primary">CTRL + SHIFT + BACKSPACE</sl-tag
-                >${msg('Deletes the currently selected layer')}
+                >${this.msg('Deletes the currently selected layer')}
               </div>`
             : html``}
           ${this.editable || this.settings.mayAddAndRemoveLayers
             ? html`<div class="tag-group">
-                <sl-tag pill variant="primary">CTRL + SHIFT + K</sl-tag>${msg(
+                <sl-tag pill variant="primary">CTRL + SHIFT + K</sl-tag>${this.msg(
                   'Duplicates the currently selected layer',
                 )}
               </div>`
             : html``}
           <div class="tag-group">
-            <sl-tag pill variant="primary">CTRL + SHIFT + ARROW</sl-tag>${msg(
+            <sl-tag pill variant="primary">CTRL + SHIFT + ARROW</sl-tag>${this.msg(
               'Moves the currently selected layer',
             )}
           </div>

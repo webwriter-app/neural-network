@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
@@ -8,15 +9,20 @@ import { globalStyles } from '@/global_styles'
 import { editableContext } from '@/contexts/editable_context'
 import type { QAndAEntry } from '@/types/q_and_a_entry'
 import { qAndAContext } from '@/contexts/q_and_a_context'
+import { QAndAUtils } from '@/utils/q_and_a_utils'
 
 import SlDetails from '@shoelace-style/shoelace/dist/components/details/details.component.js'
 import SlInput from '@shoelace-style/shoelace/dist/components/input/input.component.js'
 import SlTextarea from '@shoelace-style/shoelace/dist/components/textarea/textarea.component.js'
 import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
 import { CCard } from '../reusables/c-card'
-import { msg } from '@lit/localize'
 
 export class HelpQAndACard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'sl-details': SlDetails,
@@ -83,25 +89,25 @@ export class HelpQAndACard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Q & A')}</div>
+        <div slot="title">${this.msg('Q & A')}</div>
         <div slot="content">
           ${!this.qAndA.length && this.editable
-            ? html`${msg(
+            ? html`${this.msg(
                 'There are currently no help entries. If you publish the widget like this, the help section will be hidden.',
               )}`
             : html``}
-          ${this.qAndA.map(
-            (entry) =>
-              html` <sl-details summary=${entry.title}>
+          ${this.qAndA.map(entry => {
+              const localized = QAndAUtils.localizeEntry(entry, this.msg)
+              return html` <sl-details summary=${localized.title}>
                 ${this.editable
-                  ? html` <sl-textarea value=${entry.description}></sl-textarea>
+                  ? html` <sl-textarea value=${localized.description}></sl-textarea>
                       <div class="button-group">
                         <sl-button
                           variant="primary"
                           title=${entry.title}
                           @click="${(e: MouseEvent) => this.updateEntry(e)}"
                         >
-                          ${msg('Update entry')}
+                          ${this.msg('Update entry')}
                         </sl-button>
                       </div>
                       <div class="button-group">
@@ -110,12 +116,12 @@ export class HelpQAndACard extends LitElementWw {
                           title=${entry.title}
                           @click="${(e: MouseEvent) => this.removeEntry(e)}"
                         >
-                          ${msg('Remove entry')}
+                          ${this.msg('Remove entry')}
                         </sl-button>
                       </div>`
-                  : html`${entry.description}`}
-              </sl-details>`,
-          )}
+                  : html`${localized.description}`}
+              </sl-details>`
+          })}
           ${this.editable
             ? html` <form
                 @submit="${(e: MouseEvent) => this.addEntry(e)}"
@@ -124,13 +130,13 @@ export class HelpQAndACard extends LitElementWw {
                 <div class="button-group">
                   <sl-input
                     form="test"
-                    placeholder=${msg('Title')}
+                    placeholder=${this.msg('Title')}
                     required
                     minlength="5"
                     id="newEntryTitle"
                   ></sl-input>
                   <sl-button variant="primary" type="submit">
-                    ${msg('Add entry')}
+                    ${this.msg('Add entry')}
                   </sl-button>
                 </div>
               </form>`

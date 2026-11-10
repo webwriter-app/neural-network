@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
@@ -11,9 +12,13 @@ import type { CNeuron } from '@/components/network/neuron'
 import { FeatureDesc } from '@/types/feature_desc'
 import { CCard } from '../reusables/c-card'
 import { CDataInfo } from '../reusables/c-data-info'
-import { msg } from '@lit/localize'
 
 export class NeuronFeatureCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
 
   static scopedElements = {
     "c-card": CCard,
@@ -36,7 +41,7 @@ export class NeuronFeatureCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Assigned feature (input)')}</div>
+        <div slot="title">${this.msg('Assigned feature (input)')}</div>
         <div slot="content">
           <c-data-info
             type="feature"

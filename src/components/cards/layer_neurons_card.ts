@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
@@ -17,9 +18,13 @@ import { CCard } from '../reusables/c-card'
 import IconDashSquare from "bootstrap-icons/icons/dash-square.svg"
 import IconPlusSquare from "bootstrap-icons/icons/plus-square.svg"
 import IconArrowClockwise from "bootstrap-icons/icons/arrow-clockwise.svg"
-import { msg } from '@lit/localize'
 
 export class LayerNeuronsCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
 
   static scopedElements = {
     "c-card": CCard,
@@ -97,7 +102,7 @@ export class LayerNeuronsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Neurons')}</div>
+        <div slot="title">${this.msg('Neurons')}</div>
         <div slot="content">
           <div>
             <div class="button-group">
@@ -106,11 +111,11 @@ export class LayerNeuronsCard extends LitElementWw {
                 @click="${(_e: MouseEvent) => this.handleRemoveNeuron()}"
               >
                 <sl-icon slot="prefix" src=${IconDashSquare}></sl-icon>
-                ${msg('Remove')}
+                ${this.msg('Remove')}
               </sl-button>
               <sl-button @click="${(_e: MouseEvent) => this.handleAddNeuron()}">
                 <sl-icon slot="prefix" src=${IconPlusSquare}></sl-icon>
-                ${msg('Add')}
+                ${this.msg('Add')}
               </sl-button>
             </div>
           </div>
@@ -118,14 +123,14 @@ export class LayerNeuronsCard extends LitElementWw {
             <div class="button-group">
               <sl-input
                 name="units"
-                placeholder=${msg('neurons')}
+                placeholder=${this.msg('neurons')}
                 type="number"
                 required
                 min="1"
               ></sl-input>
               <sl-button type="submit">
                 <sl-icon slot="prefix" src=${IconArrowClockwise}></sl-icon>
-                ${msg('Update')}
+                ${this.msg('Update')}
               </sl-button>
             </div>
           </form>

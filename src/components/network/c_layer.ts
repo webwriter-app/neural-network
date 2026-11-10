@@ -1,7 +1,9 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElementWw } from '../../../localization/element'
 import { TemplateResult, html } from 'lit'
 import { property, queryAll, state } from 'lit/decorators.js'
 import { consume } from '@lit/context'
+import { localizeElement } from '../../../localization/localizer'
+import { str } from '@lit/localize'
 
 import type { CCanvas } from '@/components/canvas'
 import { canvasContext } from '@/contexts/canvas_context'
@@ -10,7 +12,6 @@ import { dataSetContext } from '@/contexts/data_set_context'
 import type { CLayerConf } from '@/types/c_layer_conf'
 import type { Activation } from '@/types/activation'
 import type { CNeuron } from '@/components/network/neuron'
-import { NetworkUtils } from '@/utils/network_utils'
 import type { TrainOptions } from '@/types/train_options'
 import { trainOptionsContext } from '@/contexts/train_options_context'
 import type { Selected } from '@/types/selected'
@@ -21,6 +22,8 @@ import * as tf from '@tensorflow/tfjs'
 import { AlertUtils } from '@/utils/alert_utils'
 
 export abstract class CLayer extends LitElementWw {
+  protected readonly msg = localizeElement(this)
+
   @consume({ context: canvasContext, subscribe: true })
   accessor canvas: CCanvas
 
@@ -72,7 +75,7 @@ export abstract class CLayer extends LitElementWw {
     this.doNotRender = false
     if (this.conf.firstSpawn) {
       AlertUtils.spawn({
-        message: `'${this.getName()}' has been created!`,
+        message: this.msg(str`'${this.getName()}' has been created!`),
         variant: 'success',
         icon: 'check-circle',
       })
@@ -123,8 +126,9 @@ export abstract class CLayer extends LitElementWw {
   // the name for referencing purposes (can be overwritten by the
   // implementations)
   getName(): string {
-    return `${this.conf.layerId} - ${this.conf.LAYER_NAME} ${
-      this.conf.activation != NetworkUtils.actNone
+    const name = this.conf.LAYER_NAME === 'Dense layer' ? this.msg('Dense layer') : this.conf.LAYER_NAME
+    return `${this.conf.layerId} - ${name} ${
+      this.conf.activation.tfName
         ? `(${this.conf.activation.name})`
         : ``
     }`
@@ -224,19 +228,22 @@ export abstract class CLayer extends LitElementWw {
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     if (!this.doNotRender && this.canvas?.cy) {
-      // layer is only rendered once
-      if (!this.canvas.cy.getElementById(this.getCyId()).length)
-        // draw the layer
+      const node = this.canvas.cy.getElementById(this.getCyId())
+      const label = this.getName()
+      if (!node.length) {
         this.canvas.cy.add({
           group: 'nodes',
           data: {
             id: this.getCyId(),
-            label: this.getName(),
+            label,
             type: 'layer',
             layer: this.conf.layerId,
             layer_type: `${this.conf.LAYER_TYPE}`,
           },
         })
+      } else if (node.data('label') !== label) {
+        node.data('label', label)
+      }
 
       // add the element to the selected context (which will also take care of
       // selecting the element in cytoscape)

@@ -1,3 +1,4 @@
+import { effectiveLanguage, nativeLanguageAttributes } from "../../../localization/localizer";
 import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -13,9 +14,12 @@ import { AlertUtils } from '@/utils/alert_utils'
 
 import * as tf from '@tensorflow/tfjs'
 import { CNeuron } from './neuron'
-import { msg } from '@lit/localize'
 
 export class OutputLayer extends CLayer {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
   static scopedElements = {
     'c-neuron': CNeuron,
   }
@@ -39,7 +43,7 @@ export class OutputLayer extends CLayer {
           }),
         )
         AlertUtils.spawn({
-          message: `${msg('Layer')} ${this.getCyId()} ${msg('was deleted because no data could be assigned to it!')}`,
+          message: `${this.msg('Layer')} ${this.getCyId()} ${this.msg('was deleted because no data could be assigned to it!')}`,
           variant: 'warning',
           icon: 'x-circle',
         })
@@ -99,7 +103,7 @@ export class OutputLayer extends CLayer {
   // duplicate this layer
   duplicate(): void {
     AlertUtils.spawn({
-      message: msg(
+      message: this.msg(
         'The selected layer can not be duplicated! Only a single output layer is currently supported!',
       ),
       variant: 'warning',
@@ -111,21 +115,22 @@ export class OutputLayer extends CLayer {
   // -> INFO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // overwrite getName for the outputKey
   getName(): string {
-    return `${this.conf.labelDesc.key} ${this.conf.LAYER_NAME} ${
-      this.conf.activation != NetworkUtils.actNone
+    const name = this.conf.LAYER_NAME === 'Output layer' ? this.msg('Output layer') : this.conf.LAYER_NAME
+    return `${this.conf.labelDesc.key} ${name} ${
+      this.conf.activation.tfName
         ? `(${this.conf.activation.name})`
         : ``
     }`
   }
   // get description
   getDescription(): string {
-    let description = msg(
+    let description = this.msg(
       'An output layer in this simulation is just a normal dense layer, additionally equipped with the ability to output the incoming data out of the network.',
     )
     if (this.dataSet.type == 'classification') {
       description +=
         ' ' +
-        msg(
+        this.msg(
           'Since the purpose if this layer is to output a classifiction, we should combine it with a softmax activation function in order to provide a probability distribution.',
         )
     }

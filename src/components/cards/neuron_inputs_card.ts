@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
@@ -11,9 +12,13 @@ import { networkContext } from '@/contexts/network_context'
 import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
 import type { CNeuron } from '@/components/network/neuron'
 import { CCard } from '../reusables/c-card'
-import { msg } from '@lit/localize'
 
 export class NeuronInputsCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
 
   static scopedElements = {
     "c-card": CCard
@@ -35,7 +40,7 @@ export class NeuronInputsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Inputs')}</div>
+        <div slot="title">${this.msg('Inputs')}</div>
         <div slot="content">
           ${this.layerConnectionConfs
             .filter(
@@ -46,7 +51,7 @@ export class NeuronInputsCard extends LitElementWw {
               this.network.getLayerById(layerConnectionConf.sourceLayerId)
             )
             .map(
-              (layer) => html`<p>${msg('- All neurons from')} '${layer.getName()}'</p>`
+              (layer) => html`<p>${this.msg('- All neurons from')} '${layer.getName()}'</p>`
             )}
         </div>
       </c-card>

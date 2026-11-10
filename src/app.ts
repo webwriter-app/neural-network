@@ -1,3 +1,6 @@
+import type { MsgFn } from "@lit/localize";
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes, sourceMsg } from "../localization/localizer";
+import { readData, writeData } from "./data-block"
 import '@/utils/tf_quiet_load'
 
 import { LitElementWw } from '@webwriter/lit'
@@ -72,8 +75,6 @@ import { ContextProvider } from '@lit/context'
 import '@webcomponents/scoped-custom-element-registry';
 import { styleMap } from 'lit/directives/style-map.js'
 
-import { localized, msg } from '@lit/localize'
-import LOCALIZE from "../localization/generated";
 
 /**
  * @summary Deep learning visualization for feed-forward networks with custom datasets, training and prediction.
@@ -101,10 +102,53 @@ import LOCALIZE from "../localization/generated";
  * @cssproperty --sl-color-neutral-0 - Host background color (forwarded from Shoelace).
  * @cssproperty --sl-color-neutral-50 - Divider color (forwarded from Shoelace).
  */
-@localized()
 export class NeuralNetwork extends LitElementWw {
-  /** @internal Localization bundle used by @lit/localize. */
-  public localize = LOCALIZE;
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  public readonly msg = localizeElement(this, true);
+  static get options() { return this.buildOptions(sourceMsg); }
+
+  private static buildOptions(msg: MsgFn) {
+    return {
+      editable: { type: Boolean, label: { get _() { return msg("Allow editing"); } } },
+    };
+  }
+  readonly options = NeuralNetwork.buildOptions(this.msg)
+
+  private restoringConfiguration = false
+  private savedConfigurationText: string | null = null
+  private configurationObserver = new MutationObserver(() => this.restoreConfiguration())
+
+  private get configurationText() {
+    return this.querySelector(':scope > script[type="application/json"][slot="data"]:not([src])')?.textContent ?? null
+  }
+
+  private persistConfiguration(key: string, value: unknown) {
+    if (this.restoringConfiguration || !this.isConnected) return
+    writeData(this, {...readData(this), [key]: value})
+    this.savedConfigurationText = this.configurationText
+  }
+
+  private restoreConfiguration() {
+    const text = this.configurationText
+    if (text === this.savedConfigurationText) return
+    this.savedConfigurationText = text
+    const saved = readData<Pick<NeuralNetwork, "settings" | "qAndA" | "layerConfs" | "layerConnectionConfs" | "dataSet" | "availableDataSets" | "trainOptions">>(this)
+    this.restoringConfiguration = true
+    try {
+      this.settings = saved.settings ?? structuredClone(SettingsUtils.defaultSettings)
+      this.qAndA = saved.qAndA ?? [...QAndAUtils.defaultQAndA]
+      this.layerConfs = saved.layerConfs ?? []
+      this.layerConnectionConfs = saved.layerConnectionConfs ?? []
+      this.dataSet = saved.dataSet ?? DataSetUtils.defaultDataSet
+      this.availableDataSets = saved.availableDataSets ?? DataSetUtils.defaultAvailableDataSets
+      this.trainOptions = saved.trainOptions ?? structuredClone(ModelUtils.defaultTrainOptions)
+    } finally {
+      this.restoringConfiguration = false
+    }
+  }
 
   /**
    * Declares reactive properties and attribute reflection.
@@ -112,15 +156,15 @@ export class NeuralNetwork extends LitElementWw {
   static properties: PropertyDeclarations = {
     setupStatus: { attribute: false },
     editable: { attribute: true, type: Boolean, reflect: true },
-    settings: { attribute: true, type: Object, reflect: true },
-    qAndA: { attribute: true, type: Object, reflect: true },
+    settings: { attribute: false },
+    qAndA: { attribute: false },
     canvas: {attribute: false},
     network: {attribute: false},
-    layerConfs: { attribute: true, type: Array, reflect: true },
-    layerConnectionConfs: { attribute: true, type: Array, reflect: true },
-    dataSet: { attribute: true, type: Object, reflect: true },
-    availableDataSets: { attribute: true, type: Array, reflect: true },
-    trainOptions: { attribute: true, type: Object, reflect: true },
+    layerConfs: { attribute: false },
+    layerConnectionConfs: { attribute: false },
+    dataSet: { attribute: false },
+    availableDataSets: { attribute: false },
+    trainOptions: { attribute: false },
     modelConf: { attribute: false },
     selected: { attribute: false },
     selectedEle: { attribute: false },
@@ -173,6 +217,8 @@ export class NeuralNetwork extends LitElementWw {
    */
   connectedCallback(): void {
     super.connectedCallback()
+    this.restoreConfiguration()
+    this.configurationObserver.observe(this, {childList: true, characterData: true, subtree: true, attributes: true, attributeFilter: ["slot", "type", "src"]})
     const root = new ContextRoot();
     root.attach(document.body);
 
@@ -192,6 +238,7 @@ export class NeuralNetwork extends LitElementWw {
    * @internal
    */
   disconnectedCallback(): void {
+    this.configurationObserver.disconnect()
     super.disconnectedCallback()
     this.resizeObserver?.disconnect()
   }
@@ -225,7 +272,7 @@ export class NeuralNetwork extends LitElementWw {
           this.wasFullscreen = true
           this.requestUpdate()
       } catch (error) {
-          console.error(msg("Failed to enter fullscreen mode."));
+          console.error(this.msg("Failed to enter fullscreen mode."));
       }
     }
   }
@@ -282,6 +329,7 @@ export class NeuralNetwork extends LitElementWw {
   }
   set settings(value: Settings) {
     this.settingsProvider.setValue(value)
+    this.persistConfiguration("settings", value)
     this.requestUpdate("settings")
   }
   /** @internal Controller for reading/updating settings. */
@@ -297,6 +345,7 @@ export class NeuralNetwork extends LitElementWw {
   }
   set qAndA(value: QAndAEntry[]) {
     this.qAndAProvider.setValue(value)
+    this.persistConfiguration("qAndA", value)
     this.requestUpdate("qAndA")
   }
   /** @internal Controller for maintaining Q&A content. */
@@ -336,6 +385,7 @@ export class NeuralNetwork extends LitElementWw {
   }
   set layerConfs(value: CLayerConf[]) {
     this.layerConfsProvider.setValue(value)
+    this.persistConfiguration("layerConfs", value)
     this.requestUpdate("layerConfs")
   }
 
@@ -347,6 +397,7 @@ export class NeuralNetwork extends LitElementWw {
   }
   set layerConnectionConfs(value: CLayerConnectionConf[]) {
     this.layerConnectionConfsProvider.setValue(value)
+    this.persistConfiguration("layerConnectionConfs", value)
     this.requestUpdate("layerConnectionConfs")
   }
 
@@ -363,6 +414,7 @@ export class NeuralNetwork extends LitElementWw {
   }
   set dataSet(value: DataSet) {
     this.dataSetProvider.setValue(value)
+    this.persistConfiguration("dataSet", value)
     this.requestUpdate("dataSet")
   }
 
@@ -374,6 +426,7 @@ export class NeuralNetwork extends LitElementWw {
   }
   set availableDataSets(value: DataSet[]) {
     this.availableDataSetsProvider.setValue(value)
+    this.persistConfiguration("availableDataSets", value)
     this.requestUpdate("availableDataSets")
   }
 
@@ -390,6 +443,7 @@ export class NeuralNetwork extends LitElementWw {
   }
   set trainOptions(value: TrainOptions) {
     this.trainOptionsProvider.setValue(value)
+    this.persistConfiguration("trainOptions", value)
     this.requestUpdate("trainOptions")
   }
 
@@ -569,7 +623,7 @@ export class NeuralNetwork extends LitElementWw {
       renderedHTML.push(html`
         <div id="loadingPage">
           <div id="loadingDiv">
-            <h1>${msg("Loading")}</h1>
+            <h1>${this.msg("Loading")}</h1>
             <sl-spinner style="font-size: 3rem;"></sl-spinner>
           </div>
         </div>

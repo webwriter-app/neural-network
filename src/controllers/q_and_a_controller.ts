@@ -43,7 +43,7 @@ export class QAndAController implements ReactiveController {
       this.host.qAndA = [...this.host.qAndA]
     } else {
       AlertUtils.spawn({
-        message: `The help entry could not be created. Another entry with the same name already exists!`,
+        message: this.host.msg('The help entry could not be created. Another entry with the same name already exists!'),
         variant: 'danger',
         icon: 'x-circle',
       })
@@ -67,13 +67,13 @@ export class QAndAController implements ReactiveController {
       this.host.qAndA[index].description = entry.description
       this.host.qAndA = [...this.host.qAndA]
       AlertUtils.spawn({
-        message: 'Help entry updated successfull',
+        message: this.host.msg('Help entry updated successfully'),
         variant: 'success',
         icon: 'check-circle',
       })
     } else {
       AlertUtils.spawn({
-        message: `Could not update Q&A entry! An entry with this title does not exist!`,
+        message: this.host.msg('Could not update Q&A entry! An entry with this title does not exist!'),
         variant: 'danger',
         icon: 'x-circle',
       })

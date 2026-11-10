@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
@@ -25,9 +26,13 @@ import SlInput from '@shoelace-style/shoelace/dist/components/input/input.compon
 import SlIcon from '@shoelace-style/shoelace/dist/components/icon/icon.component.js'
 import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
 import IconSend from 'bootstrap-icons/icons/send.svg'
-import { msg } from '@lit/localize'
 
 export class PredictCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'c-data-info': CDataInfo,
@@ -117,7 +122,7 @@ export class PredictCard extends LitElementWw {
 
     return html`
       <c-card>
-        <div slot="title">${msg('Predict')}</div>
+        <div slot="title">${this.msg('Predict')}</div>
         <form slot="content" id="predictForm">
           <h2>Inputs</h2>
           <div class="inputs-grid">
@@ -140,7 +145,7 @@ export class PredictCard extends LitElementWw {
             )}
           </div>
           ${this.modelConf.predictedValue
-            ? html`<h2>${msg('Predicted label')}</h2>
+            ? html`<h2>${this.msg('Predicted label')}</h2>
                 <span>
                   <c-data-info
                     type="label"
@@ -163,7 +168,7 @@ export class PredictCard extends LitElementWw {
                           return html`${this.dataSet.labelDesc.classes[
                             index
                           ].id.toString()}
-                          ${msg('with a probability of')}
+                          ${this.msg('with a probability of')}
                           ${ModelUtils.formatWeight(
                             (<number[]>this.modelConf.predictedValue)[index],
                           )} `
@@ -177,16 +182,16 @@ export class PredictCard extends LitElementWw {
                           )}`,
                       ],
                     ],
-                    () => html`<h1>${msg('Error')}</h1>`,
+                    () => html`<h1>${this.msg('Error')}</h1>`,
                   )}
                 </span>
                 <sl-button
                   @click="${(_e: MouseEvent) => this.prepareNewPrediction()}"
                 >
-                  ${msg('Make another prediction')}
+                  ${this.msg('Make another prediction')}
                 </sl-button>`
             : html`<sl-button variant="primary" type="submit">
-                ${msg('Predict')}
+                ${this.msg('Predict')}
                 <sl-icon slot="suffix" src=${IconSend}></sl-icon>
               </sl-button>`}
         </form>

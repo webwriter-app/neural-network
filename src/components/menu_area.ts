@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
@@ -39,9 +40,13 @@ import IconLayers from "bootstrap-icons/icons/layers.svg";
 import IconCpu from "bootstrap-icons/icons/cpu.svg";
 import IconArrows from "bootstrap-icons/icons/arrows-angle-expand.svg";
 import { SlIcon } from '@shoelace-style/shoelace'
-import { msg } from '@lit/localize'
 
 export class MenuArea extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
 
   static scopedElements = {
     "c-tab": CTab,
@@ -131,26 +136,26 @@ export class MenuArea extends LitElementWw {
         <div id="rightMenuTabs">
           ${this.editable
             ? html`<c-tab name="settings" class="only-editable"
-                >${msg('Settings')}</c-tab
+                >${this.msg('Settings')}</c-tab
               >`
             : html``}
           ${this.editable || this.settings.mayExport || this.settings.mayImport
-            ? html` <c-tab name="start"><sl-icon slot="prefix" src=${IconHome}></sl-icon>${msg('Start')}</c-tab>`
+            ? html` <c-tab name="start"><sl-icon slot="prefix" src=${IconHome}></sl-icon>${this.msg('Start')}</c-tab>`
             : html``}
-          <c-tab name="network"><sl-icon slot="prefix" src=${IconOne}></sl-icon>${msg('Network')}</c-tab>
-          <c-tab name="dataSet"><sl-icon slot="prefix" src=${IconTwo}></sl-icon>${msg('Data set')}</c-tab>
-          <c-tab name="train"><sl-icon slot="prefix" src=${IconThree}></sl-icon>${msg('Train')}</c-tab>
+          <c-tab name="network"><sl-icon slot="prefix" src=${IconOne}></sl-icon>${this.msg('Network')}</c-tab>
+          <c-tab name="dataSet"><sl-icon slot="prefix" src=${IconTwo}></sl-icon>${this.msg('Data set')}</c-tab>
+          <c-tab name="train"><sl-icon slot="prefix" src=${IconThree}></sl-icon>${this.msg('Train')}</c-tab>
           ${this.modelConf.model
-            ? html` <c-tab name="predict"><sl-icon slot="prefix" src=${IconSend}></sl-icon>${msg('Predict')}</c-tab> `
+            ? html` <c-tab name="predict"><sl-icon slot="prefix" src=${IconSend}></sl-icon>${this.msg('Predict')}</c-tab> `
             : html``}
           ${this.selected.layer && this.selectedEle
-            ? html` <c-tab name="layer" colored><sl-icon slot="prefix" src=${IconLayers}></sl-icon>${msg('Layer')}</c-tab> `
+            ? html` <c-tab name="layer" colored><sl-icon slot="prefix" src=${IconLayers}></sl-icon>${this.msg('Layer')}</c-tab> `
             : html``}
           ${this.selected.neuron && this.selectedEle
-            ? html` <c-tab name="neuron" colored><sl-icon slot="prefix" src=${IconCpu}></sl-icon>${msg('Neuron')}</c-tab> `
+            ? html` <c-tab name="neuron" colored><sl-icon slot="prefix" src=${IconCpu}></sl-icon>${this.msg('Neuron')}</c-tab> `
             : html``}
           ${this.selected.edge && this.selectedEle
-            ? html` <c-tab name="edge" colored><sl-icon slot="prefix" src=${IconArrows}></sl-icon>${msg('Edge')}</c-tab> `
+            ? html` <c-tab name="edge" colored><sl-icon slot="prefix" src=${IconArrows}></sl-icon>${this.msg('Edge')}</c-tab> `
             : html``}
         </div>
         <div id="rightMenuPanel" class="${!this.panel ? 'collapsed' : ''}">

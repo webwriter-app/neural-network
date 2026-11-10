@@ -1,4 +1,5 @@
-<xliff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd" xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd" version="1.2">
   <file original="lit-localize-inputs" datatype="plaintext" source-language="en" target-language="it">
     <body>
       <trans-unit id="s4c3e975942fc568d">
@@ -825,6 +826,120 @@
         <source>Data set</source>
         <target>Set di dati</target>
       </trans-unit>
-    </body>
+    <trans-unit id="sdb1595f5c742dfbb">
+  <source>Input</source>
+<target>Input</target></trans-unit>
+<trans-unit id="s5c9d4638c1e38b36">
+  <source>Allow editing</source>
+<target>Consenti modifiche</target></trans-unit>
+<trans-unit id="sff96ebdc539c64b0">
+  <source>Dense</source>
+<target>Denso</target></trans-unit>
+<trans-unit id="sf559b4b9f2109e05">
+  <source>Activation:</source>
+<target>Attivazione:</target></trans-unit>
+<trans-unit id="s0b49b37aa2ca0f35">
+  <source>Dense layer</source>
+<target>Livello denso</target></trans-unit>
+<trans-unit id="sc0ecc73d49676ffa">
+  <source>Input layer</source>
+<target>Livello di input</target></trans-unit>
+<trans-unit id="s35659ef8d11dd2c9">
+  <source>Output layer</source>
+<target>Livello di output</target></trans-unit>
+<trans-unit id="se988648386f27436">
+  <source>Type: regression</source>
+<target>Tipo: regressione</target></trans-unit>
+<trans-unit id="s795bb0b2a9c2e75f">
+  <source>Type: classification</source>
+<target>Tipo: classificazione</target></trans-unit>
+<trans-unit id="s09205907b5b56cda">
+  <source>No</source>
+<target>No</target></trans-unit>
+<trans-unit id="scb489a1a173ac3f0">
+  <source>Yes</source>
+<target>Sì</target></trans-unit>
+<trans-unit id="s669b18c6d2d9c95b">
+  <source>None</source>
+<target>Nessuna</target></trans-unit>
+<trans-unit id="s401c527ca9b140a8">
+  <source>No additional function is applied.</source>
+<target>Non viene applicata alcuna funzione aggiuntiva.</target></trans-unit>
+<trans-unit id="s6c2a68f18e1a1afd">
+  <source>Negative values are rounded up to zero.</source>
+<target>I valori negativi vengono arrotondati a zero.</target></trans-unit>
+<trans-unit id="s67c3b0f1a71c873c">
+  <source>Largely negative values are mapped to values close to zero while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>I valori molto negativi vengono convertiti in valori vicini a zero, mentre quelli molto positivi in valori vicini a uno (vedi il grafico).</target></trans-unit>
+<trans-unit id="s2a6555107a533bb0">
+  <source>Largely negative values are mapped to values close to minus one while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>I valori molto negativi vengono convertiti in valori vicini a meno uno, mentre quelli molto positivi in valori vicini a uno (vedi il grafico).</target></trans-unit>
+<trans-unit id="s77365296ebf281bc">
+  <source>Create a probability distribution such that the output values of all neurons in this layer add up to one.</source>
+<target>Crea una distribuzione di probabilità in cui la somma dei valori di uscita di tutti i neuroni di questo livello è uno.</target></trans-unit>
+<trans-unit id="sc5bc2a2d2fd1ee58">
+  <source>Why are some important options not editable or completely missing?</source>
+<target>Perché alcune opzioni importanti non sono modificabili o sono del tutto assenti?</target></trans-unit>
+<trans-unit id="s585d91c0fe28ad49">
+  <source>Many options are uneditable after you started a training to make sure what you see is actually what got translated into the model. To be able to edit everything again, just use the option to reset the model. After you performed your desired changes, you can then train a new model that respects them. If there is no trained model and you are missing options, most likely your teacher has disabled them for you.</source>
+<target>Dopo l'avvio dell'addestramento molte opzioni vengono bloccate, così ciò che vedi corrisponde alla configurazione del modello. Per modificare di nuovo tutto, reimposta il modello. Dopo le modifiche desiderate, puoi addestrare un nuovo modello che le applica. Se non esiste ancora un modello addestrato e mancano alcune opzioni, probabilmente il tuo insegnante le ha disattivate.</target></trans-unit>
+<trans-unit id="sfe6f2a2f731252f8">
+  <source>'<x id="0" equiv-text="${this.getName()}" />' has been created!</source>
+<target>'<x id="0" equiv-text="${this.getName()}" />' è stato creato!</target></trans-unit>
+<trans-unit id="s0de010d496fb9b32">
+  <source>Neuron <x id="0" equiv-text="${this.neuronId}" /> inside <x id="1" equiv-text="${this.layer.getName()}" /></source>
+<target>Neurone <x id="0" equiv-text="${this.neuronId}" /> in <x id="1" equiv-text="${this.layer.getName()}" /></target></trans-unit>
+<trans-unit id="sf0695e350c3bbc8f">
+  <source>The config you imported seems to be broken :(</source>
+<target>La configurazione importata sembra danneggiata :(</target></trans-unit>
+<trans-unit id="sd1dd1d906f1e9f57">
+  <source>The version of the config file is not compatible with the widget version you currently use!</source>
+<target>La versione del file di configurazione non è compatibile con quella del widget attualmente in uso!</target></trans-unit>
+<trans-unit id="sea22d7cb1b837fbc">
+  <source>The imported config was successfully loaded!</source>
+<target>La configurazione importata è stata caricata correttamente!</target></trans-unit>
+<trans-unit id="s3a12b3bc9f64aaa9">
+  <source>The current configuration was successfully exported!</source>
+<target>La configurazione attuale è stata esportata correttamente!</target></trans-unit>
+<trans-unit id="s10b8b649492e85d3">
+  <source>You can not delete a data set that is currently selected</source>
+<target>Non puoi eliminare un insieme di dati attualmente selezionato</target></trans-unit>
+<trans-unit id="s1c5710ff3e4f9cfd">
+  <source>The data set '<x id="0" equiv-text="${name}" />' was successfully deleted</source>
+<target>L'insieme di dati '<x id="0" equiv-text="${name}" />' è stato eliminato correttamente</target></trans-unit>
+<trans-unit id="sa1843f0daccbc9c7">
+  <source>Error: Requested deletion of a data set that does not exist</source>
+<target>Errore: è stata richiesta l'eliminazione di un insieme di dati inesistente</target></trans-unit>
+<trans-unit id="s68a9876d35971a36">
+  <source>The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!</source>
+<target>Il modello è stato compilato correttamente! Sono state applicate tutte le modifiche agli iperparametri e all'architettura della rete!</target></trans-unit>
+<trans-unit id="sd5d0be5e2482225b">
+  <source>'<x id="0" equiv-text="${layer.getName()}" />' has been deleted!</source>
+<target>'<x id="0" equiv-text="${layer.getName()}" />' è stato eliminato!</target></trans-unit>
+<trans-unit id="sb266302725c5855d">
+  <source>You can not delete neurons by now! To adjust the number of neurons in the layer, select the layer and set the number of neurons in the right panel!</source>
+<target>Al momento non puoi eliminare i neuroni! Per modificare il numero di neuroni nel livello, selezionalo e imposta il numero nel pannello a destra!</target></trans-unit>
+<trans-unit id="s5bb2fd4c5d83e80a">
+  <source>Can not delete edges manually. If you wish to delete all connections between two layers, select one of the affected layers and change its input</source>
+<target>Non è possibile eliminare manualmente i collegamenti. Per eliminare tutte le connessioni tra due livelli, seleziona uno dei livelli interessati e modifica il suo input</target></trans-unit>
+<trans-unit id="sf8813f51b7447d06">
+  <source>Your network must contain at least one input layer</source>
+<target>La rete deve contenere almeno un livello di input</target></trans-unit>
+<trans-unit id="s1f3d45458eb2b06d">
+  <source>Your network must contain at least one output layer</source>
+<target>La rete deve contenere almeno un livello di output</target></trans-unit>
+<trans-unit id="s43fadf79188522d8">
+  <source>Make sure to have an output layer connected to the network!</source>
+<target>Assicurati che un livello di output sia collegato alla rete!</target></trans-unit>
+<trans-unit id="s9e914810882278d2">
+  <source>The help entry could not be created. Another entry with the same name already exists!</source>
+<target>Impossibile creare la voce della guida. Esiste già un'altra voce con lo stesso nome!</target></trans-unit>
+<trans-unit id="s99a4a9d1702badce">
+  <source>Help entry updated successfully</source>
+<target>Voce della guida aggiornata correttamente</target></trans-unit>
+<trans-unit id="sc1367ed4c633ec08">
+  <source>Could not update Q&amp;A entry! An entry with this title does not exist!</source>
+<target>Impossibile aggiornare la voce di domande e risposte! Non esiste una voce con questo titolo!</target></trans-unit>
+</body>
   </file>
 </xliff>

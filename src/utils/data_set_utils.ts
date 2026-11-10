@@ -1,3 +1,4 @@
+import type { MsgFn } from "@lit/localize"
 import type { DataSet } from '@/types/data_set'
 import type { FeatureDesc } from '@/types/feature_desc'
 import { bostonHousePricing } from '@/utils/data_sets/boston'
@@ -8,6 +9,18 @@ import { pimaIndiansDiabetes } from '@/utils/data_sets/diabetes'
 export class DataSetUtils {
   static defaultDataSet = bostonHousePricing
   static defaultAvailableDataSets = [bostonHousePricing, pimaIndiansDiabetes]
+
+  // Keep stored data and dataset identifiers intact while translating built-in labels.
+  static localizeText(dataSet: DataSet, text: string, msg: MsgFn): string {
+    const builtin = this.defaultAvailableDataSets.find(({ name }) => name === dataSet.name)
+    if (!builtin) return text
+    const known = text === builtin.name || text === builtin.description ||
+      builtin.featureDescs.some(({ description }) => description === text) ||
+      text === builtin.labelDesc.description ||
+      builtin.labelDesc.classes?.some(({ description }) => description === text)
+    // Built-in strings are extracted from the source datasets themselves.
+    return known ? (msg as (text: string) => string)(text) : text
+  }
 
   // get features of a data set (key and description) by their keys
   static getFeatureDescsByKeys(

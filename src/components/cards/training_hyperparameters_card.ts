@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
@@ -19,9 +20,13 @@ import { CCard } from '../reusables/c-card'
 import SlRadioGroup from "@shoelace-style/shoelace/dist/components/radio-group/radio-group.component.js"
 import SlRadioButton from "@shoelace-style/shoelace/dist/components/radio-button/radio-button.component.js"
 import SlRange from "@shoelace-style/shoelace/dist/components/range/range.component.js"
-import { msg } from '@lit/localize'
 
 export class TrainingHyperparametersCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
 
   static scopedElements = {
     "c-card": CCard,
@@ -109,10 +114,10 @@ export class TrainingHyperparametersCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Hyperparameters')}</div>
+        <div slot="title">${this.msg('Hyperparameters')}</div>
         <div slot="content">
           <label for="batchSizeRadioGroup"
-            >${msg('Batch size')}: ${this.trainOptions.batchSize}</label
+            >${this.msg('Batch size')}: ${this.trainOptions.batchSize}</label
           >
           <div
             class="hscroll-container ${this.modelConf.model ||
@@ -136,7 +141,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
             </sl-radio-group>
           </div>
           <label for="learningRateRange"
-            >${msg('Learning rate')}: ${this.trainOptions.learningRate}</label
+            >${this.msg('Learning rate')}: ${this.trainOptions.learningRate}</label
           >
           <div
             class="hscroll-container ${this.modelConf.model ||
@@ -160,7 +165,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
             </sl-radio-group>
           </div>
           <label for="dropoutRateRange"
-            >${msg('Dropout rate')}: ${this.trainOptions.dropoutRate}</label
+            >${this.msg('Dropout rate')}: ${this.trainOptions.dropoutRate}</label
           >
           <sl-range
             id="dropoutRateRange"
@@ -168,7 +173,7 @@ export class TrainingHyperparametersCard extends LitElementWw {
             (!this.editable && !this.settings.mayEditDropoutRate)
               ? 'hidden'
               : ``}"
-            help-text=${msg('Adjust the probability of neurons being deactivated during training')}
+            help-text=${this.msg('Adjust the probability of neurons being deactivated during training')}
             min="0"
             max="1"
             step="0.01"

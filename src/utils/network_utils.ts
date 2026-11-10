@@ -1,4 +1,5 @@
 import type { Activation } from '@/types/activation'
+import { sourceMsg as msg } from '../../localization/localizer'
 
 import IconActNone from "@/assets/actNone.svg"
 import IconActReLu from "@/assets/actReLu.svg"
@@ -13,9 +14,9 @@ export class NetworkUtils {
   }
 
   static actNone: Activation = {
-    name: 'None',
+    name: msg('None'),
     tfName: null,
-    description: 'No additional function is applied.',
+    description: msg('No additional function is applied.'),
     img: IconActNone,
     range: '(-∞,∞)',
   }
@@ -23,15 +24,16 @@ export class NetworkUtils {
     name: 'ReLu',
     fullName: 'Rectified linear unit',
     tfName: 'relu',
-    description: 'Negative values are rounded up to zero.',
+    description: msg('Negative values are rounded up to zero.'),
     img: IconActReLu,
     range: '[0,∞)',
   }
   static actSigmoid: Activation = {
     name: 'Sigmoid',
     tfName: 'sigmoid',
-    description:
+    description: msg(
       'Largely negative values are mapped to values close to zero while largely positive values will be mapped to values close to one (see the graphic).',
+    ),
     img: IconActSigmoid,
     range: '(0,1)',
   }
@@ -39,16 +41,18 @@ export class NetworkUtils {
     name: 'Tanh',
     fullName: 'Hyperbolic tangent',
     tfName: "tanh",
-    description:
+    description: msg(
       'Largely negative values are mapped to values close to minus one while largely positive values will be mapped to values close to one (see the graphic).',
+    ),
     img: IconActTanh,
     range: '(-1,1)',
   }
   static actSoftmax: Activation = {
     name: 'Softmax',
     tfName: 'softmax',
-    description:
+    description: msg(
       'Create a probability distribution such that the output values of all neurons in this layer add up to one.',
+    ),
     range: '(0,1)',
   }
   static activationOptions: Activation[] = [

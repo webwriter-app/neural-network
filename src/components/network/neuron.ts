@@ -1,4 +1,6 @@
-import { LitElementWw } from '@webwriter/lit'
+import { LitElementWw } from '../../../localization/element'
+import { localizeElement } from '../../../localization/localizer'
+import { str } from '@lit/localize'
 import { TemplateResult, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
 import { consume } from '@lit/context'
@@ -14,6 +16,7 @@ import type { Position } from '@/types/position'
 import { ModelUtils } from '@/utils/model_utils'
 
 export class CNeuron extends LitElementWw {
+  private readonly msg = localizeElement(this)
   @consume({ context: canvasContext, subscribe: true })
   accessor canvas: CCanvas
 
@@ -75,7 +78,7 @@ export class CNeuron extends LitElementWw {
   }
 
   getName(): string {
-    return `Neuron ${this.neuronId} inside ${this.layer.getName()}`
+    return this.msg(str`Neuron ${this.neuronId} inside ${this.layer.getName()}`)
   }
 
   // -> CANVAS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

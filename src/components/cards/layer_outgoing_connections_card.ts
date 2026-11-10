@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
@@ -15,9 +16,13 @@ import type { SlChangeEvent } from '@shoelace-style/shoelace'
 import { CCard } from '../reusables/c-card'
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select.component.js'
 import SlOption from '@shoelace-style/shoelace/dist/components/option/option.component.js'
-import { msg } from '@lit/localize'
 
 export class LayerOutgoingConnectionsCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'sl-select': SlSelect,
@@ -121,7 +126,7 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Outgoing connections')}</div>
+        <div slot="title">${this.msg('Outgoing connections')}</div>
         <div slot="content">
           <sl-select
             id="connectionSelect"
@@ -133,7 +138,7 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
               .join(' ')}
             multiple
             clearable
-            help-text=${msg('Select the layers this layer connects to')}
+            help-text=${this.msg('Select the layers this layer connects to')}
             @sl-change="${(_e: SlChangeEvent) =>
               this.handleChangeConnections()}"
           >

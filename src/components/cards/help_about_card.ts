@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
@@ -6,9 +7,13 @@ import { globalStyles } from '@/global_styles'
 import { CCard } from '../reusables/c-card'
 
 import SlDetails from '@shoelace-style/shoelace/dist/components/details/details.component.js'
-import { msg } from '@lit/localize'
 
 export class HelpAboutCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'sl-details': SlDetails,
@@ -35,15 +40,15 @@ export class HelpAboutCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('About this app')}</div>
+        <div slot="title">${this.msg('About this app')}</div>
         <div slot="content">
           <p>
-            ${msg(
+            ${this.msg(
               'This app was developed by Christian Koch, a student at RWTH Aachen University, with support of Frederic Salmen and the chair i9 at RWTH Aachen University.',
             )}
           </p>
           <sl-details
-            summary=${msg('About the developer')}
+            summary=${this.msg('About the developer')}
             class="developerSlDetails"
           >
             <iframe
@@ -52,7 +57,7 @@ export class HelpAboutCard extends LitElementWw {
               frameborder="0"
             ></iframe>
           </sl-details>
-          <sl-details summary=${msg('License')}>
+          <sl-details summary=${this.msg('License')}>
             <object style="width: 100%;" data="/assets/LICENSE.txt"></object>
           </sl-details>
           <sl-details summary="Third-party licenses">
@@ -63,7 +68,7 @@ export class HelpAboutCard extends LitElementWw {
           </sl-details>
           <sl-details summary="Third-party data sets">
             <p>
-              ${msg(
+              ${this.msg(
                 'All third-party data sets have been published under public domain',
               )}
             </p>

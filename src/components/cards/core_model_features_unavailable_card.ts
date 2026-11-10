@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
@@ -15,9 +16,13 @@ import SlTooltip from '@shoelace-style/shoelace/dist/components/tooltip/tooltip.
 
 import IconLabelCounterclockwise from 'bootstrap-icons/icons/arrow-counterclockwise.svg'
 
-import { msg } from '@lit/localize'
 
 export class CoreModelFeaturesUnavailableCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'sl-tooltip': SlTooltip,
@@ -46,16 +51,16 @@ export class CoreModelFeaturesUnavailableCard extends LitElementWw {
     return html`
       ${this.modelConf.model
         ? html` <c-card>
-            <div slot="title">${msg('Important info')}</div>
+            <div slot="title">${this.msg('Important info')}</div>
             <div slot="content">
               <p>
-                ${msg(
+                ${this.msg(
                   'You decided to train a model with the current configuration. As an effect, all options to edit the configuration have been temporarily removed or disabled to make sure the configuration you see is the same configuration the model uses. If you want to make changes to your configuration, you need to discard the current model first. If you discard your model, you can again perform any changes and train a new model based on the new configuration.',
                 )}
               </p>
               <div class="button-group">
                 <sl-tooltip
-                  content=${msg(
+                  content=${this.msg(
                     'Discards the model, which gains you back your editing capabilities',
                   )}
                 >
@@ -64,9 +69,9 @@ export class CoreModelFeaturesUnavailableCard extends LitElementWw {
                   >
                     <sl-icon
                       src=${IconLabelCounterclockwise}
-                      label=${msg('Discard')}
+                      label=${this.msg('Discard')}
                     ></sl-icon>
-                    ${msg('Discard model')}
+                    ${this.msg('Discard model')}
                   </sl-button>
                 </sl-tooltip>
               </div>

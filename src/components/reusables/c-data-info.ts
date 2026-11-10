@@ -1,3 +1,5 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
+import { DataSetUtils } from '@/utils/data_set_utils'
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
@@ -12,6 +14,10 @@ import SlTooltip from "@shoelace-style/shoelace/dist/components/tooltip/tooltip.
 import SlTag from "@shoelace-style/shoelace/dist/components/tag/tag.component.js"
 
 export class CDataInfo extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   
   static scopedElements = {
     "sl-tooltip": SlTooltip,
@@ -34,24 +40,24 @@ export class CDataInfo extends LitElementWw {
   getTooltipContent(): TemplateResult<1> {
     switch (this.type) {
       case 'feature':
-        return html` <p>${this.dataDesc.description}</p> `
+        return html` <p>${DataSetUtils.localizeText(this.dataSet, this.dataDesc.description, this.msg)}</p> `
       case 'label':
         switch (this.dataSet.type) {
           case 'regression':
             return html`
-              <p>${this.dataDesc.description}</p>
-              <p>Type: regression</p>
+              <p>${DataSetUtils.localizeText(this.dataSet, this.dataDesc.description, this.msg)}</p>
+              <p>${this.msg('Type: regression')}</p>
             `
           case 'classification':
             return html`
-              <p>${this.dataDesc.description}</p>
-              <p>Type: classification</p>
+              <p>${DataSetUtils.localizeText(this.dataSet, this.dataDesc.description, this.msg)}</p>
+              <p>${this.msg('Type: classification')}</p>
               ${'classes' in this.dataDesc
                 ? html`
                     ${this.dataDesc.classes.map(
                       (clazz) =>
                         html`
-                          <p>${clazz.id.toString()}: ${clazz.description}</p>
+                          <p>${clazz.id.toString()}: ${DataSetUtils.localizeText(this.dataSet, clazz.description, this.msg)}</p>
                         `
                     )}
                   `

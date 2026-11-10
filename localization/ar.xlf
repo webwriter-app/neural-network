@@ -1,4 +1,5 @@
-<xliff xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd" xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd" version="1.2">
   <file original="lit-localize-inputs" datatype="plaintext" source-language="en" target-language="ar">
     <body>
       <trans-unit id="s4c3e975942fc568d">
@@ -825,6 +826,120 @@
         <source>Data set</source>
         <target>مجموعة البيانات</target>
       </trans-unit>
-    </body>
+    <trans-unit id="sdb1595f5c742dfbb">
+  <source>Input</source>
+<target>الإدخال</target></trans-unit>
+<trans-unit id="s5c9d4638c1e38b36">
+  <source>Allow editing</source>
+<target>السماح بالتعديل</target></trans-unit>
+<trans-unit id="sff96ebdc539c64b0">
+  <source>Dense</source>
+<target>كثيفة</target></trans-unit>
+<trans-unit id="sf559b4b9f2109e05">
+  <source>Activation:</source>
+<target>التنشيط:</target></trans-unit>
+<trans-unit id="s0b49b37aa2ca0f35">
+  <source>Dense layer</source>
+<target>طبقة كثيفة</target></trans-unit>
+<trans-unit id="sc0ecc73d49676ffa">
+  <source>Input layer</source>
+<target>طبقة الإدخال</target></trans-unit>
+<trans-unit id="s35659ef8d11dd2c9">
+  <source>Output layer</source>
+<target>طبقة الإخراج</target></trans-unit>
+<trans-unit id="se988648386f27436">
+  <source>Type: regression</source>
+<target>النوع: انحدار</target></trans-unit>
+<trans-unit id="s795bb0b2a9c2e75f">
+  <source>Type: classification</source>
+<target>النوع: تصنيف</target></trans-unit>
+<trans-unit id="s09205907b5b56cda">
+  <source>No</source>
+<target>لا</target></trans-unit>
+<trans-unit id="scb489a1a173ac3f0">
+  <source>Yes</source>
+<target>نعم</target></trans-unit>
+<trans-unit id="s669b18c6d2d9c95b">
+  <source>None</source>
+<target>بدون</target></trans-unit>
+<trans-unit id="s401c527ca9b140a8">
+  <source>No additional function is applied.</source>
+<target>لا تُطبَّق أي دالة إضافية.</target></trans-unit>
+<trans-unit id="s6c2a68f18e1a1afd">
+  <source>Negative values are rounded up to zero.</source>
+<target>تُرفَع القيم السالبة إلى الصفر.</target></trans-unit>
+<trans-unit id="s67c3b0f1a71c873c">
+  <source>Largely negative values are mapped to values close to zero while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>تتحول القيم السالبة جدًا إلى قيم قريبة من الصفر، والموجبة جدًا إلى قيم قريبة من الواحد (انظر الرسم).</target></trans-unit>
+<trans-unit id="s2a6555107a533bb0">
+  <source>Largely negative values are mapped to values close to minus one while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>تتحول القيم السالبة جدًا إلى قيم قريبة من سالب واحد، والموجبة جدًا إلى قيم قريبة من الواحد (انظر الرسم).</target></trans-unit>
+<trans-unit id="s77365296ebf281bc">
+  <source>Create a probability distribution such that the output values of all neurons in this layer add up to one.</source>
+<target>يُنشئ توزيعًا احتماليًا يكون فيه مجموع مخرجات جميع عصبونات هذه الطبقة واحدًا.</target></trans-unit>
+<trans-unit id="sc5bc2a2d2fd1ee58">
+  <source>Why are some important options not editable or completely missing?</source>
+<target>لماذا لا يمكن تعديل بعض الخيارات المهمة أو لماذا لا تظهر؟</target></trans-unit>
+<trans-unit id="s585d91c0fe28ad49">
+  <source>Many options are uneditable after you started a training to make sure what you see is actually what got translated into the model. To be able to edit everything again, just use the option to reset the model. After you performed your desired changes, you can then train a new model that respects them. If there is no trained model and you are missing options, most likely your teacher has disabled them for you.</source>
+<target>تُقفل خيارات كثيرة بعد بدء التدريب لضمان أن ما تراه يطابق إعدادات النموذج. لتعديل كل شيء من جديد، أعد ضبط النموذج. بعد إجراء التغييرات، يمكنك تدريب نموذج جديد يأخذها في الحسبان. إذا لم يكن هناك نموذج مدرَّب ومع ذلك كانت بعض الخيارات غائبة، فغالبًا ما عطّلها معلّمك.</target></trans-unit>
+<trans-unit id="sfe6f2a2f731252f8">
+  <source>'<x id="0" equiv-text="${this.getName()}" />' has been created!</source>
+<target>تم إنشاء '<x id="0" equiv-text="${this.getName()}" />'!</target></trans-unit>
+<trans-unit id="s0de010d496fb9b32">
+  <source>Neuron <x id="0" equiv-text="${this.neuronId}" /> inside <x id="1" equiv-text="${this.layer.getName()}" /></source>
+<target>العصبون <x id="0" equiv-text="${this.neuronId}" /> داخل <x id="1" equiv-text="${this.layer.getName()}" /></target></trans-unit>
+<trans-unit id="sf0695e350c3bbc8f">
+  <source>The config you imported seems to be broken :(</source>
+<target>يبدو أن التكوين الذي استوردته تالف :(</target></trans-unit>
+<trans-unit id="sd1dd1d906f1e9f57">
+  <source>The version of the config file is not compatible with the widget version you currently use!</source>
+<target>إصدار ملف التكوين غير متوافق مع إصدار الأداة التي تستخدمها حاليًا!</target></trans-unit>
+<trans-unit id="sea22d7cb1b837fbc">
+  <source>The imported config was successfully loaded!</source>
+<target>تم تحميل التكوين المستورد بنجاح!</target></trans-unit>
+<trans-unit id="s3a12b3bc9f64aaa9">
+  <source>The current configuration was successfully exported!</source>
+<target>تم تصدير التكوين الحالي بنجاح!</target></trans-unit>
+<trans-unit id="s10b8b649492e85d3">
+  <source>You can not delete a data set that is currently selected</source>
+<target>لا يمكنك حذف مجموعة بيانات محددة حاليًا</target></trans-unit>
+<trans-unit id="s1c5710ff3e4f9cfd">
+  <source>The data set '<x id="0" equiv-text="${name}" />' was successfully deleted</source>
+<target>تم حذف مجموعة البيانات '<x id="0" equiv-text="${name}" />' بنجاح</target></trans-unit>
+<trans-unit id="sa1843f0daccbc9c7">
+  <source>Error: Requested deletion of a data set that does not exist</source>
+<target>خطأ: طُلب حذف مجموعة بيانات غير موجودة</target></trans-unit>
+<trans-unit id="s68a9876d35971a36">
+  <source>The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!</source>
+<target>تم تجميع النموذج بنجاح! أُخذت جميع تغييرات المعلمات الفائقة وبنية الشبكة في الحسبان!</target></trans-unit>
+<trans-unit id="sd5d0be5e2482225b">
+  <source>'<x id="0" equiv-text="${layer.getName()}" />' has been deleted!</source>
+<target>تم حذف '<x id="0" equiv-text="${layer.getName()}" />'!</target></trans-unit>
+<trans-unit id="sb266302725c5855d">
+  <source>You can not delete neurons by now! To adjust the number of neurons in the layer, select the layer and set the number of neurons in the right panel!</source>
+<target>لا يمكنك حذف العصبونات الآن! لتعديل عدد العصبونات في الطبقة، حدد الطبقة واضبط عدد العصبونات في اللوحة اليمنى!</target></trans-unit>
+<trans-unit id="s5bb2fd4c5d83e80a">
+  <source>Can not delete edges manually. If you wish to delete all connections between two layers, select one of the affected layers and change its input</source>
+<target>لا يمكن حذف الوصلات يدويًا. لحذف جميع الاتصالات بين طبقتين، حدد إحدى الطبقتين المتأثرتين وغيّر مدخلها</target></trans-unit>
+<trans-unit id="sf8813f51b7447d06">
+  <source>Your network must contain at least one input layer</source>
+<target>يجب أن تحتوي شبكتك على طبقة إدخال واحدة على الأقل</target></trans-unit>
+<trans-unit id="s1f3d45458eb2b06d">
+  <source>Your network must contain at least one output layer</source>
+<target>يجب أن تحتوي شبكتك على طبقة إخراج واحدة على الأقل</target></trans-unit>
+<trans-unit id="s43fadf79188522d8">
+  <source>Make sure to have an output layer connected to the network!</source>
+<target>تأكد من وجود طبقة إخراج متصلة بالشبكة!</target></trans-unit>
+<trans-unit id="s9e914810882278d2">
+  <source>The help entry could not be created. Another entry with the same name already exists!</source>
+<target>تعذر إنشاء إدخال المساعدة. يوجد إدخال آخر بالاسم نفسه بالفعل!</target></trans-unit>
+<trans-unit id="s99a4a9d1702badce">
+  <source>Help entry updated successfully</source>
+<target>تم تحديث إدخال المساعدة بنجاح</target></trans-unit>
+<trans-unit id="sc1367ed4c633ec08">
+  <source>Could not update Q&amp;A entry! An entry with this title does not exist!</source>
+<target>تعذر تحديث إدخال الأسئلة والأجوبة! لا يوجد إدخال بهذا العنوان!</target></trans-unit>
+</body>
   </file>
 </xliff>

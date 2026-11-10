@@ -1,3 +1,4 @@
+import { effectiveLanguage, nativeLanguageAttributes } from "../../../localization/localizer";
 import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { map } from 'lit/directives/map.js'
@@ -11,9 +12,12 @@ import { NetworkUtils } from '@/utils/network_utils'
 
 import * as tf from '@tensorflow/tfjs'
 import { CNeuron } from './neuron'
-import { msg } from '@lit/localize'
 
 export class DenseLayer extends CLayer {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
 
   static scopedElements = {
     "c-neuron": CNeuron
@@ -37,7 +41,7 @@ export class DenseLayer extends CLayer {
   // -> INFO - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // get a description of this layer to display in an info card
   getDescription(): string {
-    return msg('A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.')
+    return this.msg('A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.')
   }
 
   // -> CREATING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

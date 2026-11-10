@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html } from 'lit'
 import { customElement, query, state } from 'lit/decorators.js'
@@ -22,13 +23,13 @@ import IconPlusLg from 'bootstrap-icons/icons/plus-lg.svg'
 import IconBoxArrowInRight from 'bootstrap-icons/icons/box-arrow-in-right.svg' // Input
 import IconLayers from 'bootstrap-icons/icons/layers.svg' // Dense
 import IconBoxArrowRight from 'bootstrap-icons/icons/box-arrow-right.svg' // Output
-import { msg } from '@lit/localize'
+import type { MsgFn } from '@lit/localize';
 
-const LAYER_BUTTONS: Record<LayerType, { icon: string; label: () => string }> =
+const LAYER_BUTTONS: Record<LayerType, { icon: string; label: (msg: MsgFn) => string }> =
   {
-    Input: { icon: IconBoxArrowInRight, label: () => 'Input' },
-    Dense: { icon: IconLayers, label: () => 'Dense' },
-    Output: { icon: IconBoxArrowRight, label: () => msg('Output') },
+    Input: { icon: IconBoxArrowInRight, label: (msg) => msg('Input') },
+    Dense: { icon: IconLayers, label: (msg) => msg('Dense') },
+    Output: { icon: IconBoxArrowRight, label: (msg) => msg('Output') },
   }
 
 type LayerDragState = {
@@ -42,6 +43,11 @@ type LayerDragState = {
 }
 
 export class NetworkAddLayerCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'sl-icon': SlIcon,
@@ -191,7 +197,7 @@ export class NetworkAddLayerCard extends LitElementWw {
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   private renderLayerContent(layerType: LayerType): TemplateResult<1> {
     const { icon, label } = LAYER_BUTTONS[layerType]
-    return html`<sl-icon slot="prefix" src=${icon}></sl-icon>${label()}`
+    return html`<sl-icon slot="prefix" src=${icon}></sl-icon>${label(this.msg)}`
   }
 
   private renderLayerButton(
@@ -227,9 +233,9 @@ export class NetworkAddLayerCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Add layer')}</div>
+        <div slot="title">${this.msg('Add layer')}</div>
         <div slot="content">
-          <p>${msg('Drag a layer anywhere to place it on the canvas')}</p>
+          <p>${this.msg('Drag a layer anywhere to place it on the canvas')}</p>
           <div class="tag-group">
             ${this.renderLayerButton('Input', this.editable)}
             ${this.editable || this.settings.allowDenseLayers

@@ -1,4 +1,5 @@
 import type { ReactiveController } from 'lit'
+import { str } from '@lit/localize'
 import type { NeuralNetwork } from '@/app'
 import type { DataSet } from '@/types/data_set'
 
@@ -44,7 +45,7 @@ export class DataSetController implements ReactiveController {
       )
     ) {
       AlertUtils.spawn({
-        message: `A data set with the same name already exists!`,
+        message: this.host.msg('A data set with the same name already exists!'),
         variant: 'danger',
         icon: 'x-circle',
       })
@@ -61,7 +62,7 @@ export class DataSetController implements ReactiveController {
     )
     if (dataSet == this.host.dataSet) {
       AlertUtils.spawn({
-        message: `You can not delete a data set that is currently selected`,
+        message: this.host.msg('You can not delete a data set that is currently selected'),
         variant: 'danger',
         icon: 'x-circle',
       })
@@ -73,13 +74,13 @@ export class DataSetController implements ReactiveController {
         this.host.availableDataSets.splice(index, 1)
         this.host.availableDataSets = [...this.host.availableDataSets]
         AlertUtils.spawn({
-          message: `The data set '${name}' was successfully deleted`,
+          message: this.host.msg(str`The data set '${name}' was successfully deleted`),
           variant: 'warning',
           icon: 'check-circle',
         })
       } else {
         AlertUtils.spawn({
-          message: `Error: Requested deletion of a data set that does not exist`,
+          message: this.host.msg('Error: Requested deletion of a data set that does not exist'),
           variant: 'danger',
           icon: 'x-circle',
         })

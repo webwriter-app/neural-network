@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
@@ -7,9 +8,13 @@ import { CCard } from '../reusables/c-card'
 
 import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
 import IconTrash from 'bootstrap-icons/icons/trash.svg'
-import { msg } from '@lit/localize'
 
 export class NetworkClearCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'sl-button': SlButton,
@@ -28,7 +33,7 @@ export class NetworkClearCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Clear')}</div>
+        <div slot="title">${this.msg('Clear')}</div>
         <div slot="content">
           <sl-button
             @click="${(_e: MouseEvent) => {
@@ -36,9 +41,9 @@ export class NetworkClearCard extends LitElementWw {
             }}"
           >
             <sl-icon slot="prefix" src=${IconTrash}></sl-icon>
-            ${msg('Clear network')}
+            ${this.msg('Clear network')}
           </sl-button>
-          <p>${msg('This will remove every layer from the network.')}</p>
+          <p>${this.msg('This will remove every layer from the network.')}</p>
         </div>
       </c-card>
     `

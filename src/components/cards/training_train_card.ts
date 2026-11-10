@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query, state } from 'lit/decorators.js'
@@ -19,9 +20,13 @@ import SlProgressBar from '@shoelace-style/shoelace/dist/components/progress-bar
 import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
 import SlRange from '@shoelace-style/shoelace/dist/components/range/range.component.js'
 import IconPlay from 'bootstrap-icons/icons/play.svg'
-import { msg } from '@lit/localize'
 
 export class TrainingTrainCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'sl-progress-bar': SlProgressBar,
@@ -66,16 +71,16 @@ export class TrainingTrainCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Train')}</div>
+        <div slot="title">${this.msg('Train')}</div>
         <div slot="content">
           ${!this.modelConf.isTraining
             ? html`
                 ${this.modelConf.model
                   ? html`
                       <sl-progress-bar value="100"></sl-progress-bar>
-                      <p>✅ ${msg('Training completed!')}</p>
+                      <p>✅ ${this.msg('Training completed!')}</p>
                       <p>
-                        ${msg(
+                        ${this.msg(
                           'Feel free to continue training your model for some additional epochs which might get you even better results!',
                         )}
                       </p>
@@ -83,8 +88,8 @@ export class TrainingTrainCard extends LitElementWw {
                   : html``}
                 <sl-range
                   id="numberOfEpochsRange"
-                  label="${msg('Epochs')}: ${this.numberOfEpochs}"
-                  help-text=${msg('Number of iterations over the whole training data set')}
+                  label="${this.msg('Epochs')}: ${this.numberOfEpochs}"
+                  help-text=${this.msg('Number of iterations over the whole training data set')}
                   min="1"
                   max="10"
                   step="1"
@@ -98,10 +103,10 @@ export class TrainingTrainCard extends LitElementWw {
                   @click="${(_e: MouseEvent) =>
                     this.handleTrain(this.numberOfEpochs)}"
                 >
-                  <sl-icon src=${IconPlay} label=${msg('Run')}></sl-icon>
+                  <sl-icon src=${IconPlay} label=${this.msg('Run')}></sl-icon>
                   ${this.numberOfEpochs == 1
-                    ? html`${msg('Train for 1 epoch')}`
-                    : html`${msg('Train for')} ${this.numberOfEpochs} ${msg('epochs')}`}
+                    ? html`${this.msg('Train for 1 epoch')}`
+                    : html`${this.msg('Train for')} ${this.numberOfEpochs} ${this.msg('epochs')}`}
                 </sl-button>
               `
             : html``}
@@ -113,7 +118,7 @@ export class TrainingTrainCard extends LitElementWw {
                   100}"
                 ></sl-progress-bar>
                 <p>
-                  ${msg('Epoch')} ${this.modelConf.actEpoch} • ${msg('Batch')}
+                  ${this.msg('Epoch')} ${this.modelConf.actEpoch} • ${this.msg('Batch')}
                   ${this.modelConf.actBatch}/${Math.ceil(
                     this.dataSet.data.length /
                       parseInt(this.trainOptions.batchSize),

@@ -1,3 +1,5 @@
+import { DataSetUtils } from '@/utils/data_set_utils'
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
@@ -10,9 +12,13 @@ import type { InputLayer } from '@/components/network/input_layer'
 import type { SlChangeEvent } from '@shoelace-style/shoelace'
 import SlSelect from "@shoelace-style/shoelace/dist/components/select/select.component.js"
 import { CCard } from '../reusables/c-card'
-import { msg } from '@lit/localize'
 
 export class LayerIncomingDataCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   
   static scopedElements = {
     "c-card": CCard,
@@ -44,7 +50,7 @@ export class LayerIncomingDataCard extends LitElementWw {
     return this.dataSet.featureDescs.map(
       (featureDesc) => html`
         <sl-option value="${featureDesc.key}">
-          <sl-tooltip content="${featureDesc.description}"
+          <sl-tooltip content="${DataSetUtils.localizeText(this.dataSet, featureDesc.description, this.msg)}"
             >${featureDesc.key}</sl-tooltip
           >
         </sl-option>
@@ -56,14 +62,14 @@ export class LayerIncomingDataCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Features')}</div>
+        <div slot="title">${this.msg('Features')}</div>
         <div slot="content">
           <sl-select
             id="featuresSelect"
             value=${this.layer.conf.featureKeys.join(' ')}
             multiple
             max-options-visible="100"
-            help-text=${msg('Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description.')}
+            help-text=${this.msg('Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description.')}
             @sl-change="${(_e: SlChangeEvent) => {
               this.handleChangeFeatures()
             }}"
