@@ -1,3 +1,5 @@
+import { DataSetUtils } from '@/utils/data_set_utils'
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html, nothing } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
@@ -19,9 +21,13 @@ import { CreateDataSetDialog } from '@/components/dialogs/create_data_set_dialog
 import SlSelect from '@shoelace-style/shoelace/dist/components/select/select.component.js'
 import SlOption from '@shoelace-style/shoelace/dist/components/option/option.component.js'
 import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
-import { msg } from '@lit/localize'
 
 export class DataSetSelectCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'manage-data-sets-dialog': ManageDataSetsDialog,
@@ -71,12 +77,12 @@ export class DataSetSelectCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Select data set')}</div>
+        <div slot="title">${this.msg('Select data set')}</div>
         <div slot="content">
           <sl-select
             .value="${this.dataSet ? encodeURI(this.dataSet.name) : nothing}"
             id="dataSetSelect"
-            placeholder=${msg('"Select a data set"')}
+            placeholder=${this.msg('"Select a data set"')}
             @sl-change="${(_e: SlChangeEvent) => {
               void this.handleChangeDataSet()
             }}"
@@ -84,7 +90,7 @@ export class DataSetSelectCard extends LitElementWw {
             ${this.availableDataSets.map(
               (option) =>
                 html`<sl-option .value="${encodeURI(option.name)}"
-                  >${option.name}</sl-option
+                  >${DataSetUtils.localizeText(option, option.name, this.msg)}</sl-option
                 >`,
             )}
           </sl-select>
@@ -93,7 +99,7 @@ export class DataSetSelectCard extends LitElementWw {
                 <sl-button
                   @click="${(_e: MouseEvent) =>
                     this.openManageDataSetsDialog()}"
-                  >${msg('Manage data sets')}</sl-button
+                  >${this.msg('Manage data sets')}</sl-button
                 >
               `
             : html``}

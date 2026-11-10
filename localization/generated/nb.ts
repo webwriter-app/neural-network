@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Batchstørrelse`,
 'sd6b4fb36bd73f830': `Tilordnet funksjon (inngang)`,
 'sd8305d1efc816b0a': `Forutsi`,
+'sdb1595f5c742dfbb': `Inndata`,
 'sdc673e73b5c13aea': `Slett`,
 'sdc95be9d922008e7': `Et utdatalag i denne simuleringen er bare et vanlig tett lag, som i tillegg er utstyrt med muligheten til å sende innkommende data ut av nettverket.`,
 'se157debe22915185': `ble slettet fordi ingen data kunne tilordnes den!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Velg lagene som er koblet til dette laget`,
 'sfd77270c3f54f664': `Produksjon`,
 'sff69314112eb4786': `Tillat endring av aktiveringsfunksjonen`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

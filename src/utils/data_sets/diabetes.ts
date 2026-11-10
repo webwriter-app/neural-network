@@ -1,5 +1,5 @@
 import type { DataSet } from '@/types/data_set'
-import { msg } from '@lit/localize'
+import { sourceMsg as msg } from '../../../localization/localizer'
 
 export const pimaIndiansDiabetes: DataSet = {
   name: msg('Pima Indians Diabetes'),

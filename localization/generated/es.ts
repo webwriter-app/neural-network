@@ -83,6 +83,7 @@
 's5a27bd37c0a0ad1a': `con una probabilidad de`,
 's5a95fb6f50ddd6ff': `neuronas`,
 's5b1749c67945a111': `Zoom a la red`,
+'s5c9d4638c1e38b36': `Permitir la edición`,
 's5ebe428b72f9d9fd': `Hiperparámetros`,
 's5ef9308d320834d1': `Edad (años)`,
 's5f343a43e7ea9f91': `Error`,
@@ -190,6 +191,7 @@
 'sd674ba4ce23f2290': `Tamaño del lote`,
 'sd6b4fb36bd73f830': `Característica asignada (entrada)`,
 'sd8305d1efc816b0a': `Predecir`,
+'sdb1595f5c742dfbb': `Entrada`,
 'sdc673e73b5c13aea': `Borrar`,
 'sdc95be9d922008e7': `Una capa de salida en esta simulación es simplemente una capa densa normal, equipada además con la capacidad de dar salida a los datos entrantes fuera de la red.`,
 'se157debe22915185': `se ha eliminado porque no se le ha podido asignar ningún dato.`,
@@ -215,5 +217,6 @@
 'sfcb8881b108f62ed': `Seleccione las capas que se conectan a esta capa`,
 'sfd77270c3f54f664': `Salida`,
 'sff69314112eb4786': `Permitir cambiar la función de activación`,
+'sff96ebdc539c64b0': `Densa`,
     };
   

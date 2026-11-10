@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
@@ -15,9 +16,13 @@ import SlButton from "@shoelace-style/shoelace/dist/components/button/button.com
 
 import IconFiles from "bootstrap-icons/icons/files.svg"
 import IconTrash from "bootstrap-icons/icons/trash.svg"
-import { msg } from '@lit/localize'
 
 export class LayerActionsCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   
   static scopedElements = {
     "c-card": CCard,
@@ -47,7 +52,7 @@ export class LayerActionsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Actions')}</div>
+        <div slot="title">${this.msg('Actions')}</div>
         <div slot="content">
           <div class="button-group">
             ${!(this.layer instanceof OutputLayer)
@@ -55,12 +60,12 @@ export class LayerActionsCard extends LitElementWw {
                   @click="${(_e: MouseEvent) => this.handleDuplicateLayer()}"
                 >
                   <sl-icon slot="prefix" src=${IconFiles}></sl-icon>
-                  ${msg('Duplicate')}
+                  ${this.msg('Duplicate')}
                 </sl-button>`
               : html``}
             <sl-button @click="${(_e: MouseEvent) => this.handleDeleteLayer()}">
               <sl-icon slot="prefix" src=${IconTrash}></sl-icon>
-              ${msg('Delete')}
+              ${this.msg('Delete')}
             </sl-button>
           </div>
         </div>

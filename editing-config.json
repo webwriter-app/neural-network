@@ -31,7 +31,73 @@
       "ja": "カスタムデータセットによるフィードフォワードネットワークのディープラーニング可視化、トレーニング、予測。",
       "id": "Visualisasi pembelajaran mendalam untuk jaringan feed-forward dengan set data khusus, pelatihan, dan prediksi.",
       "zh-hans": "前馈网络的深度学习可视化，包括自定义数据集、训练和预测。",
-      "zh-hant": "具有自訂資料集、訓練和預測功能的前饋網路深度學習可視化。"
+      "zh-hant": "具有自訂資料集、訓練和預測功能的前饋網路深度學習可視化。",
+      "_": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
+      "en": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
+      "en-US": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
+      "en-GB": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
+      "en-CA": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
+      "en-AU": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
+      "en-IN": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
+      "zh": "前馈网络的深度学习可视化，包括自定义数据集、训练和预测。",
+      "zh-Hans": "前馈网络的深度学习可视化，包括自定义数据集、训练和预测。",
+      "zh-Hant": "具有自訂資料集、訓練和預測功能的前饋網路深度學習可視化。",
+      "pt": "Visualização de aprendizagem profunda para redes feed-forward com conjuntos de dados personalizados, formação e previsão.",
+      "no": "Visualisering av dyp læring for feed-forward-nettverk med egendefinerte datasett, opplæring og prediksjon."
+    },
+    "label": {
+      "_": "Neural Network",
+      "en": "Neural Network",
+      "en-US": "Neural Network",
+      "en-GB": "Neural Network",
+      "en-CA": "Neural Network",
+      "en-AU": "Neural Network",
+      "en-IN": "Neural Network",
+      "fr": "Réseau neuronal",
+      "de": "Neuronales Netz",
+      "es": "Red neuronal"
+    }
+  },
+  "./widgets/webwriter-neural-network": {
+    "label": {
+      "_": "Neural Network",
+      "en": "Neural Network",
+      "en-US": "Neural Network",
+      "en-GB": "Neural Network",
+      "en-CA": "Neural Network",
+      "en-AU": "Neural Network",
+      "en-IN": "Neural Network",
+      "fr": "Réseau neuronal",
+      "de": "Neuronales Netz",
+      "es": "Red neuronal"
+    }
+  },
+  "./snippets/Pima-Indians-Diabetes": {
+    "label": {
+      "_": "Pima-Indians-Diabetes",
+      "en": "Pima-Indians-Diabetes",
+      "en-US": "Pima-Indians-Diabetes",
+      "en-GB": "Pima-Indians-Diabetes",
+      "en-CA": "Pima-Indians-Diabetes",
+      "en-AU": "Pima-Indians-Diabetes",
+      "en-IN": "Pima-Indians-Diabetes",
+      "fr": "Jeu de données sur le diabète chez les Pimas",
+      "de": "Diabetes-Datensatz der Pima",
+      "es": "Conjunto de datos de diabetes en la población pima"
+    }
+  },
+  "./snippets/Boston-House-Pricing": {
+    "label": {
+      "_": "Boston-House-Pricing",
+      "en": "Boston-House-Pricing",
+      "en-US": "Boston-House-Pricing",
+      "en-GB": "Boston-House-Pricing",
+      "en-CA": "Boston-House-Pricing",
+      "en-AU": "Boston-House-Pricing",
+      "en-IN": "Boston-House-Pricing",
+      "fr": "Prix des logements à Boston",
+      "de": "Immobilienpreise in Boston",
+      "es": "Precios de la vivienda en Boston"
     }
   }
 }

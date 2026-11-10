@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Dimensione del lotto`,
 'sd6b4fb36bd73f830': `Funzione assegnata (ingresso)`,
 'sd8305d1efc816b0a': `Prevedere`,
+'sdb1595f5c742dfbb': `Input`,
 'sdc673e73b5c13aea': `Cancellare`,
 'sdc95be9d922008e7': `In questa simulazione, uno strato di uscita è un normale strato denso, dotato in più della capacità di far uscire dalla rete i dati in entrata.`,
 'se157debe22915185': `è stato cancellato perché non è stato possibile assegnargli alcun dato!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Selezionare i livelli che si collegano a questo livello`,
 'sfd77270c3f54f664': `Uscita`,
 'sff69314112eb4786': `Consente di modificare la funzione di attivazione`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

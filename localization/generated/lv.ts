@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Partijas lielums`,
 'sd6b4fb36bd73f830': `Piešķirtā funkcija (ievade)`,
 'sd8305d1efc816b0a': `Paredzēt`,
+'sdb1595f5c742dfbb': `Ievade`,
 'sdc673e73b5c13aea': `Dzēst`,
 'sdc95be9d922008e7': `Izejas slānis šajā simulācijā ir parasts blīvs slānis, kas papildus aprīkots ar spēju izvadīt ienākošos datus no tīkla.`,
 'se157debe22915185': `tika dzēsts, jo tam nevarēja piešķirt datus!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Atlasiet slāņus, kas ir saistīti ar šo slāni`,
 'sfd77270c3f54f664': `Izvades`,
 'sff69314112eb4786': `Ļauj mainīt aktivizācijas funkciju`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

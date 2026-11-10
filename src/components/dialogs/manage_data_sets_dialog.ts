@@ -1,3 +1,5 @@
+import { DataSetUtils } from '@/utils/data_set_utils'
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
@@ -12,9 +14,13 @@ import SlDialog from '@shoelace-style/shoelace/dist/components/dialog/dialog.com
 import SlTag from '@shoelace-style/shoelace/dist/components/tag/tag.component.js'
 import { CCard } from '../reusables/c-card'
 import { CreateDataSetDialog } from './create_data_set_dialog'
-import { msg } from '@lit/localize'
 
 export class ManageDataSetsDialog extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'sl-dialog': SlDialog,
     'sl-button': SlButton,
@@ -79,28 +85,28 @@ export class ManageDataSetsDialog extends LitElementWw {
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
-      <sl-dialog label=${msg('Manage data sets')}>
+      <sl-dialog label=${this.msg('Manage data sets')}>
         <sl-button
           variant="primary"
           @click="${(_e: MouseEvent) => this.openCreateDataSetDialog()}"
-          >${msg('Create a new data set')}</sl-button
+          >${this.msg('Create a new data set')}</sl-button
         >
         ${this.availableDataSets.map(
           (dataSet) => html`
             <c-card>
-              <div slot="title">${dataSet.name}</div>
+              <div slot="title">${DataSetUtils.localizeText(dataSet, dataSet.name, this.msg)}</div>
               <div slot="content">
-                <p>${dataSet.description}</p>
+                <p>${DataSetUtils.localizeText(dataSet, dataSet.description, this.msg)}</p>
                 ${this.dataSet.name == dataSet.name
                   ? html`<sl-tag variant="success"
-                      >${msg('Currently selected')}</sl-tag
+                      >${this.msg('Currently selected')}</sl-tag
                     >`
                   : html`<sl-button
                       variant="danger"
                       name=${dataSet.name}
                       @click=${(e: MouseEvent) => this.handleDeleteDataSet(e)}
                     >
-                      ${msg('Permanently delete data set')}
+                      ${this.msg('Permanently delete data set')}
                     </sl-button>`}
               </div>
             </c-card>

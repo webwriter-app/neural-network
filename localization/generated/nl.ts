@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Partijgrootte`,
 'sd6b4fb36bd73f830': `Toegewezen functie (invoer)`,
 'sd8305d1efc816b0a': `Voorspel`,
+'sdb1595f5c742dfbb': `Invoer`,
 'sdc673e73b5c13aea': `Verwijder`,
 'sdc95be9d922008e7': `Een uitvoerlaag in deze simulatie is gewoon een normale dichte laag, maar dan uitgerust met de mogelijkheid om de binnenkomende gegevens uit het netwerk te voeren.`,
 'se157debe22915185': `werd verwijderd omdat er geen gegevens aan konden worden toegewezen!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Selecteer de lagen die met deze laag verbonden zijn`,
 'sfd77270c3f54f664': `Uitgang`,
 'sff69314112eb4786': `De activeringsfunctie wijzigen`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Wielkość partii`,
 'sd6b4fb36bd73f830': `Przypisana funkcja (wejście)`,
 'sd8305d1efc816b0a': `Przewidywać`,
+'sdb1595f5c742dfbb': `Wejście`,
 'sdc673e73b5c13aea': `Usuń`,
 'sdc95be9d922008e7': `Warstwa wyjściowa w tej symulacji jest zwykłą gęstą warstwą, dodatkowo wyposażoną w możliwość wyprowadzania przychodzących danych z sieci.`,
 'se157debe22915185': `została usunięta, ponieważ nie można było przypisać do niej żadnych danych!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Wybierz warstwy, które łączą się z tą warstwą`,
 'sfd77270c3f54f664': `Wyjście`,
 'sff69314112eb4786': `Umożliwia zmianę funkcji aktywacji`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

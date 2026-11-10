@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Parti büyüklüğü`,
 'sd6b4fb36bd73f830': `Atanan özellik (giriş)`,
 'sd8305d1efc816b0a': `Tahmin Et`,
+'sdb1595f5c742dfbb': `Giriş`,
 'sdc673e73b5c13aea': `Silme`,
 'sdc95be9d922008e7': `Bu simülasyondaki bir çıktı katmanı sadece normal bir yoğun katmandır, ek olarak gelen verileri ağdan dışarı çıkarma yeteneği ile donatılmıştır.`,
 'se157debe22915185': `silindi çünkü ona hiçbir veri atanamadı!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Bu katmana bağlanan katmanları seçin`,
 'sfd77270c3f54f664': `Çıktı`,
 'sff69314112eb4786': `Aktivasyon fonksiyonunun değiştirilmesine izin verin`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

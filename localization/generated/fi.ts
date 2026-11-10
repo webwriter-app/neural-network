@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Erän koko`,
 'sd6b4fb36bd73f830': `Määritetty ominaisuus (tulo)`,
 'sd8305d1efc816b0a': `Ennustaa`,
+'sdb1595f5c742dfbb': `Syöttö`,
 'sdc673e73b5c13aea': `Poista`,
 'sdc95be9d922008e7': `Lähtökerros on tässä simulaatiossa aivan tavallinen tiheä kerros, joka on lisäksi varustettu kyvyllä antaa verkkoon tuleva data ulos verkosta.`,
 'se157debe22915185': `poistettiin, koska sille ei voitu määrittää tietoja!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Valitse tähän kerrokseen liittyvät kerrokset`,
 'sfd77270c3f54f664': `Lähtö`,
 'sff69314112eb4786': `Salli aktivointifunktion muuttaminen`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

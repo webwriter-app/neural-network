@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
@@ -12,13 +13,17 @@ import { AlertUtils } from '@/utils/alert_utils'
 
 import * as tf from '@tensorflow/tfjs'
 import { CNeuron } from './neuron'
-import { msg } from '@lit/localize'
 
 // an input layer is a special type of a neuron layer. We do not allow
 // activation functions and provide methods to assign features from the
 // dataSet to this input layer. We do not allow manual editing of the neurons
 // and other layers can not connect to an input layer.
 export class InputLayer extends CLayer {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
 
   static scopedElements = {
     "c-neuron": CNeuron
@@ -37,7 +42,7 @@ export class InputLayer extends CLayer {
         // be deleted
         this.delete()
         AlertUtils.spawn({
-          message: `${msg('Layer')} ${this.getCyId()} ${msg('was deleted because no data could be assigned to it!')}`,
+          message: `${this.msg('Layer')} ${this.getCyId()} ${this.msg('was deleted because no data could be assigned to it!')}`,
           variant: 'warning',
           icon: 'x-circle',
         })
@@ -70,7 +75,7 @@ export class InputLayer extends CLayer {
 
   // get description
   getDescription(): string {
-    return msg('An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)')
+    return this.msg('An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)')
   }
 
   // -> CREATING - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

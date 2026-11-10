@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
@@ -17,9 +18,13 @@ import { CCard } from '../reusables/c-card'
 import SlTag from '@shoelace-style/shoelace/dist/components/tag/tag.component.js'
 import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
 import IconFileEarmarkArrowUp from 'bootstrap-icons/icons/file-earmark-arrow-up.svg'
-import { msg } from '@lit/localize'
 
 export class GetStartedCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'sl-button': SlButton,
@@ -74,7 +79,7 @@ export class GetStartedCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Get started')}</div>
+        <div slot="title">${this.msg('Get started')}</div>
         <div slot="content">
           <sl-button
             @click="${(_e: MouseEvent) => {
@@ -82,7 +87,7 @@ export class GetStartedCard extends LitElementWw {
             }}"
           >
             <sl-icon slot="prefix" src=${IconFileEarmarkArrowUp}></sl-icon>
-            ${msg('Import JSON configuration')}
+            ${this.msg('Import JSON configuration')}
           </sl-button>
           ${this.editable || this.settings.showDefaultConfs
             ? html` <div id="getStartedGrid">
@@ -90,16 +95,16 @@ export class GetStartedCard extends LitElementWw {
                   <div slot="title">Pima Indians</div>
                   <div slot="content">
                     <div class="tag-group">
-                      <sl-tag variant="warning">${msg('Intermediate')}</sl-tag>
+                      <sl-tag variant="warning">${this.msg('Intermediate')}</sl-tag>
                       <sl-tag variant="neutral"
-                        >${msg('Classification')}</sl-tag
+                        >${this.msg('Classification')}</sl-tag
                       >
-                      <sl-tag variant="neutral">${msg('Feed Forward')}</sl-tag>
+                      <sl-tag variant="neutral">${this.msg('Feed Forward')}</sl-tag>
                     </div>
                     <sl-button
                       @click=${(_e: MouseEvent) =>
                         this.handleDefaultImport('pima')}
-                      >${msg('Create')}</sl-button
+                      >${this.msg('Create')}</sl-button
                     >
                   </div>
                 </c-card>
@@ -107,14 +112,14 @@ export class GetStartedCard extends LitElementWw {
                   <div slot="title">Boston House Pricing</div>
                   <div slot="content">
                     <div class="tag-group">
-                      <sl-tag variant="warning">${msg('Intermediate')}</sl-tag>
-                      <sl-tag variant="neutral">${msg('Regression')}</sl-tag>
-                      <sl-tag variant="neutral">${msg('Feed Forward')}</sl-tag>
+                      <sl-tag variant="warning">${this.msg('Intermediate')}</sl-tag>
+                      <sl-tag variant="neutral">${this.msg('Regression')}</sl-tag>
+                      <sl-tag variant="neutral">${this.msg('Feed Forward')}</sl-tag>
                     </div>
                     <sl-button
                       @click=${(_e: MouseEvent) =>
                         this.handleDefaultImport('boston')}
-                      >${msg('Create')}</sl-button
+                      >${this.msg('Create')}</sl-button
                     >
                   </div>
                 </c-card>
@@ -122,7 +127,7 @@ export class GetStartedCard extends LitElementWw {
             : html``}
           ${this.editable || this.settings.mayAddAndRemoveLayers
             ? html`<p>
-                ${msg(
+                ${this.msg(
                   'You can create a custom configuration by using the options in the corresponding right panels.',
                 )}
               </p>`

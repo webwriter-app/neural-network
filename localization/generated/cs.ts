@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Velikost dávky`,
 'sd6b4fb36bd73f830': `Přiřazená funkce (vstup)`,
 'sd8305d1efc816b0a': `Předpovídat`,
+'sdb1595f5c742dfbb': `Vstup`,
 'sdc673e73b5c13aea': `Odstranit`,
 'sdc95be9d922008e7': `Výstupní vrstva je v této simulaci běžná hustá vrstva, navíc vybavená schopností vyvést příchozí data ze sítě.`,
 'se157debe22915185': `byl smazán, protože mu nebylo možné přiřadit žádná data!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Vyberte vrstvy, které se k této vrstvě připojují`,
 'sfd77270c3f54f664': `Výstup`,
 'sff69314112eb4786': `Umožňuje změnu aktivační funkce`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

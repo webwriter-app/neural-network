@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Partii suurus`,
 'sd6b4fb36bd73f830': `Määratud funktsioon (sisend)`,
 'sd8305d1efc816b0a': `Prognoosige`,
+'sdb1595f5c742dfbb': `Sisend`,
 'sdc673e73b5c13aea': `Kustuta`,
 'sdc95be9d922008e7': `Väljundkiht on selles simulatsioonis lihtsalt tavaline tihe kiht, mis on täiendavalt varustatud võimega väljastada võrgust saabuvaid andmeid.`,
 'se157debe22915185': `kustutati, sest sellele ei olnud võimalik andmeid määrata!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Valige kihid, mis ühendavad seda kihti`,
 'sfd77270c3f54f664': `Väljund`,
 'sff69314112eb4786': `Võimaldab muuta aktiveerimisfunktsiooni`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

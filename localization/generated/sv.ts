@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Batchstorlek`,
 'sd6b4fb36bd73f830': `Tilldelad funktion (ingång)`,
 'sd8305d1efc816b0a': `Förutsägelse`,
+'sdb1595f5c742dfbb': `Inmatning`,
 'sdc673e73b5c13aea': `Radera`,
 'sdc95be9d922008e7': `Ett utdatalager i den här simuleringen är bara ett vanligt tätt lager, som dessutom är utrustat med förmågan att mata ut inkommande data ur nätverket.`,
 'se157debe22915185': `raderades eftersom inga data kunde kopplas till den!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Välj de lager som ansluter till detta lager`,
 'sfd77270c3f54f664': `Utgång`,
 'sff69314112eb4786': `Tillåt ändring av aktiveringsfunktionen`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

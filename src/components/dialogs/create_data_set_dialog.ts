@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html, nothing } from 'lit'
 import { customElement, property, query, state } from 'lit/decorators.js'
@@ -25,9 +26,13 @@ import IconQuestionCircle from 'bootstrap-icons/icons/question-circle.svg'
 import IconArrowLeftCircle from 'bootstrap-icons/icons/arrow-left-circle.svg'
 import IconArrowRightCircle from 'bootstrap-icons/icons/arrow-right-circle.svg'
 import { CCard } from '../reusables/c-card'
-import { msg } from '@lit/localize'
 
 export class CreateDataSetDialog extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'sl-dialog': SlDialog,
     'sl-textarea': SlTextarea,
@@ -84,7 +89,7 @@ export class CreateDataSetDialog extends LitElementWw {
     console.log(serialize(this._dialogForm).data)
     if (this.step != 1 || serialize(this._dialogForm).data) {
       AlertUtils.spawn({
-        message: msg(
+        message: this.msg(
           'The progress you made in creating your own data set was successfully restored!',
         ),
         variant: 'success',
@@ -141,7 +146,7 @@ export class CreateDataSetDialog extends LitElementWw {
       this.availableDataSets.find((dataSet) => dataSet.name == this.config.name)
     ) {
       AlertUtils.spawn({
-        message: msg('A data set with the same name already exists!'),
+        message: this.msg('A data set with the same name already exists!'),
         variant: 'danger',
         icon: 'x-circle',
       })
@@ -155,7 +160,7 @@ export class CreateDataSetDialog extends LitElementWw {
     const result = pattern.test(data)
     if (!result) {
       AlertUtils.spawn({
-        message: msg(
+        message: this.msg(
           'The provided data does not match the required format! Please check again',
         ),
         variant: 'danger',
@@ -210,7 +215,7 @@ export class CreateDataSetDialog extends LitElementWw {
     this._dialogForm.reset()
 
     AlertUtils.spawn({
-      message: msg(
+      message: this.msg(
         'A new data set was successfully created and automatically selected!',
       ),
       variant: 'success',
@@ -262,7 +267,7 @@ export class CreateDataSetDialog extends LitElementWw {
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   render(): TemplateResult<1> {
     return html`
-      <sl-dialog label=${msg('Create a new data set')}>
+      <sl-dialog label=${this.msg('Create a new data set')}>
         <div class="step-chooser">
           <sl-button
             circle
@@ -312,24 +317,24 @@ export class CreateDataSetDialog extends LitElementWw {
         >
           <div class="form-main">
             <div ?hidden=${this.step !== 1} ?inert=${this.step !== 1}>
-              <h1>${msg('Welcome')}</h1>
+              <h1>${this.msg('Welcome')}</h1>
               <p>
-                ${msg(
+                ${this.msg(
                   'This tour will guide you through creating your own data set in a few simple steps. Everything is stored automatically, so you can close this modal at any time and resume.',
                 )}
               </p>
             </div>
             <div ?hidden=${this.step !== 2} ?inert=${this.step !== 2}>
-              <h1>${msg('General info about the data set')}</h1>
+              <h1>${this.msg('General info about the data set')}</h1>
               <p>
-                ${msg(
+                ${this.msg(
                   'Choose a short but meaningful name for your data set and write a description.',
                 )}
               </p>
               <sl-input
                 name="name"
-                label=${msg('Name')}
-                placeholder=${msg('Boston House Pricing')}
+                label=${this.msg('Name')}
+                placeholder=${this.msg('Boston House Pricing')}
                 ?required=${this.step == 2}
                 minlength=${this.step == 2 ? 1 : nothing}
                 @sl-change=${(e: SlChangeEvent) => {
@@ -340,8 +345,8 @@ export class CreateDataSetDialog extends LitElementWw {
               <sl-textarea
                 rows="4"
                 name="description"
-                label=${msg('Description')}
-                placeholder=${msg(
+                label=${this.msg('Description')}
+                placeholder=${this.msg(
                   'The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.',
                 )}
                 ?required=${this.step == 2}
@@ -354,18 +359,18 @@ export class CreateDataSetDialog extends LitElementWw {
               <sl-tooltip>
                 <div slot="content">
                   <p>
-                    ${msg(
+                    ${this.msg(
                       "Choose 'regression' if you want to predict continous values like house or gas prices",
                     )}
                   </p>
                   <p>
-                    ${msg(
+                    ${this.msg(
                       "Choose 'classification' if you want information about the affiliation of the feature(s) to a class (e.g. what animal can be seen in this image? A dog, cat or horse?)",
                     )}
                   </p>
                 </div>
                 <p>
-                  ${msg('Choose a type')}
+                  ${this.msg('Choose a type')}
                   <sl-icon src=${IconQuestionCircle}></sl-icon>
                 </p>
               </sl-tooltip>
@@ -379,17 +384,17 @@ export class CreateDataSetDialog extends LitElementWw {
                 }}"
               >
                 <sl-radio-button pill value="regression"
-                  >${msg('Regression')}</sl-radio-button
+                  >${this.msg('Regression')}</sl-radio-button
                 >
                 <sl-radio-button pill value="classification"
-                  >${msg('Classification')}</sl-radio-button
+                  >${this.msg('Classification')}</sl-radio-button
                 >
               </sl-radio-group>
             </div>
             <div ?hidden=${this.step !== 3} ?inert=${this.step !== 3}>
-              <h1>${msg('Features')}</h1>
+              <h1>${this.msg('Features')}</h1>
               <p>
-                ${msg(
+                ${this.msg(
                   'Which data will be put into the neural network? Create arbitrary many features!',
                 )}
               </p>
@@ -399,9 +404,9 @@ export class CreateDataSetDialog extends LitElementWw {
                     <div slot="content">
                       <sl-input
                         value=${featureDesc.key}
-                        label=${msg('Key')}
+                        label=${this.msg('Key')}
                         placeholder="DIS"
-                        help-text=${msg('1-6 capital letters')}
+                        help-text=${this.msg('1-6 capital letters')}
                         ?required=${this.step == 3}
                         maxlength=${this.step == 3 ? 6 : nothing}
                         pattern=${this.step == 3 ? '[A-Z]+' : nothing}
@@ -415,8 +420,8 @@ export class CreateDataSetDialog extends LitElementWw {
                       <sl-textarea
                         rows="2"
                         value=${featureDesc.description}
-                        label=${msg('Description')}
-                        placeholder=${msg(
+                        label=${this.msg('Description')}
+                        placeholder=${this.msg(
                           'Weighted distances to five Boston employment centers',
                         )}
                         ?required=${this.step == 3}
@@ -436,22 +441,22 @@ export class CreateDataSetDialog extends LitElementWw {
                 ? html`
                     <sl-button
                       @click="${(_e: MouseEvent) => this.removeFeature()}"
-                      >${msg('Remove feature')}</sl-button
+                      >${this.msg('Remove feature')}</sl-button
                     >
                   `
                 : html``}
               <sl-button @click="${(_e: MouseEvent) => this.addFeature()}"
-                >${msg('Add feature')}</sl-button
+                >${this.msg('Add feature')}</sl-button
               >
             </div>
             <div ?hidden=${this.step !== 4} ?inert=${this.step !== 4}>
-              <h1>${msg('Label')}</h1>
-              <p>${msg('What shall be the output of the network?')}</p>
+              <h1>${this.msg('Label')}</h1>
+              <p>${this.msg('What shall be the output of the network?')}</p>
               <sl-input
                 value=${this.config.labelDesc.key}
-                label=${msg('Key')}
+                label=${this.msg('Key')}
                 placeholder="MEDV"
-                help-text=${msg('1-6 capital letters')}
+                help-text=${this.msg('1-6 capital letters')}
                 ?required=${this.step == 4}
                 maxlength=${this.step == 4 ? 6 : nothing}
                 pattern=${this.step == 4 ? '[A-Z]+' : nothing}
@@ -463,8 +468,8 @@ export class CreateDataSetDialog extends LitElementWw {
               <sl-textarea
                 rows="2"
                 value=${this.config.labelDesc.description}
-                label=${msg('Description')}
-                placeholder=${msg(
+                label=${this.msg('Description')}
+                placeholder=${this.msg(
                   'Median value of owner-occupied homes in $1000s',
                 )}
                 ?required=${this.step == 4}
@@ -486,9 +491,9 @@ export class CreateDataSetDialog extends LitElementWw {
                             <sl-input
                               type="number"
                               value=${clazz.id}
-                              label=${msg('Key')}
+                              label=${this.msg('Key')}
                               placeholder="0"
-                              help-text=${msg('an integer')}
+                              help-text=${this.msg('an integer')}
                               ?required=${this.step == 4}
                               maxlength=${this.step == 4 ? 6 : nothing}
                               pattern=${this.step == 4 ? '[A-Z]+' : nothing}
@@ -501,8 +506,8 @@ export class CreateDataSetDialog extends LitElementWw {
                             <sl-textarea
                               rows="2"
                               value=${clazz.description}
-                              label=${msg('Description')}
-                              placeholder=${msg(
+                              label=${this.msg('Description')}
+                              placeholder=${this.msg(
                                 'Animal was detected as a horse',
                               )}
                               ?required=${this.step == 4}
@@ -525,20 +530,20 @@ export class CreateDataSetDialog extends LitElementWw {
                           <sl-button
                             @click="${(_e: MouseEvent) =>
                               this.removeLabelClass()}"
-                            >${msg('Remove class')}</sl-button
+                            >${this.msg('Remove class')}</sl-button
                           >
                         `
                       : html``}
                     <sl-button
                       @click="${(_e: MouseEvent) => this.addLabelClass()}"
-                      >${msg('Add class')}</sl-button
+                      >${this.msg('Add class')}</sl-button
                     >
                   `
                 : html``}
             </div>
             <div ?hidden=${this.step !== 5} ?inert=${this.step !== 5}>
-              <h1>${msg('You are nearly done')}</h1>
-              <p>${msg('Now add your data in the following format')}*:</p>
+              <h1>${this.msg('You are nearly done')}</h1>
+              <p>${this.msg('Now add your data in the following format')}*:</p>
               <div
                 class="tag-group"
                 style="justify-content: center !important;"
@@ -565,7 +570,7 @@ export class CreateDataSetDialog extends LitElementWw {
                 id="dataTextarea"
                 rows="10"
                 name="data"
-                help-text="*${msg(
+                help-text="*${this.msg(
                   'Each row needs to represent one set containing the features and the label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the features. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments.',
                 )}"
                 ?required=${this.step == 5}
@@ -580,21 +585,21 @@ export class CreateDataSetDialog extends LitElementWw {
                     @click="${(_e: MouseEvent) => this.step--}"
                   >
                     <sl-icon slot="prefix" src=${IconArrowLeftCircle}></sl-icon>
-                    ${msg('Previous')}
+                    ${this.msg('Previous')}
                   </sl-button>
                 `
               : html``}
             <sl-button variant="primary" type="submit" id="nextStepButton">
               ${this.step < 5
                 ? html`
-                    ${msg('Next')}
+                    ${this.msg('Next')}
                     <sl-icon
                       slot="suffix"
                       src=${IconArrowRightCircle}
                     ></sl-icon>
                   `
                 : html`
-                    ${msg('Validate and create')}
+                    ${this.msg('Validate and create')}
                     <sl-icon
                       slot="suffix"
                       src=${IconArrowRightCircle}

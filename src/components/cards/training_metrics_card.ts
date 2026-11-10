@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, query } from 'lit/decorators.js'
@@ -13,9 +14,13 @@ import { modelConfContext } from '@/contexts/model_conf_context'
 import { CCard } from '../reusables/c-card'
 
 import SlDetails from '@shoelace-style/shoelace/dist/components/details/details.component.js'
-import { msg } from '@lit/localize'
 
 export class TrainingMetricsCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'sl-details': SlDetails,
@@ -50,7 +55,7 @@ export class TrainingMetricsCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Metrics')}</div>
+        <div slot="title">${this.msg('Metrics')}</div>
         <div slot="content">
           ${choose(
             this.dataSet.type,
@@ -58,28 +63,28 @@ export class TrainingMetricsCard extends LitElementWw {
               [
                 'classification',
                 () =>
-                  html`<p>${msg('Loss: Categorical Crossentropy')}</p>
+                  html`<p>${this.msg('Loss: Categorical Crossentropy')}</p>
                     <p>
-                      ${msg(
+                      ${this.msg(
                         'Accuracy: In what percentage of the tests was the right class predicted?',
                       )}
                     </p> `,
               ],
               [
                 'regression',
-                () => html`<p>${msg('Loss: Mean Squared Error')}</p>`,
+                () => html`<p>${this.msg('Loss: Mean Squared Error')}</p>`,
               ],
             ],
-            () => html`<h1>${msg('Error')}</h1>`,
+            () => html`<h1>${this.msg('Error')}</h1>`,
           )}
           <div id="trainMetricsContainer"></div>
           <sl-details
-            summary=${msg(
+            summary=${this.msg(
               'What is the difference between the two lines in a graph?',
             )}
           >
             <p>
-              ${msg(
+              ${this.msg(
                 "For val_..., the metric is calculated on the validation data set while for the data without val as a prefix the metric is calculated on the training data set. The metrics for the validation data set can be seen as more meaningful since this is the data the network does not 'know'.",
               )}
             </p>

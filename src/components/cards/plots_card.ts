@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
@@ -10,9 +11,13 @@ import { dataSetContext } from '@/contexts/data_set_context'
 
 import * as tfvis from '@tensorflow/tfjs-vis'
 import { CCard } from '../reusables/c-card'
-import { msg } from '@lit/localize'
 
 export class PlotsCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
 
   static scopedElements = {
     "c-card": CCard
@@ -62,7 +67,7 @@ export class PlotsCard extends LitElementWw {
 
       return html`${parentContainer}`
     } else {
-      return html`${msg('Click on an feature pill above to see the relation between this feature and the label in a plot')}`
+      return html`${this.msg('Click on an feature pill above to see the relation between this feature and the label in a plot')}`
     }
   }
 
@@ -82,8 +87,8 @@ export class PlotsCard extends LitElementWw {
       <c-card>
         <div slot="title">
           ${this.featureKey
-            ? `${this.featureKey} ${msg('plotted against')} ${this.dataSet.labelDesc.key}`
-            : msg('Plots')}
+            ? `${this.featureKey} ${this.msg('plotted against')} ${this.dataSet.labelDesc.key}`
+            : this.msg('Plots')}
         </div>
         <div slot="content">${this.buildPlots()}</div>
       </c-card>

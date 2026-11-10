@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Ukuran batch`,
 'sd6b4fb36bd73f830': `Fitur yang ditetapkan (masukan)`,
 'sd8305d1efc816b0a': `Memprediksi`,
+'sdb1595f5c742dfbb': `Masukan`,
 'sdc673e73b5c13aea': `Menghapus`,
 'sdc95be9d922008e7': `Lapisan keluaran dalam simulasi ini hanyalah lapisan padat normal, yang dilengkapi dengan kemampuan untuk mengeluarkan data yang masuk ke luar jaringan.`,
 'se157debe22915185': `dihapus karena tidak ada data yang dapat ditetapkan untuknya!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Pilih lapisan yang terhubung ke lapisan ini`,
 'sfd77270c3f54f664': `Keluaran`,
 'sff69314112eb4786': `Memungkinkan mengubah fungsi aktivasi`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

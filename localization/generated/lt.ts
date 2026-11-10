@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Partijos dydis`,
 'sd6b4fb36bd73f830': `Priskirta funkcija (įvestis)`,
 'sd8305d1efc816b0a': `Numatyti`,
+'sdb1595f5c742dfbb': `Įvestis`,
 'sdc673e73b5c13aea': `Ištrinti`,
 'sdc95be9d922008e7': `Šiame modeliavime išvesties sluoksnis yra įprastas tankus sluoksnis, papildomai turintis galimybę išvesti iš tinklo gaunamus duomenis.`,
 'se157debe22915185': `buvo ištrintas, nes jam nebuvo galima priskirti jokių duomenų!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Pasirinkite sluoksnius, kurie jungiasi prie šio sluoksnio`,
 'sfd77270c3f54f664': `Išėjimas`,
 'sff69314112eb4786': `Leidžia keisti aktyvavimo funkciją`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement } from 'lit/decorators.js'
@@ -21,9 +22,13 @@ import { trainOptionsContext } from '@/contexts/train_options_context'
 import { CCard } from '../reusables/c-card'
 import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
 import IconFileEarmarkArrowDown from 'bootstrap-icons/icons/file-earmark-arrow-down.svg'
-import { msg } from '@lit/localize'
 
 export class StartExportCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'sl-button': SlButton,
@@ -67,10 +72,10 @@ export class StartExportCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Export')}</div>
+        <div slot="title">${this.msg('Export')}</div>
         <div slot="content">
           <p>
-            ${msg(
+            ${this.msg(
               'Export the current configuration to your local file system as a JSON file. Storing trained models is not supported.',
             )}
           </p>
@@ -80,7 +85,7 @@ export class StartExportCard extends LitElementWw {
             }}"
           >
             <sl-icon slot="prefix" src=${IconFileEarmarkArrowDown}></sl-icon>
-            ${msg('Export')}
+            ${this.msg('Export')}
           </sl-button>
         </div>
       </c-card>

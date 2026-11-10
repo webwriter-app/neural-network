@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Tétel mérete`,
 'sd6b4fb36bd73f830': `Hozzárendelt funkció (bemenet)`,
 'sd8305d1efc816b0a': `Előrejelzés`,
+'sdb1595f5c742dfbb': `Bemenet`,
 'sdc673e73b5c13aea': `Törölje a  címet.`,
 'sdc95be9d922008e7': `A kimeneti réteg ebben a szimulációban csak egy normál sűrű réteg, kiegészítve azzal a képességgel, hogy a bejövő adatokat ki tudja adni a hálózatból.`,
 'se157debe22915185': `törlésre került, mert nem lehetett hozzá adatot rendelni!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Válassza ki az ehhez a réteghez kapcsolódó rétegeket`,
 'sfd77270c3f54f664': `Kimenet`,
 'sff69314112eb4786': `Lehetővé teszi az aktiválási függvény megváltoztatását`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

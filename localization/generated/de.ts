@@ -83,6 +83,7 @@
 's5a27bd37c0a0ad1a': `mit einer Wahrscheinlichkeit von`,
 's5a95fb6f50ddd6ff': `Neuronen`,
 's5b1749c67945a111': `Zoom zum Netzwerk`,
+'s5c9d4638c1e38b36': `Bearbeitung erlauben`,
 's5ebe428b72f9d9fd': `Hyperparameter`,
 's5ef9308d320834d1': `Alter (Jahre)`,
 's5f343a43e7ea9f91': `Fehler`,
@@ -190,6 +191,7 @@
 'sd674ba4ce23f2290': `Batch Größe`,
 'sd6b4fb36bd73f830': `Zugeordnetes Merkmal (Eingabe)`,
 'sd8305d1efc816b0a': `Vorhersage`,
+'sdb1595f5c742dfbb': `Eingabe`,
 'sdc673e73b5c13aea': `Löschen`,
 'sdc95be9d922008e7': `Eine Ausgabeschicht ist in dieser Simulation nur eine normale dichte Schicht, die zusätzlich mit der Fähigkeit ausgestattet ist, die eingehenden Daten aus dem Netz auszugeben.`,
 'se157debe22915185': `wurde gelöscht, weil ihm keine Daten zugeordnet werden konnten!`,
@@ -215,5 +217,6 @@
 'sfcb8881b108f62ed': `Wählen Sie die Schichten aus, die mit dieser Schicht verbunden sind.`,
 'sfd77270c3f54f664': `Ausgabe`,
 'sff69314112eb4786': `Änderung der Aktivierungsfunktion zulassen`,
+'sff96ebdc539c64b0': `Dicht`,
     };
   

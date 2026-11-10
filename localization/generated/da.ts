@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Batch-størrelse`,
 'sd6b4fb36bd73f830': `Tildelt funktion (input)`,
 'sd8305d1efc816b0a': `Forudsigelse`,
+'sdb1595f5c742dfbb': `Indtastning`,
 'sdc673e73b5c13aea': `Sletning`,
 'sdc95be9d922008e7': `Et outputlag i denne simulering er bare et normalt tæt lag, der desuden er udstyret med evnen til at sende de indgående data ud af netværket.`,
 'se157debe22915185': `blev slettet, fordi der ikke kunne tildeles nogen data til den!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Vælg de lag, der er forbundet med dette lag`,
 'sfd77270c3f54f664': `Output`,
 'sff69314112eb4786': `Tillad ændring af aktiveringsfunktionen`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

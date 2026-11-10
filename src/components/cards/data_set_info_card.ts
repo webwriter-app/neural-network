@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
@@ -12,9 +13,13 @@ import { DataSetUtils } from '@/utils/data_set_utils'
 import { CCard } from '../reusables/c-card'
 import { CDataInfo } from '../reusables/c-data-info'
 import SlDetails from '@shoelace-style/shoelace/dist/components/details/details.component.js'
-import { msg } from '@lit/localize'
 
 export class DataSetInfoCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'c-data-info': CDataInfo,
@@ -47,10 +52,10 @@ export class DataSetInfoCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${this.dataSet.name}</div>
+        <div slot="title">${DataSetUtils.localizeText(this.dataSet, this.dataSet.name, this.msg)}</div>
         <div slot="content">
-          <p>${this.dataSet.description}</p>
-          <h2>${msg('Features')}</h2>
+          <p>${DataSetUtils.localizeText(this.dataSet, this.dataSet.description, this.msg)}</p>
+          <h2>${this.msg('Features')}</h2>
           <div class="tag-group">
             ${this.dataSet.featureDescs.map(
               (featureDesc) => html`
@@ -65,7 +70,7 @@ export class DataSetInfoCard extends LitElementWw {
               `,
             )}
           </div>
-          <h2>${msg('Label')}</h2>
+          <h2>${this.msg('Label')}</h2>
           <div class="data-pills">
             <c-data-info
               type="label"
@@ -73,7 +78,7 @@ export class DataSetInfoCard extends LitElementWw {
               .dataSet="${this.dataSet}"
             ></c-data-info>
           </div>
-          <sl-details summary=${msg('View raw data')}>
+          <sl-details summary=${this.msg('View raw data')}>
             <div style="max-height: 200px; overflow-y: auto;">
               ${DataSetUtils.getData(this.dataSet).map(
                 (dataItem) =>

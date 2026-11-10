@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Dimensiunea lotului`,
 'sd6b4fb36bd73f830': `Funcție atribuită (intrare)`,
 'sd8305d1efc816b0a': `Preziceți`,
+'sdb1595f5c742dfbb': `Intrare`,
 'sdc673e73b5c13aea': `Ștergeți`,
 'sdc95be9d922008e7': `Un strat de ieșire în această simulare este doar un strat dens normal, dotat în plus cu capacitatea de a scoate din rețea datele primite.`,
 'se157debe22915185': `a fost ștearsă deoarece nu i-au putut fi atribuite date!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Selectați straturile care se conectează la acest strat`,
 'sfd77270c3f54f664': `Ieșire`,
 'sff69314112eb4786': `Permite schimbarea funcției de activare`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

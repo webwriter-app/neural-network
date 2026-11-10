@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Velikost serije`,
 'sd6b4fb36bd73f830': `Dodeljena funkcija (vhod)`,
 'sd8305d1efc816b0a': `Napovedovanje`,
+'sdb1595f5c742dfbb': `Vnos`,
 'sdc673e73b5c13aea': `Izbriši`,
 'sdc95be9d922008e7': `Izhodni sloj v tej simulaciji je običajen gost sloj, ki je dodatno opremljen z zmožnostjo izpisa vhodnih podatkov iz omrežja.`,
 'se157debe22915185': `je bil izbrisan, ker mu ni bilo mogoče dodeliti nobenih podatkov!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Izberite plasti, ki so povezane s to plastjo.`,
 'sfd77270c3f54f664': `Izhod`,
 'sff69314112eb4786': `Omogoča spreminjanje aktivacijske funkcije`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

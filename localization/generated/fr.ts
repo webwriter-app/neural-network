@@ -83,6 +83,7 @@
 's5a27bd37c0a0ad1a': `avec une probabilité de`,
 's5a95fb6f50ddd6ff': `neurones`,
 's5b1749c67945a111': `Zoom sur le réseau`,
+'s5c9d4638c1e38b36': `Autoriser la modification`,
 's5ebe428b72f9d9fd': `Hyperparamètres`,
 's5ef9308d320834d1': `Âge (années)`,
 's5f343a43e7ea9f91': `Erreur`,
@@ -190,6 +191,7 @@
 'sd674ba4ce23f2290': `Taille du lot`,
 'sd6b4fb36bd73f830': `Caractéristique attribuée (entrée)`,
 'sd8305d1efc816b0a': `Prévoir`,
+'sdb1595f5c742dfbb': `Entrée`,
 'sdc673e73b5c13aea': `Supprimer`,
 'sdc95be9d922008e7': `Dans cette simulation, une couche de sortie est une couche dense normale, dotée en outre de la capacité de sortir les données entrantes du réseau.`,
 'se157debe22915185': `a été supprimé parce qu'aucune donnée ne pouvait lui être attribuée !`,
@@ -215,5 +217,6 @@
 'sfcb8881b108f62ed': `Sélectionner les couches qui se connectent à cette couche`,
 'sfd77270c3f54f664': `Sortie`,
 'sff69314112eb4786': `Permet de modifier la fonction d'activation`,
+'sff96ebdc539c64b0': `Dense`,
     };
   

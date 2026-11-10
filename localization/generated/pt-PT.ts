@@ -190,6 +190,7 @@
 'sd674ba4ce23f2290': `Tamanho do lote`,
 'sd6b4fb36bd73f830': `Caraterística atribuída (entrada)`,
 'sd8305d1efc816b0a': `Prever`,
+'sdb1595f5c742dfbb': `Entrada`,
 'sdc673e73b5c13aea': `Eliminar`,
 'sdc95be9d922008e7': `Uma camada de saída nesta simulação é apenas uma camada densa normal, equipada adicionalmente com a capacidade de emitir os dados de entrada para fora da rede.`,
 'se157debe22915185': `foi eliminada porque não foi possível atribuir-lhe quaisquer dados!`,
@@ -215,5 +216,7 @@
 'sfcb8881b108f62ed': `Selecionar as camadas que se ligam a esta camada`,
 'sfd77270c3f54f664': `Saída`,
 'sff69314112eb4786': `Permitir alterar a função de ativação`,
+'sff96ebdc539c64b0': `Dense`,
+'s5c9d4638c1e38b36': `Allow editing`,
     };
   

@@ -1,3 +1,4 @@
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
@@ -10,9 +11,13 @@ import { dataSetContext } from '@/contexts/data_set_context'
 import type { CNeuron } from '@/components/network/neuron'
 import { CCard } from '../reusables/c-card'
 import { CNetworkLink } from '../reusables/c-network-link'
-import { msg } from '@lit/localize'
 
 export class NeuronInfoCard extends LitElementWw {
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  private readonly msg = localizeElement(this);
   static scopedElements = {
     'c-card': CCard,
     'c-network-link': CNetworkLink,
@@ -31,7 +36,7 @@ export class NeuronInfoCard extends LitElementWw {
   render(): TemplateResult<1> {
     return html`
       <c-card>
-        <div slot="title">${msg('Neuron')}</div>
+        <div slot="title">${this.msg('Neuron')}</div>
         <div slot="content">
           <p>
             Name:
@@ -40,7 +45,7 @@ export class NeuronInfoCard extends LitElementWw {
             >
           </p>
           <p>
-            ${msg('Corresponding layer:')}
+            ${this.msg('Corresponding layer:')}
             <c-network-link .target=${this.neuron.layer}
               >${this.neuron.layer.getName()}</c-network-link
             >

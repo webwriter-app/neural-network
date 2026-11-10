@@ -1,3 +1,5 @@
+import type { MsgFn } from "@lit/localize";
+import { effectiveLanguage, localizeElement, nativeLanguageAttributes, sourceMsg } from "../localization/localizer";
 import { readData, writeData } from "./data-block"
 import '@/utils/tf_quiet_load'
 
@@ -73,8 +75,6 @@ import { ContextProvider } from '@lit/context'
 import '@webcomponents/scoped-custom-element-registry';
 import { styleMap } from 'lit/directives/style-map.js'
 
-import { localized, msg } from '@lit/localize'
-import LOCALIZE from "../localization/generated";
 
 /**
  * @summary Deep learning visualization for feed-forward networks with custom datasets, training and prediction.
@@ -102,12 +102,20 @@ import LOCALIZE from "../localization/generated";
  * @cssproperty --sl-color-neutral-0 - Host background color (forwarded from Shoelace).
  * @cssproperty --sl-color-neutral-50 - Divider color (forwarded from Shoelace).
  */
-@localized()
 export class NeuralNetwork extends LitElementWw {
-  static options = {
-    editable: { type: Boolean, label: { _: "Allow editing", de: "Bearbeitung erlauben" } },
+  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
+
+  override get lang(): string { return effectiveLanguage(this); }
+  override set lang(value: string) { this.setAttribute("lang", value); }
+  public readonly msg = localizeElement(this, true);
+  static get options() { return this.buildOptions(sourceMsg); }
+
+  private static buildOptions(msg: MsgFn) {
+    return {
+      editable: { type: Boolean, label: { get _() { return msg("Allow editing"); } } },
+    };
   }
-  readonly options = NeuralNetwork.options
+  readonly options = NeuralNetwork.buildOptions(this.msg)
 
   private restoringConfiguration = false
   private savedConfigurationText: string | null = null
@@ -141,9 +149,6 @@ export class NeuralNetwork extends LitElementWw {
       this.restoringConfiguration = false
     }
   }
-
-  /** @internal Localization bundle used by @lit/localize. */
-  public localize = LOCALIZE;
 
   /**
    * Declares reactive properties and attribute reflection.
@@ -267,7 +272,7 @@ export class NeuralNetwork extends LitElementWw {
           this.wasFullscreen = true
           this.requestUpdate()
       } catch (error) {
-          console.error(msg("Failed to enter fullscreen mode."));
+          console.error(this.msg("Failed to enter fullscreen mode."));
       }
     }
   }
@@ -618,7 +623,7 @@ export class NeuralNetwork extends LitElementWw {
       renderedHTML.push(html`
         <div id="loadingPage">
           <div id="loadingDiv">
-            <h1>${msg("Loading")}</h1>
+            <h1>${this.msg("Loading")}</h1>
             <sl-spinner style="font-size: 3rem;"></sl-spinner>
           </div>
         </div>
