@@ -105,7 +105,16 @@
       "om": "Agarsiisa barnoota gadifagoo neetworkii gara fuulduraatti dabarsan, kuusaa deetaa dhuunfaa, leenjii fi raaga waliin.",
       "so": "Muuqaalaynta barashada qotada dheer ee shabakadaha hore u gudbiya, iyadoo leh xog ururin gaar ah, tababar iyo saadaalin.",
       "ti": "ብጁ ዳታሴታት፣ ስልጠናን ትንበያን ዝሓዘ ናይ ፊድ-ፎርዋርድ መርበብ ዲፕ ለርኒንግ ምርኢት።",
-      "ha": "Nuna zurfin koyon na’ura ga hanyoyin sadarwa da ke tura bayanai gaba, tare da rukunin bayanai na musamman, horaswa da hasashe."
+      "ha": "Nuna zurfin koyon na’ura ga hanyoyin sadarwa da ke tura bayanai gaba, tare da rukunin bayanai na musamman, horaswa da hasashe.",
+      "yue-Hans": "用自订资料集、训练同预测，将前馈神经网络深度学习过程视觉化。",
+      "yue-Hant": "用自訂資料集、訓練同預測，將前饋神經網絡深度學習過程視覺化。",
+      "kmr": "Dîtbarîkirina fêrbûna kûr ji bo torên feed-forward bi daneyên taybet, perwerdekirin û pêşbîniyê.",
+      "kmr-Latn": "Dîtbarîkirina fêrbûna kûr ji bo torên feed-forward bi daneyên taybet, perwerdekirin û pêşbîniyê.",
+      "kmr-Arab": "دیتباریکرنا فێربوونا کوور ژ بۆ تۆرێن فەەد-فۆروارد ب دانەیێن تایبەت, پەروەردەکرن ئوو پێشبینیێ.",
+      "ckb": "وێنەکردنی فێربوونی قووڵ بۆ تۆڕە پێشەوەجووڵاوەکان لەگەڵ کۆمەڵەداتای تایبەت، ڕاهێنان و پێشبینی.",
+      "ckb-Arab": "وێنەکردنی فێربوونی قووڵ بۆ تۆڕە پێشەوەجووڵاوەکان لەگەڵ کۆمەڵەداتای تایبەت، ڕاهێنان و پێشبینی.",
+      "af-ZA": "Visualisering van diepleermodelle vir voorwaartse netwerke met pasgemaakte datastelle, opleiding en voorspelling.",
+      "af-NA": "Visualisering van diepleermodelle vir voorwaartse netwerke met pasgemaakte datastelle, opleiding en voorspelling."
     },
     "label": {
       "_": "Neural Network",
@@ -210,7 +219,16 @@
       "om": "Neetworkii niwuroonii",
       "so": "Shabakadda neerfaha",
       "ti": "ነርቭ መርበብ",
-      "ha": "Cibiyar Neuron"
+      "ha": "Cibiyar Neuron",
+      "yue-Hans": "神经网络",
+      "yue-Hant": "神經網絡",
+      "kmr": "Tora Neronî",
+      "kmr-Latn": "Tora Neronî",
+      "kmr-Arab": "تۆرا نەرۆنی",
+      "ckb": "تۆڕی دەمار",
+      "ckb-Arab": "تۆڕی دەمار",
+      "af-ZA": "Neurale netwerk",
+      "af-NA": "Neurale netwerk"
     }
   },
   "./widgets/webwriter-neural-network": {
@@ -317,7 +335,16 @@
       "om": "Neetworkii niwuroonii",
       "so": "Shabakadda neerfaha",
       "ti": "ነርቭ መርበብ",
-      "ha": "Cibiyar Neuron"
+      "ha": "Cibiyar Neuron",
+      "yue-Hans": "神经网络",
+      "yue-Hant": "神經網絡",
+      "kmr": "Tora Neronî",
+      "kmr-Latn": "Tora Neronî",
+      "kmr-Arab": "تۆرا نەرۆنی",
+      "ckb": "تۆڕی دەمار",
+      "ckb-Arab": "تۆڕی دەمار",
+      "af-ZA": "Neurale netwerk",
+      "af-NA": "Neurale netwerk"
     }
   },
   "./snippets/Pima-Indians-Diabetes": {
@@ -424,7 +451,16 @@
       "om": "Dhukkuba sukkaaraa hawaasa Piimaa",
       "so": "Sonkorowga dadka Pima",
       "ti": "Pima Indians ሕማም ሽኮርያ",
-      "ha": "Ciwon sukari a al’ummar Pima"
+      "ha": "Ciwon sukari a al’ummar Pima",
+      "yue-Hans": "Pima-Indians-Diabetes",
+      "yue-Hant": "Pima-Indians-Diabetes",
+      "kmr": "Şekir-Nexweşiya Pima-Indians",
+      "kmr-Latn": "Şekir-Nexweşiya Pima-Indians",
+      "kmr-Arab": "شەکر-نەخوەشیا پما-ئندانس",
+      "ckb": "شیرەزایی شەکر لە هیندییەکانی پیما",
+      "ckb-Arab": "شیرەزایی شەکر لە هیندییەکانی پیما",
+      "af-ZA": "Pima-Indiane-diabetes",
+      "af-NA": "Pima-Indiane-diabetes"
     }
   },
   "./snippets/Boston-House-Pricing": {
@@ -531,7 +567,16 @@
       "om": "Gatii manneen Bositen",
       "so": "Qiimaha guryaha Boston",
       "ti": "Boston ዋጋ ቤት",
-      "ha": "Farashin gidaje a Boston"
+      "ha": "Farashin gidaje a Boston",
+      "yue-Hans": "Boston-House-Pricing",
+      "yue-Hant": "Boston-House-Pricing",
+      "kmr": "Nirxkirina Xanî li Boston",
+      "kmr-Latn": "Nirxkirina Xanî li Boston",
+      "kmr-Arab": "نرخکرنا خانی ل بۆستۆن",
+      "ckb": "نرخی خانوو لە بۆستۆن",
+      "ckb-Arab": "نرخی خانوو لە بۆستۆن",
+      "af-ZA": "Boston-huispryse",
+      "af-NA": "Boston-huispryse"
     }
   }
 }

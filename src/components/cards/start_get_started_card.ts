@@ -92,7 +92,7 @@ export class GetStartedCard extends LitElementWw {
           ${this.editable || this.settings.showDefaultConfs
             ? html` <div id="getStartedGrid">
                 <c-card>
-                  <div slot="title">Pima Indians</div>
+                  <div slot="title">${this.msg('Pima Indians Diabetes')}</div>
                   <div slot="content">
                     <div class="tag-group">
                       <sl-tag variant="warning">${this.msg('Intermediate')}</sl-tag>
@@ -109,7 +109,7 @@ export class GetStartedCard extends LitElementWw {
                   </div>
                 </c-card>
                 <c-card>
-                  <div slot="title">Boston House Pricing</div>
+                  <div slot="title">${this.msg('Boston House Pricing')}</div>
                   <div slot="content">
                     <div class="tag-group">
                       <sl-tag variant="warning">${this.msg('Intermediate')}</sl-tag>
