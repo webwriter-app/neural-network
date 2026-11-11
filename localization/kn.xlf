@@ -541,7 +541,7 @@
 <target>ಈ ಪದರದ ಉದ್ದೇಶ ವರ್ಗೀಕರಣವನ್ನು ಔಟ್‌ಪುಟ್ ಮಾಡುವುದು; ಸಂಭವನೀಯತಾ ವಿತರಣೆಗೆ ಇದನ್ನು softmax ಸಕ್ರಿಯಗೊಳಿಸುವ ಕಾರ್ಯದೊಂದಿಗೆ ಸಂಯೋಜಿಸಬೇಕು.</target></trans-unit>
 <trans-unit id="s835dc746e771a9d6">
   <source>Boston House Pricing</source>
-<target>Boston ಮನೆಗಳ ಬೆಲೆ</target></trans-unit>
+<target>ಬಾಸ್ಟನ್‌ನ ಮನೆಗಳ ಬೆಲೆಗಳು</target></trans-unit>
 <trans-unit id="s4c5805b438fae5b7">
   <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
 <target>Boston House Price ಡೇಟಾಸೆಟ್‌ನಲ್ಲಿ ಮನೆ ಮತ್ತು ನೆರೆಹೊರೆಯ ವಿವರಗಳ ಆಧಾರದಲ್ಲಿ ಸಾವಿರ ಡಾಲರ್‌ಗಳಲ್ಲಿ ಮನೆ ಬೆಲೆಯನ್ನು ಊಹಿಸಲಾಗುತ್ತದೆ.</target></trans-unit>
@@ -589,7 +589,7 @@
 <target>ಮಾಲೀಕ-ವಾಸದ ಮನೆಗಳ ಮಧ್ಯಮ ಮೌಲ್ಯ ($1000ಗಳಲ್ಲಿ)</target></trans-unit>
 <trans-unit id="sb96294312677cad5">
   <source>Pima Indians Diabetes</source>
-<target>Pima Indians ಮಧುಮೇಹ</target></trans-unit>
+<target>ಪೀಮಾ ಸಮುದಾಯದಲ್ಲಿ ಮಧುಮೇಹ</target></trans-unit>
 <trans-unit id="sc20c7530f6afbb7c">
   <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
 <target>Pima Indians Diabetes ಡೇಟಾಸೆಟ್ ವೈದ್ಯಕೀಯ ವಿವರಗಳಿಂದ Pima Indiansನಲ್ಲಿ 5 ವರ್ಷಗಳಲ್ಲಿ ಮಧುಮೇಹ ಆರಂಭವಾಗುವುದನ್ನು ಊಹಿಸುತ್ತದೆ. ಇದು ದ್ವಿವರ್ಗ ವರ್ಗೀಕರಣ ಸಮಸ್ಯೆ. ವರ್ಗಗಳ ವೀಕ್ಷಣೆಗಳ ಸಂಖ್ಯೆ ಸಮವಾಗಿಲ್ಲ. 768 ವೀಕ್ಷಣೆಗಳು, 8 ಇನ್‌ಪುಟ್ ವೇರಿಯೇಬಲ್‌ಗಳು ಮತ್ತು 1 ಔಟ್‌ಪುಟ್ ವೇರಿಯೇಬಲ್ ಇವೆ. ಕಾಣೆಯಾದ ಮೌಲ್ಯಗಳನ್ನು ಶೂನ್ಯವೆಂದು ಸಂಕೇತಿಸಲಾಗಿದೆ ಎಂದು ಭಾವಿಸಲಾಗಿದೆ.</target></trans-unit>

@@ -541,7 +541,7 @@
 <target>இந்த அடுக்கின் நோக்கம் வகைப்பாட்டை வெளியிடுவது; எனவே நிகழ்தகவு பகிர்வை வழங்க softmax செயல்படுத்தும் சார்புடன் இணைக்க வேண்டும்.</target></trans-unit>
 <trans-unit id="s835dc746e771a9d6">
   <source>Boston House Pricing</source>
-<target>Boston வீட்டு விலைகள்</target></trans-unit>
+<target>பாஸ்டனில் வீடுகளின் விலை</target></trans-unit>
 <trans-unit id="s4c5805b438fae5b7">
   <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
 <target>Boston House Price தரவுத்தொகுப்பு வீடு மற்றும் அதன் சுற்றுப்புற விவரங்களைக் கொண்டு ஆயிரம் டாலர்களில் வீட்டு விலையைக் கணிக்கிறது.</target></trans-unit>
@@ -589,7 +589,7 @@
 <target>உரிமையாளர் குடியிருக்கும் வீடுகளின் நடுநிலை மதிப்பு ($1000களில்)</target></trans-unit>
 <trans-unit id="sb96294312677cad5">
   <source>Pima Indians Diabetes</source>
-<target>Pima Indians நீரிழிவு</target></trans-unit>
+<target>பீமா மக்களிடையே நீரிழிவு</target></trans-unit>
 <trans-unit id="sc20c7530f6afbb7c">
   <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
 <target>Pima Indians Diabetes தரவுத்தொகுப்பு மருத்துவ விவரங்களைக் கொண்டு Pima Indians மக்களிடையே 5 ஆண்டுகளுக்குள் நீரிழிவு தொடங்குவதை கணிக்கிறது. இது இரு-வகை வகைப்பாட்டுச் சிக்கல். ஒவ்வொரு வகையிலும் உள்ள பதிவுகளின் எண்ணிக்கை சமமில்லை. 768 பதிவுகள், 8 உள்ளீட்டு மாறிகள், 1 வெளியீட்டு மாறி உள்ளன. விடுபட்ட மதிப்புகள் பூஜ்ஜியமாகக் குறிக்கப்பட்டதாகக் கருதப்படுகிறது.</target></trans-unit>

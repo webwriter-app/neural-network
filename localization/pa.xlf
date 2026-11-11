@@ -541,7 +541,7 @@
 <target>ਇਸ ਪਰਤ ਦਾ ਮਕਸਦ ਵਰਗੀਕਰਨ ਆਉਟਪੁੱਟ ਕਰਨਾ ਹੈ, ਇਸ ਲਈ ਸੰਭਾਵਨਾ ਵੰਡ ਦੇਣ ਲਈ ਇਸਨੂੰ softmax ਐਕਟੀਵੇਸ਼ਨ ਫੰਕਸ਼ਨ ਨਾਲ ਜੋੜਨਾ ਚਾਹੀਦਾ ਹੈ।</target></trans-unit>
 <trans-unit id="s835dc746e771a9d6">
   <source>Boston House Pricing</source>
-<target>Boston ਦੇ ਘਰਾਂ ਦੀ ਕੀਮਤ</target></trans-unit>
+<target>ਬੋਸਟਨ ਦੇ ਘਰਾਂ ਦੀਆਂ ਕੀਮਤਾਂ</target></trans-unit>
 <trans-unit id="s4c5805b438fae5b7">
   <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
 <target>Boston House Price ਡੇਟਾਸੈੱਟ ਵਿੱਚ ਘਰ ਅਤੇ ਗੁਆਂਢ ਦੇ ਵੇਰਵਿਆਂ ਤੋਂ ਹਜ਼ਾਰ ਡਾਲਰਾਂ ਵਿੱਚ ਘਰ ਦੀ ਕੀਮਤ ਦਾ ਅਨੁਮਾਨ ਲਾਇਆ ਜਾਂਦਾ ਹੈ।</target></trans-unit>
@@ -589,7 +589,7 @@
 <target>ਮਾਲਕ-ਕਬਜ਼ੇ ਵਾਲੇ ਘਰਾਂ ਦਾ ਮੱਧਮ ਮੁੱਲ ($1000 ਵਿੱਚ)</target></trans-unit>
 <trans-unit id="sb96294312677cad5">
   <source>Pima Indians Diabetes</source>
-<target>Pima Indians ਦੀ ਡਾਇਬਟੀਜ਼</target></trans-unit>
+<target>ਪੀਮਾ ਭਾਈਚਾਰੇ ਵਿੱਚ ਸ਼ੂਗਰ</target></trans-unit>
 <trans-unit id="sc20c7530f6afbb7c">
   <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
 <target>Pima Indians Diabetes ਡੇਟਾਸੈੱਟ ਡਾਕਟਰੀ ਜਾਣਕਾਰੀ ਤੋਂ Pima Indians ਵਿੱਚ 5 ਸਾਲਾਂ ਅੰਦਰ ਡਾਇਬਟੀਜ਼ ਸ਼ੁਰੂ ਹੋਣ ਦੀ ਭਵਿੱਖਬਾਣੀ ਕਰਦਾ ਹੈ। ਇਹ ਦੋ-ਵਰਗੀ ਵਰਗੀਕਰਨ ਸਮੱਸਿਆ ਹੈ। ਦੋਹਾਂ ਵਰਗਾਂ ਦੇ ਨਿਰੀਖਣਾਂ ਦੀ ਗਿਣਤੀ ਬਰਾਬਰ ਨਹੀਂ। ਕੁੱਲ 768 ਨਿਰੀਖਣ, 8 ਇਨਪੁੱਟ ਵੇਰੀਏਬਲ ਅਤੇ 1 ਆਉਟਪੁੱਟ ਵੇਰੀਏਬਲ ਹਨ। ਮੰਨਿਆ ਜਾਂਦਾ ਹੈ ਕਿ ਗੁੰਮ ਮੁੱਲ ਜ਼ੀਰੋ ਨਾਲ ਦਰਸਾਏ ਗਏ ਹਨ।</target></trans-unit>

@@ -541,7 +541,7 @@
 <target>اس پرت کا مقصد درجہ بندی آؤٹ پٹ کرنا ہے، اس لیے امکان کی تقسیم دینے کے لیے اسے softmax ایکٹیویشن فنکشن کے ساتھ ملانا چاہیے۔</target></trans-unit>
 <trans-unit id="s835dc746e771a9d6">
   <source>Boston House Pricing</source>
-<target>Boston گھروں کی قیمت</target></trans-unit>
+<target>بوسٹن میں گھروں کی قیمتیں</target></trans-unit>
 <trans-unit id="s4c5805b438fae5b7">
   <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
 <target>Boston House Price ڈیٹاسیٹ میں گھر اور اس کے محلے کی تفصیلات سے ہزار ڈالر میں گھر کی قیمت کی پیش گوئی کی جاتی ہے۔</target></trans-unit>
@@ -589,7 +589,7 @@
 <target>مالک کے زیرِ قبضہ گھروں کی درمیانی قیمت ($1000 میں)</target></trans-unit>
 <trans-unit id="sb96294312677cad5">
   <source>Pima Indians Diabetes</source>
-<target>Pima Indians کی ذیابیطس</target></trans-unit>
+<target>پیما برادری میں ذیابیطس</target></trans-unit>
 <trans-unit id="sc20c7530f6afbb7c">
   <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
 <target>Pima Indians Diabetes ڈیٹاسیٹ طبی معلومات کی بنیاد پر Pima Indians میں 5 سال کے اندر ذیابیطس شروع ہونے کی پیش گوئی کرتا ہے۔ یہ دو-کلاس درجہ بندی کا مسئلہ ہے۔ دونوں کلاسوں میں مشاہدات کی تعداد برابر نہیں۔ اس میں 768 مشاہدات، 8 اِن پٹ متغیر اور 1 آؤٹ پٹ متغیر ہیں۔ خیال ہے کہ غائب اقدار صفر سے ظاہر کی گئی ہیں۔</target></trans-unit>

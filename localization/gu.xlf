@@ -541,7 +541,7 @@
 <target>આ સ્તરનો હેતુ વર્ગીકરણનું આઉટપુટ આપવાનો છે, તેથી સંભાવના વિતરણ આપવા તેને softmax ઍક્ટિવેશન ફંક્શન સાથે જોડવું જોઈએ.</target></trans-unit>
 <trans-unit id="s835dc746e771a9d6">
   <source>Boston House Pricing</source>
-<target>Bostonના ઘરની કિંમત</target></trans-unit>
+<target>બોસ્ટનનાં ઘરોની કિંમતો</target></trans-unit>
 <trans-unit id="s4c5805b438fae5b7">
   <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
 <target>Boston House Price ડેટાસેટમાં ઘર અને તેના પડોશની વિગતો પરથી હજારો ડૉલરમાં ઘરની કિંમતનું અનુમાન થાય છે.</target></trans-unit>
@@ -589,7 +589,7 @@
 <target>માલિક-કબજાવાળા ઘરોનું મધ્યક મૂલ્ય ($1000માં)</target></trans-unit>
 <trans-unit id="sb96294312677cad5">
   <source>Pima Indians Diabetes</source>
-<target>Pima Indiansનો ડાયાબિટીસ</target></trans-unit>
+<target>પીમા સમુદાયમાં ડાયાબિટીસ</target></trans-unit>
 <trans-unit id="sc20c7530f6afbb7c">
   <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
 <target>Pima Indians Diabetes ડેટાસેટ તબીબી વિગતો પરથી Pima Indiansમાં 5 વર્ષમાં ડાયાબિટીસ શરૂ થવાનું અનુમાન કરે છે. આ દ્વિવર્ગીય વર્ગીકરણ સમસ્યા છે. બંને વર્ગના અવલોકનોની સંખ્યા સમાન નથી. કુલ 768 અવલોકનો, 8 ઇનપુટ ચલ અને 1 આઉટપુટ ચલ છે. ખૂટતી કિંમતો શૂન્યથી દર્શાવાઈ હોવાનું માનવામાં આવે છે.</target></trans-unit>

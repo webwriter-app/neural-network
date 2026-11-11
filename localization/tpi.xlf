@@ -163,7 +163,7 @@
 <target>Data i go ausait</target></trans-unit>
 <trans-unit id="sfd77270c3f54f664">
   <source>Output</source>
-<target>Autput</target></trans-unit>
+<target>Data i go ausait</target></trans-unit>
 <trans-unit id="sb546e48af5e5c359">
   <source>Add layer</source>
 <target>Putim layer</target></trans-unit>
@@ -385,7 +385,7 @@
 <target>Mak i stat long val_… i kam long dataset bilong sekim. Mak i no gat val long stat i kam long dataset bilong trening. Mak bilong sekim i save gat moa mining, long wanem netwok i no bin lukim dispela data taim em i kisim trening.</target></trans-unit>
 <trans-unit id="s9ea77d0d371dc469">
   <source>Train</source>
-<target>Trenim</target></trans-unit>
+<target>Trenim model</target></trans-unit>
 <trans-unit id="s69bf683344258f79">
   <source>Training completed!</source>
 <target>Trening i pinis!</target></trans-unit>
@@ -625,7 +625,7 @@
 <target>Larim ol i senisim</target></trans-unit>
 <trans-unit id="sdb1595f5c742dfbb">
   <source>Input</source>
-<target>Input</target></trans-unit>
+<target>Data i kam insait</target></trans-unit>
 <trans-unit id="sff96ebdc539c64b0">
   <source>Dense</source>
 <target>Olgeta niuron i join</target></trans-unit>
@@ -637,10 +637,10 @@
 <target>Layer olgeta niuron i join</target></trans-unit>
 <trans-unit id="sc0ecc73d49676ffa">
   <source>Input layer</source>
-<target>Input layer</target></trans-unit>
+<target>Layer bilong data i kam insait</target></trans-unit>
 <trans-unit id="s35659ef8d11dd2c9">
   <source>Output layer</source>
-<target>Autput layer</target></trans-unit>
+<target>Layer bilong data i go ausait</target></trans-unit>
 <trans-unit id="se988648386f27436">
   <source>Type: regression</source>
 <target>Kain: makim veliu i go yet</target></trans-unit>
@@ -652,7 +652,7 @@
 <target>Nogat</target></trans-unit>
 <trans-unit id="scb489a1a173ac3f0">
   <source>Yes</source>
-<target>Yes</target></trans-unit>
+<target>Em nau</target></trans-unit>
 <trans-unit id="s669b18c6d2d9c95b">
   <source>None</source>
 <target>Nogat wanpela</target></trans-unit>

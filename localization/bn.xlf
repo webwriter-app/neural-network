@@ -541,7 +541,7 @@
 <target>এই স্তরের উদ্দেশ্য শ্রেণিবিন্যাস আউটপুট করা, তাই সম্ভাব্যতা বণ্টন দিতে এটিকে softmax অ্যাক্টিভেশন ফাংশনের সঙ্গে ব্যবহার করা উচিত।</target></trans-unit>
 <trans-unit id="s835dc746e771a9d6">
   <source>Boston House Pricing</source>
-<target>Boston বাড়ির মূল্য</target></trans-unit>
+<target>বোস্টনের বাড়ির দাম</target></trans-unit>
 <trans-unit id="s4c5805b438fae5b7">
   <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
 <target>Boston House Price ডেটাসেটে বাড়ি ও তার আশপাশের তথ্য থেকে হাজার ডলারে বাড়ির দাম পূর্বাভাস করা হয়।</target></trans-unit>
@@ -589,7 +589,7 @@
 <target>মালিক-অধিকৃত বাড়ির মধ্যম মূল্য ($1000 এককে)</target></trans-unit>
 <trans-unit id="sb96294312677cad5">
   <source>Pima Indians Diabetes</source>
-<target>Pima ইন্ডিয়ানদের ডায়াবেটিস</target></trans-unit>
+<target>পিমা জনগোষ্ঠীর ডায়াবেটিস</target></trans-unit>
 <trans-unit id="sc20c7530f6afbb7c">
   <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
 <target>Pima Indians Diabetes ডেটাসেটে চিকিৎসা-সংক্রান্ত তথ্যের ভিত্তিতে Pima Indians-এর পাঁচ বছরের মধ্যে ডায়াবেটিস শুরু হওয়ার পূর্বাভাস দেওয়া হয়। এটি দ্বি-শ্রেণির শ্রেণিবিন্যাস সমস্যা। দুই শ্রেণির পর্যবেক্ষণ সংখ্যা সমান নয়। এখানে 768টি পর্যবেক্ষণ, 8টি ইনপুট ভেরিয়েবল এবং 1টি আউটপুট ভেরিয়েবল আছে। অনুপস্থিত মান শূন্য দিয়ে চিহ্নিত বলে মনে করা হয়।</target></trans-unit>

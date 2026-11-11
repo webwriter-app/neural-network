@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<file target-language="si" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+<body>
+<trans-unit id="s0b29ddb08394f57b">
+  <source>Failed to enter fullscreen mode.</source>
+<target>පූර්ණ තිර ප්‍රකාරයට ඇතුළු වීමට නොහැකි විය.</target></trans-unit>
+<trans-unit id="sb59d68ed12d46377">
+  <source>Loading</source>
+<target>පූරණය වෙමින්</target></trans-unit>
+<trans-unit id="sf27f87a94b05a690">
+  <source>Toggle Menu</source>
+<target>මෙනුව මාරු කරන්න</target></trans-unit>
+<trans-unit id="s236ae937cbcd6a39">
+  <source>Zoom in</source>
+<target>විශාලනය කරන්න</target></trans-unit>
+<trans-unit id="s5b1749c67945a111">
+  <source>Zoom to network</source>
+<target>ජාලයට විශාලනය කරන්න</target></trans-unit>
+<trans-unit id="sc65ea2cf2f21a13a">
+  <source>Zoom out</source>
+<target>කුඩා කරන්න</target></trans-unit>
+<trans-unit id="sd03c537f123f42a6">
+  <source>Exit Fullscreen</source>
+<target>පූර්ණ තිරයෙන් පිටවන්න</target></trans-unit>
+<trans-unit id="s4b10acae683d2978">
+  <source>Fullscreen</source>
+<target>පූර්ණ තිරය</target></trans-unit>
+<trans-unit id="s991dbe8a07858b6b">
+  <source>Important info</source>
+<target>වැදගත් තොරතුරු</target></trans-unit>
+<trans-unit id="s4c3e975942fc568d">
+  <source>You decided to train a model with the current configuration. As an effect, all options to edit the configuration have been temporarily removed or disabled to make sure the configuration you see is the same configuration the model uses. If you want to make changes to your configuration, you need to discard the current model first. If you discard your model, you can again perform any changes and train a new model based on the new configuration.</source>
+<target>ඔබ වත්මන් සැකසුමෙන් ආකෘතියක් පුහුණු කිරීමට තීරණය කර ඇත. එබැවින්, ඔබට පෙනෙන සැකසුම ආකෘතිය භාවිත කරන සැකසුමම වන බව තහවුරු කිරීමට සැකසුම සංස්කරණය කිරීමේ සියලු විකල්ප තාවකාලිකව ඉවත් කර හෝ අක්‍රිය කර ඇත. වෙනස්කම් කිරීමට පළමුව වත්මන් ආකෘතිය ඉවත දමන්න. ආකෘතිය ඉවත දැමූ පසු සැකසුම වෙනස් කර නව ආකෘතියක් පුහුණු කළ හැක.</target></trans-unit>
+<trans-unit id="sb4810a60b4ad921e">
+  <source>Discards the model, which gains you back your editing capabilities</source>
+<target>ආකෘතිය ඉවත දැමීමෙන් සංස්කරණ හැකියාව නැවත ලැබේ</target></trans-unit>
+<trans-unit id="sc00a88b90cd60661">
+  <source>Discard</source>
+<target>ඉවත දමන්න</target></trans-unit>
+<trans-unit id="s2ed914b45e6f8fb0">
+  <source>Discard model</source>
+<target>ආකෘතිය ඉවත දමන්න</target></trans-unit>
+<trans-unit id="s6a0bc0ce56a9ae4a">
+  <source>Features</source>
+<target>විශේෂාංග</target></trans-unit>
+<trans-unit id="s5590dbf7e425789d">
+  <source>Label</source>
+<target>ලේබලය</target></trans-unit>
+<trans-unit id="s07e767f1fe8ad66a">
+  <source>View raw data</source>
+<target>අමු දත්ත බලන්න</target></trans-unit>
+<trans-unit id="s7ad8f95cd252ff9b">
+  <source>Select data set</source>
+<target>දත්ත කට්ටලය තෝරන්න</target></trans-unit>
+<trans-unit id="s8e0e95cf2d9f0fe0">
+  <source>"Select a data set"</source>
+<target>"දත්ත කට්ටලයක් තෝරන්න"</target></trans-unit>
+<trans-unit id="s6503256c2de2745c">
+  <source>Edge</source>
+<target>දාරය</target></trans-unit>
+<trans-unit id="s517acbf1f96324f9">
+  <source>Weight</source>
+<target>බර</target></trans-unit>
+<trans-unit id="sc20cf39aef9b3355">
+  <source>About this app</source>
+<target>මෙම යෙදුම ගැන</target></trans-unit>
+<trans-unit id="s984fb2f8f14ee101">
+  <source>This app was developed by Christian Koch, a student at RWTH Aachen University, with support of Frederic Salmen and the chair i9 at RWTH Aachen University.</source>
+<target>මෙම යෙදුම RWTH Aachen University ශිෂ්‍ය Christian Koch, Frederic Salmen සහ RWTH Aachen University හි chair i9 සහාය ඇතිව සංවර්ධනය කරන ලදී.</target></trans-unit>
+<trans-unit id="sc62667aa0380bc6b">
+  <source>About the developer</source>
+<target>සංවර්ධකයා ගැන</target></trans-unit>
+<trans-unit id="s17597a8bb4810524">
+  <source>License</source>
+<target>බලපත්‍රය</target></trans-unit>
+<trans-unit id="s8e7cfd29f14ffad6">
+  <source>All third-party data sets have been published under public domain</source>
+<target>සියලු තෙවන පාර්ශ්ව දත්ත කට්ටල පොදු වසම යටතේ ප්‍රකාශයට පත් කර ඇත</target></trans-unit>
+<trans-unit id="se3b4c857f91f80d7">
+  <source>Keyboard shortcuts</source>
+<target>යතුරුපුවරු කෙටිමං</target></trans-unit>
+<trans-unit id="sc25745d3142338ca">
+  <source>Deletes the currently selected layer</source>
+<target>දැනට තෝරාගත් ස්තරය මකා දමයි</target></trans-unit>
+<trans-unit id="sa5ed0165e089255e">
+  <source>Duplicates the currently selected layer</source>
+<target>දැනට තෝරාගත් ස්තරයේ පිටපතක් සාදයි</target></trans-unit>
+<trans-unit id="s8ff8cee7c5d100bc">
+  <source>Moves the currently selected layer</source>
+<target>දැනට තෝරාගත් ස්තරය ගෙන යයි</target></trans-unit>
+<trans-unit id="sa7f495fff0f250d9">
+  <source>Q &amp; A</source>
+<target>ප්‍රශ්න සහ පිළිතුරු</target></trans-unit>
+<trans-unit id="s14b03351d9f0f4e8">
+  <source>There are currently no help entries. If you publish the widget like this, the help section will be hidden.</source>
+<target>දැනට උදව් සටහන් කිසිවක් නැත. මෙලෙස විජට් ප්‍රකාශ කළහොත් උදව් කොටස සඟවනු ඇත.</target></trans-unit>
+<trans-unit id="se1f4d0fd4b9438d0">
+  <source>Update entry</source>
+<target>සටහන යාවත්කාලීන කරන්න</target></trans-unit>
+<trans-unit id="s3983b0213bfac281">
+  <source>Remove entry</source>
+<target>සටහන ඉවත් කරන්න</target></trans-unit>
+<trans-unit id="s99f110d27e30b289">
+  <source>Title</source>
+<target>මාතෘකාව</target></trans-unit>
+<trans-unit id="s6cee92a3b310e650">
+  <source>Add entry</source>
+<target>සටහන එක් කරන්න</target></trans-unit>
+<trans-unit id="s8af61807443f32a4">
+  <source>Actions</source>
+<target>ක්‍රියා</target></trans-unit>
+<trans-unit id="sfac15b89e0668996">
+  <source>Duplicate</source>
+<target>පිටපත් කරන්න</target></trans-unit>
+<trans-unit id="sdc673e73b5c13aea">
+  <source>Delete</source>
+<target>මකන්න</target></trans-unit>
+<trans-unit id="s22b10e3713c037c7">
+  <source>Activation function</source>
+<target>සක්‍රිය කිරීමේ ශ්‍රිතය</target></trans-unit>
+<trans-unit id="sa90802aba569f823">
+  <source>The selected activation applies to all neurons in this layer.</source>
+<target>තෝරාගත් සක්‍රිය කිරීම මෙම ස්තරයේ සියලු නියුරෝනවලට යෙදේ.</target></trans-unit>
+<trans-unit id="s256782b6fa6c81e3">
+  <source>After calculating a neuron's value by adding up its weighted input values and its bias:</source>
+<target>නියුරෝනයක බරිත ආදාන අගයන් සහ bias එකතු කර අගය ගණනය කිරීමෙන් පසු:</target></trans-unit>
+<trans-unit id="s514d47a63e3b11c3">
+  <source>Range of possible output values:</source>
+<target>හැකි ප්‍රතිදාන අගයන් පරාසය:</target></trans-unit>
+<trans-unit id="s69a4b7731c4ab258">
+  <source>Incoming connections</source>
+<target>ඇතුළට එන සම්බන්ධතා</target></trans-unit>
+<trans-unit id="sfcb8881b108f62ed">
+  <source>Select the layers that connect to this layer</source>
+<target>මෙම ස්තරයට සම්බන්ධ වන ස්තර තෝරන්න</target></trans-unit>
+<trans-unit id="sf35b120256b540b4">
+  <source>Assign feature to this layer. Hover over the feature keys in the opened dropdown menu for a description.</source>
+<target>මෙම ස්තරයට විශේෂාංගයක් පවරන්න. විස්තරය බැලීමට විවෘත dropdown එකේ විශේෂාංග යතුරු මත hover කරන්න.</target></trans-unit>
+<trans-unit id="s801ac62b23cc5f5f">
+  <source>Neurons</source>
+<target>නියුරෝනය</target></trans-unit>
+<trans-unit id="sea4f08110bb8f15d">
+  <source>Remove</source>
+<target>ඉවත් කරන්න</target></trans-unit>
+<trans-unit id="sf9aee319a006c9b4">
+  <source>Add</source>
+<target>එක් කරන්න</target></trans-unit>
+<trans-unit id="s5a95fb6f50ddd6ff">
+  <source>neurons</source>
+<target>නියුරෝන</target></trans-unit>
+<trans-unit id="s8b0432eecbd8b034">
+  <source>Update</source>
+<target>යාවත්කාලීන කරන්න</target></trans-unit>
+<trans-unit id="s47333467f911302a">
+  <source>Outgoing connections</source>
+<target>පිටතට යන සම්බන්ධතා</target></trans-unit>
+<trans-unit id="s684e13d4e599ccdd">
+  <source>Select the layers this layer connects to</source>
+<target>මෙම ස්තරය සම්බන්ධ වන ස්තර තෝරන්න</target></trans-unit>
+<trans-unit id="saf83c9eefbdeee91">
+  <source>Outgoing data</source>
+<target>පිටතට යන දත්ත</target></trans-unit>
+<trans-unit id="sfd77270c3f54f664">
+  <source>Output</source>
+<target>ප්‍රතිදානය</target></trans-unit>
+<trans-unit id="sb546e48af5e5c359">
+  <source>Add layer</source>
+<target>ස්තරය එක් කරන්න</target></trans-unit>
+<trans-unit id="saea857a2b4e1f6a7">
+  <source>Drag a layer anywhere to place it on the canvas</source>
+<target>කැන්වසය මත තැබීමට ස්තරයක් ඕනෑම තැනකට ඇදගෙන යන්න</target></trans-unit>
+<trans-unit id="sb4f1dffbb6be6302">
+  <source>Clear</source>
+<target>මකන්න</target></trans-unit>
+<trans-unit id="se6e9902ddea314c4">
+  <source>Clear network</source>
+<target>ජාලය හිස් කරන්න</target></trans-unit>
+<trans-unit id="s14ad6d4ee3b48ca2">
+  <source>This will remove every layer from the network.</source>
+<target>මෙමගින් ජාලයේ සෑම ස්තරයක්ම ඉවත් වේ.</target></trans-unit>
+<trans-unit id="sae901180c48ddefb">
+  <source>Your network currently contains</source>
+<target>ඔබේ ජාලයේ දැනට ඇත</target></trans-unit>
+<trans-unit id="s4554e34a747022df">
+  <source>layers</source>
+<target>ස්තර</target></trans-unit>
+<trans-unit id="s4d1b055aa7613557">
+  <source>Your network is currently empty.</source>
+<target>ඔබේ ජාලය දැන් හිස්ය.</target></trans-unit>
+<trans-unit id="sd2e79aff2aea724a">
+  <source>You currently do not have an input layer. Drag one onto the canvas!</source>
+<target>ඔබට දැන් ආදාන ස්තරයක් නැත. එකක් කැන්වසයට ඇදගෙන යන්න!</target></trans-unit>
+<trans-unit id="s37abcf4d745436f7">
+  <source>You currently do not have an output layer. Drag one onto the canvas!</source>
+<target>ඔබට දැන් ප්‍රතිදාන ස්තරයක් නැත. එකක් කැන්වසයට ඇදගෙන යන්න!</target></trans-unit>
+<trans-unit id="s6a4607c5c4e55a03">
+  <source>Always make sure to connect your layers such that there is a path from your input layer(s) to your output layer! Therefore select a layer in the canvas and select its incoming or outgoing connections</source>
+<target>ආදාන ස්තර(වල) සිට ප්‍රතිදාන ස්තරය දක්වා මාර්ගයක් ඇති ලෙස ස්තර සම්බන්ධ කරන්න! කැන්වසයේ ස්තරයක් තෝරා එහි ඇතුළට හෝ පිටතට යන සම්බන්ධතා තෝරන්න.</target></trans-unit>
+<trans-unit id="sd6b4fb36bd73f830">
+  <source>Assigned feature (input)</source>
+<target>පවරා ඇති විශේෂාංගය (ආදානය)</target></trans-unit>
+<trans-unit id="s690d876ebcfe1dd6">
+  <source>Neuron</source>
+<target>නියුරෝනය</target></trans-unit>
+<trans-unit id="s8efe9b047510b849">
+  <source>Corresponding layer:</source>
+<target>අදාළ ස්තරය:</target></trans-unit>
+<trans-unit id="s888d98a196a240d8">
+  <source>Inputs</source>
+<target>ආදාන</target></trans-unit>
+<trans-unit id="s7aaa83f30a557ce9">
+  <source>- All neurons from</source>
+<target>— මෙහි ඇති සියලු නියුරෝන</target></trans-unit>
+<trans-unit id="s4a3a9e0c684b763f">
+  <source>Label (output)</source>
+<target>ලේබලය (ප්‍රතිදානය)</target></trans-unit>
+<trans-unit id="s066d70cf9d5e2915">
+  <source>Outputs</source>
+<target>ප්‍රතිදාන</target></trans-unit>
+<trans-unit id="s41ee884e3b2d7413">
+  <source>Click on an feature pill above to see the relation between this feature and the label in a plot</source>
+<target>මෙම විශේෂාංගය සහ ලේබලය අතර සම්බන්ධය ප්ලොට් එකක බැලීමට ඉහළ ඇති විශේෂාංග pill එක ක්ලික් කරන්න</target></trans-unit>
+<trans-unit id="scc33c632d6e60d84">
+  <source>plotted against</source>
+<target>සමඟ සසඳා ඇඳ ඇත</target></trans-unit>
+<trans-unit id="s01c091af962d4963">
+  <source>Plots</source>
+<target>ප්ලොට්</target></trans-unit>
+<trans-unit id="sd8305d1efc816b0a">
+  <source>Predict</source>
+<target>පුරෝකථනය කරන්න</target></trans-unit>
+<trans-unit id="sf7aa4a7f6a7a6ae9">
+  <source>Predicted label</source>
+<target>පුරෝකථනය කළ ලේබලය</target></trans-unit>
+<trans-unit id="s5a27bd37c0a0ad1a">
+  <source>with a probability of</source>
+<target>මෙතරම් සම්භාවිතාවකින්</target></trans-unit>
+<trans-unit id="sd0ee89e8e7353561">
+  <source>Make another prediction</source>
+<target>තවත් පුරෝකථනයක් කරන්න</target></trans-unit>
+<trans-unit id="s9d8b8aa2b404c2c8">
+  <source>Settings</source>
+<target>සැකසුම්</target></trans-unit>
+<trans-unit id="s769b92432aa0e57f">
+  <source>Configure which options the users of this widget are allowed to view and edit</source>
+<target>මෙම විජට් භාවිත කරන්නන්ට බැලීමට හා සංස්කරණය කිරීමට ඉඩ ඇති විකල්ප වින්‍යාස කරන්න</target></trans-unit>
+<trans-unit id="s255857544a9d5ec0">
+  <source>Reset</source>
+<target>යළි සකසන්න</target></trans-unit>
+<trans-unit id="s295e7ec3fae5aa15">
+  <source>Set to default</source>
+<target>පෙරනිමියට සකසන්න</target></trans-unit>
+<trans-unit id="s7f76d461768c268c">
+  <source>Allow importing configurations</source>
+<target>සැකසුම් ආයාත කිරීමට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="sa219044786efe4f4">
+  <source>Show recommendations</source>
+<target>නිර්දේශ පෙන්වන්න</target></trans-unit>
+<trans-unit id="sa133a50ad676b757">
+  <source>Allow exporting configurations</source>
+<target>සැකසුම් අපනයනය කිරීමට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="s9feb1a1345ccc3e5">
+  <source>Network</source>
+<target>ජාලය</target></trans-unit>
+<trans-unit id="s3de2e4f3353ff071">
+  <source>Restrict layer types</source>
+<target>ස්තර වර්ග සීමා කරන්න</target></trans-unit>
+<trans-unit id="scfa788c4d56c9859">
+  <source>Allow dense layers</source>
+<target>Dense ස්තරවලට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="s05c44a5db696fcaf">
+  <source>Editing</source>
+<target>සංස්කරණය</target></trans-unit>
+<trans-unit id="secd2b30927c9ada1">
+  <source>Allow adding and removing layers</source>
+<target>ස්තර එක් කිරීමට සහ ඉවත් කිරීමට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="s1d6d96fee1f77a74">
+  <source>Allow editing layers</source>
+<target>ස්තර සංස්කරණයට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="sc728fae3603c8b93">
+  <source>Allow selecting the data flowing into input layers</source>
+<target>ආදාන ස්තරවලට ගලා යන දත්ත තෝරාගැනීමට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="s91346ada0f5220bf">
+  <source>Allow editing the number of neurons</source>
+<target>නියුරෝන ගණන සංස්කරණයට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="sff69314112eb4786">
+  <source>Allow changing the activation function</source>
+<target>සක්‍රිය කිරීමේ ශ්‍රිතය වෙනස් කිරීමට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="sb4aaa150117048eb">
+  <source>Allow reconnecting the layers with each other</source>
+<target>ස්තර නැවත සම්බන්ධ කිරීමට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="s4488dd99533e7f65">
+  <source>Data set</source>
+<target>දත්ත කට්ටලය</target></trans-unit>
+<trans-unit id="s505d96c3ca2f3c78">
+  <source>Allow selecting a different data set</source>
+<target>වෙනත් දත්ත කට්ටලයක් තෝරාගැනීමට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="sa3900af79012fda0">
+  <source>Allow managing (creating new and deleting) data sets</source>
+<target>දත්ත කට්ටල කළමනාකරණයට ඉඩ දෙන්න (නව නිර්මාණය සහ මකා දැමීම)</target></trans-unit>
+<trans-unit id="s0605944041e20ba8">
+  <source>Show plots</source>
+<target>ප්ලොට් පෙන්වන්න</target></trans-unit>
+<trans-unit id="se65e4e6f3696e997">
+  <source>Training</source>
+<target>පුහුණුව</target></trans-unit>
+<trans-unit id="s7188f983604e2188">
+  <source>Allow editing hyperparameters</source>
+<target>හයිපර්පරාමිතීන් සංස්කරණයට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="s77d657d2989d8bf6">
+  <source>Allow editing the batch size</source>
+<target>බැච් ප්‍රමාණය සංස්කරණයට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="s14a65ec1c3dc6761">
+  <source>Allow editing the learning rate</source>
+<target>ඉගෙනුම් අනුපාතය සංස්කරණයට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="s399ed88a7aa67028">
+  <source>Allow editing the dropout rate</source>
+<target>dropout අනුපාතය සංස්කරණයට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="s293aa6a6446fb153">
+  <source>Export</source>
+<target>අපනයනය</target></trans-unit>
+<trans-unit id="sc7aaabd93fb4c486">
+  <source>Export the current configuration to your local file system as a JSON file. Storing trained models is not supported.</source>
+<target>වත්මන් සැකසුම JSON ගොනුවක් ලෙස ඔබේ දේශීය ගොනු පද්ධතියට අපනයනය කරන්න. පුහුණු කළ ආකෘති ගබඩා කිරීම සහාය නොදක්වයි.</target></trans-unit>
+<trans-unit id="s93d85c9969bc1e8e">
+  <source>Get started</source>
+<target>ආරම්භ කරන්න</target></trans-unit>
+<trans-unit id="s37f8f9ad6c3ca6e8">
+  <source>Import JSON configuration</source>
+<target>JSON සැකසුම ආයාත කරන්න</target></trans-unit>
+<trans-unit id="sb39c29728a3aab64">
+  <source>Intermediate</source>
+<target>මධ්‍යම</target></trans-unit>
+<trans-unit id="s4aba9979380614e1">
+  <source>Classification</source>
+<target>වර්ගීකරණය</target></trans-unit>
+<trans-unit id="s7e7ce210415ee02c">
+  <source>Feed Forward</source>
+<target>Feed Forward</target></trans-unit>
+<trans-unit id="s382a2aa3984474dd">
+  <source>Create</source>
+<target>සාදන්න</target></trans-unit>
+<trans-unit id="s85f01e331f787810">
+  <source>Regression</source>
+<target>ප්‍රතිගමනය</target></trans-unit>
+<trans-unit id="s13bf923e48a38e88">
+  <source>You can create a custom configuration by using the options in the corresponding right panels.</source>
+<target>අදාළ දකුණු පුවරුවල ඇති විකල්ප භාවිතයෙන් අභිරුචි සැකසුමක් සාදාගත හැක.</target></trans-unit>
+<trans-unit id="s5ebe428b72f9d9fd">
+  <source>Hyperparameters</source>
+<target>හයිපර්පරාමිතීන්</target></trans-unit>
+<trans-unit id="sd674ba4ce23f2290">
+  <source>Batch size</source>
+<target>බැච් ප්‍රමාණය</target></trans-unit>
+<trans-unit id="sa4aa72be4b18da23">
+  <source>Learning rate</source>
+<target>ඉගෙනුම් අනුපාතය</target></trans-unit>
+<trans-unit id="s29028574383c26b2">
+  <source>Dropout rate</source>
+<target>dropout අනුපාතය</target></trans-unit>
+<trans-unit id="s0d783bd504d48897">
+  <source>Adjust the probability of neurons being deactivated during training</source>
+<target>පුහුණුවේදී නියුරෝන අක්‍රිය වීමේ සම්භාවිතාව සකස් කරන්න</target></trans-unit>
+<trans-unit id="s97aa76056a81bd36">
+  <source>Metrics</source>
+<target>මිතික</target></trans-unit>
+<trans-unit id="s61e8f3fac73d5e85">
+  <source>Loss: Categorical Crossentropy</source>
+<target>අලාභය: Categorical Crossentropy</target></trans-unit>
+<trans-unit id="s9f262d3debac7e63">
+  <source>Accuracy: In what percentage of the tests was the right class predicted?</source>
+<target>නිරවද්‍යතාව: පරීක්ෂණවලින් කොපමණ ප්‍රතිශතයක නිවැරදි පන්තිය පුරෝකථනය කළාද?</target></trans-unit>
+<trans-unit id="s04cf457a74a1ca3e">
+  <source>Loss: Mean Squared Error</source>
+<target>අලාභය: Mean Squared Error</target></trans-unit>
+<trans-unit id="s5f343a43e7ea9f91">
+  <source>Error</source>
+<target>දෝෂය</target></trans-unit>
+<trans-unit id="s7fd689e3ee842226">
+  <source>What is the difference between the two lines in a graph?</source>
+<target>ප්‍රස්ථාරයේ රේඛා දෙක අතර වෙනස කුමක්ද?</target></trans-unit>
+<trans-unit id="s9cc47ae161b22379">
+  <source>For val_..., the metric is calculated on the validation data set while for the data without val as a prefix the metric is calculated on the training data set. The metrics for the validation data set can be seen as more meaningful since this is the data the network does not 'know'.</source>
+<target>val_... සඳහා මිතිකය වලංගුකරණ දත්ත කට්ටලයේ ගණනය කරයි; val උපසර්ගය නොමැති දත්ත සඳහා මිතිකය පුහුණු දත්ත කට්ටලයේ ගණනය කරයි. වලංගුකරණ දත්ත කට්ටලයේ මිතික වඩා අර්ථවත්ය, මන්ද ජාලය මෙම දත්ත 'නොදන්නා' නිසාය.</target></trans-unit>
+<trans-unit id="s9ea77d0d371dc469">
+  <source>Train</source>
+<target>පුහුණු කරන්න</target></trans-unit>
+<trans-unit id="s69bf683344258f79">
+  <source>Training completed!</source>
+<target>පුහුණුව අවසන්!</target></trans-unit>
+<trans-unit id="sedc9092c834a7a37">
+  <source>Feel free to continue training your model for some additional epochs which might get you even better results!</source>
+<target>වඩා හොඳ ප්‍රතිඵල සඳහා තවත් epochs කිහිපයක් ආකෘතිය පුහුණු කළ හැක!</target></trans-unit>
+<trans-unit id="s900c980bdb200fcf">
+  <source>Epochs</source>
+<target>එපොක් ගණන</target></trans-unit>
+<trans-unit id="s7f291599fb79b2a9">
+  <source>Number of iterations over the whole training data set</source>
+<target>සම්පූර්ණ පුහුණු දත්ත කට්ටලය හරහා නැවත සිදු කරන වාර ගණන</target></trans-unit>
+<trans-unit id="s9fbbc819fe7e66aa">
+  <source>Run</source>
+<target>ධාවනය කරන්න</target></trans-unit>
+<trans-unit id="s7ae39eeb994f4040">
+  <source>Train for 1 epoch</source>
+<target>1 epoch පුහුණු කරන්න</target></trans-unit>
+<trans-unit id="s415ece5a1e4e50ce">
+  <source>Train for</source>
+<target>epochs ගණනක් පුහුණු කරන්න</target></trans-unit>
+<trans-unit id="sa24fcd4e36a13aef">
+  <source>epochs</source>
+<target>එපොක්</target></trans-unit>
+<trans-unit id="s12db7f32a3851306">
+  <source>Epoch</source>
+<target>එපොක්</target></trans-unit>
+<trans-unit id="safda35e3d523b59b">
+  <source>Batch</source>
+<target>බැච්</target></trans-unit>
+<trans-unit id="s573de432d7ee9439">
+  <source>The progress you made in creating your own data set was successfully restored!</source>
+<target>ඔබේම දත්ත කට්ටලය සෑදීමේ ප්‍රගතිය සාර්ථකව ප්‍රතිසාධනය කරන ලදී!</target></trans-unit>
+<trans-unit id="s8e77b85b1ae353e5">
+  <source>A data set with the same name already exists!</source>
+<target>එම නමින්ම දත්ත කට්ටලයක් දැනටමත් ඇත!</target></trans-unit>
+<trans-unit id="s669ebaf3b9787562">
+  <source>The provided data does not match the required format! Please check again</source>
+<target>ලබාදුන් දත්ත අවශ්‍ය ආකෘතියට නොගැළපේ! නැවත පරීක්ෂා කරන්න</target></trans-unit>
+<trans-unit id="see988347633ae840">
+  <source>A new data set was successfully created and automatically selected!</source>
+<target>නව දත්ත කට්ටලය සාර්ථකව සාදා ස්වයංක්‍රීයව තෝරා ගන්නා ලදී!</target></trans-unit>
+<trans-unit id="s18de3f0678131658">
+  <source>Create a new data set</source>
+<target>නව දත්ත කට්ටලයක් සාදන්න</target></trans-unit>
+<trans-unit id="scdb1bac161852c73">
+  <source>Welcome</source>
+<target>සාදරයෙන් පිළිගනිමු</target></trans-unit>
+<trans-unit id="s59163864a74213df">
+  <source>This tour will guide you through creating your own data set in a few simple steps. Everything is stored automatically, so you can close this modal at any time and resume.</source>
+<target>මෙම සංචාරය සරල පියවර කිහිපයකින් ඔබේම දත්ත කට්ටලයක් සෑදීමට මඟ පෙන්වයි. සියල්ල ස්වයංක්‍රීයව සුරැකෙන බැවින් මෙම modal එක ඕනෑම වේලාවක වසා පසුව නැවත කරගෙන යා හැක.</target></trans-unit>
+<trans-unit id="s420e8fef6d553399">
+  <source>General info about the data set</source>
+<target>දත්ත කට්ටලය පිළිබඳ සාමාන්‍ය තොරතුරු</target></trans-unit>
+<trans-unit id="sf82bd0ca92fc7478">
+  <source>Choose a short but meaningful name for your data set and write a description.</source>
+<target>ඔබේ දත්ත කට්ටලයට කෙටි නමුත් අර්ථවත් නමක් තෝරා විස්තරයක් ලියන්න.</target></trans-unit>
+<trans-unit id="sef49aec68fd1dc66">
+  <source>Name</source>
+<target>නම</target></trans-unit>
+<trans-unit id="s63d894b1ddb06289">
+  <source>Description</source>
+<target>විස්තරය</target></trans-unit>
+<trans-unit id="sea29890d344759e2">
+  <source>Choose 'regression' if you want to predict continous values like house or gas prices</source>
+<target>නිවසක හෝ ගෑස් මිල වැනි අඛණ්ඩ අගයන් පුරෝකථනය කිරීමට 'regression' තෝරන්න</target></trans-unit>
+<trans-unit id="sa51b42a0f8bc1196">
+  <source>Choose 'classification' if you want information about the affiliation of the feature(s) to a class (e.g. what animal can be seen in this image? A dog, cat or horse?)</source>
+<target>විශේෂාංග(වල) පන්තිය දැනගැනීමට 'classification' තෝරන්න (උදා. මෙම රූපයේ කුමන සත්වයාද? බල්ලෙක්, බළලෙක් හෝ අශ්වයෙක්?)</target></trans-unit>
+<trans-unit id="s381b5d0debf831a1">
+  <source>Choose a type</source>
+<target>වර්ගයක් තෝරන්න</target></trans-unit>
+<trans-unit id="s641101718c90c0aa">
+  <source>Which data will be put into the neural network? Create arbitrary many features!</source>
+<target>ස්නායු ජාලයට ඇතුළත් කරන්නේ කුමන දත්තද? අවශ්‍ය තරම් විශේෂාංග සාදන්න!</target></trans-unit>
+<trans-unit id="s506b6a19d12f414c">
+  <source>Key</source>
+<target>යතුර</target></trans-unit>
+<trans-unit id="s0c9543b42518e43e">
+  <source>1-6 capital letters</source>
+<target>1-6 ලොකු අකුරු</target></trans-unit>
+<trans-unit id="s9ccab5f6530bd7fb">
+  <source>Remove feature</source>
+<target>විශේෂාංගය ඉවත් කරන්න</target></trans-unit>
+<trans-unit id="sb1cdfd5a8a60f3ca">
+  <source>Add feature</source>
+<target>විශේෂාංගය එක් කරන්න</target></trans-unit>
+<trans-unit id="sa7f1260d99ed4dcb">
+  <source>What shall be the output of the network?</source>
+<target>ජාලයේ ප්‍රතිදානය කුමක් විය යුතුද?</target></trans-unit>
+<trans-unit id="s2ba861fd720acdec">
+  <source>an integer</source>
+<target>පූර්ණ සංඛ්‍යාවක්</target></trans-unit>
+<trans-unit id="s2511ced2063529c4">
+  <source>Animal was detected as a horse</source>
+<target>සත්වයා අශ්වයෙකු ලෙස හඳුනාගන්නා ලදී</target></trans-unit>
+<trans-unit id="s81fe4b139dbcd729">
+  <source>Remove class</source>
+<target>පන්තිය ඉවත් කරන්න</target></trans-unit>
+<trans-unit id="s3187969905158d04">
+  <source>Add class</source>
+<target>පන්තිය එක් කරන්න</target></trans-unit>
+<trans-unit id="s93aa17486b781f3d">
+  <source>You are nearly done</source>
+<target>ඔබ දැන් අවසන් කිරීමට ළඟයි</target></trans-unit>
+<trans-unit id="s4770b2377cfb5113">
+  <source>Now add your data in the following format</source>
+<target>දැන් පහත ආකෘතියෙන් දත්ත එක් කරන්න</target></trans-unit>
+<trans-unit id="s514bbfe7a6a1385a">
+  <source>Each row needs to represent one set containing the features and the label. Seperate items with a comma (spaces before and after the comma are okay). The single last item always represents the label while the items before it represent the features. Make sure to use only dots and no commas for floating point values. If you have data in CSV format, you can just paste it here but make sure to remove any comments.</source>
+<target>සෑම පේළියකම විශේෂාංග සහ ලේබලය ඇතුළත් එක් කට්ටලයක් තිබිය යුතුය. අයිතම කොමාවකින් වෙන් කරන්න (කොමාවට පෙර හා පසු හිස්තැන් තිබිය හැක). අවසාන අයිතමය සැමවිටම ලේබලය වන අතර ඊට පෙර අයිතම විශේෂාංග වේ. දශම අගයන් සඳහා කොමා නොව තිත් පමණක් භාවිත කරන්න. CSV දත්ත තිබේ නම් මෙහි අලවන්න, නමුත් අදහස් ඉවත් කරන්න.</target></trans-unit>
+<trans-unit id="sf3ff78cc329d3528">
+  <source>Previous</source>
+<target>පෙර</target></trans-unit>
+<trans-unit id="s0fbf6dc6a1966408">
+  <source>Next</source>
+<target>ඊළඟ</target></trans-unit>
+<trans-unit id="s886925e360029fea">
+  <source>Validate and create</source>
+<target>සත්‍යාපනය කර සාදන්න</target></trans-unit>
+<trans-unit id="s688d523f38404f47">
+  <source>Manage data sets</source>
+<target>දත්ත කට්ටල කළමනාකරණය කරන්න</target></trans-unit>
+<trans-unit id="s114321122eed37a2">
+  <source>Currently selected</source>
+<target>දැනට තෝරා ඇත</target></trans-unit>
+<trans-unit id="s05560220ff65f5eb">
+  <source>Permanently delete data set</source>
+<target>දත්ත කට්ටලය ස්ථිරව මකන්න</target></trans-unit>
+<trans-unit id="sae1c7f13b7c0c47f">
+  <source>Start</source>
+<target>ආරම්භය</target></trans-unit>
+<trans-unit id="s0e36885f01f95cc8">
+  <source>A dense layer, also called fully-connected layer, is a layer whose inside neurons connect to every neuron in the preceding layer.</source>
+<target>fully-connected ස්තරයක් ලෙසද හැඳින්වෙන Dense ස්තරයක ඇතුළත නියුරෝන පෙර ස්තරයේ සෑම නියුරෝනයකටම සම්බන්ධ වේ.</target></trans-unit>
+<trans-unit id="s9d167ef77aed79b6">
+  <source>Layer</source>
+<target>ස්තරය</target></trans-unit>
+<trans-unit id="se157debe22915185">
+  <source>was deleted because no data could be assigned to it!</source>
+<target>දත්ත පවරාගත නොහැකි වූ නිසා මකා දමන ලදී!</target></trans-unit>
+<trans-unit id="s8192fafe6f0cc0bb">
+  <source>An input layer is a layer that just takes data provided from outside the network and passes it on to the next layer(s)</source>
+<target>ආදාන ස්තරය ජාලයට පිටතින් සපයන දත්ත ගෙන ඊළඟ ස්තර(වලට) යොමු කරයි.</target></trans-unit>
+<trans-unit id="s3310986378624a28">
+  <source>The selected layer can not be duplicated! Only a single output layer is currently supported!</source>
+<target>තෝරාගත් ස්තරය අනුපිටපත් කළ නොහැක! දැනට සහාය දක්වන්නේ එක් ප්‍රතිදාන ස්තරයකට පමණි!</target></trans-unit>
+<trans-unit id="sdc95be9d922008e7">
+  <source>An output layer in this simulation is just a normal dense layer, additionally equipped with the ability to output the incoming data out of the network.</source>
+<target>මෙම අනුකරණයේ ප්‍රතිදාන ස්තරය සාමාන්‍ය Dense ස්තරයක් වන අතර ජාලයට එන දත්ත පිටතට ලබාදීමේ හැකියාවද ඇත.</target></trans-unit>
+<trans-unit id="sa5982fd2e05ee92d">
+  <source>Since the purpose if this layer is to output a classifiction, we should combine it with a softmax activation function in order to provide a probability distribution.</source>
+<target>මෙම ස්තරයේ අරමුණ වර්ගීකරණ ප්‍රතිදානයක් ලබාදීම බැවින් සම්භාවිතා ව්‍යාප්තියක් ලබාගැනීමට softmax සක්‍රිය කිරීමේ ශ්‍රිතය සමඟ සම්බන්ධ කළ යුතුය.</target></trans-unit>
+<trans-unit id="s835dc746e771a9d6">
+  <source>Boston House Pricing</source>
+<target>Boston නිවාස මිල</target></trans-unit>
+<trans-unit id="s4c5805b438fae5b7">
+  <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
+<target>Boston House Price දත්ත කට්ටලය නිවස සහ අසල්වැසි ප්‍රදේශයේ විස්තර අනුව ඩොලර් දහස් ගණනින් නිවසක මිල පුරෝකථනය කරයි.</target></trans-unit>
+<trans-unit id="s92dd08d474f4ba4b">
+  <source>Per capita crime rate by town</source>
+<target>නගරයක පුද්ගලයකුට අදාළ අපරාධ අනුපාතය</target></trans-unit>
+<trans-unit id="sa2cb02c992247501">
+  <source>Proportion of residential land zoned for lots over 25,000 sq.ft.</source>
+<target>වර්ග අඩි 25,000ට වැඩි බිම් කොටස් සඳහා නේවාසික කලාප ලෙස වෙන් කළ ඉඩම් ප්‍රතිශතය</target></trans-unit>
+<trans-unit id="s0ba84c8c8dd5dfe5">
+  <source>Proportion of nonretail business acres per town</source>
+<target>එක් නගරයක සිල්ලර නොවන ව්‍යාපාර ඉඩම් ප්‍රතිශතය</target></trans-unit>
+<trans-unit id="sb85fa3ee37f69a87">
+  <source>Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)</source>
+<target>Charles River dummy variable (= බිම් කොටස ගඟට මායිම් නම් 1; නැතිනම් 0)</target></trans-unit>
+<trans-unit id="s902fe1322b1d2c62">
+  <source>Nitric oxides concentration (parts per 10 million)</source>
+<target>නයිට්‍රික් ඔක්සයිඩ් සාන්ද්‍රණය (මිලියන 10කට කොටස්)</target></trans-unit>
+<trans-unit id="sf928898f4043c6ff">
+  <source>Average number of rooms per dwelling</source>
+<target>එක් නිවසක කාමර ගණනේ සාමාන්‍යය</target></trans-unit>
+<trans-unit id="s95f88e83db13ec5c">
+  <source>Proportion of owner-occupied units built prior to 1940</source>
+<target>1940ට පෙර ඉදිකළ හිමිකරු පදිංචි ඒකකවල ප්‍රතිශතය</target></trans-unit>
+<trans-unit id="sb0be465979ef3758">
+  <source>Weighted distances to five Boston employment centers</source>
+<target>Boston රැකියා මධ්‍යස්ථාන පහට බරිත දුර</target></trans-unit>
+<trans-unit id="sb60c67627b3119cc">
+  <source>Index of accessibility to radial highways</source>
+<target>රේඩියල් මහාමාර්ගවලට ප්‍රවේශ වීමේ දර්ශකය</target></trans-unit>
+<trans-unit id="sc3ba6f6e119cd273">
+  <source>Full-value property-tax rate per $10,000</source>
+<target>$10,000කට දේපළ සම්පූර්ණ වටිනාකම් බදු අනුපාතය</target></trans-unit>
+<trans-unit id="s49d8fc3f40b093ac">
+  <source>Pupil-teacher ratio by town</source>
+<target>නගරය අනුව ශිෂ්‍ය-ගුරු අනුපාතය</target></trans-unit>
+<trans-unit id="s577b270038a8c007">
+  <source>1000(Bk – 0.63)^2 where Bk is the proportion of blacks by town</source>
+<target>1000(Bk – 0.63)^2; මෙහි Bk යනු නගරයේ කළු ජනගහනයේ ප්‍රතිශතයයි</target></trans-unit>
+<trans-unit id="s2f41bf569b07a4cc">
+  <source>% lower status of the population</source>
+<target>ජනගහනයේ පහළ තත්ත්වයේ ප්‍රතිශතය</target></trans-unit>
+<trans-unit id="s473a26666565450c">
+  <source>Median value of owner-occupied homes in $1000s</source>
+<target>හිමිකරු පදිංචි නිවාසවල මධ්‍යස්ථ වටිනාකම ($1000 වලින්)</target></trans-unit>
+<trans-unit id="sb96294312677cad5">
+  <source>Pima Indians Diabetes</source>
+<target>Pima Indians දියවැඩියාව</target></trans-unit>
+<trans-unit id="sc20c7530f6afbb7c">
+  <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
+<target>Pima Indians Diabetes දත්ත කට්ටලය වෛද්‍ය තොරතුරු අනුව Pima Indians අතර වසර 5ක් ඇතුළත දියවැඩියාව ඇතිවීම පුරෝකථනය කරයි. මෙය පන්ති 2ක වර්ගීකරණ ගැටලුවකි. එක් එක් පන්තියේ නිරීක්ෂණ ගණන සමතුලිත නොවේ. නිරීක්ෂණ 768ක්, ආදාන විචල්‍ය 8ක් සහ ප්‍රතිදාන විචල්‍ය 1ක් ඇත. නැති අගයන් ශූන්‍ය ලෙස සංකේතනය කර ඇති බව සැලකේ.</target></trans-unit>
+<trans-unit id="s4e77426bf7986294">
+  <source>Number of times pregnant</source>
+<target>ගැබ්ගත් වාර ගණන</target></trans-unit>
+<trans-unit id="s5923001bb6219bb3">
+  <source>Plasma glucose concentration a 2 hours in an oral glucose tolerance test.</source>
+<target>මුඛ ග්ලූකෝස් ඉවසීමේ පරීක්ෂණයෙන් පැය 2කට පසු ප්ලාස්මා ග්ලූකෝස් සාන්ද්‍රණය.</target></trans-unit>
+<trans-unit id="sf7cdf4e3adc1b2fa">
+  <source>Diastolic blood pressure (mm Hg)</source>
+<target>ඩයස්ටොලික් රුධිර පීඩනය (mm Hg)</target></trans-unit>
+<trans-unit id="s5659cbd3943227de">
+  <source>Triceps skinfold thickness (mm)</source>
+<target>ට්‍රයිසෙප්ස් සම නැමීමේ ඝනකම (mm)</target></trans-unit>
+<trans-unit id="sa17f891acb35efd2">
+  <source>2-Hour serum insulin (mu U/ml)</source>
+<target>පැය 2ක සීරම් ඉන්සියුලින් (mu U/ml)</target></trans-unit>
+<trans-unit id="s4a39fd2eb0e136da">
+  <source>Body mass index (weight in kg/(height in m)^2)</source>
+<target>ශරීර ස්කන්ධ දර්ශකය (බර kg/(උස m)^2)</target></trans-unit>
+<trans-unit id="s66ebf0bd757d5159">
+  <source>Diabetes pedigree function</source>
+<target>දියවැඩියා පරම්පරාගත ශ්‍රිතය</target></trans-unit>
+<trans-unit id="s5ef9308d320834d1">
+  <source>Age (years)</source>
+<target>වයස (අවුරුදු)</target></trans-unit>
+<trans-unit id="s4e64552852c163c0">
+  <source>Diabetes</source>
+<target>දියවැඩියාව</target></trans-unit>
+<trans-unit id="s5c9d4638c1e38b36">
+  <source>Allow editing</source>
+<target>සංස්කරණය කිරීමට ඉඩ දෙන්න</target></trans-unit>
+<trans-unit id="sdb1595f5c742dfbb">
+  <source>Input</source>
+<target>ආදානය</target></trans-unit>
+<trans-unit id="sff96ebdc539c64b0">
+  <source>Dense</source>
+<target>ඝන ස්තරය</target></trans-unit>
+<trans-unit id="sf559b4b9f2109e05">
+  <source>Activation:</source>
+<target>සක්‍රිය කිරීම:</target></trans-unit>
+<trans-unit id="s0b49b37aa2ca0f35">
+  <source>Dense layer</source>
+<target>ඝන ස්තරය</target></trans-unit>
+<trans-unit id="sc0ecc73d49676ffa">
+  <source>Input layer</source>
+<target>ආදාන ස්තරය</target></trans-unit>
+<trans-unit id="s35659ef8d11dd2c9">
+  <source>Output layer</source>
+<target>ප්‍රතිදාන ස්තරය</target></trans-unit>
+<trans-unit id="se988648386f27436">
+  <source>Type: regression</source>
+<target>වර්ගය: regression</target></trans-unit>
+<trans-unit id="s795bb0b2a9c2e75f">
+  <source>Type: classification</source>
+<target>වර්ගය: classification</target></trans-unit>
+<trans-unit id="s09205907b5b56cda">
+  <source>No</source>
+<target>නැත</target></trans-unit>
+<trans-unit id="scb489a1a173ac3f0">
+  <source>Yes</source>
+<target>ඔව්</target></trans-unit>
+<trans-unit id="s669b18c6d2d9c95b">
+  <source>None</source>
+<target>කිසිවක් නැත</target></trans-unit>
+<trans-unit id="s401c527ca9b140a8">
+  <source>No additional function is applied.</source>
+<target>අමතර ශ්‍රිතයක් යොදන්නේ නැත.</target></trans-unit>
+<trans-unit id="s6c2a68f18e1a1afd">
+  <source>Negative values are rounded up to zero.</source>
+<target>සෘණ අගයන් ශූන්‍යයට වට කරයි.</target></trans-unit>
+<trans-unit id="s67c3b0f1a71c873c">
+  <source>Largely negative values are mapped to values close to zero while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>විශාල සෘණ අගයන් ශූන්‍යයට ආසන්නවද විශාල ධන අගයන් එකට ආසන්නවද සිතියම්ගත වේ (රූපය බලන්න).</target></trans-unit>
+<trans-unit id="s2a6555107a533bb0">
+  <source>Largely negative values are mapped to values close to minus one while largely positive values will be mapped to values close to one (see the graphic).</source>
+<target>විශාල සෘණ අගයන් ඍණ එකට ආසන්නවද විශාල ධන අගයන් එකට ආසන්නවද සිතියම්ගත වේ (රූපය බලන්න).</target></trans-unit>
+<trans-unit id="s77365296ebf281bc">
+  <source>Create a probability distribution such that the output values of all neurons in this layer add up to one.</source>
+<target>මෙම ස්තරයේ සියලු නියුරෝන ප්‍රතිදාන අගයන් එකතුව එක වන පරිදි සම්භාවිතා ව්‍යාප්තියක් සාදන්න.</target></trans-unit>
+<trans-unit id="sc5bc2a2d2fd1ee58">
+  <source>Why are some important options not editable or completely missing?</source>
+<target>සමහර වැදගත් විකල්ප සංස්කරණය කළ නොහැක්කේ හෝ සම්පූර්ණයෙන්ම අතුරුදන් වන්නේ ඇයි?</target></trans-unit>
+<trans-unit id="s585d91c0fe28ad49">
+  <source>Many options are uneditable after you started a training to make sure what you see is actually what got translated into the model. To be able to edit everything again, just use the option to reset the model. After you performed your desired changes, you can then train a new model that respects them. If there is no trained model and you are missing options, most likely your teacher has disabled them for you.</source>
+<target>පුහුණුව ආරම්භ වූ පසු බොහෝ විකල්ප සංස්කරණය කළ නොහැකි වන අතර, එමඟින් ඔබ දකින දේ ආකෘතියට පරිවර්තනය කළ සැකසුමට ගැළපේ. සියල්ල නැවත සංස්කරණය කිරීමට ආකෘතිය යළි සකසන්න. අවශ්‍ය වෙනස්කම් කළ පසු ඒ අනුව නව ආකෘතියක් පුහුණු කරන්න. පුහුණු කළ ආකෘතියක් නොමැතිවත් විකල්ප අතුරුදන් නම්, ඔබේ ගුරුවරයා ඒවා අක්‍රිය කර ඇත.</target></trans-unit>
+<trans-unit id="sfe6f2a2f731252f8">
+  <source>'<x id="0" equiv-text="${this.getName()}" />' has been created!</source>
+<target>'<x id="0" equiv-text="${this.getName()}" />' සාදන ලදී!</target></trans-unit>
+<trans-unit id="s0de010d496fb9b32">
+  <source>Neuron <x id="0" equiv-text="${this.neuronId}" /> inside <x id="1" equiv-text="${this.layer.getName()}" /></source>
+<target><x id="0" equiv-text="${this.neuronId}" /> යනු <x id="1" equiv-text="${this.layer.getName()}" /> තුළ ඇති නියුරෝනයකි</target></trans-unit>
+<trans-unit id="sf0695e350c3bbc8f">
+  <source>The config you imported seems to be broken :(</source>
+<target>ඔබ ආයාත කළ සැකසුම බිඳී ඇති බව පෙනේ :(</target></trans-unit>
+<trans-unit id="sd1dd1d906f1e9f57">
+  <source>The version of the config file is not compatible with the widget version you currently use!</source>
+<target>සැකසුම් ගොනුවේ අනුවාදය ඔබ භාවිත කරන විජට් අනුවාදයට නොගැළපේ!</target></trans-unit>
+<trans-unit id="sea22d7cb1b837fbc">
+  <source>The imported config was successfully loaded!</source>
+<target>ආයාත කළ සැකසුම සාර්ථකව පූරණය විය!</target></trans-unit>
+<trans-unit id="s3a12b3bc9f64aaa9">
+  <source>The current configuration was successfully exported!</source>
+<target>වත්මන් සැකසුම සාර්ථකව අපනයනය විය!</target></trans-unit>
+<trans-unit id="s10b8b649492e85d3">
+  <source>You can not delete a data set that is currently selected</source>
+<target>දැනට තෝරාගත් දත්ත කට්ටලය මකා දැමිය නොහැක</target></trans-unit>
+<trans-unit id="s1c5710ff3e4f9cfd">
+  <source>The data set '<x id="0" equiv-text="${name}" />' was successfully deleted</source>
+<target>දත්ත කට්ටලය '<x id="0" equiv-text="${name}" />' සාර්ථකව මකා දමන ලදී</target></trans-unit>
+<trans-unit id="sa1843f0daccbc9c7">
+  <source>Error: Requested deletion of a data set that does not exist</source>
+<target>දෝෂය: මකා දැමීමට ඉල්ලා සිටි දත්ත කට්ටලය නොපවතී</target></trans-unit>
+<trans-unit id="s68a9876d35971a36">
+  <source>The model was successfully compiled! All hyperparameter and network architecture changes were taken into account!</source>
+<target>ආකෘතිය සාර්ථකව සම්පාදනය විය! සියලු හයිපර්පරාමිතීන් සහ ජාල ව්‍යුහයේ වෙනස්කම් යෙදුවා!</target></trans-unit>
+<trans-unit id="sd5d0be5e2482225b">
+  <source>'<x id="0" equiv-text="${layer.getName()}" />' has been deleted!</source>
+<target>'<x id="0" equiv-text="${layer.getName()}" />' මකා දමන ලදී!</target></trans-unit>
+<trans-unit id="sb266302725c5855d">
+  <source>You can not delete neurons by now! To adjust the number of neurons in the layer, select the layer and set the number of neurons in the right panel!</source>
+<target>දැන් නියුරෝන මකා දැමිය නොහැක! ස්තරයේ නියුරෝන ගණන වෙනස් කිරීමට ස්තරය තෝරා දකුණු පුවරුවේ ගණන සකසන්න!</target></trans-unit>
+<trans-unit id="s5bb2fd4c5d83e80a">
+  <source>Can not delete edges manually. If you wish to delete all connections between two layers, select one of the affected layers and change its input</source>
+<target>දාර අතින් මකා දැමිය නොහැක. ස්තර දෙකක් අතර සියලු සම්බන්ධතා මකා දැමීමට අදාළ ස්තරය තෝරා එහි ආදානය වෙනස් කරන්න.</target></trans-unit>
+<trans-unit id="sf8813f51b7447d06">
+  <source>Your network must contain at least one input layer</source>
+<target>ඔබේ ජාලයට අවම වශයෙන් එක් ආදාන ස්තරයක් තිබිය යුතුය</target></trans-unit>
+<trans-unit id="s1f3d45458eb2b06d">
+  <source>Your network must contain at least one output layer</source>
+<target>ඔබේ ජාලයට අවම වශයෙන් එක් ප්‍රතිදාන ස්තරයක් තිබිය යුතුය</target></trans-unit>
+<trans-unit id="s43fadf79188522d8">
+  <source>Make sure to have an output layer connected to the network!</source>
+<target>ජාලයට සම්බන්ධ ප්‍රතිදාන ස්තරයක් ඇති බව තහවුරු කරන්න!</target></trans-unit>
+<trans-unit id="s9e914810882278d2">
+  <source>The help entry could not be created. Another entry with the same name already exists!</source>
+<target>උදව් සටහන නිර්මාණය කළ නොහැකි විය. එම නමින්ම තවත් සටහනක් ඇත!</target></trans-unit>
+<trans-unit id="s99a4a9d1702badce">
+  <source>Help entry updated successfully</source>
+<target>උදව් සටහන සාර්ථකව යාවත්කාලීන විය</target></trans-unit>
+<trans-unit id="sc1367ed4c633ec08">
+  <source>Could not update Q&amp;A entry! An entry with this title does not exist!</source>
+<target>ප්‍රශ්නෝත්තර සටහන යාවත්කාලීන කළ නොහැකි විය! මෙම මාතෘකාව සහිත සටහනක් නොමැත!</target></trans-unit>
+</body>
+</file>
+</xliff>

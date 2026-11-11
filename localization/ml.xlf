@@ -541,7 +541,7 @@
 <target>ഈ ലെയറിന്റെ ഉദ്ദേശ്യം വർഗ്ഗീകരണം ഔട്ട്പുട്ട് ചെയ്യലാണ്; അതിനാൽ സാധ്യതാ വിതരണം നൽകാൻ softmax ആക്റ്റിവേഷൻ ഫംഗ്ഷനുമായി ചേർക്കണം.</target></trans-unit>
 <trans-unit id="s835dc746e771a9d6">
   <source>Boston House Pricing</source>
-<target>Boston വീടിന്റെ വില</target></trans-unit>
+<target>ബോസ്റ്റണിലെ വീടുകളുടെ വില</target></trans-unit>
 <trans-unit id="s4c5805b438fae5b7">
   <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
 <target>Boston House Price ഡാറ്റാസെറ്റ് വീട്ടിന്റെയും അയൽപ്രദേശത്തിന്റെയും വിവരങ്ങൾ ഉപയോഗിച്ച് ആയിരം ഡോളറിലുള്ള വില പ്രവചിക്കുന്നു.</target></trans-unit>
@@ -589,7 +589,7 @@
 <target>ഉടമ താമസിക്കുന്ന വീടുകളുടെ മധ്യ മൂല്യം ($1000ൽ)</target></trans-unit>
 <trans-unit id="sb96294312677cad5">
   <source>Pima Indians Diabetes</source>
-<target>Pima Indians പ്രമേഹം</target></trans-unit>
+<target>പീമ ജനവിഭാഗത്തിലെ പ്രമേഹം</target></trans-unit>
 <trans-unit id="sc20c7530f6afbb7c">
   <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
 <target>Pima Indians Diabetes ഡാറ്റാസെറ്റ് വൈദ്യശാസ്ത്ര വിവരങ്ങളിൽനിന്ന് Pima Indians-ൽ 5 വർഷത്തിനുള്ളിൽ പ്രമേഹം ആരംഭിക്കുന്നത് പ്രവചിക്കുന്നു. ഇത് രണ്ട് ക്ലാസുകളുള്ള വർഗ്ഗീകരണ പ്രശ്നമാണ്. ഓരോ ക്ലാസിലെയും നിരീക്ഷണങ്ങളുടെ എണ്ണം തുല്യമല്ല. ആകെ 768 നിരീക്ഷണങ്ങളും 8 ഇൻപുട്ട് വേരിയബിളുകളും 1 ഔട്ട്പുട്ട് വേരിയബിളുമുണ്ട്. നഷ്ടമായ മൂല്യങ്ങൾ പൂജ്യമായി രേഖപ്പെടുത്തിയതാണെന്ന് കരുതുന്നു.</target></trans-unit>

@@ -541,7 +541,7 @@
 <target>इस परत का उद्देश्य वर्गीकरण आउटपुट करना है, इसलिए संभाव्यता वितरण देने के लिए इसे softmax सक्रियण फ़ंक्शन के साथ जोड़ना चाहिए।</target></trans-unit>
 <trans-unit id="s835dc746e771a9d6">
   <source>Boston House Pricing</source>
-<target>Boston के घरों की कीमत</target></trans-unit>
+<target>बोस्टन के घरों की कीमतें</target></trans-unit>
 <trans-unit id="s4c5805b438fae5b7">
   <source>The Boston House Price data set involves the prediction of a house price in thousands of dollars given details of the house and its neighborhood.</source>
 <target>Boston House Price डेटासेट में घर और उसके पड़ोस के विवरण से हजार डॉलर में घर की कीमत का अनुमान लगाया जाता है।</target></trans-unit>
@@ -589,7 +589,7 @@
 <target>मालिक-अधिभोग वाले घरों का माध्य मूल्य ($1000 में)</target></trans-unit>
 <trans-unit id="sb96294312677cad5">
   <source>Pima Indians Diabetes</source>
-<target>Pima इंडियन्स का मधुमेह</target></trans-unit>
+<target>पीमा समुदाय में मधुमेह</target></trans-unit>
 <trans-unit id="sc20c7530f6afbb7c">
   <source>The Pima Indians Diabetes data set involves predicting the onset of diabetes within 5 years in Pima Indians given medical details. It is a binary (2-class) classification problem. The number of observations for each class is not balanced. There are 768 observations with 8 input variables and 1 output variable. Missing values are believed to be encoded with zero values.</source>
 <target>Pima Indians Diabetes डेटासेट चिकित्सा विवरण के आधार पर Pima Indians में 5 वर्षों के भीतर मधुमेह शुरू होने का अनुमान लगाता है। यह द्वि-वर्ग वर्गीकरण समस्या है। दोनों वर्गों के अवलोकनों की संख्या बराबर नहीं है। इसमें 768 अवलोकन, 8 इनपुट चर और 1 आउटपुट चर हैं। माना जाता है कि अनुपलब्ध मान शून्य से दर्शाए गए हैं।</target></trans-unit>
