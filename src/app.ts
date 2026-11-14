@@ -72,7 +72,6 @@ import { CCanvasArea } from '@/components/canvas_area'
 import { MenuArea } from '@/components/menu_area'
 import { ContextProvider } from '@lit/context'
 
-import '@webcomponents/scoped-custom-element-registry';
 import { styleMap } from 'lit/directives/style-map.js'
 
 
