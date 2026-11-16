@@ -134,35 +134,27 @@
   "license": "MIT",
   "author": "Christian Koch",
   "scripts": {
-    "start": "vite preview",
-    "create": "vite build --config vite.config.js && copyfiles index.html ./dist",
-    "prepublishOnly": "npx @webwriter/build"
+    "prepublishOnly": "npx @webwriter/build --shared-dependencies"
   },
   "dependencies": {
     "@lit/context": "^1.1.4",
     "@lit/localize": "^0.12.2",
-    "@shoelace-style/shoelace": "^2.20.0",
+    "@shoelace-style/shoelace": "^2.20.1",
+    "@tabler/icons": "^3.52.0",
     "@tensorflow/tfjs": "^4.22.0",
-    "@tensorflow/tfjs-vis": "^1.5.1",
-    "@webwriter/lit": "^3.0.0",
-    "bootstrap-icons": "^1.13.2",
-    "colorsea": "^1.2.2",
-    "cytoscape": "^3.35.0",
-    "lit": "^3.2.1"
+    "@webwriter/lit": "^3.2.0",
+    "@webwriter/widget": "^1.2.0",
+    "chart.js": "^4.5.1",
+    "lit": "^3.3.0",
+    "pixi.js": "^8.23.0"
   },
   "devDependencies": {
-    "@webwriter/build": "^1.13.1",
-    "@types/wicg-file-system-access": "^2023.10.5",
-    "@typescript-eslint/eslint-plugin": "^8.72.2",
-    "@typescript-eslint/parser": "^8.72.2",
-    "copyfiles": "^2.4.1",
-    "eslint": "^10.15.0",
-    "eslint-plugin-lit": "^2.3.1",
-    "eslint-plugin-wc": "^3.1.0",
-    "prettier": "^3.10.1",
-    "typescript": "~6.0.3",
-    "vite": "^8.3.8",
-    "vite-plugin-static-copy": "^4.1.1"
+    "@types/chai": "^5.2.3",
+    "@types/mocha": "^10.0.10",
+    "@webwriter/build": "^1.14.0",
+    "chai": "^6.3.0",
+    "mocha": "^12.0.3",
+    "typescript": "^7.0.2"
   },
   "optionalDependencies": {
     "@rollup/rollup-win32-x64-msvc": "4.68.3"
@@ -170,8 +162,16 @@
   "type": "module",
   "exports": {
     "./widgets/webwriter-neural-network.*": {
-      "source": "./src/app.ts",
-      "default": "./dist/webwriter-neural-network.*"
+      "source": "./src/widgets/webwriter-neural-network.ts",
+      "default": "./dist/widgets/webwriter-neural-network.*"
+    },
+    "./tests/data.*": {
+      "source": "./tests/data.test.ts",
+      "default": "./dist/tests/data.*"
+    },
+    "./tests/canvas.*": {
+      "source": "./tests/canvas.test.ts",
+      "default": "./dist/tests/canvas.*"
     },
     "./snippets/Pima-Indians-Diabetes.html": "./snippets/Pima-Indians-Diabetes.html",
     "./snippets/Boston-House-Pricing.html": "./snippets/Boston-House-Pricing.html",
@@ -182,5 +182,11 @@
   "editingConfig": {
     ".": {}
   },
-  "customElements": "custom-elements.json"
+  "customElements": "custom-elements.json",
+  "prebuiltDependencies": [
+    "@tensorflow/tfjs",
+    "@webwriter/lit",
+    "@webwriter/widget",
+    "pixi.js"
+  ]
 }

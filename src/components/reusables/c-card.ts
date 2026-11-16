@@ -1,10 +1,10 @@
-import { LitElementWw } from '../../../localization/element'
+import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import { customElement } from 'lit/decorators.js'
 
 import SlCard from "@shoelace-style/shoelace/dist/components/card/card.component.js"
 
-import { globalStyles } from '@/global_styles'
+import { globalStyles } from '../global-styles'
 
 export class CCard extends LitElementWw {
 

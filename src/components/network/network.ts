@@ -1,25 +1,25 @@
-import { LitElementWw } from '../../../localization/element'
+import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
 import { customElement, queryAll, property } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
-import type { CLayerConf } from '@/types/c_layer_conf'
-import type { TensorConf } from '@/types/tensor_conf'
-import type { CLayerConnectionConf } from '@/types/c_layer_connection_conf'
-import { layerConfsContext } from '@/contexts/layer_confs_context'
-import { layerConnectionConfsContext } from '@/contexts/layer_con_confs_context'
-import { CLayer } from '@/components/network/c_layer'
-import { InputLayer } from '@/components/network/input_layer'
-import { OutputLayer } from '@/components/network/output_layer'
-import { CLayerConnection } from '@/components/network/c_layer_connection'
-import { DenseLayer } from '@/components/network/dense_layer'
+import type { CLayerConf } from '../../model/network-types'
+import type { TensorConf } from '../../model/network-types'
+import type { CLayerConnectionConf } from '../../model/network-types'
+import { layerConfsContext } from '../contexts'
+import { layerConnectionConfsContext } from '../contexts'
+import { CLayer } from './c-layer'
+import { InputLayer } from './input-layer'
+import { OutputLayer } from './output-layer'
+import { CLayerConnection } from './c-layer-connection'
+import { DenseLayer } from './dense-layer'
 
-import '@/components/network/input_layer'
-import '@/components/network/dense_layer'
-import '@/components/network/output_layer'
-import '@/components/network/c_layer'
-import '@/components/network/c_layer_connection'
-import { CEdge } from './c_edge'
+import './input-layer'
+import './dense-layer'
+import './output-layer'
+import './c-layer'
+import './c-layer-connection'
+import { CEdge } from './c-edge'
 import { CNeuron } from './neuron'
 
 export class CNetwork extends LitElementWw {
@@ -39,7 +39,7 @@ export class CNetwork extends LitElementWw {
   @consume({ context: layerConnectionConfsContext, subscribe: true })
   accessor layerConnectionConfs: CLayerConnectionConf[]
 
-  @property()
+  @property({ attribute: false })
   accessor tensorConfs: Map<number, TensorConf> = new Map()
 
   @queryAll('.layer')
@@ -48,10 +48,21 @@ export class CNetwork extends LitElementWw {
   @queryAll('c-layer-connection')
   accessor _layerConnections: NodeListOf<CLayerConnection>
 
+  // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  updated(changedProperties: Map<string, unknown>): void {
+    super.updated(changedProperties)
+    // the canvas draws the weights and biases
+    if (changedProperties.has('tensorConfs')) {
+      this.dispatchEvent(
+        new Event('tensor-confs-updated', { bubbles: true, composed: true })
+      )
+    }
+  }
+
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // -> GETTING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // get a layer by its layerId
-  getLayerById(layerId: number): CLayer {
+  getLayerById(layerId: number): CLayer | undefined {
     return Array.from(this._layers).find(
       (layer) => layer.conf.layerId == layerId
     )
@@ -79,7 +90,7 @@ export class CNetwork extends LitElementWw {
   getLayerConnectionByLayerIds(
     sourceLayerId: number,
     targetLayerId: number
-  ): CLayerConnection {
+  ): CLayerConnection | undefined {
     return Array.from(this._layerConnections).find((layerConnection) => {
       return (
         layerConnection.conf.sourceLayerId == sourceLayerId &&
@@ -92,19 +103,26 @@ export class CNetwork extends LitElementWw {
   getTargetsFor(source: CLayer): CLayer[] {
     return this.layerConnectionConfs
       .filter((conConf) => conConf.sourceLayerId == source.conf.layerId)
-      .map((conConf) => this.getLayerById(conConf.targetLayerId))
+      .map((conConf) => this.getLayerById(conConf.targetLayerId)!)
   }
 
   // tet the source (preceding) layers of a layer
   getSourcesFor(target: CLayer): CLayer[] {
     return this.layerConnectionConfs
       .filter((conConf) => conConf.targetLayerId == target.conf.layerId)
-      .map((conConf) => this.getLayerById(conConf.sourceLayerId))
+      .map((conConf) => this.getLayerById(conConf.sourceLayerId)!)
   }
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // creates an element from this component's scoped custom element registry
+  private createScopedElement<T extends HTMLElement>(tag: string): T {
+    return this.ownerDocument.createElement(tag, {
+      customElementRegistry: this.registry,
+    }) as T
+  }
+
   getHTMLForLayerConf(layerConf: CLayerConf) {
-    const layer = (this.shadowRoot as any).createElement(layerConf.HTML_TAG)
+    const layer = this.createScopedElement<CLayer>(layerConf.HTML_TAG)
     layer.conf = layerConf
     const tensorConf = this.tensorConfs?.get(layerConf.layerId)
     layer.tensor = tensorConf?.tensor
@@ -115,9 +133,7 @@ export class CNetwork extends LitElementWw {
   }
 
   getHTMLForLayerConnectionConf(layerConnectionConf: CLayerConnectionConf) {
-    const layerConnection = <CLayerConnection>(
-      (this.shadowRoot as any).createElement('c-layer-connection')
-    )
+    const layerConnection = this.createScopedElement<CLayerConnection>('c-layer-connection')
     layerConnection.conf = layerConnectionConf
     return layerConnection
   }

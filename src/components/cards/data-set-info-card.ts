@@ -1,0 +1,92 @@
+import { widgetMsg } from '@webwriter/lit/localize'
+import { LitElementWw } from '@webwriter/lit'
+import { CSSResult, TemplateResult, html, css } from 'lit'
+import { customElement } from 'lit/decorators.js'
+import { consume } from '@lit/context'
+
+import { globalStyles } from '../global-styles'
+
+import type { DataSet } from '../../model/data-types'
+import type { FeatureDesc } from '../../model/data-types'
+import { dataSetContext } from '../contexts'
+import { DataSetUtils } from '../data-sets/data-set-utils'
+import { CCard } from '../reusables/c-card'
+import { CDataInfo } from '../reusables/c-data-info'
+import SlDetails from '@shoelace-style/shoelace/dist/components/details/details.component.js'
+
+export class DataSetInfoCard extends LitElementWw {
+  private readonly msg = widgetMsg(this);
+  static scopedElements = {
+    'c-card': CCard,
+    'c-data-info': CDataInfo,
+    'sl-details': SlDetails,
+  }
+
+  @consume({ context: dataSetContext, subscribe: true })
+  accessor dataSet: DataSet
+
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  handleSelectDataDesc(featureDesc: FeatureDesc): void {
+    this.dispatchEvent(
+      new CustomEvent<string>('select-data-desc', {
+        detail: featureDesc.key,
+      }),
+    )
+  }
+
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  static styles: CSSResult[] = [
+    globalStyles,
+    css`
+      .clickable:hover {
+        cursor: pointer;
+      }
+    `,
+  ]
+
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  render(): TemplateResult<1> {
+    return html`
+      <c-card>
+        <div slot="title">${DataSetUtils.localizeText(this.dataSet, this.dataSet.name, this.msg)}</div>
+        <div slot="content">
+          <p>${DataSetUtils.localizeText(this.dataSet, this.dataSet.description, this.msg)}</p>
+          <h2>${this.msg('Features')}</h2>
+          <div class="tag-group">
+            ${this.dataSet.featureDescs.map(
+              (featureDesc) => html`
+                <c-data-info
+                  type="feature"
+                  .dataDesc="${featureDesc}"
+                  .dataSet="${this.dataSet}"
+                  class="clickable"
+                  @click="${(_e: MouseEvent) =>
+                    this.handleSelectDataDesc(featureDesc)}"
+                ></c-data-info>
+              `,
+            )}
+          </div>
+          <h2>${this.msg('Label')}</h2>
+          <div class="data-pills">
+            <c-data-info
+              type="label"
+              .dataDesc="${this.dataSet.labelDesc}"
+              .dataSet="${this.dataSet}"
+            ></c-data-info>
+          </div>
+          <sl-details summary=${this.msg('View raw data')}>
+            <div style="max-height: 200px; overflow-y: auto;">
+              ${DataSetUtils.getData(this.dataSet).map(
+                (dataItem) =>
+                  html`<p>
+                    ${dataItem.features.map((feature) => html`${feature} `)} →
+                    ${dataItem.label}
+                  </p>`,
+              )}
+            </div>
+          </sl-details>
+        </div>
+      </c-card>
+    `
+  }
+}

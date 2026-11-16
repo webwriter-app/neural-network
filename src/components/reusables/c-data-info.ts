@@ -1,23 +1,20 @@
-import { effectiveLanguage, localizeElement, nativeLanguageAttributes } from "../../../localization/localizer";
-import { DataSetUtils } from '@/utils/data_set_utils'
+import { widgetMsg } from '@webwriter/lit/localize'
+import { DataSetUtils } from '../data-sets/data-set-utils'
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
-import { globalStyles } from '@/global_styles'
+import { globalStyles } from '../global-styles'
 
-import type { DataSet } from '@/types/data_set'
-import type { FeatureDesc } from '@/types/feature_desc'
-import type { LabelDesc } from '@/types/label_desc'
+import type { DataSet } from '../../model/data-types'
+import type { FeatureDesc } from '../../model/data-types'
+import type { LabelDesc } from '../../model/data-types'
 
 import SlTooltip from "@shoelace-style/shoelace/dist/components/tooltip/tooltip.component.js"
 import SlTag from "@shoelace-style/shoelace/dist/components/tag/tag.component.js"
 
 export class CDataInfo extends LitElementWw {
-  static override get observedAttributes() { return nativeLanguageAttributes(this, super.observedAttributes); }
-  override get lang(): string { return effectiveLanguage(this); }
-  override set lang(value: string) { this.setAttribute("lang", value); }
-  private readonly msg = localizeElement(this);
+  private readonly msg = widgetMsg(this);
   
   static scopedElements = {
     "sl-tooltip": SlTooltip,
@@ -54,10 +51,10 @@ export class CDataInfo extends LitElementWw {
               <p>${this.msg('Type: classification')}</p>
               ${'classes' in this.dataDesc
                 ? html`
-                    ${this.dataDesc.classes.map(
+                    ${this.dataDesc.classes?.map(
                       (clazz) =>
                         html`
-                          <p>${clazz.id.toString()}: ${DataSetUtils.localizeText(this.dataSet, clazz.description, this.msg)}</p>
+                          <p>${clazz.id?.toString()}: ${DataSetUtils.localizeText(this.dataSet, clazz.description, this.msg)}</p>
                         `
                     )}
                   `

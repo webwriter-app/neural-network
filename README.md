@@ -1,5 +1,5 @@
-# Neural Network (`@webwriter/neural-network@1.1.7`)
-[License: MIT](LICENSE) | Version: 1.1.7
+# Neural Network (`@webwriter/neural-network@2.0.0`)
+[License: MIT](LICENSE) | Version: 2.0.0
 
 Deep learning visualization for feed-forward networks with custom datasets, training and prediction.
 
@@ -13,7 +13,7 @@ Deep learning visualization for feed-forward networks with custom datasets, trai
 
 
 
-## `NeuralNetwork` (`<webwriter-neural-network>`)
+## `WebwriterNeuralNetwork` (`<webwriter-neural-network>`)
 
 
 ### Usage
@@ -40,17 +40,20 @@ npm install @webwriter/neural-network
 ## Fields
 | Name (Attribute Name) | Type | Description | Default | Reflects |
 | :-------------------: | :--: | :---------: | :-----: | :------: |
+| `WebwriterNeuralNetwork.scopedElements` | `object` | Scoped element registry for child components used by this widget. | `{ "canvas-area": CCanvasArea, "menu-area": MenuArea, "c-network": CNetwork }` | ✗ |
+| `WebwriterNeuralNetwork.options` | `object` | - | `{ editable: { type: Boolean, label: (widget: {msg: MsgFn}) => widget.msg("Allow editing") }, }` | ✗ |
+| `msg` | - | - | - | ✗ |
 | `setupStatus` | `SetupStatus` | Setup state of the widget. | - | ✗ |
 | `editable` (`editable`) | `boolean` | Whether editing is enabled. | - | ✓ |
-| `settings` (`settings`) | `Settings` | Application settings. | - | ✓ |
-| `qAndA` (`qAndA`) | `QAndAEntry[]` | Help/Q&A content. | - | ✓ |
+| `settings` | `Settings` | Application settings. | - | ✗ |
+| `qAndA` | `QAndAEntry[]` | Help/Q&A content. | - | ✗ |
 | `canvas` | `CCanvas` | Canvas instance created by the canvas-area. | - | ✗ |
 | `network` | `CNetwork` | Network instance. | - | ✗ |
-| `layerConfs` (`layerConfs`) | `CLayerConf[]` | Layer configuration list. | - | ✓ |
-| `layerConnectionConfs` (`layerConnectionConfs`) | `CLayerConnectionConf[]` | Layer connection configuration list between layers. | - | ✓ |
-| `dataSet` (`dataSet`) | `DataSet` | Active dataset. | - | ✓ |
-| `availableDataSets` (`availableDataSets`) | `DataSet[]` | Available datasets. | - | ✓ |
-| `trainOptions` (`trainOptions`) | `TrainOptions` | Training options. | - | ✓ |
+| `layerConfs` | `CLayerConf[]` | Layer configuration list. | - | ✗ |
+| `layerConnectionConfs` | `CLayerConnectionConf[]` | Layer connection configuration list between layers. | - | ✗ |
+| `dataSet` | `DataSet` | Active dataset. | - | ✗ |
+| `availableDataSets` | `DataSet[]` | Available datasets. | - | ✗ |
+| `trainOptions` | `TrainOptions` | Training options. | - | ✗ |
 | `modelConf` | `ModelConf` | Current model configuration. | - | ✗ |
 | `selected` | `Selected` | Current multi-selection state. | - | ✗ |
 | `selectedEle` | `SelectedEle` | Current single selected element. | - | ✗ |
