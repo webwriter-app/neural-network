@@ -1,6 +1,5 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
-import { customElement } from 'lit/decorators.js'
 
 import { CPanel } from '../reusables/c-panel'
 import { SettingsCard } from '../cards/settings-card'

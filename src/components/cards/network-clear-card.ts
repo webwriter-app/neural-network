@@ -1,7 +1,6 @@
 import { widgetMsg } from '@webwriter/lit/localize'
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
-import { customElement } from 'lit/decorators.js'
 
 import { globalStyles } from '../global-styles'
 import { CCard } from '../reusables/c-card'

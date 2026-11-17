@@ -2,7 +2,7 @@ import { DataSetUtils } from '../data-sets/data-set-utils'
 import { widgetMsg } from '@webwriter/lit/localize'
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html, nothing } from 'lit'
-import { customElement, query } from 'lit/decorators.js'
+import { query } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
 import { editableContext } from '../contexts'

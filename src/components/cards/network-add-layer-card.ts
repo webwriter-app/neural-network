@@ -1,7 +1,7 @@
 import { widgetMsg } from '@webwriter/lit/localize'
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html } from 'lit'
-import { customElement, query, state } from 'lit/decorators.js'
+import { query, state } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js'
 import { consume } from '@lit/context'
 
@@ -20,7 +20,6 @@ import { CCard } from '../reusables/c-card'
 import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
 import SlIcon from "@shoelace-style/shoelace/dist/components/icon/icon.component.js"
 
-import IconPlusLg from '@tabler/icons/outline/plus.svg'
 import IconBoxArrowInRight from '@tabler/icons/outline/login.svg' // Input
 import IconLayers from '@tabler/icons/outline/stack-2.svg' // Dense
 import IconBoxArrowRight from '@tabler/icons/outline/logout.svg' // Output

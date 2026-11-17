@@ -1,6 +1,6 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
 import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"

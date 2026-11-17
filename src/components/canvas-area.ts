@@ -1,7 +1,7 @@
 import { widgetMsg } from '@webwriter/lit/localize'
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
-import { customElement, property, state } from 'lit/decorators.js'
+import { property, state } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
 import { editableContext } from './contexts'

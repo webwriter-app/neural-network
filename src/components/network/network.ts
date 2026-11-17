@@ -1,6 +1,6 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
-import { customElement, queryAll, property } from 'lit/decorators.js'
+import { queryAll, property } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
 import type { CLayerConf } from '../../model/network-types'

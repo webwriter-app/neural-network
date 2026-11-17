@@ -1,6 +1,5 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
-import { customElement } from 'lit/decorators.js'
 
 import SlCard from "@shoelace-style/shoelace/dist/components/card/card.component.js"
 

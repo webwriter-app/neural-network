@@ -1,7 +1,7 @@
 import { widgetMsg } from '@webwriter/lit/localize'
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
 import type { DataSet } from '../../model/data-types'

@@ -28,8 +28,14 @@ export class PlotsCard extends LitElementWw {
   accessor _plotArea: HTMLDivElement | null
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // the chart is drawn again only when its input changed, not on every update
+  private plotted?: { area: HTMLElement; featureKey: string; dataSet: DataSet }
+
   protected updated(): void {
     if (!this._plotArea || !this.dataSet || !this.featureKey) return
+    const last = this.plotted
+    if (last?.area === this._plotArea && last.featureKey === this.featureKey && last.dataSet === this.dataSet) return
+    this.plotted = { area: this._plotArea, featureKey: this.featureKey, dataSet: this.dataSet }
     const featureIndex: number = this.dataSet.featureDescs.findIndex(
       (featureDesc: FeatureDesc) => featureDesc.key == this.featureKey
     )
@@ -43,6 +49,7 @@ export class PlotsCard extends LitElementWw {
   disconnectedCallback(): void {
     super.disconnectedCallback()
     if (this._plotArea) clearCharts(this._plotArea)
+    this.plotted = undefined
   }
 
   buildPlots(): TemplateResult<1> {

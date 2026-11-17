@@ -1,7 +1,7 @@
 import { widgetMsg } from '@webwriter/lit/localize'
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, css, html } from 'lit'
-import { customElement, query } from 'lit/decorators.js'
+import { query } from 'lit/decorators.js'
 import { choose } from 'lit/directives/choose.js'
 import { consume } from '@lit/context'
 
@@ -48,15 +48,6 @@ export class PredictCard extends LitElementWw {
 
   @query('#predictForm')
   accessor _predictForm: HTMLFormElement
-
-  // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  async connectedCallback() {
-    super.connectedCallback()
-    await this.updateComplete
-    this._predictForm.addEventListener('submit', (e: SubmitEvent) =>
-      this.handlePredict(e),
-    )
-  }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handlePredict(e: SubmitEvent): void {
@@ -119,7 +110,7 @@ export class PredictCard extends LitElementWw {
     return html`
       <c-card>
         <div slot="title">${this.msg('Predict')}</div>
-        <form slot="content" id="predictForm">
+        <form slot="content" id="predictForm" @submit=${this.handlePredict}>
           <h2>Inputs</h2>
           <div class="inputs-grid">
             ${Array.from(requiredFeatureDescs).map(

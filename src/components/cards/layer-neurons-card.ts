@@ -1,7 +1,7 @@
 import { widgetMsg } from '@webwriter/lit/localize'
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
-import { customElement, property, query } from 'lit/decorators.js'
+import { property, query } from 'lit/decorators.js'
 
 import { globalStyles } from '../global-styles'
 
@@ -33,25 +33,8 @@ export class LayerNeuronsCard extends LitElementWw {
   @property()
   accessor layer: DenseLayer
 
-  @query('#inputSelect')
-  accessor _inputSelect: SlSelect
-
-  @query('#outputSelect')
-  accessor _outputSelect: SlSelect
-
   @query('#updateNeuronsForm')
   accessor _updateNeuronsForm: HTMLFormElement
-
-  // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  async connectedCallback() {
-    super.connectedCallback()
-    await this.updateComplete
-    if (this._updateNeuronsForm) {
-      this._updateNeuronsForm.addEventListener('submit', (e: SubmitEvent) => {
-        this.handleSetNeurons(e)
-      })
-    }
-  }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   handleRemoveNeuron(): void {
@@ -115,7 +98,7 @@ export class LayerNeuronsCard extends LitElementWw {
               </sl-button>
             </div>
           </div>
-          <form id="updateNeuronsForm">
+          <form id="updateNeuronsForm" @submit=${this.handleSetNeurons}>
             <div class="button-group">
               <sl-input
                 name="units"

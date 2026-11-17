@@ -1,7 +1,7 @@
 import { widgetMsg } from '@webwriter/lit/localize'
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html } from 'lit'
-import { customElement, query } from 'lit/decorators.js'
+import { query } from 'lit/decorators.js'
 import { choose } from 'lit/directives/choose.js'
 import { consume } from '@lit/context'
 

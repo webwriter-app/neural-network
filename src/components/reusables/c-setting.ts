@@ -1,7 +1,6 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import {
-  customElement,
   property,
   query,
   queryAssignedElements,

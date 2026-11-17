@@ -3,7 +3,6 @@ import { TemplateResult, html } from 'lit'
 
 import { CPanel } from '../reusables/c-panel'
 import { HelpQAndACard } from '../cards/help-q-and-a-card'
-import { HelpKeyboardShortcutsCard } from '../cards/help-keyboard-shortcuts-card'
 import { HelpAboutCard } from '../cards/help-about-card'
 
 export class HelpPanel extends LitElementWw {

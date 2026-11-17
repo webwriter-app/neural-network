@@ -1,7 +1,6 @@
 import { widgetMsg } from '@webwriter/lit/localize'
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
-import { customElement } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
 import { globalStyles } from './global-styles'

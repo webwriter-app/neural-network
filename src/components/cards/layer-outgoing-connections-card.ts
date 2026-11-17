@@ -1,7 +1,7 @@
 import { widgetMsg } from '@webwriter/lit/localize'
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
-import { customElement, property, query } from 'lit/decorators.js'
+import { property, query } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
 import type { CLayerConf } from '../../model/network-types'
@@ -60,9 +60,6 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
       (layerId) => !currentLayerIds.includes(layerId),
     )
     for (const addedLayerId of addedLayerIds) {
-      const targetLayerConf = this.layerConfs.find(
-        (layer) => layer.layerId == addedLayerId,
-      )
       this.dispatchEvent(
         new CustomEvent<{
           source: number
@@ -83,9 +80,6 @@ export class LayerOutgoingConnectionsCard extends LitElementWw {
       (layerId) => !selectedLayerIds.includes(layerId),
     )
     for (const removedLayerId of removedLayerIds) {
-      const targetLayerConf = this.layerConfs.find(
-        (layerConf) => layerConf.layerId == removedLayerId,
-      )
       this.dispatchEvent(
         new CustomEvent<{
           source: number

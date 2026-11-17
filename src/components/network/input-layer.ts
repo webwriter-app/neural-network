@@ -111,12 +111,6 @@ export class InputLayer extends CLayer<InputLayerConf> {
     })
   }
 
-  // -> DATASET  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // assigning inputs
-  getAssignedInputs(): string[] {
-    return Array.from(this._neurons).map((neuron) => neuron.key ?? '')
-  }
-
   // -> BUILD  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   build(inputs: tf.SymbolicTensor[]): tf.SymbolicTensor {
     <[]>inputs

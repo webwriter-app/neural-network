@@ -60,6 +60,9 @@ export class ModelController implements ReactiveController {
   // informing the network so it can also respond to it (remove model
   // references)
   discardModel(): void {
+    // frees the weights of the model; a model that is training stays alone
+    const { model, isTraining } = this.host.modelConf
+    if (model && !isTraining) model.dispose()
     this.host.modelConf = <ModelConf>(
       JSON.parse(JSON.stringify(ModelUtils.defaultModelConf))
     )
@@ -154,11 +157,12 @@ export class ModelController implements ReactiveController {
         this.host.dataSet.type == 'classification' &&
         this.host.dataSet.labelDesc.classes
       ) {
-        labels = tf.oneHot(
-          tf.tensor(labelData, undefined, 'int32'),
-          this.host.dataSet.labelDesc.classes.length
+        const classCount = this.host.dataSet.labelDesc.classes.length
+        labels = tf.tidy(() =>
+          tf.oneHot(tf.tensor(labelData, undefined, 'int32'), classCount)
         )
       } else {
+        inputs.forEach((input) => input.dispose())
         return
       }
 
@@ -211,6 +215,9 @@ export class ModelController implements ReactiveController {
           console.error(err)
         })
         .finally(() => {
+          // fit does not keep the training tensors
+          inputs.forEach((input) => input.dispose())
+          labels.dispose()
           this.host.modelConf.isTraining = false
           this.host.modelConf = {
             ...this.host.modelConf,
@@ -233,9 +240,14 @@ export class ModelController implements ReactiveController {
       inputs.push(tf.tensor([inputData]))
     }
     const model = this.host.modelConf.model
-    if (!model) return
+    if (!model) {
+      inputs.forEach((input) => input.dispose())
+      return
+    }
     const predictedTensor = <tf.Tensor>model.predict(inputs)
     const predictedArray = <number[]>predictedTensor.arraySync()
+    predictedTensor.dispose()
+    inputs.forEach((input) => input.dispose())
     this.host.modelConf.predictedValue = predictedArray[0]
     this.host.modelConf = { ...this.host.modelConf }
   }

@@ -10,14 +10,14 @@ import type {
 // Geometry of the network drawing, in scene pixels. A layer is placed by its
 // centre (conf.pos); its neurons sit in one row around that centre.
 export const NEURON_SIZE = 100
-export const NEURON_DISTANCE = 40
-export const LAYER_PADDING = 20
-export const LAYER_BORDER = 5
+const NEURON_DISTANCE = 40
+const LAYER_PADDING = 20
+const LAYER_BORDER = 5
 export const LAYER_DISTANCE = 150
 export const NEURON_RADIUS = 10
 export const LAYER_RADIUS = 10
 
-export interface NeuronDescription {
+interface NeuronDescription {
   // the id of the neuron in its layer: the first neuron gets id 1
   neuronId: number
   // the key of the corresponding data set feature or label
@@ -44,14 +44,14 @@ export interface LayerLayout {
   neurons: NeuronLayout[]
 }
 
-export interface EdgeLayout {
+interface EdgeLayout {
   id: string
   source: NeuronLayout
   target: NeuronLayout
   weight?: number
 }
 
-export interface NetworkLayout {
+interface NetworkLayout {
   layers: LayerLayout[]
   edges: EdgeLayout[]
 }
