@@ -5,7 +5,7 @@ export const globalStyles = css`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: var(--sl-font-sans);
+    font-family: var(--ww-font-family, var(--sl-font-sans));
   }
 
   h1,

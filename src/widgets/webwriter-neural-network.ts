@@ -4,7 +4,7 @@ import { jsonData } from '@webwriter/lit/data'
 import { sourceLocale, targetLocales } from "../../localization/generated/locale-codes.js";
 import '../model/tf-quiet-load'
 
-import { LitElementWw } from '@webwriter/lit'
+import { LitElementWw, computed, signal } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, PropertyDeclarations } from 'lit'
 import { customElement } from 'lit/decorators.js'
 import { ContextRoot } from '@lit/context'
@@ -16,61 +16,42 @@ import { neuralNetworkStyles } from '../components/neural-network.styles'
 
 import { ConfigurationController } from '../components/configuration-controller'
 
-import type { SetupStatus } from '../model/app-types'
-import { setupStatusContext } from '../components/contexts'
+import type { SetupStatus, Settings, QAndAEntry, Selected, SelectedEle } from '../model/app-types'
+import { setupStatusContext, editableContext, settingsContext, qAndAContext, canvasContext, networkContext, layerConfsContext, layerConnectionConfsContext, dataSetContext, availableDataSetsContext, trainOptionsContext, modelConfContext, selectedContext, selectedEleContext, panelContext } from '../components/contexts'
 import { SetupController } from '../components/setup-controller'
 import { SetupUtils } from '../model/setup-utils'
 
-import { editableContext } from '../components/contexts'
-
-import type { Settings } from '../model/app-types'
-import { settingsContext } from '../components/contexts'
 import { SettingsController } from '../components/settings-controller'
 import { SettingsUtils } from '../model/settings-utils'
 
-import type { QAndAEntry } from '../model/app-types'
-import { qAndAContext } from '../components/contexts'
 import { QAndAController } from '../components/q-and-a-controller'
 import { QAndAUtils } from '../components/q-and-a-utils'
 
 import type { CCanvas } from '../components/canvas'
-import { canvasContext } from '../components/contexts'
 
-import type { CLayerConf } from '../model/network-types'
-import type { CLayerConnectionConf } from '../model/network-types'
+import type { CLayerConf, CLayerConnectionConf, TrainOptions, ModelConf } from '../model/network-types'
 import { CNetwork } from '../components/network/network'
-import { networkContext } from '../components/contexts'
-import { layerConfsContext } from '../components/contexts'
-import { layerConnectionConfsContext } from '../components/contexts'
 import { NetworkController } from '../components/network/network-controller'
 
 import type { DataSet } from '../model/data-types'
-import { dataSetContext } from '../components/contexts'
-import { availableDataSetsContext } from '../components/contexts'
+import { historyTable } from '../model/csv-data'
+import type { Table } from '../model/csv-data'
 import { DataSetController } from '../components/data-set-controller'
 import { DataSetUtils } from '../components/data-sets/data-set-utils'
 
-import type { TrainOptions } from '../model/network-types'
-import type { ModelConf } from '../model/network-types'
-import { trainOptionsContext } from '../components/contexts'
-import { modelConfContext } from '../components/contexts'
 import { ModelController } from '../components/model-controller'
 import { ModelUtils } from '../model/model-utils'
 
-import type { Selected } from '../model/app-types'
-import type { SelectedEle } from '../model/app-types'
-import { selectedContext } from '../components/contexts'
-import { selectedEleContext } from '../components/contexts'
 import { SelectionController } from '../components/selection-controller'
 
-import { panelContext } from '../components/contexts'
 import { PanelController } from '../components/panel-controller'
-
 
 import { CCanvasArea } from '../components/canvas-area'
 import { MenuArea } from '../components/menu-area'
 import { ContextProvider } from '@lit/context'
 
+// the width below which the menu is below the canvas (see the styles)
+const STACK_WIDTH = 640
 
 type ConfigurationData = {
   settings: Settings
@@ -105,36 +86,57 @@ type ConfigurationData = {
  * @prop {SelectedEle} selectedEle - Current single selected element.
  * @prop {string} panel - Name of the open right panel, if any.
  *
+ * @part canvas - The drawing area with the network.
+ * @part menu - The side menu with the panels.
+ *
+ * ## Files
+ *
+ * Import: a `.csv` file becomes a new data set that is selected (a header row names the columns,
+ * the last column is the label; labels 0 to k-1 make a classification data set, others a regression
+ * data set) and a `.json` config file replaces the network and data sets. Export: `text/csv` writes the
+ * active data set (class descriptions are not part of CSV); `application/json` writes the config
+ * and, once trained, the weights and biases of each layer under `weights`. The import of a `.json`
+ * file reads the config only and ignores `weights`, so a trained model is not restored.
+ *
+ * ## Signals
+ *
+ * - `history`: table of the training history, columns `epoch`, `loss`, `val_loss`, `acc`, `val_acc`
+ *   (only the logged ones), one row per epoch. Empty before training.
+ * - `loss`: number, the training loss of the last epoch, or null before training.
+ *
+ * The widget has no effects: nothing from another widget fits a network.
+ *
+ * @cssproperty --ww-text-color - Text color of the widget and the network labels.
+ * @cssproperty --ww-font-family - Font family of the widget.
+ * @cssproperty --ww-theme-accent-1 - Color of the layers, neurons and edges of the network.
+ * @cssproperty --ww-theme-accent-2 - Color of the selected layer, neuron or edge.
  * @cssproperty --sl-color-neutral-0 - Host background color (forwarded from Shoelace).
  * @cssproperty --sl-color-neutral-50 - Divider color (forwarded from Shoelace).
  */
 @customElement("webwriter-neural-network")
 export class WebwriterNeuralNetwork extends LitElementWw {
-  /**
-   * Styles for the host layout, canvas/menu areas and divider.
-   */
+  /** Styles for the host layout, canvas/menu areas and divider. */
   static styles: CSSResult[] = [
     shoelaceLightStyles,
     globalStyles,
     neuralNetworkStyles,
   ]
 
-  /**
-   * Scoped element registry for child components used by this widget.
-   */
+  /** Scoped element registry for child components used by this widget. */
   static scopedElements = {
     "canvas-area": CCanvasArea,
     "menu-area": MenuArea,
     "c-network": CNetwork
   }
 
+  static convertFrom = { '.csv': 'importCsv', '.json': 'importJson' }
+  static convertTo = { 'text/csv': 'exportCsv', 'application/json': 'exportJson' }
+
   static options = {
     editable: { type: Boolean, label: (widget: {msg: MsgFn}) => widget.msg("Allow editing") },
   }
 
-  /**
-   * Declares reactive properties and attribute reflection.
-   */
+  /** Declares reactive properties and attribute reflection. */
   static properties: PropertyDeclarations = {
     setupStatus: { attribute: false },
     editable: { attribute: true, type: Boolean, reflect: true },
@@ -176,6 +178,19 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     changed: (saved) => this.restoreConfiguration(saved),
   })
 
+  #history = signal<Table>(historyTable([]))
+  #historySource: unknown
+
+  /** Read-only signals for other widgets: the training history and its last loss. */
+  signals = {
+    history: computed(() => this.#history.get()),
+    loss: computed(() => {
+      const { columns, rows } = this.#history.get()
+      const at = columns.indexOf('loss')
+      return rows.length && at > 0 ? (rows[rows.length - 1][at] as number | null) : null
+    }),
+  }
+
   // CONTROLLERS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   /** @internal Global configuration controller for the widget. */
@@ -207,11 +222,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
 
   // PROPERTIES - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  // -> SETUP STATUS -----------------------------------------------------------
-
-  /**
-   * Setup status of the widget.
-   */
+  /** Setup status of the widget. */
   get setupStatus(): SetupStatus {
     return this.setupStatusProvider.value
   }
@@ -219,11 +230,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.setupStatusProvider.setValue(value)
     this.requestUpdate("setupStatus")
   }
-  // -> EDITABLE ---------------------------------------------------------------
-
-  /**
-   * Whether editing is enabled.
-   */
+  /** Whether editing is enabled. */
   get editable(): boolean {
     return this.editableProvider.value
   }
@@ -232,11 +239,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.requestUpdate("editable")
   }
 
-  // -> SETTINGS ---------------------------------------------------------------
-
-  /**
-   * Application settings.
-   */
+  /** Application settings. */
   get settings(): Settings {
     return this.settingsProvider.value
   }
@@ -245,11 +248,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.persistConfiguration("settings", value)
     this.requestUpdate("settings")
   }
-  // -> HELP -------------------------------------------------------------------
-
-  /**
-   * Help/Q&A content.
-   */
+  /** Help/Q&A content. */
   get qAndA(): QAndAEntry[] {
     return this.qAndAProvider.value
   }
@@ -258,11 +257,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.persistConfiguration("qAndA", value)
     this.requestUpdate("qAndA")
   }
-  // -> CANVAS -----------------------------------------------------------------
-
-  /**
-   * Canvas instance created by the canvas-area child component.
-   */
+  /** Canvas instance created by the canvas-area child component. */
   get canvas(): CCanvas | undefined {
     return this.canvasProvider.value
   }
@@ -271,11 +266,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.requestUpdate("canvas")
   }
 
-  // -> NETWORK ----------------------------------------------------------------
-
-  /**
-   * Network instance used for neural network structure visualization.
-   */
+  /** Network instance used for neural network structure visualization. */
   get network(): CNetwork | undefined {
     return this.networkProvider.value
   }
@@ -284,9 +275,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.requestUpdate("network")
   }
 
-  /**
-   * Layer configuration list.
-   */
+  /** Layer configuration list. */
   get layerConfs(): CLayerConf[] {
     return this.layerConfsProvider.value
   }
@@ -296,9 +285,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.requestUpdate("layerConfs")
   }
 
-  /**
-   * Layer connection configuration list between layers.
-   */
+  /** Layer connection configuration list between layers. */
   get layerConnectionConfs(): CLayerConnectionConf[] {
     return this.layerConnectionConfsProvider.value
   }
@@ -308,11 +295,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.requestUpdate("layerConnectionConfs")
   }
 
-  // -> DATA SET ---------------------------------------------------------------
-
-  /**
-   * Active dataset.
-   */
+  /** Active dataset. */
   get dataSet(): DataSet {
     return this.dataSetProvider.value
   }
@@ -322,9 +305,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.requestUpdate("dataSet")
   }
 
-  /**
-   * Available datasets.
-   */
+  /** Available datasets. */
   get availableDataSets(): DataSet[] {
     return this.availableDataSetsProvider.value
   }
@@ -334,11 +315,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.requestUpdate("availableDataSets")
   }
 
-  // -> MODEL ------------------------------------------------------------------
-
-  /**
-   * Training options.
-   */
+  /** Training options. */
   get trainOptions(): TrainOptions {
     return this.trainOptionsProvider.value
   }
@@ -348,22 +325,22 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.requestUpdate("trainOptions")
   }
 
-  /**
-   * Model configuration.
-   */
+  /** Model configuration. */
   get modelConf(): ModelConf {
     return this.modelConfProvider.value
   }
   set modelConf(value: ModelConf) {
     this.modelConfProvider.setValue(value)
+    // the model changes on every batch, the history only after an epoch
+    // (the epochs are pushed into the same array, a restored model brings a new one)
+    if (value.history !== this.#historySource || value.history.length !== this.#history.get().rows.length) {
+      this.#historySource = value.history
+      this.#history.set(historyTable(value.history))
+    }
     this.requestUpdate("modelConf")
   }
 
-  // -> SELECTED ---------------------------------------------------------------
-
-  /**
-   * Current selection state.
-   */
+  /** Current selection state. */
   get selected(): Selected {
     return this.selectedProvider.value
   }
@@ -372,9 +349,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.requestUpdate("selected")
   }
 
-  /**
-   * Currently selected element.
-   */
+  /** Currently selected element. */
   get selectedEle(): SelectedEle | undefined {
     return this.selectedEleProvider.value
   }
@@ -383,11 +358,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.requestUpdate("selectedEle")
   }
 
-  // -> PANELS -----------------------------------------------------------------
-
-  /**
-   * Name of the panel currently shown on the right, or undefined if none is open.
-   */
+  /** Name of the panel currently shown on the right, or undefined if none is open. */
   get panel(): string | undefined {
     return this.panelProvider.value
   }
@@ -426,6 +397,9 @@ export class WebwriterNeuralNetwork extends LitElementWw {
   /** @internal Last observed fullscreen state, used to detect changes from the ResizeObserver. */
   private wasFullscreen = false
 
+  /** @internal Whether the menu was below the canvas at the last observed size. */
+  private wasStacked = false
+
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   /**
@@ -462,7 +436,14 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.contextRoot.attach(document.body)
 
     this.wasFullscreen = this.isFullscreen
+    this.wasStacked = this.clientWidth < STACK_WIDTH
     this.resizeObserver = new ResizeObserver(() => {
+      // the canvas changes its shape when the menu moves below it
+      const stacked = this.clientWidth < STACK_WIDTH
+      if (stacked !== this.wasStacked) {
+        this.wasStacked = stacked
+        requestAnimationFrame(() => this.canvas?.fit())
+      }
       const isFullscreen = this.isFullscreen
       if (isFullscreen !== this.wasFullscreen) {
         this.wasFullscreen = isFullscreen
@@ -482,6 +463,13 @@ export class WebwriterNeuralNetwork extends LitElementWw {
     this.resizeObserver?.disconnect()
     this.contextRoot?.detach(document.body)
   }
+
+  // FILES - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  importCsv(file: File) { return this.configurationController.prepareCsvFile(file) }
+  importJson(file: File) { return this.configurationController.prepareConfigFile(file) }
+  exportCsv() { return this.configurationController.exportCsvFile() }
+  exportJson() { return this.configurationController.exportModelFile() }
 
   // ACTIONS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -563,6 +551,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
   render(): TemplateResult<1>[] {
     const renderedHTML: TemplateResult<1>[] = []
     renderedHTML.push(html` <canvas-area
+      part="canvas"
       class="${!this.panel ? 'right-collapsed' : ''}"
       @click=${()=>{this.dispatchEvent(new Event("focus"))}}
       @canvas-created="${(e: CustomEvent<CCanvas>) => {
@@ -586,6 +575,7 @@ export class WebwriterNeuralNetwork extends LitElementWw {
         <div id="divider" class="${!this.panel ? 'hidden' : ''}"></div>
 
         <menu-area
+          part="menu"
           class="${!this.panel ? 'right-collapsed' : ''}"
           @set-train-metrics-container="${(e: CustomEvent<HTMLDivElement>) =>
             this.modelController.setTrainMetricsContainer(e.detail)}"
@@ -594,6 +584,6 @@ export class WebwriterNeuralNetwork extends LitElementWw {
         <c-network @tensor-confs-updated=${() => this.canvas?.requestUpdate()}></c-network>
       `)
     }
-    return renderedHTML
+    return [html`<div id="shell">${renderedHTML}</div>`]
   }
 }

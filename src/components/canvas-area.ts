@@ -116,7 +116,7 @@ export class CCanvasArea extends LitElementWw {
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 70%;
+      width: max(70%, min(100% - 20px, 420px));
       transform: translate(-50%, -50%);
       max-height: 100%;
       padding: 10px;
@@ -127,8 +127,17 @@ export class CCanvasArea extends LitElementWw {
       position: absolute;
       bottom: 10px;
       right: 10px;
-      display: grid;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap-reverse;
       gap: 10px;
+      max-height: calc(100% - 20px);
+    }
+
+    @media print {
+      #canvasActions, #welcomeArea {
+        display: none;
+      }
     }
 
     sl-button::part(label) {

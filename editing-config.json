@@ -345,7 +345,15 @@
       "ckb-Arab": "تۆڕی دەمار",
       "af-ZA": "Neurale netwerk",
       "af-NA": "Neurale netwerk"
-    }
+    },
+    "importFormats": [
+      ".csv",
+      ".json"
+    ],
+    "exportFormats": [
+      "text/csv",
+      "application/json"
+    ]
   },
   "./snippets/Pima-Indians-Diabetes": {
     "label": {

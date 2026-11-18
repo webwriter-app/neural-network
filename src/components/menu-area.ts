@@ -90,9 +90,6 @@ export class MenuArea extends LitElementWw {
         height: 100%;
       }
 
-      #rightMenu.collapsed {
-        transform: translate(450px, 0);
-      }
 
       #rightMenuTabs {
         margin-top: 10px;
@@ -105,7 +102,7 @@ export class MenuArea extends LitElementWw {
       }
 
       #rightMenuPanel {
-        width: 435px;
+        width: 100%;
         flex: 1 1 0;
         min-height: 0;
         overflow: auto;

@@ -12,12 +12,38 @@
           "name": "WebwriterNeuralNetwork",
           "cssProperties": [
             {
+              "description": "Text color of the widget and the network labels.",
+              "name": "--ww-text-color"
+            },
+            {
+              "description": "Font family of the widget.",
+              "name": "--ww-font-family"
+            },
+            {
+              "description": "Color of the layers, neurons and edges of the network.",
+              "name": "--ww-theme-accent-1"
+            },
+            {
+              "description": "Color of the selected layer, neuron or edge.",
+              "name": "--ww-theme-accent-2"
+            },
+            {
               "description": "Host background color (forwarded from Shoelace).",
               "name": "--sl-color-neutral-0"
             },
             {
               "description": "Divider color (forwarded from Shoelace).",
               "name": "--sl-color-neutral-50"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The drawing area with the network.",
+              "name": "canvas"
+            },
+            {
+              "description": "The side menu with the panels. ## Files Import: a `.csv` file becomes a new data set that is selected (a header row names the columns, the last column is the label; labels 0 to k-1 make a classification data set, others a regression data set) and a `.json` config file replaces the network and data sets. Export: `text/csv` writes the active data set (class descriptions are not part of CSV); `application/json` writes the config and, once trained, the weights and biases of each layer under `weights`. The import of a `.json` file reads the config only and ignores `weights`, so a trained model is not restored. ## Signals - `history`: table of the training history, columns `epoch`, `loss`, `val_loss`, `acc`, `val_acc` (only the logged ones), one row per epoch. Empty before training. - `loss`: number, the training loss of the last epoch, or null before training. The widget has no effects: nothing from another widget fits a network.",
+              "name": "menu"
             }
           ],
           "members": [
@@ -30,6 +56,24 @@
               "static": true,
               "default": "{ \"canvas-area\": CCanvasArea, \"menu-area\": MenuArea, \"c-network\": CNetwork }",
               "description": "Scoped element registry for child components used by this widget."
+            },
+            {
+              "kind": "field",
+              "name": "convertFrom",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ '.csv': 'importCsv', '.json': 'importJson' }"
+            },
+            {
+              "kind": "field",
+              "name": "convertTo",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ 'text/csv': 'exportCsv', 'application/json': 'exportJson' }"
             },
             {
               "kind": "field",
@@ -64,6 +108,28 @@
               "kind": "field",
               "name": "#data",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#history",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#historySource",
+              "privacy": "private",
+              "type": {
+                "text": "unknown"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "signals",
+              "type": {
+                "text": "object"
+              },
+              "default": "{ history: computed(() => this.#history.get()), loss: computed(() => { const { columns, rows } = this.#history.get() const at = columns.indexOf('loss') return rows.length && at > 0 ? (rows[rows.length - 1][at] as number | null) : null }), }",
+              "description": "Read-only signals for other widgets: the training history and its last loss."
             },
             {
               "kind": "field",
@@ -336,6 +402,38 @@
               },
               "privacy": "protected",
               "default": "new ContextProvider(this, {context: panelContext})"
+            },
+            {
+              "kind": "method",
+              "name": "importCsv",
+              "parameters": [
+                {
+                  "name": "file",
+                  "type": {
+                    "text": "File"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "importJson",
+              "parameters": [
+                {
+                  "name": "file",
+                  "type": {
+                    "text": "File"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "exportCsv"
+            },
+            {
+              "kind": "method",
+              "name": "exportJson"
             },
             {
               "kind": "method",

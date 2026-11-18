@@ -245,10 +245,11 @@ export class CCanvas extends LitElementWw {
   static styles: CSSResult = css`
     :host {
       display: block;
-      --main: var(--sl-color-primary-200);
-      --text: var(--sl-color-primary-900);
-      --accent: var(--sl-color-primary-500);
-      --selected: var(--sl-color-primary-900);
+      --themed-main: color-mix(in srgb, var(--ww-theme-accent-1) 25%, var(--sl-color-neutral-0));
+      --main: var(--themed-main, var(--sl-color-primary-200));
+      --text: var(--ww-text-color, var(--sl-color-primary-900));
+      --accent: var(--ww-theme-accent-1, var(--sl-color-primary-500));
+      --selected: var(--ww-theme-accent-2, var(--sl-color-primary-900));
       --positive: var(--sl-color-success-500);
       --negative: var(--sl-color-danger-500);
     }
@@ -273,7 +274,7 @@ export class CCanvas extends LitElementWw {
       width: 100%;
       height: 100%;
       color: var(--text);
-      font-family: var(--sl-font-sans);
+      font-family: var(--ww-font-family, var(--sl-font-sans));
       font-size: 16px;
     }
 

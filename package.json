@@ -7,7 +7,6 @@
     "webwriter-widget",
     "widget-simulational",
     "widget-conceptual",
-    "iscedf2013-06",
     "isced2011-2",
     "isced2011-3",
     "isced2011-4",
@@ -15,7 +14,26 @@
     "isced2011-6",
     "isced2011-7",
     "isced2011-8",
+    "iscedf2013-061",
+    "widget-editable",
+    "widget-allows-pointer-input",
+    "widget-allows-touch-input",
+    "widget-convertible-to-text/csv",
+    "widget-convertible-to-application/json",
+    "widget-convertible-from-text/csv",
+    "widget-convertible-from-application/json",
+    "widget-responsive",
+    "widget-themeable",
+    "widget-printable",
+    "widget-stateful",
+    "widget-configurable",
+    "widget-reactive",
+    "widget-testable",
+    "widget-supports-dynamic-loading",
+    "widget-supports-shared-dependencies",
     "neural network",
+    "deep learning",
+    "machine learning",
     "neurons",
     "training",
     "predicting",
@@ -173,6 +191,14 @@
       "source": "./tests/canvas.test.ts",
       "default": "./dist/tests/canvas.*"
     },
+    "./tests/layout.*": {
+      "source": "./tests/layout.test.ts",
+      "default": "./dist/tests/layout.*"
+    },
+    "./tests/files.*": {
+      "source": "./tests/files.test.ts",
+      "default": "./dist/tests/files.*"
+    },
     "./snippets/Pima-Indians-Diabetes.html": "./snippets/Pima-Indians-Diabetes.html",
     "./snippets/Boston-House-Pricing.html": "./snippets/Boston-House-Pricing.html",
     "./icon": "./icon.svg",
@@ -180,7 +206,17 @@
     "./custom-elements.json": "./custom-elements.json"
   },
   "editingConfig": {
-    ".": {}
+    ".": {},
+    "./widgets/webwriter-neural-network": {
+      "importFormats": [
+        ".csv",
+        ".json"
+      ],
+      "exportFormats": [
+        "text/csv",
+        "application/json"
+      ]
+    }
   },
   "customElements": "custom-elements.json",
   "prebuiltDependencies": [
