@@ -1,11 +1,11 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
 import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
 
-import { panelContext } from '@/contexts/panels_context'
+import { panelContext } from '../contexts'
 
 export class CTab extends LitElementWw {
   

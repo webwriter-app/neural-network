@@ -1,48 +1,101 @@
 import { LitElementWw } from '@webwriter/lit'
-import { CSSResult, TemplateResult, html, css, PropertyValues } from 'lit'
-import { customElement, state, query } from 'lit/decorators.js'
+import { widgetMsg } from '@webwriter/lit/localize'
+import { SceneController } from '@webwriter/lit/scene'
+import { Viewport } from '@webwriter/lit/viewport'
+import {
+  Scene,
+  sceneElements,
+  webglAvailable,
+  type ActivateDetail,
+  type MoveDetail,
+  type SelectDetail,
+} from '@webwriter/widget/scene'
+import { PixiScene } from '@webwriter/widget/scene/pixi'
+import { CSSResult, TemplateResult, css, html, nothing } from 'lit'
+import { state } from 'lit/decorators.js'
+import { repeat } from 'lit/directives/repeat.js'
+import { consume } from '@lit/context'
 
-import cytoscape from 'cytoscape'
+import type { DataSet } from '../model/data-types'
+import type { Selected } from '../model/app-types'
+import type {
+  CLayerConf,
+  CLayerConnectionConf,
+  LayerType,
+  Position,
+} from '../model/network-types'
+import {
+  NEURON_RADIUS,
+  NEURON_SIZE,
+  LAYER_RADIUS,
+  edgeSign,
+  edgeWidth,
+  layoutNetwork,
+  type LayerLayout,
+  type NeuronLayout,
+} from '../model/network-layout'
+import { ModelUtils } from '../model/model-utils'
+import {
+  dataSetContext,
+  layerConfsContext,
+  layerConnectionConfsContext,
+  networkContext,
+  selectedContext,
+} from './contexts'
+import type { CNetwork } from './network/network'
+import { layerName } from './network/layer-name'
+import { InputLayer } from './network/input-layer'
+import { DenseLayer } from './network/dense-layer'
+import { OutputLayer } from './network/output-layer'
 
-import type { Position } from '@/types/position'
-import type { LayerType } from '@/types/layer_type'
-import { InputLayer } from '@/components/network/input_layer'
-import { DenseLayer } from '@/components/network/dense_layer'
-import { OutputLayer } from '@/components/network/output_layer'
+// the keys of the scene items
+const layerKey = (id: string) => `layer-${id}`
+const neuronKey = (id: string) => `neuron-${id}`
+const edgeKey = (id: string) => `edge-${id}`
 
-import colorsea from 'colorsea'
+const ZOOM_STEP = 0.1
 
+// The drawing of the network: layers with their neurons, and the edges between
+// the neurons, on a Scene that the reader can pan and zoom.
 export class CCanvas extends LitElementWw {
-  LAYER_WIDTH = 300
-  LAYER_PADDING = 20
-  LAYER_DISTANCE = 150
-  NEURON_SIZE = 100
-  NEURON_DISTANCE = 40
+  static scopedElements = {
+    ...sceneElements,
+    'ww-scene': webglAvailable() ? PixiScene : Scene,
+  }
 
-  @query('#canvasElm', true)
-  accessor _canvasElm: HTMLDivElement
+  private readonly msg = widgetMsg(this)
+
+  @consume({ context: layerConfsContext, subscribe: true })
+  accessor layerConfs: CLayerConf[] = []
+
+  @consume({ context: layerConnectionConfsContext, subscribe: true })
+  accessor layerConnectionConfs: CLayerConnectionConf[] = []
+
+  @consume({ context: dataSetContext, subscribe: true })
+  accessor dataSet: DataSet
+
+  @consume({ context: selectedContext, subscribe: true })
+  accessor selected: Selected = {}
+
+  @consume({ context: networkContext, subscribe: true })
+  accessor network: CNetwork | undefined
 
   @state()
-  accessor cy: cytoscape.Core
+  accessor dragOver = false
+
+  readonly viewport: Viewport = new Viewport(this, {
+    bounds: () => this.scene.extent(),
+    // the reader can pan the network far out of the window
+    margin: 5000,
+  })
+  readonly scene: SceneController = new SceneController(this, {
+    viewport: this.viewport.core,
+  })
 
   // LIFECYCLE - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   async connectedCallback() {
     super.connectedCallback()
     await this.updateComplete
-    if (!this.cy) {
-      // create cytoscape canvas
-      this.cy = cytoscape({
-        container: this._canvasElm,
-        elements: [],
-        style: this.getStylesheetForCy(),
-        wheelSensitivity: 5,
-        boxSelectionEnabled: false,
-        selectionType: 'single',
-        minZoom: 0.1,
-        maxZoom: 3,
-      })
-      this.addLayerDragListeners()
-    }
 
     // notify the root element that the canvas was created
     this.dispatchEvent(
@@ -61,375 +114,42 @@ export class CCanvas extends LitElementWw {
         composed: true,
       })
     )
-
-    // Add event listener: when tapped on canvas, remove the current selection
-    // and close the panels as well
-    this.cy.on('tap', (e) => {
-      if (e.target === this.cy) {
-        this.dispatchEvent(
-          new Event('unselect', {
-            bubbles: true,
-            composed: true,
-          })
-        )
-        this.dispatchEvent(
-          new Event('close-all-panels', {
-            bubbles: true,
-            composed: true,
-          })
-        )
-      }
-    })
-
-    // Add event listener for selection of layers, neurons or edges
-    this.cy.on('tap', 'node, edge', (e: cytoscape.EventObject) => {
-      const evtTarget = <cytoscape.SingularData>e.target
-
-      // Prevent selection of multiple nodes by holding shift
-      this.cy
-        .elements()
-        .not(<cytoscape.CollectionArgument>evtTarget)
-        .unselect()
-
-      if (evtTarget.isNode()) {
-        const cyNode = evtTarget
-
-        if (cyNode.data('type') == 'layer') {
-          this.dispatchEvent(
-            new CustomEvent<string>('select-layer', {
-              detail: <string>cyNode.data('id'),
-              bubbles: true,
-              composed: true,
-            })
-          )
-        } else if (cyNode.data('type') == 'neuron') {
-          this.dispatchEvent(
-            new CustomEvent<string>('select-neuron', {
-              detail: <string>cyNode.data('id'),
-              bubbles: true,
-              composed: true,
-            })
-          )
-        }
-      } else if (evtTarget.isEdge()) {
-        const cyEdge = evtTarget
-        this.dispatchEvent(
-          new CustomEvent<string>('select-edge', {
-            detail: <string>cyEdge.data('id'),
-            bubbles: true,
-            composed: true,
-          })
-        )
-      }
-    })
   }
 
-  private addLayerDragListeners(): void {
-    let layerDrag: {
-      layer: cytoscape.NodeSingular
-      start: cytoscape.Position
-      last: cytoscape.Position
-      threshold: number
-      moved: boolean
-    } | null = null
-
-    const endLayerDrag = () => {
-      if (!layerDrag) return
-      this.cy.userPanningEnabled(true)
-      if (layerDrag.moved) {
-        layerDrag.layer.emit('dragfree')
-      }
-      layerDrag = null
-    }
-
-    const findLayerAt = (
-      target: cytoscape.SingularElementArgument,
-      { x, y }: cytoscape.Position
-    ): cytoscape.NodeCollection => {
-      if (target.isNode()) {
-        return target.ancestors('[type="layer"]')
-      }
-      return this.cy.nodes('[type="layer"]').filter((l) => {
-        const bb = l.boundingBox({ includeLabels: false })
-        return x >= bb.x1 && x <= bb.x2 && y >= bb.y1 && y <= bb.y2
-      })
-    }
-
-    this.cy.on(
-      'tapstart',
-      'node[type="neuron"], node[type="neuron-wrapper"], edge',
-      (e: cytoscape.EventObject) => {
-        const layers = findLayerAt(e.target, e.position)
-        if (layers.length != 1) return
-        const layer = <cytoscape.NodeSingular>layers.first()
-        if (!layer.grabbable()) return
-        const isTouch = e.originalEvent?.type.startsWith('touch')
-        layerDrag = {
-          layer,
-          start: { ...e.renderedPosition },
-          last: { ...e.position },
-          threshold: isTouch ? 8 : 4,
-          moved: false,
-        }
-        this.cy.userPanningEnabled(false)
-      }
-    )
-
-    this.cy.on('tapdrag', (e: cytoscape.EventObject) => {
-      if (!layerDrag) return
-      // don't interfere with pinch-to-zoom
-      const touches = (<TouchEvent>(<unknown>e.originalEvent)).touches
-      if (touches && touches.length > 1) {
-        endLayerDrag()
-        return
-      }
-      // ignore small jitter so that taps don't move the layer
-      if (
-        !layerDrag.moved &&
-        Math.hypot(
-          e.renderedPosition.x - layerDrag.start.x,
-          e.renderedPosition.y - layerDrag.start.y
-        ) < layerDrag.threshold
-      ) {
-        return
-      }
-      const dx = e.position.x - layerDrag.last.x
-      const dy = e.position.y - layerDrag.last.y
-      layerDrag.last = { ...e.position }
-      layerDrag.layer
-        .descendants()
-        .filter((n) => n.isChildless())
-        .shift({ x: dx, y: dy })
-      layerDrag.moved = true
-    })
-
-    this.cy.on('tapend', endLayerDrag)
-    this.cy.container()?.addEventListener('touchcancel', endLayerDrag)
-  }
-
-  protected firstUpdated(_changedProperties: PropertyValues): void {
-      super.firstUpdated(_changedProperties)
-      cytoscape.warnings(false)
-      setTimeout(()=>{
-        this.fit()
-      }, 100)
-      window.addEventListener('scroll', this.onScroll);
-  }
-  
-  disconnectedCallback() {
-      super.disconnectedCallback();
-      window.removeEventListener('scroll', this.onScroll);
-  }
-  
-  private onScroll = () => {
-      // Cytoscape caches container bounds which become outdated after scrolling.
-      // Calling resize() forces Cytoscape to update its internal bounds and correctly map mouse input.
-      this.cy.resize()
+  // the first fit waits until the scene has measured its texts and nodes
+  protected firstUpdated(): void {
+    this.scene.ready.then(() => this.fit())
   }
 
   // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // -> STYLING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  getStylesheetForCy(): cytoscape.StylesheetJson {
-    const MAIN_COLOR: string = colorsea(
-      getComputedStyle(this).getPropertyValue('--sl-color-primary-200')
-    ).hex()
-    const TEXT_COLOR: string = colorsea(
-      getComputedStyle(this).getPropertyValue('--sl-color-primary-900')
-    ).hex()
-    const ACCENT_COLOR: string = colorsea(
-      getComputedStyle(this).getPropertyValue('--sl-color-primary-500')
-    ).hex()
-    const SELECTED_COLOR: string = colorsea(
-      getComputedStyle(this).getPropertyValue('--sl-color-primary-900')
-    ).hex()
-    const POSITIVE_COLOR: string = colorsea(
-      getComputedStyle(this).getPropertyValue('--sl-color-success-500')
-    ).hex()
-    const NEGATIVE_COLOR: string = colorsea(
-      getComputedStyle(this).getPropertyValue('--sl-color-danger-500')
-    ).hex()
-
-    return [
-      {
-        selector: 'node[type="layer"]',
-        style: {
-          shape: 'round-rectangle',
-          'background-color': MAIN_COLOR,
-          'border-color': ACCENT_COLOR,
-          color: TEXT_COLOR,
-          'border-width': 5,
-          padding: `${this.LAYER_PADDING}px`,
-          label: 'data(label)',
-          'text-halign': 'left',
-          'text-valign': 'center',
-          'text-margin-x': -20,
-          'z-index': function (ele: cytoscape.NodeSingular) {
-            return ele.data('layer') * 3
-          },
-          'z-compound-depth': 'bottom',
-        },
-      },
-      {
-        selector: 'node[type="layer"]:selected',
-        style: {
-          'border-color': SELECTED_COLOR,
-        },
-      },
-      {
-        selector: 'node[type="neuron-wrapper"]',
-        style: {
-          shape: 'round-rectangle',
-          'border-width': 1,
-          'background-opacity': 0,
-          'border-color': MAIN_COLOR,
-          padding: '0px',
-          label: 'data(label)',
-          color: TEXT_COLOR,
-          'text-halign': 'center',
-          'text-valign': function (ele: cytoscape.NodeSingular) {
-            return <'bottom' | 'top'>ele.data('textPos')
-          },
-          'text-margin-y': function (ele: cytoscape.NodeSingular) {
-            if (ele.data('textPos') == 'top') {
-              return 30
-            } else {
-              return -30
-            }
-          },
-          'z-index': function (ele: cytoscape.NodeSingular) {
-            return ele.data('layer') * 3 + 1
-          },
-          'z-compound-depth': 'bottom',
-        },
-      },
-      {
-        selector: 'node[type="neuron"]',
-        style: {
-          shape: 'round-rectangle',
-          'border-width': 5,
-          'background-opacity': 0,
-          'border-color': ACCENT_COLOR,
-          width: '95px',
-          height: '95px',
-          'text-halign': 'center',
-          'text-valign': 'center',
-          'z-index': function (ele: cytoscape.NodeSingular) {
-            return ele.data('layer') * 3 + 2
-          },
-          'z-compound-depth': 'bottom',
-        },
-      },
-      {
-        selector: 'node[type="neuron"][label]',
-        style: {
-          color: TEXT_COLOR,
-          label: 'data(label)',
-        },
-      },
-      {
-        selector: 'node[type="neuron"][wrapped="true"]',
-        style: {
-          width: '93px',
-          height: '93px',
-        },
-      },
-      {
-        selector: 'node[type="neuron"]:selected',
-        style: {
-          'border-color': SELECTED_COLOR,
-        },
-      },
-      {
-        selector: 'edge',
-        style: {
-          width: function (ele: cytoscape.EdgeSingular) {
-            if (ele.data('weight') && isFinite(<number>ele.data('weight'))) {
-              return Math.min(15, Math.abs(<number>ele.data('weight')) * 6)
-            } else {
-              return 3
-            }
-          },
-          'curve-style': 'bezier',
-          'line-cap': 'round',
-          'line-color': function (ele: cytoscape.EdgeSingular) {
-            if (ele.data('weight')) {
-              if (ele.data('weight') < 0) {
-                return NEGATIVE_COLOR
-              } else if (ele.data('weight') > 0) {
-                return POSITIVE_COLOR
-              }
-            }
-            return ACCENT_COLOR
-          },
-          'target-arrow-color': function (ele: cytoscape.EdgeSingular) {
-            if (ele.data('weight')) {
-              if (ele.data('weight') < 0) {
-                return NEGATIVE_COLOR
-              } else if (ele.data('weight') > 0) {
-                return POSITIVE_COLOR
-              }
-            }
-            return ACCENT_COLOR
-          },
-          'target-arrow-shape': 'triangle',
-        },
-      },
-      {
-        selector: 'edge:selected',
-        style: {
-          'line-color': SELECTED_COLOR,
-          'target-arrow-color': SELECTED_COLOR,
-        },
-      },
-    ]
-  }
-  // -> MANIPULATION - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  zoomOut(): void {
-    if (this.cy) {
-      this.cy.zoom(this.cy.zoom() - 0.1)
-    }
-  }
-  // fit the canvas to all elements with a specified padding
-  fit(): void {
-    if (this.cy) {
-      this.cy.fit(this.cy.$(''), 30)
-    }
-  }
+  // -> VIEW - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   zoomIn(): void {
-    if (this.cy) {
-      this.cy.zoom(this.cy.zoom() + 0.1)
-    }
+    this.viewport.zoomTo(this.viewport.scale + ZOOM_STEP)
   }
 
-  // -> POSITIONING  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // get the width of an element
-  getHeight(id: string): number {
-    const elm = this.cy.getElementById(id)
-    return elm.outerHeight()
+  zoomOut(): void {
+    this.viewport.zoomTo(this.viewport.scale - ZOOM_STEP)
   }
 
-  // generate a new position, currently just in the middle of the canvas
+  // fit the canvas to all layers. The view stays where it is when layers are
+  // moved or added (data-ww-viewport-follow="none")
+  fit(): void {
+    this.viewport.fit()
+  }
+
+  // the position in the middle of what the canvas currently shows
   generatePos(): Position {
-    const viewport = this.cy.extent()
-    return {
-      x: viewport.x1 + (viewport.x2 - viewport.x1) / 2,
-      y: viewport.y1 + (viewport.y2 - viewport.y1) / 2,
-    }
-  }
-
-  toModelPosition(renderedPos: Position) {
-    const pan = this.cy.pan()
-    const zoom = this.cy.zoom()
-    return {
-      x: (renderedPos.x - pan.x) / zoom,
-      y: (renderedPos.y - pan.y) / zoom,
-    }
+    const rect = this.getBoundingClientRect()
+    return this.viewport.toWorld(
+      rect.left + rect.width / 2,
+      rect.top + rect.height / 2
+    )
   }
 
   // -> DRAGGING LAYERS FROM THE PALETTE - - - - - - - - - - - - - - - - - - - -
   dragLayerOver(clientX: number, clientY: number): boolean {
     const dragOver = this.isClientPointInside(clientX, clientY)
-    const didPan = dragOver && this.autoPan(clientX, clientY)
+    const didPan = dragOver && this.viewport.autoPan(clientX, clientY)
     this.setDragOver(dragOver)
     return didPan
   }
@@ -441,14 +161,10 @@ export class CCanvas extends LitElementWw {
     clientY: number
   }): void {
     this.setDragOver(false)
-    if (!drop || !this.cy) return
+    if (!drop) return
     if (!this.isClientPointInside(drop.clientX, drop.clientY)) return
 
-    const rect = this._canvasElm.getBoundingClientRect()
-    const pos = this.toModelPosition({
-      x: drop.clientX - rect.left,
-      y: drop.clientY - rect.top,
-    })
+    const pos = this.viewport.toWorld(drop.clientX, drop.clientY)
     const layerClasses = {
       Input: InputLayer,
       Dense: DenseLayer,
@@ -459,13 +175,13 @@ export class CCanvas extends LitElementWw {
 
   private isClientPointInside(clientX: number, clientY: number): boolean {
     return !!this.shadowRoot
-      .elementFromPoint(clientX, clientY)
+      ?.elementFromPoint(clientX, clientY)
       ?.closest('#canvasElm')
   }
 
   private setDragOver(dragOver: boolean): void {
-    if (dragOver === this._canvasElm.classList.contains('drag-over')) return
-    this._canvasElm.classList.toggle('drag-over', dragOver)
+    if (dragOver === this.dragOver) return
+    this.dragOver = dragOver
     this.dispatchEvent(
       new Event(dragOver ? 'drag-entered' : 'drag-leaved', {
         bubbles: true,
@@ -474,26 +190,70 @@ export class CCanvas extends LitElementWw {
     )
   }
 
-  private autoPan(clientX: number, clientY: number): boolean {
-    if (!this.cy) return false
+  // -> EVENTS FROM THE SCENE  - - - - - - - - - - - - - - - - - - - - - - - - -
+  private emit<Detail>(type: string, detail?: Detail): void {
+    this.dispatchEvent(
+      new CustomEvent<Detail | undefined>(type, {
+        detail,
+        bubbles: true,
+        composed: true,
+      })
+    )
+  }
 
-    const rect = this._canvasElm.getBoundingClientRect()
-    const edge = Math.min(64, rect.width / 2, rect.height / 2)
-    const edgeStep = (position: number, start: number, end: number) => {
-      if (position < start + edge) return (-16 * (start + edge - position)) / edge
-      if (position > end - edge) return (16 * (position - end + edge)) / edge
-      return 0
+  // tells the widget what the reader selected. Nothing selected is a tap on
+  // the background: close the panels
+  private select(key: string | undefined): void {
+    if (key?.startsWith('layer-')) {
+      this.emit('select-layer', key.slice('layer-'.length))
+    } else if (key?.startsWith('neuron-')) {
+      this.emit('select-neuron', key.slice('neuron-'.length))
+    } else if (key?.startsWith('edge-')) {
+      this.emit('select-edge', key.slice('edge-'.length))
+    } else {
+      this.emit('unselect')
+      this.emit('close-all-panels')
     }
+  }
 
-    const dx = edgeStep(clientX, rect.left, rect.right)
-    const dy = edgeStep(clientY, rect.top, rect.bottom)
-    if (dx === 0 && dy === 0) return false
-    this.cy.panBy({ x: -dx, y: -dy })
-    return true
+  private onSelect(event: CustomEvent<SelectDetail>): void {
+    if (event.defaultPrevented) return
+    this.select(event.detail.keys[0])
+  }
+
+  // every click, also on an item that is selected already, which reopens its
+  // panel. A click on a neuron or an edge inside a layer is meant for that
+  // neuron or edge, a drag on it moves the layer
+  private onActivate(event: CustomEvent<ActivateDetail>): void {
+    if (event.defaultPrevented) return
+    const hit = event.detail.hit?.getAttribute('data-ww-key') ?? ''
+    this.select(/^(neuron|edge)-/.test(hit) ? hit : event.detail.key)
+  }
+
+  private onMove(event: CustomEvent<MoveDetail>): void {
+    let moved = false
+    for (const { key, x, y } of event.detail.items) {
+      const conf = this.layerConfs.find((layerConf) => layerKey(`${layerConf.layerId}`) === key)
+      if (!conf) continue
+      conf.pos = { x, y }
+      moved = true
+    }
+    if (moved) this.emit('update-layer-confs')
   }
 
   // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   static styles: CSSResult = css`
+    :host {
+      display: block;
+      --themed-main: color-mix(in srgb, var(--ww-theme-accent-1) 25%, var(--sl-color-neutral-0));
+      --main: var(--themed-main, var(--sl-color-primary-200));
+      --text: var(--ww-text-color, var(--sl-color-primary-900));
+      --accent: var(--ww-theme-accent-1, var(--sl-color-primary-500));
+      --selected: var(--ww-theme-accent-2, var(--sl-color-primary-900));
+      --positive: var(--sl-color-success-500);
+      --negative: var(--sl-color-danger-500);
+    }
+
     #canvasElm {
       position: relative;
       height: 100%;
@@ -508,10 +268,181 @@ export class CCanvas extends LitElementWw {
       border: 2px dashed var(--sl-color-primary-500);
       pointer-events: none;
     }
+
+    ww-scene {
+      display: block;
+      width: 100%;
+      height: 100%;
+      color: var(--text);
+      font-family: var(--ww-font-family, var(--sl-font-sans));
+      font-size: 16px;
+    }
+
+    ww-shape.body {
+      fill: var(--main);
+      stroke: var(--accent);
+      stroke-width: 5px;
+    }
+
+    ww-group[selected] > ww-shape.body {
+      stroke: var(--selected);
+    }
+
+    ww-text.label {
+      fill: var(--text);
+      font-size: 16px;
+      text-anchor: end;
+    }
+
+    ww-path {
+      stroke: var(--accent);
+      stroke-width: var(--width, 3px);
+      stroke-linecap: round;
+    }
+
+    ww-path.positive {
+      stroke: var(--positive);
+    }
+
+    ww-path.negative {
+      stroke: var(--negative);
+    }
+
+    ww-path[selected] {
+      stroke: var(--selected);
+    }
+
+    ww-node.neuron {
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 5px solid var(--accent);
+      border-radius: 10px;
+      background: var(--main);
+      outline: none;
+      user-select: none;
+    }
+
+    ww-node.neuron[selected] {
+      border-color: var(--selected);
+    }
+
+    ww-node.neuron .key {
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 12px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    ww-node.neuron .key.top {
+      top: 4px;
+    }
+
+    ww-node.neuron .key.bottom {
+      bottom: 4px;
+    }
   `
 
   // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  private renderNeuron(layer: LayerLayout, neuron: NeuronLayout): TemplateResult<1> {
+    const half = NEURON_SIZE / 2
+    return html`
+      <ww-node
+        class="neuron"
+        data-ww-key=${neuronKey(neuron.id)}
+        x=${neuron.x - layer.x - half}
+        y=${neuron.y - layer.y - half}
+        width=${NEURON_SIZE}
+        height=${NEURON_SIZE}
+        outline="rounded"
+        radius=${NEURON_RADIUS}
+        ?selected=${this.selected?.neuron === neuron.id}
+      >
+        ${ModelUtils.formatWeight(neuron.bias as number)}
+        ${neuron.key
+          ? html`<span class="key ${neuron.keyPos}">${neuron.key}</span>`
+          : nothing}
+      </ww-node>
+    `
+  }
+
+  private renderLayer(layer: LayerLayout): TemplateResult<1> {
+    const { conf } = layer
+    return html`
+      <ww-group
+        data-ww-key=${layerKey(layer.id)}
+        aria-label=${layerName(conf, this.msg)}
+        x=${layer.x}
+        y=${layer.y}
+        selectable
+        movable
+        ?selected=${this.selected?.layer === layer.id}
+      >
+        <ww-shape
+          class="body"
+          kind="rect"
+          x=${-layer.width / 2}
+          y=${-layer.height / 2}
+          width=${layer.width}
+          height=${layer.height}
+          radius=${LAYER_RADIUS}
+        ></ww-shape>
+        <ww-text class="label" x=${-layer.width / 2 - 20} y="-9"
+          >${layerName(conf, this.msg)}</ww-text
+        >
+        ${layer.neurons.map((neuron) => this.renderNeuron(layer, neuron))}
+      </ww-group>
+    `
+  }
+
   render(): TemplateResult<1> {
-    return html`<div id="canvasElm"></div>`
+    const { layers, edges } = layoutNetwork(
+      this.layerConfs,
+      this.layerConnectionConfs,
+      this.dataSet,
+      this.network?.tensorConfs
+    )
+    return html`
+      <div id="canvasElm" class=${this.dragOver ? 'drag-over' : ''}>
+        <ww-scene
+          select="single"
+          data-ww-viewport="canvas"
+          data-ww-viewport-zoom="0.1 3"
+          data-ww-viewport-wheel="zoom"
+          data-ww-viewport-fit-padding="30"
+          data-ww-viewport-follow="none"
+          @ww-select=${this.onSelect}
+          @ww-activate=${this.onActivate}
+          @ww-move=${this.onMove}
+        >
+          ${repeat(
+            layers,
+            (layer) => layer.id,
+            (layer) => this.renderLayer(layer)
+          )}
+          ${repeat(
+            edges,
+            (edge) => edge.id,
+            (edge) => html`
+              <ww-path
+                class=${edgeSign(edge.weight)}
+                data-ww-key=${edgeKey(edge.id)}
+                marker-end="arrow"
+                from=${neuronKey(edge.source.id)}
+                to=${neuronKey(edge.target.id)}
+                style="--width: ${edgeWidth(edge.weight)}px"
+                selectable
+                ?selected=${this.selected?.edge === edge.id}
+              ></ww-path>
+            `
+          )}
+        </ww-scene>
+      </div>
+    `
   }
 }

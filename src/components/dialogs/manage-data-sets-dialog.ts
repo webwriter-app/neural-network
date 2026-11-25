@@ -1,0 +1,114 @@
+import { DataSetUtils } from '../data-sets/data-set-utils'
+import { widgetMsg } from '@webwriter/lit/localize'
+import { LitElementWw } from '@webwriter/lit'
+import { CSSResult, TemplateResult, css, html } from 'lit'
+import { query } from 'lit/decorators.js'
+import { consume } from '@lit/context'
+
+import type { DataSet } from '../../model/data-types'
+import { dataSetContext } from '../contexts'
+import { availableDataSetsContext } from '../contexts'
+
+import SlButton from '@shoelace-style/shoelace/dist/components/button/button.component.js'
+import SlDialog from '@shoelace-style/shoelace/dist/components/dialog/dialog.component.js'
+import SlTag from '@shoelace-style/shoelace/dist/components/tag/tag.component.js'
+import { CCard } from '../reusables/c-card'
+import { CreateDataSetDialog } from './create-data-set-dialog'
+
+export class ManageDataSetsDialog extends LitElementWw {
+  private readonly msg = widgetMsg(this);
+  static scopedElements = {
+    'sl-dialog': SlDialog,
+    'sl-button': SlButton,
+    'sl-tag': SlTag,
+    'c-card': CCard,
+    'create-data-set-dialog': CreateDataSetDialog,
+  }
+
+  @consume({ context: dataSetContext, subscribe: true })
+  accessor dataSet: DataSet
+
+  @consume({ context: availableDataSetsContext, subscribe: true })
+  accessor availableDataSets: DataSet[]
+
+  @query('sl-dialog')
+  accessor _dialog: SlDialog
+
+  @query('create-data-set-dialog')
+  accessor _createDataSetDialog: SlDialog
+
+  // METHODS - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  async show() {
+    await this._dialog.show()
+  }
+
+  async openCreateDataSetDialog() {
+    await this._createDataSetDialog.show()
+    await this._dialog.hide()
+  }
+
+  handleDeleteDataSet(e: MouseEvent) {
+    this.dispatchEvent(
+      new CustomEvent<string>('delete-data-set', {
+        detail: (e.target as SlButton).name,
+        bubbles: true,
+        composed: true,
+      }),
+    )
+  }
+
+  // STYLES  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  static styles: CSSResult = css`
+    sl-dialog::part(base) {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+    
+    sl-dialog::part(overlay) {
+      position: absolute;
+      width: 100%;
+    }
+
+    sl-dialog::part(body) {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  `
+
+  // RENDER  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  render(): TemplateResult<1> {
+    return html`
+      <sl-dialog label=${this.msg('Manage data sets')}>
+        <sl-button
+          variant="primary"
+          @click="${(_e: MouseEvent) => this.openCreateDataSetDialog()}"
+          >${this.msg('Create a new data set')}</sl-button
+        >
+        ${this.availableDataSets.map(
+          (dataSet) => html`
+            <c-card>
+              <div slot="title">${DataSetUtils.localizeText(dataSet, dataSet.name, this.msg)}</div>
+              <div slot="content">
+                <p>${DataSetUtils.localizeText(dataSet, dataSet.description, this.msg)}</p>
+                ${this.dataSet.name == dataSet.name
+                  ? html`<sl-tag variant="success"
+                      >${this.msg('Currently selected')}</sl-tag
+                    >`
+                  : html`<sl-button
+                      variant="danger"
+                      name=${dataSet.name}
+                      @click=${(e: MouseEvent) => this.handleDeleteDataSet(e)}
+                    >
+                      ${this.msg('Permanently delete data set')}
+                    </sl-button>`}
+              </div>
+            </c-card>
+          `,
+        )}
+      </sl-dialog>
+      <create-data-set-dialog> </create-data-set-dialog>
+    `
+  }
+}

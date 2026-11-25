@@ -1,14 +1,14 @@
 import { LitElementWw } from '@webwriter/lit'
 import { TemplateResult, html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { property } from 'lit/decorators.js'
 import { consume } from '@lit/context'
 
 import SlButton from "@shoelace-style/shoelace/dist/components/button/button.component.js"
 
-import type { CCanvas } from '@/components/canvas'
-import { canvasContext } from '@/contexts/canvas_context'
-import { CLayer } from '@/components/network/c_layer'
-import { CNeuron } from '@/components/network/neuron'
+import type { CCanvas } from '../canvas'
+import { canvasContext } from '../contexts'
+import { CLayer } from '../network/c-layer'
+import { CNeuron } from '../network/neuron'
 
 export class CNetworkLink extends LitElementWw {
 
@@ -30,7 +30,7 @@ export class CNetworkLink extends LitElementWw {
     if (this.target instanceof CLayer) {
       this.dispatchEvent(
         new CustomEvent<string>('select-layer', {
-          detail: this.target.getCyId(),
+          detail: this.target.getId(),
           bubbles: true,
           composed: true,
         })
@@ -38,7 +38,7 @@ export class CNetworkLink extends LitElementWw {
     } else if (this.target instanceof CNeuron) {
       this.dispatchEvent(
         new CustomEvent<string>('select-neuron', {
-          detail: this.target.getCyId(),
+          detail: this.target.getId(),
           bubbles: true,
           composed: true,
         })

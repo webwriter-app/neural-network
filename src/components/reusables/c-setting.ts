@@ -1,7 +1,6 @@
 import { LitElementWw } from '@webwriter/lit'
 import { CSSResult, TemplateResult, html, css } from 'lit'
 import {
-  customElement,
   property,
   query,
   queryAssignedElements,
@@ -12,10 +11,10 @@ import SlSwitch from "@shoelace-style/shoelace/dist/components/switch/switch.com
 
 
 
-import { globalStyles } from '@/global_styles'
+import { globalStyles } from '../global-styles'
 
-import type { Settings } from '@/types/settings'
-import { settingsContext } from '@/contexts/settings_context'
+import type { Settings } from '../../model/app-types'
+import { settingsContext } from '../contexts'
 
 export class CSetting extends LitElementWw {
 
@@ -27,7 +26,7 @@ export class CSetting extends LitElementWw {
   accessor settings: Settings
 
   @property()
-  accessor name: string
+  accessor name: keyof Settings
 
   @property()
   accessor description: string

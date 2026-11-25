@@ -4,13 +4,29 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "src/app.ts",
+      "path": "src/widgets/webwriter-neural-network.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "",
-          "name": "NeuralNetwork",
+          "name": "WebwriterNeuralNetwork",
           "cssProperties": [
+            {
+              "description": "Text color of the widget and the network labels.",
+              "name": "--ww-text-color"
+            },
+            {
+              "description": "Font family of the widget.",
+              "name": "--ww-font-family"
+            },
+            {
+              "description": "Color of the layers, neurons and edges of the network.",
+              "name": "--ww-theme-accent-1"
+            },
+            {
+              "description": "Color of the selected layer, neuron or edge.",
+              "name": "--ww-theme-accent-2"
+            },
             {
               "description": "Host background color (forwarded from Shoelace).",
               "name": "--sl-color-neutral-0"
@@ -20,152 +36,100 @@
               "name": "--sl-color-neutral-50"
             }
           ],
+          "cssParts": [
+            {
+              "description": "The drawing area with the network.",
+              "name": "canvas"
+            },
+            {
+              "description": "The side menu with the panels. ## Files Import: a `.csv` file becomes a new data set that is selected (a header row names the columns, the last column is the label; labels 0 to k-1 make a classification data set, others a regression data set) and a `.json` config file replaces the network and data sets. Export: `text/csv` writes the active data set (class descriptions are not part of CSV); `application/json` writes the config and, once trained, the weights and biases of each layer under `weights`. The import of a `.json` file reads the config only and ignores `weights`, so a trained model is not restored. ## Signals - `history`: table of the training history, columns `epoch`, `loss`, `val_loss`, `acc`, `val_acc` (only the logged ones), one row per epoch. Empty before training. - `loss`: number, the training loss of the last epoch, or null before training. The widget has no effects: nothing from another widget fits a network.",
+              "name": "menu"
+            }
+          ],
           "members": [
-            {
-              "kind": "field",
-              "name": "setupStatusProvider",
-              "type": {
-                "text": "ContextProvider<typeof setupStatusContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: setupStatusContext, initialValue: SetupUtils.defaultSetupStatus})"
-            },
-            {
-              "kind": "field",
-              "name": "editableProvider",
-              "type": {
-                "text": "ContextProvider<typeof editableContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: editableContext, initialValue: false})"
-            },
-            {
-              "kind": "field",
-              "name": "settingsProvider",
-              "type": {
-                "text": "ContextProvider<typeof settingsContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: settingsContext, initialValue: JSON.parse(JSON.stringify(SettingsUtils.defaultSettings))})"
-            },
-            {
-              "kind": "field",
-              "name": "qAndAProvider",
-              "type": {
-                "text": "ContextProvider<typeof qAndAContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: qAndAContext, initialValue: [...QAndAUtils.defaultQAndA]})"
-            },
-            {
-              "kind": "field",
-              "name": "canvasProvider",
-              "type": {
-                "text": "ContextProvider<typeof canvasContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: canvasContext})"
-            },
-            {
-              "kind": "field",
-              "name": "networkProvider",
-              "type": {
-                "text": "ContextProvider<typeof networkContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: networkContext})"
-            },
-            {
-              "kind": "field",
-              "name": "layerConfsProvider",
-              "type": {
-                "text": "ContextProvider<typeof layerConfsContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: layerConfsContext, initialValue: []})"
-            },
-            {
-              "kind": "field",
-              "name": "layerConnectionConfsProvider",
-              "type": {
-                "text": "ContextProvider<typeof layerConnectionConfsContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: layerConnectionConfsContext, initialValue: []})"
-            },
-            {
-              "kind": "field",
-              "name": "dataSetProvider",
-              "type": {
-                "text": "ContextProvider<typeof dataSetContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: dataSetContext, initialValue: DataSetUtils.defaultDataSet})"
-            },
-            {
-              "kind": "field",
-              "name": "availableDataSetsProvider",
-              "type": {
-                "text": "ContextProvider<typeof availableDataSetsContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: availableDataSetsContext, initialValue: DataSetUtils.defaultAvailableDataSets})"
-            },
-            {
-              "kind": "field",
-              "name": "trainOptionsProvider",
-              "type": {
-                "text": "ContextProvider<typeof trainOptionsContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: trainOptionsContext, initialValue: <TrainOptions>(JSON.parse(JSON.stringify(ModelUtils.defaultTrainOptions)))})"
-            },
-            {
-              "kind": "field",
-              "name": "modelConfProvider",
-              "type": {
-                "text": "ContextProvider<typeof modelConfContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: modelConfContext, initialValue: <ModelConf>(JSON.parse(JSON.stringify(ModelUtils.defaultModelConf)))})"
-            },
-            {
-              "kind": "field",
-              "name": "selectedProvider",
-              "type": {
-                "text": "ContextProvider<typeof selectedContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: selectedContext, initialValue: {}})"
-            },
-            {
-              "kind": "field",
-              "name": "selectedEleProvider",
-              "type": {
-                "text": "ContextProvider<typeof selectedEleContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: selectedEleContext})"
-            },
-            {
-              "kind": "field",
-              "name": "panelProvider",
-              "type": {
-                "text": "ContextProvider<typeof panelContext, NeuralNetwork>"
-              },
-              "privacy": "protected",
-              "default": "new ContextProvider(this, {context: panelContext})"
-            },
             {
               "kind": "field",
               "name": "scopedElements",
               "type": {
                 "text": "object"
               },
-              "privacy": "protected",
               "static": true,
               "default": "{ \"canvas-area\": CCanvasArea, \"menu-area\": MenuArea, \"c-network\": CNetwork }",
               "description": "Scoped element registry for child components used by this widget."
+            },
+            {
+              "kind": "field",
+              "name": "convertFrom",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ '.csv': 'importCsv', '.json': 'importJson' }"
+            },
+            {
+              "kind": "field",
+              "name": "convertTo",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ 'text/csv': 'exportCsv', 'application/json': 'exportJson' }"
+            },
+            {
+              "kind": "field",
+              "name": "options",
+              "type": {
+                "text": "object"
+              },
+              "static": true,
+              "default": "{ editable: { type: Boolean, label: (widget: {msg: MsgFn}) => widget.msg(\"Allow editing\") }, }"
+            },
+            {
+              "kind": "field",
+              "name": "localize",
+              "privacy": "protected"
+            },
+            {
+              "kind": "field",
+              "name": "msg",
+              "privacy": "public",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "restoringConfiguration",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "#data",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#history",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "#historySource",
+              "privacy": "private",
+              "type": {
+                "text": "unknown"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "signals",
+              "type": {
+                "text": "object"
+              },
+              "default": "{ history: computed(() => this.#history.get()), loss: computed(() => { const { columns, rows } = this.#history.get() const at = columns.indexOf('loss') return rows.length && at > 0 ? (rows[rows.length - 1][at] as number | null) : null }), }",
+              "description": "Read-only signals for other widgets: the training history and its last loss."
             },
             {
               "kind": "field",
@@ -194,9 +158,7 @@
               "type": {
                 "text": "Settings"
               },
-              "description": "Application settings.",
-              "attribute": "settings",
-              "reflects": true
+              "description": "Application settings."
             },
             {
               "kind": "field",
@@ -205,9 +167,7 @@
               "type": {
                 "text": "QAndAEntry[]"
               },
-              "description": "Help/Q&A content.",
-              "attribute": "qAndA",
-              "reflects": true
+              "description": "Help/Q&A content."
             },
             {
               "kind": "field",
@@ -234,9 +194,7 @@
               "type": {
                 "text": "CLayerConf[]"
               },
-              "description": "Layer configuration list.",
-              "attribute": "layerConfs",
-              "reflects": true
+              "description": "Layer configuration list."
             },
             {
               "kind": "field",
@@ -245,9 +203,7 @@
               "type": {
                 "text": "CLayerConnectionConf[]"
               },
-              "description": "Layer connection configuration list between layers.",
-              "attribute": "layerConnectionConfs",
-              "reflects": true
+              "description": "Layer connection configuration list between layers."
             },
             {
               "kind": "field",
@@ -256,9 +212,7 @@
               "type": {
                 "text": "DataSet"
               },
-              "description": "Active dataset.",
-              "attribute": "dataSet",
-              "reflects": true
+              "description": "Active dataset."
             },
             {
               "kind": "field",
@@ -267,9 +221,7 @@
               "type": {
                 "text": "DataSet[]"
               },
-              "description": "Available datasets.",
-              "attribute": "availableDataSets",
-              "reflects": true
+              "description": "Available datasets."
             },
             {
               "kind": "field",
@@ -278,9 +230,7 @@
               "type": {
                 "text": "TrainOptions"
               },
-              "description": "Training options.",
-              "attribute": "trainOptions",
-              "reflects": true
+              "description": "Training options."
             },
             {
               "kind": "field",
@@ -317,6 +267,205 @@
                 "text": "string"
               },
               "description": "Name of the open right panel, if any."
+            },
+            {
+              "kind": "field",
+              "name": "setupStatusProvider",
+              "type": {
+                "text": "ContextProvider<typeof setupStatusContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: setupStatusContext, initialValue: SetupUtils.defaultSetupStatus})"
+            },
+            {
+              "kind": "field",
+              "name": "editableProvider",
+              "type": {
+                "text": "ContextProvider<typeof editableContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: editableContext, initialValue: false})"
+            },
+            {
+              "kind": "field",
+              "name": "settingsProvider",
+              "type": {
+                "text": "ContextProvider<typeof settingsContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: settingsContext, initialValue: JSON.parse(JSON.stringify(SettingsUtils.defaultSettings))})"
+            },
+            {
+              "kind": "field",
+              "name": "qAndAProvider",
+              "type": {
+                "text": "ContextProvider<typeof qAndAContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: qAndAContext, initialValue: [...QAndAUtils.defaultQAndA]})"
+            },
+            {
+              "kind": "field",
+              "name": "canvasProvider",
+              "type": {
+                "text": "ContextProvider<typeof canvasContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: canvasContext})"
+            },
+            {
+              "kind": "field",
+              "name": "networkProvider",
+              "type": {
+                "text": "ContextProvider<typeof networkContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: networkContext})"
+            },
+            {
+              "kind": "field",
+              "name": "layerConfsProvider",
+              "type": {
+                "text": "ContextProvider<typeof layerConfsContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: layerConfsContext, initialValue: []})"
+            },
+            {
+              "kind": "field",
+              "name": "layerConnectionConfsProvider",
+              "type": {
+                "text": "ContextProvider<typeof layerConnectionConfsContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: layerConnectionConfsContext, initialValue: []})"
+            },
+            {
+              "kind": "field",
+              "name": "dataSetProvider",
+              "type": {
+                "text": "ContextProvider<typeof dataSetContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: dataSetContext, initialValue: DataSetUtils.defaultDataSet})"
+            },
+            {
+              "kind": "field",
+              "name": "availableDataSetsProvider",
+              "type": {
+                "text": "ContextProvider<typeof availableDataSetsContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: availableDataSetsContext, initialValue: DataSetUtils.defaultAvailableDataSets})"
+            },
+            {
+              "kind": "field",
+              "name": "trainOptionsProvider",
+              "type": {
+                "text": "ContextProvider<typeof trainOptionsContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: trainOptionsContext, initialValue: <TrainOptions>(JSON.parse(JSON.stringify(ModelUtils.defaultTrainOptions)))})"
+            },
+            {
+              "kind": "field",
+              "name": "modelConfProvider",
+              "type": {
+                "text": "ContextProvider<typeof modelConfContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: modelConfContext, initialValue: <ModelConf>(JSON.parse(JSON.stringify(ModelUtils.defaultModelConf)))})"
+            },
+            {
+              "kind": "field",
+              "name": "selectedProvider",
+              "type": {
+                "text": "ContextProvider<typeof selectedContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: selectedContext, initialValue: {}})"
+            },
+            {
+              "kind": "field",
+              "name": "selectedEleProvider",
+              "type": {
+                "text": "ContextProvider<typeof selectedEleContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: selectedEleContext})"
+            },
+            {
+              "kind": "field",
+              "name": "panelProvider",
+              "type": {
+                "text": "ContextProvider<typeof panelContext, WebwriterNeuralNetwork>"
+              },
+              "privacy": "protected",
+              "default": "new ContextProvider(this, {context: panelContext})"
+            },
+            {
+              "kind": "method",
+              "name": "importCsv",
+              "parameters": [
+                {
+                  "name": "file",
+                  "type": {
+                    "text": "File"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "importJson",
+              "parameters": [
+                {
+                  "name": "file",
+                  "type": {
+                    "text": "File"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "exportCsv"
+            },
+            {
+              "kind": "method",
+              "name": "exportJson"
+            },
+            {
+              "kind": "method",
+              "name": "persistConfiguration",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "key",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "ConfigurationData[K]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "restoreConfiguration",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "saved",
+                  "type": {
+                    "text": "ConfigurationData"
+                  }
+                }
+              ]
             }
           ],
           "events": [
@@ -341,57 +490,50 @@
               "type": {
                 "text": "Settings"
               },
-              "description": "Application settings.",
-              "name": "settings",
-              "fieldName": "settings"
+              "description": "Current application settings. Provide as a property for non-string values.",
+              "name": "settings"
             },
             {
               "type": {
                 "text": "QAndAEntry[]"
               },
-              "description": "Help/Q&A content.",
-              "name": "qAndA",
-              "fieldName": "qAndA"
+              "description": "Static help content.",
+              "name": "qAndA"
             },
             {
               "type": {
                 "text": "CLayerConf[]"
               },
-              "description": "Layer configuration list.",
-              "name": "layerConfs",
-              "fieldName": "layerConfs"
+              "description": "Network layer configurations.",
+              "name": "layerConfs"
             },
             {
               "type": {
                 "text": "CLayerConnectionConf[]"
               },
-              "description": "Layer connection configuration list between layers.",
-              "name": "layerConnectionConfs",
-              "fieldName": "layerConnectionConfs"
+              "description": "Layer connection configurations.",
+              "name": "layerConnectionConfs"
             },
             {
               "type": {
                 "text": "DataSet"
               },
               "description": "Active dataset.",
-              "name": "dataSet",
-              "fieldName": "dataSet"
+              "name": "dataSet"
             },
             {
               "type": {
                 "text": "DataSet[]"
               },
-              "description": "Available datasets.",
-              "name": "availableDataSets",
-              "fieldName": "availableDataSets"
+              "description": "List of available datasets.",
+              "name": "availableDataSets"
             },
             {
               "type": {
                 "text": "TrainOptions"
               },
               "description": "Training options.",
-              "name": "trainOptions",
-              "fieldName": "trainOptions"
+              "name": "trainOptions"
             }
           ],
           "superclass": {
@@ -400,26 +542,24 @@
           },
           "tagName": "webwriter-neural-network",
           "customElement": true,
-          "summary": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
-          "modulePath": "src/app.ts",
-          "definitionPath": "src/app.ts"
+          "summary": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction."
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "NeuralNetwork",
+          "name": "WebwriterNeuralNetwork",
           "declaration": {
-            "name": "NeuralNetwork",
-            "module": "src/app.ts"
+            "name": "WebwriterNeuralNetwork",
+            "module": "src/widgets/webwriter-neural-network.ts"
           }
         },
         {
           "kind": "custom-element-definition",
           "name": "webwriter-neural-network",
           "declaration": {
-            "name": "NeuralNetwork",
-            "module": "src/app.ts"
+            "name": "WebwriterNeuralNetwork",
+            "module": "src/widgets/webwriter-neural-network.ts"
           }
         }
       ]
