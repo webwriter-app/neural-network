@@ -542,9 +542,7 @@
           },
           "tagName": "webwriter-neural-network",
           "customElement": true,
-          "summary": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction.",
-          "modulePath": "src/widgets/webwriter-neural-network.ts",
-          "definitionPath": "src/widgets/webwriter-neural-network.ts"
+          "summary": "Deep learning visualization for feed-forward networks with custom datasets, training and prediction."
         }
       ],
       "exports": [

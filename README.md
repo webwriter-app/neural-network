@@ -1,7 +1,7 @@
 # Neural Network (`@webwriter/neural-network@2.0.0`)
 [License: MIT](LICENSE) | Version: 2.0.0
 
-Deep learning visualization for feed-forward networks with custom datasets, training and prediction.
+Visualize feed-forward neural networks with custom datasets, training, and prediction.
 
 ## Snippets
 [Snippets](https://webwriter.app/docs/snippets/snippets/) are examples and templates using the package's widgets.
@@ -113,4 +113,4 @@ npm install @webwriter/neural-network
 
 
 ---
-*Generated with @webwriter/build@1.14.0*
+*Generated with @webwriter/build@1.15.0*
