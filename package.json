@@ -1,6 +1,6 @@
 {
   "name": "@webwriter/neural-network",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Visualize feed-forward neural networks with custom datasets, training, and prediction.",
   "repository": "https://github.com/webwriter-app/neural-network",
   "keywords": [
@@ -187,6 +187,7 @@
     "./snippets/Boston-House-Pricing.html": "./snippets/Boston-House-Pricing.html",
     "./icon": "./icon.svg",
     "./preview": "./assets/preview.mp4",
+    "./preview/de": "./assets/preview-de.mp4",
     "./editing-config.json": "./editing-config.json",
     "./custom-elements.json": "./custom-elements.json"
   },

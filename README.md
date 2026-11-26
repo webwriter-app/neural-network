@@ -1,5 +1,5 @@
-# Neural Network (`@webwriter/neural-network@2.1.0`)
-[License: MIT](LICENSE) | Version: 2.1.0
+# Neural Network (`@webwriter/neural-network@2.1.1`)
+[License: MIT](LICENSE) | Version: 2.1.1
 
 Visualize feed-forward neural networks with custom datasets, training, and prediction.
 
